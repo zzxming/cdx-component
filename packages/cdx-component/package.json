@@ -1,0 +1,13 @@
+{
+    "name": "@cdx-component/cdx-component",
+    "version": "0.0.0",
+    "main": "index.ts",
+    "peerDependencies": {
+        "vue": "^3.3.11"
+    },
+    "devDependencies": {
+        "@cdx-component/components": "workspace:^",
+        "@cdx-component/constants": "workspace:^",
+        "@cdx-component/utils": "workspace:^"
+    }
+}

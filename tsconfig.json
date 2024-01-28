@@ -1,0 +1,26 @@
+{
+    "exclude": ["node_modules", "examples", "**/*.config.*", "**/dist", "**/gulpfile.ts"],
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "ESNext",
+        "sourceMap": false,
+        "moduleResolution": "Node",
+        "allowJs": false,
+        "strict": true,
+        "noUnusedLocals": false,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "removeComments": false,
+        "types": ["node"],
+        "composite": true,
+        "noEmit": true,
+        "outDir": "dist",
+        "lib": ["ES2018", "DOM"],
+        "baseUrl": ".",
+        "rootDir": ".",
+        "paths": {
+            "@cdx-component/*": ["./packages/*"]
+        }
+    }
+}

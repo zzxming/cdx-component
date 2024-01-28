@@ -1,0 +1,19 @@
+{
+    "name": "@cdx-component/build",
+    "private": true,
+    "type": "module",
+    "version": "0.0.0",
+    "main": "index.ts",
+    "scripts": {
+        "build": "pnpm build:component && pnpm build:theme && pnpm yalc",
+        "build:theme": "gulp --require @esbuild-kit/cjs-loader --gulpfile ../packages/theme/gulpfile.ts",
+        "build:component": "vite build --emptyOutDir",
+        "yalc": "yalc installations clean cdx-component && yalc publish --push ../dist"
+    },
+    "devDependencies": {
+        "@esbuild-kit/cjs-loader": "^2.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "glob": "^10.3.10",
+        "rollup-plugin-esbuild": "^6.1.1"
+    }
+}
