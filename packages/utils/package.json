@@ -1,0 +1,9 @@
+{
+    "name": "@cdx-component/utils",
+    "main": "index.ts",
+    "author": "",
+    "version": "0.0.0",
+    "peerDependencies": {
+        "vue": "^3.3.11"
+    }
+}
