@@ -2,7 +2,11 @@
 module.exports = {
     content: ['./**/*.less'],
     theme: {
-        extend: {},
+        extend: {
+            transitionDuration: {
+                'var-duration': 'var(--transition-duration)',
+            },
+        },
     },
     plugins: [],
 };
