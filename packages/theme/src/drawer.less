@@ -1,7 +1,7 @@
 .fade {
     &-enter-active,
     &-leave-active {
-        @apply transition-opacity ~"duration-[var(--transition-duration)]" overflow-hidden;
+        @apply transition-opacity duration-var-duration overflow-hidden;
     }
     &-enter-from,
     &-leave-to {
@@ -25,7 +25,7 @@ each(range(length(@slideDirection)), {
         &-enter-active,
         &-leave-active {
             .@{direction} {
-                @apply transition-transform ~"duration-[var(--transition-duration)]";
+                @apply transition-transform duration-var-duration;
             }
         }
         &-enter-from,
