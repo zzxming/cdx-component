@@ -1,2 +1,2 @@
 import '@cdx-component/components/base/style';
-import '@cdx-component/theme/cd-overlay.css';
+import '@cdx-component/theme/cdx-overlay.css';

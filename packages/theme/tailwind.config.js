@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         extend: {
             transitionDuration: {
-                'var-duration': 'var(--transition-duration)',
+                'var-duration': 'var(--cdx-transition-duration)',
             },
         },
     },

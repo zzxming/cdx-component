@@ -26,7 +26,7 @@ const buildTheme = () => {
         .pipe(
             rename((p) => {
                 if (!noPrefixFile.test(p.basename)) {
-                    p.basename = `cd-${p.basename}`;
+                    p.basename = `cdx-${p.basename}`;
                 }
             })
         )
