@@ -1,6 +1,6 @@
 import type { App, Plugin } from '@vue/runtime-core';
 import Components from './component';
-import { INSTALLED_KEY } from '@cdx-component/constants';
+import { INSTALLED_KEY } from '../constants';
 
 export const makeInstaller = (components: Plugin[] = []) => {
     const install = (app: App) => {

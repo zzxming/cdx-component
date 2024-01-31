@@ -1,0 +1,8 @@
+.element_select {
+    @apply leading-none;
+    &.selecting {
+        * > * {
+            @apply pointer-events-none select-none;
+        }
+    }
+}

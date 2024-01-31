@@ -1,6 +1,6 @@
-export * from '@cdx-component/components';
-export * from '@cdx-component/utils';
-export * from '@cdx-component/constants';
+export * from '../components';
+export * from '../utils';
+export * from '../constants';
 
 import makeInstall from './makeInstall';
 export const install = makeInstall.install;
