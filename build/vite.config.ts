@@ -13,7 +13,7 @@ import { rollupExternalFromPackage } from './utils';
 
 const beforeWriteFile = (target: string) => {
     return (filePath: string, content: string) => {
-        if (['gulpfile'].some((exclude) => filePath.includes(exclude))) return false;
+        if (['gulpfile', 'build'].some((exclude) => filePath.includes(exclude))) return false;
         // rollup 打包根为 cdx-component, 打包后文件需同步 d.ts 出现在根, 并处理相对路径
         if (filePath.includes(`/${target}/cdx-component/`)) {
             return {
