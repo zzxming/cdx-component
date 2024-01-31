@@ -19,7 +19,14 @@ const isChecked = computed(() =>
         ? (model.value as ElementSelectValueType[]).includes(props.trueValue)
         : model.value === props.trueValue
 );
-const isDisabled = computed(() => props.disabled || selectContext?.disabled?.value);
+const isDisabled = computed(() => {
+    if (props.disabled || selectContext?.disabled?.value) return true;
+    if (!isChecked.value && selectContext) {
+        const value = model.value as ElementSelectValueType[];
+        if (selectContext.max?.value && value.length >= selectContext.max.value) return true;
+    }
+    return false;
+});
 const isMaxGroup = computed(
     () =>
         selectContext &&
