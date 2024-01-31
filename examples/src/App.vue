@@ -1,35 +1,31 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import { onMounted, ref } from 'vue';
-import { isNumber } from 'cdx-component';
+import { onMounted, ref, watch } from 'vue';
 
-onMounted(() => {
-    console.log(isNumber(2));
+const v = ref([]);
+watch(v, () => {
+    console.log(v.value);
 });
-const v = ref(false);
 </script>
 
 <template>
     <header>
-        <div
-            class="wrapper"
-            @click="v = true"
-        >
-            youdid
-        </div>
+        <div class="wrapper">youdid</div>
     </header>
-    <CdDrawer
-        v-model="v"
-        :slide="true"
-    >
-        <div style="background-color: aqua">content</div>
-        <template #swipe>
-            <div
-                style="width: 200px; height: 200px; background: skyblue"
-                @click="v = true"
-            >
-                swipe
-            </div>
-        </template>
-    </CdDrawer>
+
+    <CdElementSelect v-model="v">
+        <CdElementSelectItem
+            v-for="info in 20"
+            :trueValue="info"
+        >
+            <div class="item">{{ info }}</div>
+        </CdElementSelectItem>
+    </CdElementSelect>
 </template>
+
+<style>
+.item {
+    margin: 4px;
+    padding: 4px;
+}
+</style>
