@@ -8,7 +8,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import esbuild from 'rollup-plugin-esbuild';
 import type { OutputOptions, ModuleFormat } from 'rollup';
 
-import { PKG_NAME, PKG_PREFIX, buildOutput, cdRoot, pkgRoot } from './constans';
+import { PKG_NAME, PKG_PREFIX, buildOutput, cdRoot, pkgRoot, componentPackage } from './constans';
+import { rollupExternalFromPackage } from './utils';
 
 const beforeWriteFile = (target: string) => {
     return (filePath: string, content: string) => {
@@ -30,7 +31,6 @@ const dtsConfig = (target: string) => {
         beforeWriteFile: beforeWriteFile(target),
     };
 };
-
 const rollupOutput = (target: ModuleFormat, format: string): OutputOptions => ({
     format: target,
     entryFileNames: '[name].js',
@@ -74,7 +74,9 @@ export default defineConfig({
         minify: false,
         rollupOptions: {
             input,
-            external: ['vue', /css$/],
+            external: rollupExternalFromPackage(componentPackage, (id: string) => {
+                return /css$/.test(id);
+            }),
             treeshake: false,
             preserveEntrySignatures: 'allow-extension',
             output: [rollupOutput('es', 'es'), rollupOutput('cjs', 'lib')],
