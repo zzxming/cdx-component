@@ -1,4 +1,4 @@
-import type { Plugin, App } from 'vue';
+import type { Plugin, App, Directive } from 'vue';
 export type SFCWithInstall<T> = T & Plugin;
 
 export const withInstall = <T, E extends Record<string, any>>(main: T, extra?: E) => {
@@ -14,4 +14,11 @@ export const withInstall = <T, E extends Record<string, any>>(main: T, extra?: E
         }
     }
     return main as SFCWithInstall<T> & E;
+};
+export const withInstallDirective = <T extends Directive>(directive: T, name: string) => {
+    (directive as SFCWithInstall<T>).install = (app: App): void => {
+        app.directive(name, directive);
+    };
+
+    return directive as SFCWithInstall<T>;
 };
