@@ -16,7 +16,25 @@
 each(range(length(@slideDirection)), {
     @direction: extract(@slideDirection, @value);
     .@{direction} {
-        @apply transform-gpu;
+        @apply absolute transform-gpu;
+    }
+    .@{direction} when (@direction = ltr), (@direction = rtl) {
+        @apply top-0 bottom-0;
+    }
+    .@{direction} when(@direction = ttb), (@direction = btt) {
+        @apply left-0 right-0;
+    }
+    .@{direction} when (@direction = ltr) {
+        @apply left-0;
+    }
+    .@{direction} when (@direction = rtl) {
+        @apply right-0;
+    }
+    .@{direction} when (@direction = ttb) {
+        @apply top-0 ;
+    }
+    .@{direction} when (@direction = btt) {
+        @apply bottom-0 ;
     }
 });
 each(range(length(@slideDirection)), {
@@ -55,26 +73,5 @@ each(range(length(@slideDirection)), {
     }
     &_content {
         @apply absolute z-50 shadow-2xl bg-white max-w-full max-h-full m-auto overflow-auto;
-        each(range(length(@slideDirection)), {
-            @direction: extract(@slideDirection, @value);
-            &.@{direction} when (@direction = ltr), (@direction = rtl) {
-                @apply top-0 bottom-0;
-            }
-            &.@{direction} when(@direction = ttb), (@direction = btt) {
-                @apply left-0 right-0;
-            }
-            &.@{direction} when (@direction = ltr) {
-                @apply left-0;
-            }
-            &.@{direction} when (@direction = rtl) {
-                @apply right-0;
-            }
-            &.@{direction} when (@direction = ttb) {
-                @apply top-0 ;
-            }
-            &.@{direction} when (@direction = btt) {
-                @apply bottom-0 ;
-            }
-        });
     }
 }
