@@ -125,11 +125,20 @@ importers:
       '@cdx-component/constants':
         specifier: workspace:^
         version: link:../constants
+      '@cdx-component/hooks':
+        specifier: workspace:^
+        version: link:../hooks
       '@cdx-component/utils':
         specifier: workspace:^
         version: link:../utils
 
   packages/constants:
+    dependencies:
+      vue:
+        specifier: ^3.3.11
+        version: 3.4.15(typescript@5.3.3)
+
+  packages/hooks:
     dependencies:
       vue:
         specifier: ^3.3.11

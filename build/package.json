@@ -7,7 +7,7 @@
         "build": "pnpm build:component && pnpm build:theme && pnpm copy-package && pnpm yalc",
         "build:theme": "gulp --require @esbuild-kit/cjs-loader --gulpfile ../packages/theme/gulpfile.ts",
         "build:component": "vite build --emptyOutDir",
-        "yalc": "yalc installations clean cdx-component && yalc publish --push ../dist",
+        "yalc": "yalc installations clean cdx-component && yalc publish --push ../dist --replace",
         "copy-package": "gulp --require @esbuild-kit/cjs-loader"
     },
     "devDependencies": {
