@@ -182,7 +182,7 @@ onMounted(() => {
         >
             <Transition :name="slideName">
                 <CdOverlay
-                    v-show="model"
+                    v-if="model"
                     :fullscreen="fullscreen"
                     @click="close"
                 >

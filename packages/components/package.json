@@ -8,6 +8,7 @@
     "devDependencies": {
         "@cdx-component/components": "workspace:^",
         "@cdx-component/constants": "workspace:^",
+        "@cdx-component/hooks": "workspace:^",
         "@cdx-component/utils": "workspace:^"
     },
     "dependencies": {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
+import { useZIndex } from '@cdx-component/hooks';
 const props = withDefaults(
     defineProps<{
         fullscreen: boolean;
@@ -16,6 +17,10 @@ const onMaskClick = (e: MouseEvent) => {
         emits('click', e);
     }
 };
+const styleOverlay = {
+    position: props.fullscreen ? 'fixed' : 'absolute',
+    zIndex: useZIndex().nextZIndex(),
+};
 onMounted(() => {
     overlayRef.value?.parentElement?.classList.add('scroll-lock');
 });
@@ -28,7 +33,7 @@ onUnmounted(() => {
     <div
         class="overlay"
         ref="overlayRef"
-        :style="{ position: fullscreen ? 'fixed' : 'absolute' }"
+        :style="styleOverlay"
         @click="onMaskClick"
         v-bind="$attrs"
     >
