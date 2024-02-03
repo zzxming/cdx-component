@@ -4,8 +4,7 @@ const kebabCase = (key: string) => {
     const result = key.replace(/([A-Z])/g, ' $1').trim();
     return result.split(' ').join('-').toLowerCase();
 };
-
-export const CdComponentResolver = () => (name: string) => {
+const resolveComponent = (name: string) => {
     if (!name.match(/^Cd[A-Z]/)) return;
     const partialName = kebabCase(name.slice(2));
     return {
@@ -17,3 +16,9 @@ export const CdComponentResolver = () => (name: string) => {
         ],
     };
 };
+export const CdxComponentResolver = () => [
+    {
+        type: 'component',
+        resolve: resolveComponent,
+    },
+];

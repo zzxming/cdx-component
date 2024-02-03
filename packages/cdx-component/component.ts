@@ -1,6 +1,7 @@
-import { CdDrawer } from '../components/drawer';
-import { CdOverlay } from '../components/overlay';
-import { CdElementSelect, CdElementSelectItem } from '../components/element-select';
+import { CdxDrawer } from '../components/drawer';
+import { CdxOverlay } from '../components/overlay';
+import { CdxElementSelect, CdxElementSelectItem } from '../components/element-select';
+import { CdxIcon } from '../components/icon';
 import type { Plugin } from '@vue/runtime-core';
 
-export default [CdDrawer, CdOverlay, CdElementSelect, CdElementSelectItem] as Plugin[];
+export default [CdxDrawer, CdxOverlay, CdxElementSelect, CdxElementSelectItem, CdxIcon] as Plugin[];
