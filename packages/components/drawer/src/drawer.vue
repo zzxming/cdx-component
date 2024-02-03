@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, Teleport, type StyleValue } from 'vue';
-import { CdOverlay } from '@cdx-component/components';
+import { CdxOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
 import { DrawerProps, drawerEmits } from './drawer';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
@@ -181,7 +181,7 @@ onMounted(() => {
             :disabled="!fullscreen"
         >
             <Transition :name="slideName">
-                <CdOverlay
+                <CdxOverlay
                     v-if="model"
                     :fullscreen="fullscreen"
                     @click="close"
@@ -194,7 +194,7 @@ onMounted(() => {
                     >
                         <slot></slot>
                     </div>
-                </CdOverlay>
+                </CdxOverlay>
             </Transition>
         </Teleport>
 
