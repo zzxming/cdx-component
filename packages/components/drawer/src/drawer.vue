@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, Teleport, type StyleValue } from 'vue';
+import { computed, ref, onMounted, Teleport, type StyleValue, nextTick } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
 import { DrawerProps, drawerEmits } from './drawer';
@@ -129,8 +129,13 @@ const handleMove = (e: Event) => {
         }px, 0)`,
     });
 };
-const handleUp = () => {
+const handleUp = async () => {
+    await nextTick();
+    document.removeEventListener(handledEvents.value.move, handleMove);
+    document.removeEventListener(handledEvents.value.up, handleUp);
+
     if (!startPosition.value || !drawerContentRef.value) return;
+
     drawerContentSize.value = undefined;
     startPosition.value = undefined;
     if (changeVisible.value) {
@@ -148,9 +153,6 @@ const handleUp = () => {
                 transition: null,
             });
     }, 300);
-
-    document.removeEventListener(handledEvents.value.move, handleMove);
-    document.removeEventListener(handledEvents.value.up, handleUp);
 };
 
 const handledEvents = ref<{ [key: string]: HTMLElementEventName }>({
