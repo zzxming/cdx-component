@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch, onMounted, Teleport, type StyleValue } from 'vue';
+import { computed, ref, onMounted, Teleport, type StyleValue } from 'vue';
 import { CdOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
 import { DrawerProps, drawerEmits } from './drawer';
+import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 
 type HTMLElementEventName = keyof HTMLElementEventMap;
 const props = withDefaults(defineProps<DrawerProps>(), {
@@ -62,15 +63,18 @@ const drawerContentClassName = computed(() => {
 });
 
 const visible = ref(false);
-watch(
-    () => props.modelValue,
-    () => {
-        visible.value = props.modelValue;
-    }
-);
+const model = computed({
+    get() {
+        return props.modelValue || visible.value;
+    },
+    set(value) {
+        visible.value = value;
+        emits(UPDATE_MODEL_EVENT, value);
+    },
+});
 const close = () => {
     if (canSlide.value || !props.clickModelCose) return;
-    emits('update:modelValue', false);
+    model.value = false;
 };
 
 const changeVisible = ref(false);
@@ -113,10 +117,10 @@ const handleMove = (e: Event) => {
           (isHorizontal.value ? (isPositiveDirection.value ? -1 : 1) : isPositiveDirection.value ? -1 : 1)
         : 0;
     const changeStatus =
-        (visible.value ? isCorrectDirection : !isCorrectDirection) && Math.abs(diff) > changeStatusBoundary;
+        (model.value ? isCorrectDirection : !isCorrectDirection) && Math.abs(diff) > changeStatusBoundary;
 
     changeVisible.value =
-        changeStatus && ((visible.value && isCorrectDirection) || (!visible.value && !isCorrectDirection));
+        changeStatus && ((model.value && isCorrectDirection) || (!model.value && !isCorrectDirection));
     // 改变 transform
     const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](diff, range);
     Object.assign(drawerContentRef.value.style, {
@@ -130,7 +134,7 @@ const handleUp = () => {
     drawerContentSize.value = undefined;
     startPosition.value = undefined;
     if (changeVisible.value) {
-        emits('update:modelValue', !visible.value);
+        model.value = !model.value;
         changeVisible.value = false;
     }
 
@@ -178,7 +182,7 @@ onMounted(() => {
         >
             <Transition :name="slideName">
                 <CdOverlay
-                    v-show="visible"
+                    v-show="model"
                     :fullscreen="fullscreen"
                     @click="close"
                 >
