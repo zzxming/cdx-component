@@ -1,0 +1,38 @@
+@keyframes loading-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -40px;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -120px;
+    }
+}
+@keyframes loading-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loading {
+    &-mask {
+        --loading-mask-color: rgba(255, 255, 255, 0.8);
+        --loading-size: 30px;
+        @apply absolute inset-0 ~"bg-[var(--loading-mask-color)] z-[1000]" text-cyan-400;
+    }
+    &-tip {
+        @apply absolute top-1/2 -translate-y-1/2 w-full text-center;
+    }
+    &-spinner {
+        @apply ~"w-[var(--loading-size)] h-[var(--loading-size)] animate-[loading-rotate_2s_linear_infinite]" inline stroke-2 stroke-current;
+        circle {
+            @apply ~"animate-[loading-dash_1.5s_ease-in-out_infinite]";
+        }
+    }
+    &-text {
+        @apply mt-1 text-current text-sm text-center;
+    }
+}
