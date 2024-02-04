@@ -22,9 +22,12 @@
         --loading-mask-color: rgba(255, 255, 255, 0.8);
         --loading-size: 30px;
         @apply absolute inset-0 ~"bg-[var(--loading-mask-color)] z-[1000]" text-cyan-400;
+        &.is-fullscreen {
+            @apply fixed;
+        }
     }
     &-tip {
-        @apply absolute top-1/2 -translate-y-1/2 w-full text-center;
+        @apply absolute top-1/2 -translate-y-1/2 flex flex-col items-center w-full;
     }
     &-spinner {
         @apply ~"w-[var(--loading-size)] h-[var(--loading-size)] animate-[loading-rotate_2s_linear_infinite]" inline stroke-2 stroke-current;

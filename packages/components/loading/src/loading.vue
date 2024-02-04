@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { LoadingProps } from './loading';
+import { loadingProps } from './loading';
 
-const props = defineProps<LoadingProps>();
+const props = defineProps(loadingProps);
 </script>
 
 <template>
-    <div class="loading-mask">
+    <div :class="['loading-mask', fullscreen && 'is-fullscreen']">
         <div class="loading-tip">
             <svg
                 class="loading-spinner"
