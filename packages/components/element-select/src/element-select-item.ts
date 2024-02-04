@@ -1,16 +1,30 @@
 import type { ExtractPropTypes } from 'vue';
-import { ElementSelectValueType } from './element-select';
+import { ElementSelectValueType, elementSelectValueType } from './element-select';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { isString, isBoolean, isNumber } from '@cdx-component/utils';
+import { isString, isBoolean, isNumber, definePropType } from '@cdx-component/utils';
 
-export interface ElementSelectItemProps
-    extends ExtractPropTypes<{
-        modelValue?: ElementSelectValueType;
-        trueValue?: ElementSelectValueType;
-        falseValue?: ElementSelectValueType;
-        disabled?: boolean;
-        checked?: boolean;
-    }> {}
+export const elementSelectItemProps = {
+    modelValue: {
+        type: definePropType<ElementSelectValueType>(elementSelectValueType),
+    },
+    trueValue: {
+        type: definePropType<ElementSelectValueType>(elementSelectValueType),
+        default: true,
+    },
+    falseValue: {
+        type: definePropType<ElementSelectValueType>(elementSelectValueType),
+        default: false,
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+    checked: {
+        type: Boolean,
+        default: false,
+    },
+} as const;
+export type ElementSelectItemProps = ExtractPropTypes<typeof elementSelectItemProps>;
 
 export const elementSelectItemEmits = {
     [UPDATE_MODEL_EVENT]: (value: ElementSelectValueType) => isBoolean(value) || isNumber(value) || isString(value),

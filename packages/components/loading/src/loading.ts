@@ -1,6 +1,12 @@
-import { ExtractPropTypes } from 'vue';
+import type { ExtractPropTypes } from 'vue';
 
-export interface LoadingProps
-    extends ExtractPropTypes<{
-        text?: string;
-    }> {}
+export const loadingProps = {
+    text: {
+        type: String,
+    },
+    fullscreen: {
+        type: Boolean,
+        default: false,
+    },
+} as const;
+export type LoadingProps = ExtractPropTypes<typeof loadingProps>;
