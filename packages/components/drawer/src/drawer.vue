@@ -2,19 +2,11 @@
 import { computed, ref, onMounted, Teleport, type StyleValue, nextTick } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
-import { DrawerProps, drawerEmits } from './drawer';
+import { drawerProps, drawerEmits } from './drawer';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 
 type HTMLElementEventName = keyof HTMLElementEventMap;
-const props = withDefaults(defineProps<DrawerProps>(), {
-    direction: 'left',
-    fullscreen: false,
-    slide: true,
-    clickModelCose: true,
-    breakBoundart: 16,
-    size: '68%',
-    bodySlide: true,
-});
+const props = defineProps(drawerProps);
 const emits = defineEmits(drawerEmits);
 const slots = defineSlots<{
     default(): any;

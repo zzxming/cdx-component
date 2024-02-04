@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { selectContextKey } from './constants';
-import { ElementSelectItemProps, elementSelectItemEmits } from './element-select-item';
+import { elementSelectItemProps, elementSelectItemEmits } from './element-select-item';
 import { ElementSelectValueType } from './element-select';
 
-const props = withDefaults(defineProps<ElementSelectItemProps>(), {
-    checked: false,
-    disabled: false,
-    trueValue: true,
-    falseValue: false,
-});
+const props = defineProps(elementSelectItemProps);
 const emits = defineEmits(elementSelectItemEmits);
 const selectContext = inject(selectContextKey, undefined);
 

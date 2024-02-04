@@ -1,16 +1,29 @@
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { isArray } from '@cdx-component/utils';
-import { ExtractPropTypes } from 'vue';
+import { definePropType, isArray } from '@cdx-component/utils';
+import type { ExtractPropTypes } from 'vue';
 
-export type ElementSelectValueType = string | number | boolean | undefined;
+export type ElementSelectValueType = string | number | boolean;
+export const elementSelectValueType = [String, Number, Boolean];
 
-export interface ElementSelectProps
-    extends ExtractPropTypes<{
-        modelValue?: ElementSelectValueType[];
-        tag?: string;
-        max?: number;
-        disabled?: boolean;
-    }> {}
+export const elementSelectProps = {
+    modelValue: {
+        type: definePropType<ElementSelectValueType[]>(Array),
+        default: () => [],
+    },
+    tag: {
+        type: String,
+        default: 'div',
+    },
+    max: {
+        type: Number,
+        default: 0,
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
+    },
+} as const;
+export type ElementSelectProps = ExtractPropTypes<typeof elementSelectProps>;
 
 export const elementSelectEmits = {
     [UPDATE_MODEL_EVENT]: (value: ElementSelectValueType[]) => isArray(value),

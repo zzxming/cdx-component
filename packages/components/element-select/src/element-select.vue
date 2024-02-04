@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { computed, nextTick, provide, ref, toRefs } from 'vue';
 import { selectContextKey } from './constants';
-import { ElementSelectProps, ElementSelectValueType, elementSelectEmits } from './element-select';
+import { elementSelectProps, ElementSelectValueType, elementSelectEmits } from './element-select';
 import { pick } from 'lodash-unified';
 
-const props = withDefaults(defineProps<ElementSelectProps>(), {
-    modelValue: () => [],
-    tag: 'div',
-    disabled: false,
-});
+const props = defineProps(elementSelectProps);
 const emits = defineEmits(elementSelectEmits);
 
 const changeEvent = async (value: ElementSelectValueType[]) => {

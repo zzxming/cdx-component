@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useZIndex } from '@cdx-component/hooks';
-const props = withDefaults(
-    defineProps<{
-        fullscreen: boolean;
-    }>(),
-    {
-        fullscreen: false,
-    }
-);
+import { overlayProps } from './overlay';
+
+const props = defineProps(overlayProps);
 const emits = defineEmits(['click']);
 const overlayRef = ref<HTMLElement>();
 
