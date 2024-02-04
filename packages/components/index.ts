@@ -3,3 +3,4 @@ export * from './overlay';
 export * from './element-select';
 export * from './icon';
 export * from './loading';
+export * from './captcha';

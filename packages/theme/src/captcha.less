@@ -1,0 +1,39 @@
+.captcha {
+    &_container {
+        @apply relative w-full h-0 ~"pt-[60%]" cursor-pointer overflow-hidden select-none;
+        &.lock {
+            @apply cursor-default;
+        }
+    }
+    &-canvas {
+        @apply absolute left-0 top-0 z-0 w-full h-full;
+    }
+    &-pointer {
+        @apply flex items-center justify-center absolute z-20 -translate-x-1/2 -translate-y-1/2 w-6 h-6 border-2 border-white rounded-full bg-sky-300 text-white font-bold;
+    }
+    &_image {
+        &_tip {
+            @apply z-10 py-1 text-sm text-white text-center bg-black/50 transition-all;
+            &.success {
+                @apply bg-green-500/70;
+            }
+            &.fail {
+                @apply bg-red-500/70;
+            }
+        }
+    }
+    &_tip {
+        &-text {
+            @apply font-bold px-1;
+        }
+    }
+    &_header {
+        @apply flex items-center mb-2 text-sm;
+    }
+    &_footer {
+        @apply mt-2 text-sm;
+        .refresh {
+            @apply flex items-center justify-center mr-2 text-xl hover:text-sky-400 cursor-pointer;
+        }
+    }
+}
