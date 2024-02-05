@@ -1,45 +1,39 @@
 <script setup lang="ts">
 import { isFunction, isBoolean, generateRandomColor } from '@cdx-component/utils';
 import { ref, computed, watch, nextTick, onMounted } from 'vue';
-import { captchaProps, CheckStatus } from './captcha';
+import { captchaProps, CheckStatus, captchaEmits } from './captcha';
 import { CdxLoading } from '@cdx-component/components';
 
 const props = defineProps(captchaProps);
-const emits = defineEmits(['update:loading', 'error', 'fail', 'success']);
+const emits = defineEmits(captchaEmits);
 
 const canvasRef = ref<HTMLCanvasElement>();
 
 const pointerTargets: number[][] = [];
 const pointers = ref<number[][]>([]);
-const curIsLoading = ref(false);
 const checkTip = ref('');
 const checkStatus = ref(CheckStatus.none);
 const checkTipVisible = ref(false);
+const imageLoading = ref(true);
+const vertifyLoading = ref(false);
+const refreshLoading = ref(false);
 
-const isLoading = computed({
-    get() {
-        return props.loading || curIsLoading.value;
-    },
-    set(value) {
-        emits('update:loading', value);
-        curIsLoading.value = value;
-    },
-});
+const isLoading = computed(() => props.loading || imageLoading.value || vertifyLoading.value || refreshLoading.value);
 const isLock = computed(() => checkStatus.value === CheckStatus.success || isLoading.value);
 
-watch(
-    () => props.image,
-    async () => {
-        await nextTick();
-        drawImage(props.image, canvasRef.value);
-    }
-);
+watch(isLoading, () => {
+    emits('update:loading', isLoading.value);
+});
+watch([() => props.image, () => props.texts], async () => {
+    await nextTick();
+    drawImage(props.image, canvasRef.value);
+});
 
 const checkFail = (message: string = '验证失败，请重试') => {
     checkTip.value = message;
     checkStatus.value = CheckStatus.fail;
+    pointers.value = [];
     emits('fail');
-    pointers.value.length = 0;
     checkTipVisible.value = true;
     setTimeout(() => {
         checkTipVisible.value = false;
@@ -48,16 +42,16 @@ const checkFail = (message: string = '验证失败，请重试') => {
 const checkSuccess = (message: string = '验证成功') => {
     checkTip.value = message;
     checkStatus.value = CheckStatus.success;
-    emits('success');
     checkTipVisible.value = true;
+    emits('success');
     setTimeout(() => {
         checkTipVisible.value = false;
     }, props.tipDuration);
 };
 const loadImage = async (imageSrc: string) => {
-    return new Promise<HTMLImageElement>((resolve, reject) => {
+    imageLoading.value = true;
+    return await new Promise<HTMLImageElement>((resolve, reject) => {
         const img = new Image();
-        img.src = imageSrc;
         img.onload = () => {
             resolve(img);
         };
@@ -66,10 +60,12 @@ const loadImage = async (imageSrc: string) => {
             reject(new Error('图片加载失败'));
             emits('error');
         };
+        img.src = imageSrc;
+    }).finally(() => {
+        imageLoading.value = false;
     });
 };
 const drawImage = async (imageSrc: string, canvasEl?: HTMLCanvasElement) => {
-    isLoading.value = true;
     const image = await loadImage(imageSrc);
     if (image && canvasEl) {
         const ctx = canvasEl.getContext('2d');
@@ -79,7 +75,6 @@ const drawImage = async (imageSrc: string, canvasEl?: HTMLCanvasElement) => {
             drawText(ctx, { width, height });
         }
     }
-    isLoading.value = false;
 };
 const drawText = (ctx: CanvasRenderingContext2D, { width, height }: { width: number; height: number }) => {
     if (!props.texts?.length) return;
@@ -131,7 +126,7 @@ const handlePointerSetClick = async (e: MouseEvent) => {
     if (pointers.value.length >= pointerTargets.length) {
         if (verifyPointers()) {
             if (props.onBeforSuccess) {
-                isLoading.value = true;
+                vertifyLoading.value = true;
                 const result = await props.onBeforSuccess();
                 if (isBoolean(result)) {
                     result ? checkSuccess() : checkFail();
@@ -140,7 +135,7 @@ const handlePointerSetClick = async (e: MouseEvent) => {
                 } else {
                     checkSuccess((!isBoolean(result) && result.message) || undefined);
                 }
-                isLoading.value = false;
+                vertifyLoading.value = false;
             } else {
                 checkSuccess();
             }
@@ -177,9 +172,12 @@ const handleRefresh = async () => {
     if (isLoading.value) return;
     pointerTargets.splice(0, pointerTargets.length);
     pointers.value = [];
-    isLoading.value = true;
+    checkStatus.value = CheckStatus.none;
+    checkTipVisible.value = false;
+    refreshLoading.value = true;
     isFunction(props.refresh) && (await props.refresh());
-    isLoading.value = false;
+    await nextTick();
+    refreshLoading.value = false;
 };
 
 onMounted(() => {
@@ -220,16 +218,15 @@ onMounted(() => {
             <Transition
                 appear
                 name="fade"
+                v-show="checkTipVisible"
             >
-                <div v-show="checkTipVisible">
-                    <div :class="['captcha_image_tip', 'btt', checkStatus]">
-                        <span class="captcha_image_tip-text">
-                            {{ checkTip }}
-                        </span>
-                    </div>
+                <div :class="['captcha_image_tip', 'btt', checkStatus]">
+                    <span class="captcha_image_tip-text">
+                        {{ checkTip }}
+                    </span>
                 </div>
             </Transition>
-            <CdxLoading v-if="isLoading"></CdxLoading>
+            <CdxLoading :visible="isLoading"></CdxLoading>
         </div>
         <div class="captcha_footer">
             <button

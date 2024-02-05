@@ -1,4 +1,4 @@
-import { definePropType } from '@cdx-component/utils';
+import { definePropType, isBoolean } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
 export type CheckStatusInfo = {
@@ -46,3 +46,11 @@ export const captchaProps = {
     },
 } as const;
 export type CaptchaProps = ExtractPropTypes<typeof captchaProps>;
+
+export const captchaEmits = {
+    'update:loading': (value: boolean) => isBoolean(value),
+    success: () => true,
+    fail: () => true,
+    error: () => true,
+};
+export type CaptchaEmits = typeof captchaEmits;
