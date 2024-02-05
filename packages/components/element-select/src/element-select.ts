@@ -16,7 +16,6 @@ export const elementSelectProps = {
     },
     max: {
         type: Number,
-        default: 0,
     },
     disabled: {
         type: Boolean,
