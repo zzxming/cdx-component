@@ -9,6 +9,23 @@ const emits = defineEmits(elementSelectItemEmits);
 const selectContext = inject(selectContextKey, undefined);
 
 const curStatus = ref<unknown>(false);
+
+const model = computed({
+    get() {
+        return selectContext ? selectContext.modelValue.value : props.modelValue ?? curStatus.value;
+    },
+    set(val) {
+        if (selectContext) {
+            const value = val as ElementSelectValueType[];
+            if (isMaxGroup.value && value.length > selectContext.modelValue.value.length) return;
+            selectContext.modelValue.value = value;
+        } else {
+            const value = val as ElementSelectValueType;
+            emits('update:modelValue', value);
+            curStatus.value = value;
+        }
+    },
+});
 const isChecked = computed(() =>
     selectContext
         ? (model.value as ElementSelectValueType[]).includes(props.trueValue)
@@ -29,22 +46,6 @@ const isMaxGroup = computed(
         selectContext.modelValue.value.length >= selectContext.max.value
 );
 
-const model = computed({
-    get() {
-        return selectContext ? selectContext.modelValue.value : props.modelValue ?? curStatus.value;
-    },
-    set(val) {
-        if (selectContext) {
-            const value = val as ElementSelectValueType[];
-            if (isMaxGroup.value && value.length > selectContext.modelValue.value.length) return;
-            selectContext.modelValue.value = value;
-        } else {
-            const value = val as ElementSelectValueType;
-            emits('update:modelValue', value);
-            curStatus.value = value;
-        }
-    },
-});
 const setValue = (status: boolean) => {
     if (isDisabled.value) return;
     const { trueValue, falseValue } = props;
