@@ -8,5 +8,9 @@ export const loadingProps = {
         type: Boolean,
         default: false,
     },
+    visible: {
+        type: Boolean,
+        default: false,
+    },
 } as const;
 export type LoadingProps = ExtractPropTypes<typeof loadingProps>;
