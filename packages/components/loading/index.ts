@@ -1,8 +1,10 @@
 import { withInstall, withInstallDirective } from '@cdx-component/utils';
 import { vLoading as vLoadingDirective } from './src/directive';
-import { vLoading as CdxLoadingService } from './src/service';
+import { createLoadingInstance, vLoading as CdxLoadingService } from './src/service';
 import Loading from './src/loading.vue';
 
+export * from './src/loading';
+export * from './src/constants';
 export const CdxLoadingDirective = withInstallDirective(vLoadingDirective, 'loading');
 export const CdxLoading = withInstall(Loading, {
     directive: CdxLoadingDirective,
@@ -10,5 +12,4 @@ export const CdxLoading = withInstall(Loading, {
 });
 export default CdxLoading;
 
-export { Loading, CdxLoadingService };
-export * from './src/loading';
+export { CdxLoadingService, createLoadingInstance };
