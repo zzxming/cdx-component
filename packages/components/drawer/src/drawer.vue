@@ -4,6 +4,7 @@ import { CdxOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
 import { drawerProps, drawerEmits } from './drawer';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { useBem } from '@cdx-component/hooks';
 
 type HTMLElementEventName = keyof HTMLElementEventMap;
 const props = defineProps(drawerProps);
@@ -13,6 +14,19 @@ const slots = defineSlots<{
     swipe?(): any;
 }>();
 
+const [, bem] = useBem('drawer');
+
+const visible = ref(false);
+
+const model = computed({
+    get() {
+        return props.modelValue || visible.value;
+    },
+    set(value) {
+        visible.value = value;
+        emits(UPDATE_MODEL_EVENT, value);
+    },
+});
 const canSlide = computed(() => !props.fullscreen && slots.swipe && props.slide);
 const isHorizontal = computed(() => ['left', 'right'].includes(props.direction));
 const isPositiveDirection = computed(() => ['left', 'top'].includes(props.direction));
@@ -27,7 +41,6 @@ const bodySlideEvent = computed(() => {
     }
     return events;
 });
-const slideName = ref('fade');
 const drawerContentStyle = computed<StyleValue>(() => {
     const styleMap = {
         left: 'right',
@@ -54,16 +67,6 @@ const drawerContentClassName = computed(() => {
     return `${className[props.direction]}`;
 });
 
-const visible = ref(false);
-const model = computed({
-    get() {
-        return props.modelValue || visible.value;
-    },
-    set(value) {
-        visible.value = value;
-        emits(UPDATE_MODEL_EVENT, value);
-    },
-});
 const close = () => {
     if (canSlide.value || !props.clickModelCose) return;
     model.value = false;
@@ -167,14 +170,14 @@ onMounted(() => {
 
 <template>
     <div
-        :class="`drawer ${canSlide ? 'slide' : ''}`"
+        :class="[bem.b(), canSlide && bem.bm('slide')]"
         @[handledEvents.down].stop="handleDown"
     >
         <Teleport
             to="body"
             :disabled="!fullscreen"
         >
-            <Transition :name="slideName">
+            <Transition :name="bem.ns('fade')">
                 <CdxOverlay
                     v-if="model"
                     :fullscreen="fullscreen"
@@ -182,7 +185,7 @@ onMounted(() => {
                 >
                     <div
                         ref="drawerContentRef"
-                        :class="`drawer_content ${drawerContentClassName}`"
+                        :class="[bem.be('content'), drawerContentClassName]"
                         :style="drawerContentStyle"
                         v-on="bodySlideEvent"
                     >
@@ -195,7 +198,7 @@ onMounted(() => {
         <div
             v-if="!fullscreen"
             ref="drawerSwipeRef"
-            class="drawer_swipe"
+            :class="bem.be('swipe')"
         >
             <slot name="swipe"></slot>
         </div>

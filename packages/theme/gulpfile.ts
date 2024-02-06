@@ -6,6 +6,7 @@ import cleanCSS from 'gulp-clean-css';
 import consola from 'consola';
 import { resolve } from 'path';
 import { buildOutput } from '@cdx-component/build';
+import { namespace } from '@cdx-component/constants';
 
 const distBundle = resolve(__dirname, './');
 
@@ -26,7 +27,7 @@ const buildTheme = () => {
         .pipe(
             rename((p) => {
                 if (!noPrefixFile.test(p.basename)) {
-                    p.basename = `cdx-${p.basename}`;
+                    p.basename = `${namespace}-${p.basename}`;
                 }
             })
         )

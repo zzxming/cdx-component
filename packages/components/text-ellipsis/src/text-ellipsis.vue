@@ -2,24 +2,29 @@
 import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue';
 import { textEllipsisEmits, textEllipsisProps } from './text-ellipsis';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { useBem } from '@cdx-component/hooks';
 
 const props = defineProps(textEllipsisProps);
 const emits = defineEmits(textEllipsisEmits);
+
+const [, bem] = useBem('text-ellipsis');
+
+const isEllipsis = ref(false);
+const isExpanded = ref(false);
+const text = ref('');
+const rootRef = ref<HTMLDivElement>();
+
 const model = computed({
     get() {
-        return props.modelValue || isExpended.value;
+        return props.modelValue || isExpanded.value;
     },
     set(value) {
         emits(UPDATE_MODEL_EVENT, value);
-        isExpended.value = value;
+        isExpanded.value = value;
     },
 });
-const isEllipsis = ref(false);
-const isExpended = ref(false);
-const text = ref('');
-const rootRef = ref<HTMLDivElement>();
-const hasExpendBtn = computed(() => props.canExpend && isEllipsis.value);
-const expendBtnText = computed(() => (model.value ? props.collapseText : props.expendText));
+const hasExpandBtn = computed(() => props.canExpand && isEllipsis.value);
+const expandBtnText = computed(() => (model.value ? props.collapseText : props.expandText));
 
 const cloneNode = <T extends HTMLElement>(node: T) => {
     const copy = node.cloneNode(false) as T;
@@ -39,7 +44,7 @@ const parseNum = (num: any) => {
 const calcEllipsisText = (root: HTMLElement, totalHeight: number) => {
     const len = props.content.length;
     // span 和文件间有换行, 不加这个空格可以把文字和 span 间的换行去掉
-    const tailText = props.ellipsisText + ' ' + (hasExpendBtn.value ? expendBtnText.value : '');
+    const tailText = props.ellipsisText + ' ' + (hasExpandBtn.value ? expandBtnText.value : '');
     const calcDisplay = (left: number, right: number): string => {
         if (right - left <= 1) {
             return props.content.slice(0, left) + props.ellipsisText;
@@ -78,13 +83,13 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', calcEllipsis);
 });
 watch(
-    () => [props.content, props.ellipsisText, props.expendText, props.collapseText],
+    () => [props.content, props.ellipsisText, props.expandText, props.collapseText],
     () => {
         calcEllipsis();
     }
 );
 
-const toggleExpend = () => {
+const toggleExpand = () => {
     model.value = !model.value;
 };
 </script>
@@ -92,19 +97,19 @@ const toggleExpend = () => {
 <template>
     <div
         ref="rootRef"
-        class="text-ellipsis"
+        :class="bem.b()"
     >
         {{ model ? props.content : text }}
         <span
-            v-if="hasExpendBtn"
-            class="expend-btn"
-            @click="toggleExpend"
+            v-if="hasExpandBtn"
+            :class="bem.be('expand-btn')"
+            @click="toggleExpand"
         >
             <slot
-                name="expendBtn"
-                :isExpended="model"
+                name="expandBtn"
+                :isExpanded="model"
             >
-                {{ expendBtnText }}
+                {{ expandBtnText }}
             </slot>
         </span>
     </div>

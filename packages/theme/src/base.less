@@ -1,84 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './shared/variables.less';
 
 :root {
-    --cdx-transition-duration: 300ms;
+    --@{namespace}-transition-duration: 300ms;
 }
 
-@keyframes fade-out {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
+.@{namespace}-scroll{
+    &--lock {
+        @apply relative overflow-hidden;
     }
 }
-@keyframes fade-in {
-    0% {
-        opacity: 0%;
-    }
-    100% {
-        opacity: 100%;
-    }
-}
-.fade {
-    &-enter-active {
-        @apply ~"animate-[fade-in_var(--cdx-transition-duration)_ease-in-out]";
-    }
-    &-leave-active {
-        @apply ~"animate-[fade-out_var(--cdx-transition-duration)_ease-in-out]";
-    }
-}
-@slideDirection: ltr, rtl, ttb, btt;
-each(range(length(@slideDirection)), {
-    @direction: extract(@slideDirection, @value);
-    .@{direction} {
-        @apply absolute transform-gpu;
-    }
-    .@{direction} when (@direction = ltr), (@direction = rtl) {
-        @apply top-0 bottom-0;
-    }
-    .@{direction} when(@direction = ttb), (@direction = btt) {
-        @apply left-0 right-0;
-    }
-    .@{direction} when (@direction = ltr) {
-        @apply left-0;
-    }
-    .@{direction} when (@direction = rtl) {
-        @apply right-0;
-    }
-    .@{direction} when (@direction = ttb) {
-        @apply top-0 ;
-    }
-    .@{direction} when (@direction = btt) {
-        @apply bottom-0 ;
-    }
-});
-each(range(length(@slideDirection)), {
-    @direction: extract(@slideDirection, @value);
-    .fade {
-        &-enter-active,
-        &-leave-active {
-            .@{direction} {
-                @apply transition-transform duration-var-duration;
-            }
-        }
-        &-enter-from,
-        &-leave-to {
-            .@{direction} when(@direction = ltr) {
-                --tw-translate-x: -100%;
-            }
-            .@{direction} when(@direction = rtl) {
-                --tw-translate-x: 100%;
-            }
-            .@{direction} when(@direction = ttb) {
-                --tw-translate-y: -100%;
-            }
-            .@{direction} when(@direction = btt) {
-                --tw-translate-y: 100%;
-            }
-        }
-    }
-});
