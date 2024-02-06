@@ -1,5 +1,8 @@
-@keyframes cdx-loading-rotate {
+@import '../shared/variables.less';
+@import './createKeyframe.less';
+
+.keyframes(e('@{namespace}-rotate'), {
     100% {
         transform: rotate(360deg);
     }
-}
+});

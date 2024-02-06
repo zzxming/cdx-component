@@ -1,8 +1,10 @@
 @import './shared/variables.less';
+@import './shared/functions.less';
 
 .@{namespace}-element-select-item {
     --cdx-element-select-color: transparent;
-    @apply relative inline-flex m-1 border ~"border-[var(--cdx-element-select-color)]" border-dashed select-none;
+    border-color: .getCssVar(element-select-color) [];
+    @apply relative inline-flex m-1 border border-dashed select-none;
     &--checked {
         --cdx-element-select-color: #0ea5e9;
     }
@@ -11,7 +13,8 @@
         @apply cursor-not-allowed;
     }
     &__mask {
-        @apply absolute inset-0 ~"bg-[var(--cdx-element-select-color)]" opacity-20 z-10;
+        background-color: .getCssVar(element-select-color) [];
+        @apply absolute inset-0 opacity-20 z-10;
     }
     &__input {
         @apply hidden;
