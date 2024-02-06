@@ -1,11 +1,14 @@
-.drawer {
+@import './shared/variables.less';
+@import './animation/fade.less';
+
+.@{namespace}-drawer {
     @apply relative overflow-hidden;
-    &.slide {
-        user-select: none;
+    &--slide {
+        @apply select-none;
     }
-    &_swipe {
+    &__swipe {
     }
-    &_content {
+    &__content {
         @apply absolute z-50 shadow-2xl bg-white max-w-full max-h-full m-auto overflow-auto;
     }
 }

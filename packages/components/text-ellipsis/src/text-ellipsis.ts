@@ -18,11 +18,11 @@ export const textEllipsisProps = {
         type: String,
         default: '...',
     },
-    canExpend: {
+    canExpand: {
         type: Boolean,
         default: true,
     },
-    expendText: {
+    expandText: {
         type: String,
         default: '展开',
     },

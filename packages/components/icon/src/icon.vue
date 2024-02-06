@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useBem } from '@cdx-component/hooks';
+
+const [, bem] = useBem('icon');
+</script>
 
 <template>
-    <i class="icon">
+    <i :class="bem.b()">
         <slot></slot>
     </i>
 </template>

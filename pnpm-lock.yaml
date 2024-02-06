@@ -140,6 +140,9 @@ importers:
 
   packages/hooks:
     dependencies:
+      '@cdx-component/utils':
+        specifier: workspace:^
+        version: link:../utils
       vue:
         specifier: ^3.3.11
         version: 3.4.15(typescript@5.3.3)

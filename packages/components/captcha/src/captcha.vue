@@ -3,9 +3,12 @@ import { isFunction, isBoolean, generateRandomColor } from '@cdx-component/utils
 import { ref, computed, watch, nextTick, onMounted } from 'vue';
 import { captchaProps, CheckStatus, captchaEmits } from './captcha';
 import { CdxLoading } from '@cdx-component/components';
+import { useBem } from '@cdx-component/hooks';
 
 const props = defineProps(captchaProps);
 const emits = defineEmits(captchaEmits);
+
+const [, bem] = useBem('captcha');
 
 const canvasRef = ref<HTMLCanvasElement>();
 
@@ -186,22 +189,22 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="captcha">
-        <div class="captcha_header">
-            <span class="captcha_tip">请在下图依次点击：</span>
+    <div :class="bem.b()">
+        <div :class="bem.be('header')">
+            <span :class="bem.be('tip')">请在下图依次点击：</span>
             <span
                 v-for="s in texts"
-                class="captcha_tip-text"
+                :class="bem.bem('tip-text', 'blod')"
             >
                 {{ s }}
             </span>
         </div>
         <div
-            :class="['captcha_container', isLock && 'lock']"
+            :class="[bem.be('container'), isLock && bem.bem('container', 'lock')]"
             @click="handlePointerSetClick"
         >
             <canvas
-                class="captcha-canvas"
+                :class="bem.be('canvas')"
                 v-if="props.image"
                 ref="canvasRef"
                 :width="props.canvasSize[0]"
@@ -209,7 +212,7 @@ onMounted(() => {
             ></canvas>
             <span
                 v-for="([x, y], i) in pointers"
-                class="captcha-pointer"
+                :class="bem.be('pointer')"
                 :style="{ top: `${y}%`, left: `${x}%` }"
                 @click.stop="() => cancelPointer(i)"
             >
@@ -217,20 +220,20 @@ onMounted(() => {
             </span>
             <Transition
                 appear
-                name="fade"
+                :name="bem.ns('fade')"
                 v-show="checkTipVisible"
             >
-                <div :class="['captcha_image_tip', 'btt', checkStatus]">
-                    <span class="captcha_image_tip-text">
+                <div :class="[bem.be('tip'), bem.bem('tip', checkStatus), 'btt']">
+                    <span :class="bem.be('tip-text')">
                         {{ checkTip }}
                     </span>
                 </div>
             </Transition>
             <CdxLoading :visible="isLoading"></CdxLoading>
         </div>
-        <div class="captcha_footer">
+        <div :class="bem.be('footer')">
             <button
-                class="refresh"
+                :class="bem.bs('refresh')"
                 @click="handleRefresh"
             >
                 <slot name="refresh">刷新</slot>

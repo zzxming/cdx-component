@@ -1,19 +1,19 @@
-.element_select {
-    &_item {
-        --cdx-element-select-color: transparent;
-        @apply relative inline-flex m-1 border ~"border-[var(--cdx-element-select-color)]" border-dashed select-none;
-        &.checked {
-            --cdx-element-select-color: #0ea5e9;
-        }
-        &.disabled {
-            --cdx-element-select-color: #a3a3a3;
-            @apply cursor-not-allowed;
-        }
-        &-mask {
-            @apply absolute inset-0 ~"bg-[var(--cdx-element-select-color)]" opacity-20 z-10;
-        }
+@import './shared/variables.less';
+
+.@{namespace}-element-select-item {
+    --cdx-element-select-color: transparent;
+    @apply relative inline-flex m-1 border ~"border-[var(--cdx-element-select-color)]" border-dashed select-none;
+    &--checked {
+        --cdx-element-select-color: #0ea5e9;
     }
-    &-input {
+    &--disabled {
+        --cdx-element-select-color: #a3a3a3;
+        @apply cursor-not-allowed;
+    }
+    &__mask {
+        @apply absolute inset-0 ~"bg-[var(--cdx-element-select-color)]" opacity-20 z-10;
+    }
+    &__input {
         @apply hidden;
     }
 }
