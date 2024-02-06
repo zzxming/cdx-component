@@ -97,6 +97,18 @@ const refresh = () => {
                 :refresh="refresh"
             ></CdxCaptcha>
         </div>
+
+        <CdxTextEllipsis
+            v-model="h"
+            style="width: 100px"
+            content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
+            :lines="2"
+            expendText="打开"
+            collapseText="8888888888888888888"
+            ellipsisText="233"
+        >
+            <template #expendBtn="{ isExpended }"> {{ isExpended }}2333333333333333333 </template>
+        </CdxTextEllipsis>
     </div>
 </template>
 
