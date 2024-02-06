@@ -8,7 +8,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import esbuild from 'rollup-plugin-esbuild';
 import type { OutputOptions, ModuleFormat } from 'rollup';
 
-import { PKG_NAME, PKG_PREFIX, buildOutput, cdRoot, pkgRoot, componentPackage } from './constans';
+import { PKG_NAME, PKG_PREFIX, buildOutput, cdxRoot, pkgRoot, componentPackage } from './constans';
 import { rollupExternalFromPackage } from './utils';
 
 const beforeWriteFile = (target: string) => {
@@ -36,7 +36,7 @@ const rollupOutput = (target: ModuleFormat, format: string): OutputOptions => ({
     entryFileNames: '[name].js',
     preserveModules: true,
     dir: resolve(buildOutput, format),
-    preserveModulesRoot: cdRoot,
+    preserveModulesRoot: cdxRoot,
     paths: (id: string) => {
         if (id.startsWith(`${PKG_PREFIX}/theme`)) {
             return id.replace(PKG_PREFIX, PKG_NAME);
