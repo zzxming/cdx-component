@@ -1,8 +1,10 @@
 @import './shared/variables.less';
+@import './shared/functions.less';
+@import './animation/createKeyframe.less';
 @import './animation/rotate.less';
 @import './animation/fade.less';
 
-@keyframes cdx-loading-dash {
+.keyframes(e('@{namespace}-loading-dash'), {
     0% {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
@@ -15,12 +17,12 @@
         stroke-dasharray: 90, 150;
         stroke-dashoffset: -120px;
     }
-}
+});
 .@{namespace}-loading {
     &__mask {
         --@{namespace}-loading-size: 30px;
         --@{namespace}-loading-mask-color: rgba(255, 255, 255, 0.8);
-        background-color: var(e('--@{namespace}-loading-mask-color'));
+        background-color: .getCssVar(loading-mask-color) [];
         @apply absolute inset-0 ~"z-[1000]" text-cyan-400;
     }
     &--fullscreen {
@@ -30,11 +32,11 @@
         @apply absolute top-1/2 -translate-y-1/2 flex flex-col items-center w-full;
     }
     &__spinner {
-        width: var(e('--@{namespace}-loading-size'));
-        height: var(e('--@{namespace}-loading-size'));
-        @apply ~"animate-[cdx-loading-rotate_2s_linear_infinite]" inline stroke-2 stroke-current;
+        width: .getCssVar(loading-size) [];
+        height: .getCssVar(loading-size) [];
+        @apply animate-rotate inline stroke-2 stroke-current;
         circle {
-            @apply ~"animate-[cdx-loading-dash_1.5s_ease-in-out_infinite]";
+            @apply animate-loading-dash;
         }
     }
     &__text {

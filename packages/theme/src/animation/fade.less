@@ -1,21 +1,22 @@
 @import '../shared/variables.less';
+@import './createKeyframe.less';
 
-@keyframes cdx-fade-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
-@keyframes cdx-fade-in {
+.keyframes(e('@{namespace}-fade-out'), {
     0% {
-        opacity: 0%;
+        @apply opacity-100;
     }
     100% {
-        opacity: 100%;
+        @apply opacity-0;
     }
-}
+});
+.keyframes(e('@{namespace}-fade-in'), {
+    0% {
+        @apply opacity-0;
+    }
+    100% {
+        @apply opacity-100;
+    }
+});
 
 @slideDirection: ltr, rtl, ttb, btt;
 .@{namespace}-fade {
