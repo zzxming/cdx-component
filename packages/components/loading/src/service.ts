@@ -3,7 +3,7 @@ import { useZIndex } from '@cdx-component/hooks';
 import LoadingVue from './loading.vue';
 import { LoadingInstance, LoadingOptions } from './types';
 
-let unmountTimer = window.setTimeout(() => {}, 0);
+let unmountTimer = setTimeout(() => {}, 0);
 export const createLoadingInstance = ({ text, fullscreen }: LoadingOptions) => {
     const data = reactive({
         visible: false,
@@ -20,7 +20,7 @@ export const createLoadingInstance = ({ text, fullscreen }: LoadingOptions) => {
 
     const close = () => {
         clearTimeout(unmountTimer);
-        unmountTimer = window.setTimeout(() => {
+        unmountTimer = setTimeout(() => {
             if (vm) {
                 vm.$el.remove();
                 loadingInstance.unmount();
