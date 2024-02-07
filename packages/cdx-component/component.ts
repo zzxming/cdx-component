@@ -7,7 +7,7 @@ import { CdxCaptcha } from '../components/captcha';
 import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
 
-import type { Plugin } from '@vue/runtime-core';
+import type { Plugin } from 'vue';
 
 export default [
     CdxDrawer,
