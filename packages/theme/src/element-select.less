@@ -1,6 +1,8 @@
-.element_select {
+@import './shared/variables.less';
+
+.@{namespace}-element-select {
     @apply leading-none;
-    &.selecting {
+    &--selecting {
         * > * {
             @apply pointer-events-none select-none;
         }

@@ -1,18 +1,34 @@
-import { createApp } from 'vue';
+import { createApp, defineComponent, h, reactive } from 'vue';
 import { useZIndex } from '@cdx-component/hooks';
 import LoadingVue from './loading.vue';
 import { LoadingInstance, LoadingOptions } from './types';
 
+let unmountTimer = setTimeout(() => {}, 0);
 export const createLoadingInstance = ({ text, fullscreen }: LoadingOptions) => {
-    const loadingInstance = createApp(LoadingVue, { text, fullscreen });
+    const data = reactive({
+        visible: false,
+    });
+
+    const load = defineComponent({
+        name: 'CdxLoading',
+        setup(props) {
+            return () => h(LoadingVue, { ...props, visible: data.visible });
+        },
+    });
+    const loadingInstance = createApp(load, { text, fullscreen });
     const vm = loadingInstance.mount(document.createElement('div'));
 
     const close = () => {
-        if (vm) {
-            vm.$el.remove();
-            loadingInstance.unmount();
-        }
+        clearTimeout(unmountTimer);
+        unmountTimer = setTimeout(() => {
+            if (vm) {
+                vm.$el.remove();
+                loadingInstance.unmount();
+            }
+        }, 3000);
+        data.visible = false;
     };
+    data.visible = true;
 
     return {
         instance: loadingInstance,
@@ -31,10 +47,12 @@ export const vLoading = (options: LoadingOptions) => {
         const originClose = instance.close;
         instance.close = () => {
             originClose();
+            target.classList.remove('relative');
             fullscreenInstance = undefined;
         };
     }
     target?.appendChild(instance.vm.$el);
+    target.classList.add('relative');
     if (options?.fullscreen) {
         fullscreenInstance = instance;
     }

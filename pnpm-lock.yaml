@@ -128,6 +128,9 @@ importers:
       '@cdx-component/hooks':
         specifier: workspace:^
         version: link:../hooks
+      '@cdx-component/theme':
+        specifier: workspace:^
+        version: link:../theme
       '@cdx-component/utils':
         specifier: workspace:^
         version: link:../utils
@@ -140,6 +143,12 @@ importers:
 
   packages/hooks:
     dependencies:
+      '@cdx-component/constants':
+        specifier: workspace:^
+        version: link:../constants
+      '@cdx-component/utils':
+        specifier: workspace:^
+        version: link:../utils
       vue:
         specifier: ^3.3.11
         version: 3.4.15(typescript@5.3.3)
@@ -149,6 +158,9 @@ importers:
       '@cdx-component/build':
         specifier: workspace:^
         version: link:../../build
+      '@cdx-component/constants':
+        specifier: workspace:^
+        version: link:../constants
       '@esbuild-kit/cjs-loader':
         specifier: ^2.4.4
         version: 2.4.4

@@ -1,7 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import './shared/variables.less';
 
 :root {
-    --cdx-transition-duration: 300ms;
+    --@{namespace}-transition-duration: 300ms;
+}
+
+.@{namespace}-scroll{
+    &--lock {
+        @apply relative overflow-hidden;
+    }
 }

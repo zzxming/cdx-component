@@ -1,8 +1,8 @@
 import { copyFile } from 'fs/promises';
-import { buildOutput, cdPackage } from './constans';
+import { buildOutput, cdxPackage } from './constans';
 import path from 'path';
 import { task, series } from 'gulp';
 
-export const copyFiles = () => copyFile(cdPackage, path.join(buildOutput, 'package.json'));
+export const copyFiles = () => copyFile(cdxPackage, path.join(buildOutput, 'package.json'));
 
 task('default', series(copyFiles));

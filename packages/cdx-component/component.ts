@@ -4,6 +4,9 @@ import { CdxElementSelect, CdxElementSelectItem } from '../components/element-se
 import { CdxIcon } from '../components/icon';
 import { CdxLoading, CdxLoadingDirective } from '../components/loading';
 import { CdxCaptcha } from '../components/captcha';
+import { CdxTextEllipsis } from '../components/text-ellipsis';
+import { CdxTextHighlight } from '../components/text-highlight';
+
 import type { Plugin } from '@vue/runtime-core';
 
 export default [
@@ -15,4 +18,6 @@ export default [
     CdxLoading,
     CdxLoadingDirective,
     CdxCaptcha,
+    CdxTextEllipsis,
+    CdxTextHighlight,
 ] as Plugin[];

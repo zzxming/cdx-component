@@ -1,4 +1,5 @@
-.icon {
-    --color: inherit;
-    @apply relative inline-flex items-center justify-center ~"w-[1em] h-[1em] text-[var(--color)]" fill-current;
+@import './shared/variables.less';
+
+.@{namespace}-icon {
+    @apply relative inline-flex items-center justify-center ~"w-[1em] h-[1em]" text-inherit fill-current;
 }

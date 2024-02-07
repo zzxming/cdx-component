@@ -3,12 +3,33 @@ import { computed, inject, ref } from 'vue';
 import { selectContextKey } from './constants';
 import { elementSelectItemProps, elementSelectItemEmits } from './element-select-item';
 import { ElementSelectValueType } from './element-select';
+import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { useBem } from '@cdx-component/hooks';
 
 const props = defineProps(elementSelectItemProps);
 const emits = defineEmits(elementSelectItemEmits);
 const selectContext = inject(selectContextKey, undefined);
 
+const [, bem] = useBem('element-select-item');
+
 const curStatus = ref<unknown>(false);
+
+const model = computed({
+    get() {
+        return selectContext ? selectContext.modelValue.value : props.modelValue ?? curStatus.value;
+    },
+    set(val) {
+        if (selectContext) {
+            const value = val as ElementSelectValueType[];
+            if (isMaxGroup.value && value.length > selectContext.modelValue.value.length) return;
+            selectContext.modelValue.value = value;
+        } else {
+            const value = val as ElementSelectValueType;
+            emits(UPDATE_MODEL_EVENT, value);
+            curStatus.value = value;
+        }
+    },
+});
 const isChecked = computed(() =>
     selectContext
         ? (model.value as ElementSelectValueType[]).includes(props.trueValue)
@@ -29,22 +50,6 @@ const isMaxGroup = computed(
         selectContext.modelValue.value.length >= selectContext.max.value
 );
 
-const model = computed({
-    get() {
-        return selectContext ? selectContext.modelValue.value : props.modelValue ?? curStatus.value;
-    },
-    set(val) {
-        if (selectContext) {
-            const value = val as ElementSelectValueType[];
-            if (isMaxGroup.value && value.length > selectContext.modelValue.value.length) return;
-            selectContext.modelValue.value = value;
-        } else {
-            const value = val as ElementSelectValueType;
-            emits('update:modelValue', value);
-            curStatus.value = value;
-        }
-    },
-});
 const setValue = (status: boolean) => {
     if (isDisabled.value) return;
     const { trueValue, falseValue } = props;
@@ -86,9 +91,9 @@ const handleEnter = () => {
 };
 
 const className = computed(() => [
-    'element_select_item',
-    isChecked.value ? 'checked' : '',
-    isDisabled.value ? 'disabled' : '',
+    bem.b(),
+    isChecked.value && bem.bm('checked'),
+    isDisabled.value && bem.bm('disabled'),
 ]);
 </script>
 
@@ -102,13 +107,13 @@ const className = computed(() => [
         <slot></slot>
 
         <div
-            class="element_select_item-mask"
+            :class="bem.be('mask')"
             v-if="isChecked || isDisabled"
         >
             <slot name="mask"></slot>
         </div>
         <input
-            class="element_select-input"
+            :class="bem.be('input')"
             v-model="model"
             type="checkbox"
             :value="trueValue"
