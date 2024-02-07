@@ -105,7 +105,10 @@ watch(
         :style="{ [`--${namespace}-line`]: ellipsisLines }"
     >
         <span :class="[$slots.default && bem.bem('content', 'block')]">
-            <slot :isExpanded="model">
+            <slot
+                :isExpanded="model"
+                :text="model ? props.content : text"
+            >
                 {{ model ? props.content : text }}
             </slot>
         </span>
