@@ -5,3 +5,4 @@ export * from './icon';
 export * from './loading';
 export * from './captcha';
 export * from './text-ellipsis';
+export * from './text-highlight';
