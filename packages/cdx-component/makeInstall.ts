@@ -1,4 +1,4 @@
-import type { App, Plugin } from '@vue/runtime-core';
+import type { App, Plugin } from 'vue';
 import Components from './component';
 import { INSTALLED_KEY } from '../constants';
 
