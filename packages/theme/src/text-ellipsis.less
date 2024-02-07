@@ -1,7 +1,15 @@
 @import './shared/variables.less';
+@import './shared/functions.less';
 
 .@{namespace}-text-ellipsis {
+    --@{namespace}-line: 0;
     @apply break-words;
+    &__content {
+        &--block {
+            @apply line-clamp-1;
+            -webkit-line-clamp: .getCssVar(line) [];
+        }
+    }
     &__expand-btn {
         @apply text-sky-500 hover:text-sky-400 cursor-pointer;
     }

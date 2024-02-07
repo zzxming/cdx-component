@@ -8,7 +8,6 @@ export const textEllipsisProps = {
     },
     content: {
         type: String,
-        required: true,
     },
     lines: {
         type: Number,
