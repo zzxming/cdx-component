@@ -87,6 +87,47 @@ const refresh = () => {
             </template>
         </CdxDrawer>
 
+        <CdxTextEllipsis
+            v-model="h"
+            style="width: 100px"
+            content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
+            :lines="2"
+            expandText="打开"
+            collapseText="8888888888888888888"
+            ellipsisText="233..."
+        >
+            <template #default="{ text }">
+                <CdxTextHighlight
+                    :content="text"
+                    :texts="['的', '一']"
+                >
+                    <template #highlight="{ text }">
+                        <a
+                            style="color: aqua"
+                            href="javascript:;"
+                        >
+                            {{ text }}
+                        </a>
+                    </template>
+                </CdxTextHighlight>
+            </template>
+            <!-- <p>克隆一个元素节点会拷贝它所有的属性以及</p>
+            <p>属性值，当然也就包括了属性上绑定的事件 (比如oncli</p> -->
+            <template #expendBtn="{ isExpended }"> {{ isExpended }}2333333333333333333 </template>
+        </CdxTextEllipsis>
+
+        <CdxTextHighlight
+            content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
+            :texts="['的', '一']"
+        >
+            <template #highlight="{ text }">
+                <a href="javascript:;">{{ text }}</a>
+            </template>
+            <template #default="{ text }">
+                <em>{{ text }}</em>
+            </template>
+        </CdxTextHighlight>
+
         <div style="width: 400px">
             <CdxCaptcha
                 v-model:loading="h"
@@ -97,18 +138,6 @@ const refresh = () => {
                 :refresh="refresh"
             ></CdxCaptcha>
         </div>
-
-        <CdxTextEllipsis
-            v-model="h"
-            style="width: 100px"
-            content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
-            :lines="2"
-            expendText="打开"
-            collapseText="8888888888888888888"
-            ellipsisText="233"
-        >
-            <template #expendBtn="{ isExpended }"> {{ isExpended }}2333333333333333333 </template>
-        </CdxTextEllipsis>
     </div>
 </template>
 
