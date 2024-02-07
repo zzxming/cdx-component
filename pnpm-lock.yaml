@@ -128,6 +128,9 @@ importers:
       '@cdx-component/hooks':
         specifier: workspace:^
         version: link:../hooks
+      '@cdx-component/theme':
+        specifier: workspace:^
+        version: link:../theme
       '@cdx-component/utils':
         specifier: workspace:^
         version: link:../utils
