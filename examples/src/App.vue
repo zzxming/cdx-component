@@ -50,7 +50,10 @@ const refresh = () => {
 </script>
 
 <template>
-    <div style="background-color: rgba(0, 0, 0, 0.4)">
+    <div
+        style="background-color: rgba(0, 0, 0, 0.4)"
+        v-mytest="'loading'"
+    >
         <div
             v-loading="h"
             style="width: 200px; height: 200px"
@@ -111,8 +114,6 @@ const refresh = () => {
                     </template>
                 </CdxTextHighlight>
             </template>
-            <!-- <p>克隆一个元素节点会拷贝它所有的属性以及</p>
-            <p>属性值，当然也就包括了属性上绑定的事件 (比如oncli</p> -->
             <template #expendBtn="{ isExpended }"> {{ isExpended }}2333333333333333333 </template>
         </CdxTextEllipsis>
 
