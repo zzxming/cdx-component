@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { useBem, useZIndex } from '@cdx-component/hooks';
+import { useBem, useSameClickTarget, useZIndex } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
 const props = defineProps(overlayProps);
@@ -11,11 +11,8 @@ const [, scrollBem] = useBem('scroll');
 
 const overlayRef = ref<HTMLElement>();
 
-const onMaskClick = (e: MouseEvent) => {
-    if (e.currentTarget === e.target) {
-        emits('click', e);
-    }
-};
+const { onMouseDown, onMouseUp, onClick } = useSameClickTarget((e) => emits('click', e));
+
 const styleOverlay = {
     position: props.fullscreen ? 'fixed' : 'absolute',
     zIndex: useZIndex().nextZIndex(),
@@ -33,7 +30,9 @@ onUnmounted(() => {
         :class="bem.b()"
         ref="overlayRef"
         :style="styleOverlay"
-        @click="onMaskClick"
+        @click="onClick"
+        @mousedown="onMouseDown"
+        @mouseup="onMouseUp"
         v-bind="$attrs"
     >
         <slot></slot>
