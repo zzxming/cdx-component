@@ -6,6 +6,7 @@ import { CdxLoading, CdxLoadingDirective } from '../components/loading';
 import { CdxCaptcha } from '../components/captcha';
 import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
+import { CdxModel } from '../components/model';
 
 import type { Plugin } from 'vue';
 
@@ -20,4 +21,5 @@ export default [
     CdxCaptcha,
     CdxTextEllipsis,
     CdxTextHighlight,
+    CdxModel,
 ] as Plugin[];
