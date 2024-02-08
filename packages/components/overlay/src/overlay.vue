@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { useBem, useSameClickTarget, useZIndex } from '@cdx-component/hooks';
+import { useBem, useSameClickTarget } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
 const props = defineProps(overlayProps);
@@ -15,7 +15,6 @@ const { onMouseDown, onMouseUp, onClick } = useSameClickTarget((e) => emits('cli
 
 const styleOverlay = {
     position: props.fullscreen ? 'fixed' : 'absolute',
-    zIndex: useZIndex().nextZIndex(),
 };
 onMounted(() => {
     overlayRef.value?.parentElement?.classList.add(scrollBem.bm('lock'));
