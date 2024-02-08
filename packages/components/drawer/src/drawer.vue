@@ -3,8 +3,7 @@ import { computed, ref, onMounted, Teleport, type StyleValue, nextTick } from 'v
 import { CdxOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
 import { drawerProps, drawerEmits } from './drawer';
-import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { useBem } from '@cdx-component/hooks';
+import { useBem, useModel } from '@cdx-component/hooks';
 
 type HTMLElementEventName = keyof HTMLElementEventMap;
 const props = defineProps(drawerProps);
@@ -15,18 +14,8 @@ const slots = defineSlots<{
 }>();
 
 const [, bem] = useBem('drawer');
+const { model } = useModel(props, false);
 
-const visible = ref(false);
-
-const model = computed({
-    get() {
-        return props.modelValue || visible.value;
-    },
-    set(value) {
-        visible.value = value;
-        emits(UPDATE_MODEL_EVENT, value);
-    },
-});
 const canSlide = computed(() => !props.fullscreen && slots.swipe && props.slide);
 const isHorizontal = computed(() => ['left', 'right'].includes(props.direction));
 const isPositiveDirection = computed(() => ['left', 'top'].includes(props.direction));
@@ -161,10 +150,6 @@ onMounted(() => {
     handledEvents.value = supportsTouchDetector()
         ? { down: 'touchstart', move: 'touchmove', up: 'touchend' }
         : { down: 'mousedown', move: 'mousemove', up: 'mouseup' };
-
-    if (props.modelValue) {
-        visible.value = true;
-    }
 });
 </script>
 
