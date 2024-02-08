@@ -10,6 +10,6 @@ export const overlayProps = {
 export type OverlayProps = ExtractPropTypes<typeof overlayProps>;
 
 export const overlayEmits = {
-    click: (event: MouseEvent) => void 0,
+    click: (event: MouseEvent) => event instanceof MouseEvent,
 };
 export type OverlayEmits = typeof overlayEmits;
