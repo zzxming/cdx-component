@@ -2,7 +2,7 @@
 @import './shared/functions.less';
 
 .@{namespace}-text-ellipsis {
-    --@{namespace}-line: 0;
+    .setCssVar(line, 0);
     @apply break-words;
     &__content {
         &--block {

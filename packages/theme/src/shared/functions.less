@@ -6,3 +6,6 @@
 .getCssVar(@name) {
     @result: var(.getCssVarName(@name) []);
 }
+.setCssVar(@name; @value) {
+    --@{namespace}-@{name}: @value;
+}
