@@ -1,0 +1,58 @@
+.direction(@animationName) {
+    @directions: ltr, rtl, ttb, btt;
+    .@{namespace}-@{animationName} {
+        &-enter-active,
+        &-leave-ative {
+            each(range(length(@directions)), {
+            @direction: extract(@directions, @value);
+            .@{direction} {
+                @apply transition-transform;
+            }
+        });
+        }
+    }
+    each(range(length(@directions)), {
+        @direction: extract(@directions, @value);
+        .@{direction} {
+            @apply absolute transform-gpu;
+        }
+        .@{direction} when (@direction = ltr), (@direction = rtl) {
+            @apply top-0 bottom-0;
+        }
+        .@{direction} when(@direction = ttb), (@direction = btt) {
+            @apply left-0 right-0;
+        }
+        .@{direction} when (@direction = ltr) {
+            @apply left-0;
+        }
+        .@{direction} when (@direction = rtl) {
+            @apply right-0;
+        }
+        .@{direction} when (@direction = ttb) {
+            @apply top-0 ;
+        }
+        .@{direction} when (@direction = btt) {
+            @apply bottom-0 ;
+        }
+    });
+    each(range(length(@directions)), {
+        @direction: extract(@directions, @value);
+        .@{namespace}-@{animationName} {
+            &-enter-from,
+            &-leave-to {
+                .@{direction} when(@direction = ltr) {
+                    --tw-translate-x: -100%;
+                }
+                .@{direction} when(@direction = rtl) {
+                    --tw-translate-x: 100%;
+                }
+                .@{direction} when(@direction = ttb) {
+                    --tw-translate-y: -100%;
+                }
+                .@{direction} when(@direction = btt) {
+                    --tw-translate-y: 100%;
+                }
+            }
+        }
+    });
+}

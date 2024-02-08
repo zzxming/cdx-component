@@ -2,14 +2,14 @@
 @import './shared/functions.less';
 
 .@{namespace}-element-select-item {
-    --@{namespace}-element-select-color: transparent;
+    .setCssVar(element-select-color, transparent);
     border-color: .getCssVar(element-select-color) [];
     @apply relative inline-flex m-1 border border-dashed select-none;
     &--checked {
-        --@{namespace}-element-select-color: #0ea5e9;
+        .setCssVar(element-select-color, #0ea5e9);
     }
     &--disabled {
-        --@{namespace}-element-select-color: #a3a3a3;
+        .setCssVar(element-select-color, #a3a3a3);
         @apply cursor-not-allowed;
     }
     &__mask {
