@@ -8,7 +8,7 @@ const v = ref([]);
 watch(v, () => {
     console.log(v.value);
 });
-const h = ref(false);
+const h = ref(true);
 
 watch(h, () => {
     console.log(h.value);
@@ -54,6 +54,15 @@ const refresh = () => {
         style="background-color: rgba(0, 0, 0, 0.4)"
         v-mytest="'loading'"
     >
+        <CdxModel
+            v-model="h"
+            fullscreen
+        >
+            <template #header> header </template>
+            contnt
+            <template #footer> footer </template>
+        </CdxModel>
+
         <div
             v-loading="h"
             style="width: 200px; height: 200px"
