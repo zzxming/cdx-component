@@ -171,7 +171,7 @@ onMounted(() => {
         >
             <Transition :name="bem.ns('fade')">
                 <CdxOverlay
-                    v-show="model"
+                    :visible="model"
                     :fullscreen="fullscreen"
                     @click="close"
                 >
