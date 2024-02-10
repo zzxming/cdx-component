@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref } from 'vue';
 import { useBem, useSameClickTarget } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
@@ -19,7 +19,7 @@ const styleOverlay = {
 onMounted(() => {
     overlayRef.value?.parentElement?.classList.add(scrollBem.bm('lock'));
 });
-onUnmounted(() => {
+onBeforeUnmount(() => {
     overlayRef.value?.parentElement?.classList.remove(scrollBem.bm('lock'));
 });
 </script>
