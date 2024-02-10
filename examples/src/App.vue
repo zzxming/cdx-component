@@ -8,7 +8,8 @@ const v = ref([]);
 watch(v, () => {
     console.log(v.value);
 });
-const h = ref(true);
+const h = ref(false);
+const w = ref(false);
 
 watch(h, () => {
     console.log(h.value);
@@ -54,14 +55,14 @@ const refresh = () => {
         style="background-color: rgba(0, 0, 0, 0.4)"
         v-mytest="'loading'"
     >
-        <CdxModel
+        <!-- <CdxModel
             v-model="h"
             fullscreen
         >
             <template #header> header </template>
             contnt
             <template #footer> footer </template>
-        </CdxModel>
+        </CdxModel> -->
 
         <div
             v-loading="h"
@@ -90,11 +91,18 @@ const refresh = () => {
         <CdxDrawer v-model="h">
             content
             <template #swipe>
-                <div
-                    @click="h = !h"
-                    style="height: 200px; border: 1px solid"
-                >
-                    class
+                <div style="height: 200px; border: 1px solid">
+                    <CdxDrawer v-model="w">
+                        <div @click="h = !h">content233</div>
+                        <template #swipe>
+                            <div
+                                @click="w = !w"
+                                style="height: 200px; border: 1px solid"
+                            >
+                                class
+                            </div>
+                        </template>
+                    </CdxDrawer>
                 </div>
             </template>
         </CdxDrawer>

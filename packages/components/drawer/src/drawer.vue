@@ -158,6 +158,13 @@ onMounted(() => {
         :class="[bem.b(), canSlide && bem.bm('slide')]"
         @[handledEvents.down].stop="handleDown"
     >
+        <div
+            v-if="!fullscreen"
+            ref="drawerSwipeRef"
+            :class="bem.be('swipe')"
+        >
+            <slot name="swipe"></slot>
+        </div>
         <Teleport
             to="body"
             :disabled="!fullscreen"
@@ -179,13 +186,5 @@ onMounted(() => {
                 </CdxOverlay>
             </Transition>
         </Teleport>
-
-        <div
-            v-if="!fullscreen"
-            ref="drawerSwipeRef"
-            :class="bem.be('swipe')"
-        >
-            <slot name="swipe"></slot>
-        </div>
     </div>
 </template>
