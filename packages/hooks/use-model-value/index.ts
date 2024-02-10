@@ -1,6 +1,6 @@
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { ref, computed, getCurrentInstance, onMounted, UnwrapRef } from 'vue';
-export const useModel = <T>(props: Object & { modelValue: T }, defaultValue: T) => {
+import { ref, computed, getCurrentInstance } from 'vue';
+export const useModelValue = <T>(props: Object & { modelValue: T }, defaultValue: T) => {
     const { emit } = getCurrentInstance()!;
 
     const visible = ref(defaultValue);

@@ -3,7 +3,7 @@ import { computed, ref, onMounted, Teleport, type StyleValue, nextTick } from 'v
 import { CdxOverlay } from '@cdx-component/components';
 import { isNumber, cacheFunction } from '@cdx-component/utils';
 import { drawerProps, drawerEmits } from './drawer';
-import { useBem, useModel } from '@cdx-component/hooks';
+import { useBem, useModelValue } from '@cdx-component/hooks';
 
 type HTMLElementEventName = keyof HTMLElementEventMap;
 const props = defineProps(drawerProps);
@@ -14,7 +14,7 @@ const slots = defineSlots<{
 }>();
 
 const [, bem] = useBem('drawer');
-const { model } = useModel(props, false);
+const { model } = useModelValue(props, false);
 
 const canSlide = computed(() => !props.fullscreen && slots.swipe && props.slide);
 const isHorizontal = computed(() => ['left', 'right'].includes(props.direction));
