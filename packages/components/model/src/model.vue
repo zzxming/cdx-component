@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, watch, type CSSProperties, onMounted } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
-import { useBem, useZIndex, useModel } from '@cdx-component/hooks';
-import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { useBem, useZIndex, useModelValue } from '@cdx-component/hooks';
 import { modelEmits, modelProps } from './model';
 
 const props = defineProps(modelProps);
 const emits = defineEmits(modelEmits);
 
 const [, bem] = useBem('model');
-const { model } = useModel(props, false);
+const { model } = useModelValue(props, false);
 const { nextZIndex } = useZIndex();
 
 const contentRended = ref(false);
