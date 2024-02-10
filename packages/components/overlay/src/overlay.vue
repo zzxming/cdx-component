@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref } from 'vue';
+import { watch, ref, nextTick } from 'vue';
 import { useBem, useSameClickTarget } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
@@ -16,18 +16,24 @@ const { onMouseDown, onMouseUp, onClick } = useSameClickTarget((e) => emits('cli
 const styleOverlay = {
     position: props.fullscreen ? 'fixed' : 'absolute',
 };
-onMounted(() => {
-    overlayRef.value?.parentElement?.classList.add(scrollBem.bm('lock'));
-});
-onBeforeUnmount(() => {
-    overlayRef.value?.parentElement?.classList.remove(scrollBem.bm('lock'));
-});
+
+watch(
+    () => props.visible,
+    async () => {
+        await nextTick();
+        overlayRef.value?.parentElement?.classList[props.visible ? 'add' : 'remove'](scrollBem.bm('lock'));
+    },
+    {
+        immediate: true,
+    }
+);
 </script>
 
 <template>
     <div
         :class="bem.b()"
         ref="overlayRef"
+        v-show="visible"
         :style="styleOverlay"
         @click="onClick"
         @mousedown="onMouseDown"

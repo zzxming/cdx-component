@@ -5,6 +5,10 @@ export const overlayProps = {
         type: Boolean,
         default: false,
     },
+    visible: {
+        type: Boolean,
+        default: false,
+    },
 } as const;
 
 export type OverlayProps = ExtractPropTypes<typeof overlayProps>;

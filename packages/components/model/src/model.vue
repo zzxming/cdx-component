@@ -23,9 +23,9 @@ const contentStyle = computed(() => {
 });
 
 watch(
-    () => props.modelValue,
+    model,
     () => {
-        if (props.destroyOnClose && !props.modelValue) {
+        if (props.destroyOnClose && !model.value) {
             contentRended.value = false;
         } else {
             contentRended.value = true;
@@ -51,7 +51,7 @@ const close = () => {
         appear
     >
         <CdxOverlay
-            v-show="model"
+            :visible="model"
             @click="close"
             :fullscreen="fullscreen"
             :style="{ zIndex }"
