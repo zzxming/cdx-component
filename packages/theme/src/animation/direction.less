@@ -1,14 +1,17 @@
+@import '../shared/variables.less';
+@import '../shared/functions.less';
+
 .direction(@animationName) {
     @directions: ltr, rtl, ttb, btt;
     .@{namespace}-@{animationName} {
         &-enter-active,
-        &-leave-ative {
+        &-leave-active {
             each(range(length(@directions)), {
-            @direction: extract(@directions, @value);
-            .@{direction} {
-                @apply transition-transform;
-            }
-        });
+                @direction: extract(@directions, @value);
+                .@{direction} {
+                    @apply transition-transform duration-transition-duration;
+                }
+            });
         }
     }
     each(range(length(@directions)), {
@@ -29,10 +32,10 @@
             @apply right-0;
         }
         .@{direction} when (@direction = ttb) {
-            @apply top-0 ;
+            @apply top-0;
         }
         .@{direction} when (@direction = btt) {
-            @apply bottom-0 ;
+            @apply bottom-0;
         }
     });
     each(range(length(@directions)), {

@@ -30,7 +30,7 @@ const bodySlideEvent = computed(() => {
     }
     return events;
 });
-const drawerContentStyle = computed<StyleValue>(() => {
+const drawerBodyStyle = computed<StyleValue>(() => {
     const styleMap = {
         left: 'right',
         right: 'left',
@@ -41,12 +41,12 @@ const drawerContentStyle = computed<StyleValue>(() => {
     return {
         position: props.fullscreen ? 'fixed' : 'absolute',
         [props.direction]: 'auto',
-        [`padding-${styleMap[props.direction]}`]: `${props.breakBoundart}px`,
-        [`margin-${styleMap[props.direction]}`]: `-${props.breakBoundart}px`,
+        // [`padding-${styleMap[props.direction]}`]: `${props.breakBoundart}px`,
+        // [`margin-${styleMap[props.direction]}`]: `-${props.breakBoundart}px`,
         [styleMap.size]: isNumber(props.size) ? `${props.size}px` : props.size,
     };
 });
-const drawerContentClassName = computed(() => {
+const drawerBodyClassName = computed(() => {
     const className = {
         right: 'ltr',
         left: 'rtl',
@@ -64,7 +64,7 @@ const close = () => {
 const changeVisible = ref(false);
 const drawerContentSize = ref<DOMRect>();
 const drawerSwipeRef = ref<HTMLElement>();
-const drawerContentRef = ref<HTMLElement>();
+const drawerBodyRef = ref<HTMLElement>();
 const startPosition = ref<[number, number]>();
 const handleDown = (e: Event) => {
     if (!canSlide.value) return;
@@ -81,7 +81,7 @@ const handleDown = (e: Event) => {
     document.addEventListener(handledEvents.value.up, handleUp);
 };
 const handleMove = (e: Event) => {
-    if (!startPosition.value || !drawerContentRef.value) return;
+    if (!startPosition.value || !drawerBodyRef.value) return;
     const isSupportsTouch = supportsTouchDetector();
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
@@ -107,7 +107,7 @@ const handleMove = (e: Event) => {
         changeStatus && ((model.value && isCorrectDirection) || (!model.value && !isCorrectDirection));
     // 改变 transform
     const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](diff, range);
-    Object.assign(drawerContentRef.value.style, {
+    Object.assign(drawerBodyRef.value.style, {
         transform: `translate3d(${isHorizontal.value ? translateVal : 0}px, ${
             !isHorizontal.value ? translateVal : 0
         }px, 0)`,
@@ -118,7 +118,7 @@ const handleUp = async () => {
     document.removeEventListener(handledEvents.value.move, handleMove);
     document.removeEventListener(handledEvents.value.up, handleUp);
 
-    if (!startPosition.value || !drawerContentRef.value) return;
+    if (!startPosition.value || !drawerBodyRef.value) return;
 
     drawerContentSize.value = undefined;
     startPosition.value = undefined;
@@ -127,13 +127,13 @@ const handleUp = async () => {
         changeVisible.value = false;
     }
 
-    Object.assign(drawerContentRef.value.style, {
+    Object.assign(drawerBodyRef.value.style, {
         transition: `transform .3s linear`,
         transform: null,
     });
     setTimeout(() => {
-        drawerContentRef.value &&
-            Object.assign(drawerContentRef.value.style, {
+        drawerBodyRef.value &&
+            Object.assign(drawerBodyRef.value.style, {
                 transition: null,
             });
     }, 300);
@@ -171,17 +171,20 @@ onMounted(() => {
         >
             <Transition :name="bem.ns('fade')">
                 <CdxOverlay
-                    v-if="model"
+                    v-show="model"
                     :fullscreen="fullscreen"
                     @click="close"
                 >
                     <div
-                        ref="drawerContentRef"
-                        :class="[bem.be('content'), drawerContentClassName]"
-                        :style="drawerContentStyle"
+                        ref="drawerBodyRef"
+                        :class="[bem.be('body'), drawerBodyClassName]"
+                        :style="drawerBodyStyle"
+                        :direction="direction"
                         v-on="bodySlideEvent"
                     >
-                        <slot></slot>
+                        <div :class="bem.be('content')">
+                            <slot></slot>
+                        </div>
                     </div>
                 </CdxOverlay>
             </Transition>
