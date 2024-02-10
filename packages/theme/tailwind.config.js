@@ -14,6 +14,9 @@ module.exports = {
             boxShadow: {
                 wrap: '0px 0px 4px 2px rgb(0 0 0 / .2)',
             },
+            transitionDuration: {
+                'transition-duration': 'var(--cdx-transition-duration)',
+            },
         },
     },
     plugins: [],
