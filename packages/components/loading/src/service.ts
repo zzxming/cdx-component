@@ -1,12 +1,12 @@
 import { createApp, defineComponent, h, reactive } from 'vue';
-import { useZIndex } from '@cdx-component/hooks';
+import { useBem, useZIndex } from '@cdx-component/hooks';
 import LoadingVue from './loading.vue';
 import { LoadingInstance, LoadingOptions } from './types';
 
 let unmountTimer = setTimeout(() => {}, 0);
-export const createLoadingInstance = ({ text, fullscreen }: LoadingOptions) => {
+export const createLoadingInstance = ({ text, fullscreen }: Pick<LoadingOptions, 'fullscreen' | 'text'>) => {
     const data = reactive({
-        visible: false,
+        visible: true,
     });
 
     const load = defineComponent({
@@ -39,20 +39,21 @@ export const createLoadingInstance = ({ text, fullscreen }: LoadingOptions) => {
 
 let fullscreenInstance: LoadingInstance | undefined = undefined;
 export const vLoading = (options: LoadingOptions) => {
-    const { target = document.body } = options;
+    const [_, bem] = useBem('relative');
+    const { target = document.body, ...props } = options;
     if (options.fullscreen && fullscreenInstance) return fullscreenInstance;
-    const instance = createLoadingInstance(options);
+    const instance = createLoadingInstance(props);
     if (options.fullscreen) {
         instance.vm.$el.style.zIndex = useZIndex().nextZIndex();
         const originClose = instance.close;
         instance.close = () => {
             originClose();
-            target.classList.remove('relative');
+            target.classList.remove(bem.b());
             fullscreenInstance = undefined;
         };
     }
-    target?.appendChild(instance.vm.$el);
-    target.classList.add('relative');
+    target.appendChild(instance.vm.$el);
+    target.classList.add(bem.b());
     if (options?.fullscreen) {
         fullscreenInstance = instance;
     }
