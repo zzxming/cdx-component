@@ -36,6 +36,8 @@ watch(
 watch(model, () => {
     if (model.value) {
         zIndex.value = nextZIndex();
+    } else {
+        emits('close');
     }
 });
 

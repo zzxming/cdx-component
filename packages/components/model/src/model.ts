@@ -27,5 +27,6 @@ export type ModelProps = ExtractPropTypes<typeof modelProps>;
 
 export const modelEmits = {
     [UPDATE_MODEL_EVENT]: (value: boolean) => isBoolean(value),
+    close: () => true,
 };
 export type ModelEMits = typeof modelEmits;
