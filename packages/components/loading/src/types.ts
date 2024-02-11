@@ -7,7 +7,6 @@ export interface ElementLoading extends HTMLElement {
 }
 export interface LoadingOptions extends Partial<LoadingProps> {
     target?: HTMLElement;
-    [k: string]: any;
 }
 
 export type LoadingInstance = ReturnType<typeof createLoadingInstance>;
