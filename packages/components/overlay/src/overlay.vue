@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, nextTick } from 'vue';
+import { watch, ref, nextTick, onBeforeUnmount } from 'vue';
 import { useBem, useSameClickTarget } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
@@ -27,6 +27,10 @@ watch(
         immediate: true,
     }
 );
+
+onBeforeUnmount(() => {
+    overlayRef.value?.parentElement?.classList.remove(scrollBem.bm('lock'));
+});
 </script>
 
 <template>
