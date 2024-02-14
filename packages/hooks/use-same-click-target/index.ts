@@ -11,6 +11,7 @@ export const useSameClickTarget = (callback: (e: MouseEvent) => void) => {
         if (mouseDownTarget && mouseUpTarget) {
             callback(e);
         }
+        e.stopPropagation();
         mouseDownTarget = mouseUpTarget = false;
     };
 
