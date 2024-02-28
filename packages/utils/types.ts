@@ -1,4 +1,4 @@
 export const isUndefined = (val: any): val is undefined => val === undefined;
 export const isBoolean = (val: any): val is boolean => typeof val === 'boolean';
 export const isNumber = (val: any): val is number => typeof val === 'number';
-export { isString, isArray, isFunction } from '@vue/shared';
+export { isString, isArray, isFunction, isObject } from '@vue/shared';

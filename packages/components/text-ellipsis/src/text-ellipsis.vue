@@ -2,28 +2,19 @@
 import { computed, ref, onMounted, onBeforeUnmount, watch, useSlots } from 'vue';
 import { textEllipsisEmits, textEllipsisProps } from './text-ellipsis';
 import { UPDATE_MODEL_EVENT, namespace } from '@cdx-component/constants';
-import { useBem } from '@cdx-component/hooks';
+import { useBem, useModelValue } from '@cdx-component/hooks';
 
 const props = defineProps(textEllipsisProps);
 const emits = defineEmits(textEllipsisEmits);
 const slots = useSlots();
 
 const [, bem] = useBem('text-ellipsis');
+const { model } = useModelValue(props, false);
 
 const isEllipsis = ref(!!slots.default);
-const isExpanded = ref(false);
 const text = ref('');
 const rootRef = ref<HTMLDivElement>();
 
-const model = computed({
-    get() {
-        return props.modelValue || isExpanded.value;
-    },
-    set(value) {
-        emits(UPDATE_MODEL_EVENT, value);
-        isExpanded.value = value;
-    },
-});
 const hasExpandBtn = computed(() => props.canExpand && isEllipsis.value);
 const expandBtnText = computed(() => (model.value ? props.collapseText : props.expandText));
 const ellipsisLines = computed(() => (model.value ? 0 : props.lines));
@@ -81,6 +72,13 @@ const toggleExpand = () => {
     model.value = !model.value;
 };
 
+watch(
+    () => [props.content, props.ellipsisText, props.expandText, props.collapseText],
+    () => {
+        calcEllipsis();
+    }
+);
+
 onMounted(() => {
     if (props.content) {
         calcEllipsis();
@@ -90,12 +88,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('resize', calcEllipsis);
 });
-watch(
-    () => [props.content, props.ellipsisText, props.expandText, props.collapseText],
-    () => {
-        calcEllipsis();
-    }
-);
 </script>
 
 <template>

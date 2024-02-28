@@ -49,8 +49,8 @@ export const createModelInstance = (options: ModelOptions) => {
 
     const close = () => {
         if (vm.$.isUnmounted) return;
-        vm.$el.remove();
         modelInstance.unmount();
+        vm.$el.remove();
     };
 
     return close;

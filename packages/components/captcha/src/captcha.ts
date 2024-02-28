@@ -10,7 +10,15 @@ export enum CheckStatus {
     fail = 'fail',
     none = 'none',
 }
+export enum CaptchType {
+    slider = 'slider',
+    pointer = 'pointer',
+}
 export const captchaProps = {
+    type: {
+        type: definePropType<CaptchType>(String),
+        default: CaptchType.slider,
+    },
     image: {
         type: String,
         required: true,
@@ -48,7 +56,6 @@ export const captchaProps = {
 export type CaptchaProps = ExtractPropTypes<typeof captchaProps>;
 
 export const captchaEmits = {
-    'update:loading': (value: boolean) => isBoolean(value),
     success: () => true,
     fail: () => true,
     error: () => true,
