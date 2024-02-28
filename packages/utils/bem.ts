@@ -5,6 +5,7 @@ export const createBEM = (n: string, b: string) => ({
     bem: (e: string, m: string) => `${n}-${b}__${e}--${m}`,
     ns: (s: string) => `${n}-${s}`,
     bs: (s: string) => `${n}-${b}-${s}`,
+    cv: (v: string) => `--${n}-${v}`,
 });
 
 export const createNamespace = (namespace: string, name: string): [string, ReturnType<typeof createBEM>] => {

@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import { nextTick, onMounted, ref, watch } from 'vue';
-import { CdxLoading } from 'cdx-component';
+import { nextTick, onMounted, ref, watch, h } from 'vue';
+import { CdxLoading, CdxModel } from 'cdx-component';
+import 'cdx-component/theme/cdx-loading.css';
+import 'cdx-component/es/components/model/style';
 
 const divRef = ref();
 const v = ref([]);
 watch(v, () => {
     console.log(v.value);
 });
-const h = ref(false);
+const hh = ref(false);
 const w = ref(false);
 
 watch(h, () => {
-    console.log(h.value);
+    console.log(hh.value);
 });
 const success = () => {
     console.log('success');
@@ -21,8 +23,13 @@ const fail = () => {
     console.log('fail');
 };
 
+const clo = ref(() => {});
 onMounted(() => {
-    CdxLoading.service({ target: divRef.value, text: '3333' });
+    // CdxLoading.service({ target: divRef.value, text: '3333' });
+    // clo.value = CdxModel.service({
+    //     target: divRef.value,
+    //     body: '123',
+    // });
 });
 
 const imgs = [
@@ -34,7 +41,7 @@ const img = ref(imgs[0]);
 const texts = ref('ming'.split(''));
 const refresh = () => {
     console.log('refresh');
-    h.value = true;
+    hh.value = true;
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             let c = img.value;
@@ -44,9 +51,14 @@ const refresh = () => {
             console.log(c);
             img.value = c;
             resolve(true);
-            nextTick(() => (h.value = false));
+            nextTick(() => (hh.value = false));
         }, 300);
     });
+};
+const www = ref('slider');
+const aaaa = () => {
+    if (www.value === 'slider') www.value = 'pointer';
+    else www.value = 'slider';
 };
 </script>
 
@@ -55,26 +67,43 @@ const refresh = () => {
         style="background-color: rgba(0, 0, 0, 0.4)"
         v-mytest="'loading'"
     >
-        <!-- <CdxModel
-            v-model="h"
+        <button @click="aaaa">change</button>
+        <div style="width: 400px">
+            <CdxCaptcha
+                :type="www"
+                :loading="hh"
+                :image="img"
+                :texts="texts"
+                @success="success"
+                @fail="fail"
+                :refresh="refresh"
+            ></CdxCaptcha>
+            <!-- <CdxCaptchaSlider></CdxCaptchaSlider> -->
+        </div>
+
+        <div
+            style="width: 200px; height: 200px"
+            class="cdx-relative"
+            ref="divRef"
+            @click="clo"
+        ></div>
+
+        <CdxModel
+            v-model="hh"
             fullscreen
         >
             <template #header> header </template>
             contnt
             <template #footer> footer </template>
-        </CdxModel> -->
+        </CdxModel>
 
         <div
-            v-loading="h"
+            v-loading="hh"
             style="width: 200px; height: 200px"
             loading-text="233"
-            @click="h = !h"
+            @click="hh = !hh"
         ></div>
 
-        <div
-            style="width: 200px; height: 200px"
-            ref="divRef"
-        ></div>
         <CdxElementSelect v-model="v">
             <CdxElementSelectItem
                 v-for="info in 20"
@@ -84,31 +113,33 @@ const refresh = () => {
             </CdxElementSelectItem>
         </CdxElementSelect>
 
-        <CdxElementSelectItem v-model="h">
+        <CdxElementSelectItem v-model="hh">
             <div class="item">233</div>
         </CdxElementSelectItem>
 
-        <CdxDrawer v-model="h">
-            content
+        <CdxDrawer
+            v-model="hh"
+            direction="bottom"
+        >
+            <CdxDrawer v-model="w">
+                <div @click="hh = !hh">content233</div>
+                <template #swipe>
+                    <div
+                        @click="w = !w"
+                        style="height: 200px; border: 1px solid"
+                    >
+                        class
+                    </div>
+                </template>
+            </CdxDrawer>
+            ccccc
             <template #swipe>
-                <div style="height: 200px; border: 1px solid">
-                    <CdxDrawer v-model="w">
-                        <div @click="h = !h">content233</div>
-                        <template #swipe>
-                            <div
-                                @click="w = !w"
-                                style="height: 200px; border: 1px solid"
-                            >
-                                class
-                            </div>
-                        </template>
-                    </CdxDrawer>
-                </div>
+                <div style="height: 200px; border: 1px solid">wwwww</div>
             </template>
         </CdxDrawer>
 
         <CdxTextEllipsis
-            v-model="h"
+            v-model="hh"
             style="width: 100px"
             content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
             :lines="2"
@@ -145,17 +176,6 @@ const refresh = () => {
                 <em>{{ text }}</em>
             </template>
         </CdxTextHighlight>
-
-        <div style="width: 400px">
-            <CdxCaptcha
-                v-model:loading="h"
-                :image="img"
-                :texts="texts"
-                @success="success"
-                @fail="fail"
-                :refresh="refresh"
-            ></CdxCaptcha>
-        </div>
     </div>
 </template>
 
