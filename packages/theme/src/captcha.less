@@ -1,23 +1,44 @@
 @import './shared/variables.less';
+@import './shared/functions.less';
 @import './animation/fade.less';
 
 .@{namespace}-captcha {
+    .setCssVar(captcha-slider-trigger-width, 40px);
+    .setCssVar(captcha-sub-image-transition, left 0ms ease);
+    .setCssVar(captcha-color, #868e96);
+    .setCssVar(captcha-color-active, #339af0);
+    .setCssVar(captcha-color-disabled, #adb5bd);
+
     &__container {
-        @apply relative w-full h-0 ~"pt-[60%]" cursor-pointer overflow-hidden select-none;
+        @apply relative w-full h-0 ~"pt-[60%]" overflow-hidden select-none;
         &--lock {
             @apply cursor-default;
         }
     }
+    &-pointer {
+        .@{namespace}-captcha__canvas {
+            @apply cursor-pointer;
+        }
+    }
     &__canvas {
         @apply absolute left-0 top-0 z-0 w-full h-full;
+    }
+    &__sub {
+        &-image {
+            width: calc(100% - .getCssVar(captcha-slider-trigger-width) []);
+            left: calc(0.5 * .getCssVar(captcha-slider-trigger-width) []);
+            @apply absolute top-0 z-0 h-full;
+        }
+        &-canvas {
+            transition: .getCssVar(captcha-sub-image-transition) [];
+            @apply absolute top-0 left-0 h-full;
+        }
     }
     &__pointer {
         @apply flex items-center justify-center 
             absolute z-20 -translate-x-1/2 -translate-y-1/2 
             w-6 h-6 border-2 border-white rounded-full bg-sky-300 
             text-white font-bold;
-    }
-    &__image {
     }
     &__tip {
         @apply z-10 py-1 text-sm text-center transition-all;
@@ -44,6 +65,19 @@
         @apply mt-2 text-sm;
     }
     &-refresh {
-        @apply flex items-center justify-center mr-2 text-xl hover:text-sky-400 cursor-pointer;
+        color: .getCssVar(captcha-color) [];
+        @apply flex items-center justify-center ml-auto mr-2 text-sm cursor-pointer;
+        &:hover {
+            color: .getCssVar(captcha-color-active) [];
+        }
+    }
+    &__text-list {
+        @apply flex items-center;
+    }
+    &--disabled {
+        @apply cursor-not-allowed;
+        &:hover {
+            color: .getCssVar(captcha-color-disabled) [];
+        }
     }
 }
