@@ -48,39 +48,43 @@ const close = () => {
 </script>
 
 <template>
-    <Transition
-        :name="bem.bs('fade')"
-        appear
+    <Teleport
+        to="body"
+        :disabled="!fullscreen"
     >
-        <CdxOverlay
-            :visible="model"
-            @click="close"
-            :fullscreen="fullscreen"
-            :style="{ zIndex }"
+        <Transition
+            :name="bem.bs('fade')"
+            appear
         >
-            <div
-                v-if="contentRended"
-                :class="bem.b()"
-                :style="contentStyle"
+            <CdxOverlay
+                v-model="model"
+                @click="close"
+                :style="{ zIndex }"
             >
-                <div :class="bem.be('content')">
-                    <div
-                        v-if="$slots.header"
-                        :class="bem.be('header')"
-                    >
-                        <slot name="header"></slot>
-                    </div>
-                    <div :class="bem.be('body')">
-                        <slot></slot>
-                    </div>
-                    <div
-                        v-if="$slots.footer"
-                        :class="bem.be('footer')"
-                    >
-                        <slot name="footer"></slot>
+                <div
+                    v-if="contentRended"
+                    :class="bem.b()"
+                    :style="contentStyle"
+                >
+                    <div :class="bem.be('content')">
+                        <div
+                            v-if="$slots.header"
+                            :class="bem.be('header')"
+                        >
+                            <slot name="header"></slot>
+                        </div>
+                        <div :class="bem.be('body')">
+                            <slot></slot>
+                        </div>
+                        <div
+                            v-if="$slots.footer"
+                            :class="bem.be('footer')"
+                        >
+                            <slot name="footer"></slot>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </CdxOverlay>
-    </Transition>
+            </CdxOverlay>
+        </Transition>
+    </Teleport>
 </template>
