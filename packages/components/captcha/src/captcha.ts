@@ -1,4 +1,4 @@
-import { definePropType, isBoolean } from '@cdx-component/utils';
+import { definePropType } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
 export type CheckStatusInfo = {

@@ -1,12 +1,17 @@
 <script setup lang="ts">
+onMounted(() => {
+    document.body.style.backgroundColor = 'rgba(0,0,0,.2)';
+});
 const divRef = ref();
 const div2Ref = ref();
 const v = ref([]);
 watch(v, () => {
     console.log(v.value);
 });
+const aa = ref(false);
+const cc = ref(false);
 const hh = ref(false);
-const w = ref(false);
+const ww = ref(false);
 
 watch(h, () => {
     console.log(hh.value);
@@ -20,11 +25,11 @@ const fail = () => {
 
 const clo = ref(() => {});
 onMounted(() => {
-    CdxLoading.service({ target: div2Ref.value, text: '3333' });
-    clo.value = CdxModel.service({
-        target: divRef.value,
-        body: '123',
-    });
+    // CdxLoading.service({ target: div2Ref.value, text: '3333' });
+    // clo.value = CdxModel.service({
+    //     target: divRef.value,
+    //     body: '123',
+    // });
 });
 
 const imgs = [
@@ -58,10 +63,25 @@ const aaaa = () => {
 </script>
 
 <template>
-    <div
-        style="background-color: rgba(0, 0, 0, 0.4)"
-        v-mytest="'loading'"
-    >
+    <div v-mytest="'loading'">
+        <CdxDrawer v-model="cc">
+            <CdxDrawer v-model="ww">
+                <div @click="hh = !hh">content233</div>
+                <template #swipe>
+                    <div
+                        @click="ww = !ww"
+                        style="height: 200px; border: 1px solid"
+                    >
+                        class
+                    </div>
+                </template>
+            </CdxDrawer>
+            ccccc
+            <template #swipe>
+                <div style="height: 200px; border: 1px solid">wwwww</div>
+            </template>
+        </CdxDrawer>
+
         <button @click="aaaa">change</button>
         <div style="width: 400px">
             <CdxCaptcha
@@ -90,7 +110,7 @@ const aaaa = () => {
         ></div>
 
         <CdxModel
-            v-model="hh"
+            v-model="aa"
             fullscreen
         >
             <template #header> header </template>
@@ -118,26 +138,17 @@ const aaaa = () => {
             <div class="item">233</div>
         </CdxElementSelectItem>
 
-        <CdxDrawer
-            v-model="hh"
-            direction="bottom"
+        <CdxTextHighlight
+            content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
+            :texts="['的', '一']"
         >
-            <CdxDrawer v-model="w">
-                <div @click="hh = !hh">content233</div>
-                <template #swipe>
-                    <div
-                        @click="w = !w"
-                        style="height: 200px; border: 1px solid"
-                    >
-                        class
-                    </div>
-                </template>
-            </CdxDrawer>
-            ccccc
-            <template #swipe>
-                <div style="height: 200px; border: 1px solid">wwwww</div>
+            <template #highlight="{ text }">
+                <a href="javascript:;">{{ text }}</a>
             </template>
-        </CdxDrawer>
+            <template #default="{ text }">
+                <em style="color: red">{{ text }}</em>
+            </template>
+        </CdxTextHighlight>
 
         <CdxTextEllipsis
             v-model="hh"
@@ -165,18 +176,6 @@ const aaaa = () => {
             </template>
             <template #expendBtn="{ isExpended }"> {{ isExpended }}2333333333333333333 </template>
         </CdxTextEllipsis>
-
-        <CdxTextHighlight
-            content="克隆一个元素节点会拷贝它所有的属性以及属性值，当然也就包括了属性上绑定的事件 (比如oncli"
-            :texts="['的', '一']"
-        >
-            <template #highlight="{ text }">
-                <a href="javascript:;">{{ text }}</a>
-            </template>
-            <template #default="{ text }">
-                <em>{{ text }}</em>
-            </template>
-        </CdxTextHighlight>
     </div>
 </template>
 
