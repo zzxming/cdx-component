@@ -28,7 +28,7 @@ export const captchaProps = {
         default: () => [500, 300],
     },
     texts: {
-        type: definePropType<string>(Array),
+        type: definePropType<string[]>(Array),
         required: true,
         validator: (v: any) =>
             Array.isArray(v) && v.every((item: any) => typeof item === 'string' && item.length === 1),

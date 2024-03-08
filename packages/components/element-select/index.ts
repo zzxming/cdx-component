@@ -4,9 +4,7 @@ import { withInstall } from '@cdx-component/utils';
 
 export const CdxElementSelect = withInstall(ElementSelect);
 export const CdxElementSelectItem = withInstall(ElementSelectItem);
-
 export * from './src/element-select';
 export * from './src/element-select-item';
 export * from './src/constants';
-
 export default CdxElementSelect;
