@@ -4,7 +4,7 @@ import LoadingVue from './loading.vue';
 import { LoadingInstance, LoadingOptions } from './types';
 
 let unmountTimer = setTimeout(() => {}, 0);
-export const createLoadingInstance = ({ text, fullscreen }: Pick<LoadingOptions, 'fullscreen' | 'text'>) => {
+export const createLoadingInstance = ({ text, fullscreen }: Pick<LoadingOptions, 'fullscreen' | 'text' | 'target'>) => {
     const data = reactive({
         visible: true,
     });

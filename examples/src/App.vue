@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import { nextTick, onMounted, ref, watch, h } from 'vue';
-import { CdxLoading, CdxModel } from 'cdx-component';
-import 'cdx-component/theme/cdx-loading.css';
-import 'cdx-component/es/components/model/style';
 
 const divRef = ref();
 const v = ref([]);
@@ -25,11 +22,11 @@ const fail = () => {
 
 const clo = ref(() => {});
 onMounted(() => {
-    // CdxLoading.service({ target: divRef.value, text: '3333' });
-    // clo.value = CdxModel.service({
-    //     target: divRef.value,
-    //     body: '123',
-    // });
+    // CdxLoading.service({ text: '3333' });
+    clo.value = CdxModel.service({
+        target: divRef.value,
+        body: '123',
+    });
 });
 
 const imgs = [
@@ -78,7 +75,7 @@ const aaaa = () => {
                 @fail="fail"
                 :refresh="refresh"
             ></CdxCaptcha>
-            <!-- <CdxCaptchaSlider></CdxCaptchaSlider> -->
+            <CdxCaptchaSlider></CdxCaptchaSlider>
         </div>
 
         <div

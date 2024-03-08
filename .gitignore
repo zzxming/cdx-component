@@ -5,3 +5,4 @@ dist
 **/.yalc
 **/yalc.*
 *.css
+examples/*.d.ts

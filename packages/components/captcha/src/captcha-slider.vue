@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed } from 'vue';
 import { useBem } from '@cdx-component/hooks';
 import { isFunction, isUndefined, cacheFunction } from '@cdx-component/utils';
 import { CdxLoading } from '@cdx-component/components';
@@ -44,7 +44,6 @@ const innerStyle = computed(() => ({
 const verifyMatch = () => {
     const nleft = currentX.value - props.tolerance;
     const nright = currentX.value + props.tolerance;
-    console.log(nleft, nright, props.target);
     return nleft <= props.target && nright >= props.target;
 };
 const handleDown = (e: Event) => {
