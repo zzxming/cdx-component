@@ -14,11 +14,11 @@ export const captchaSliderProps = {
         type: definePropType<() => Promise<boolean> | boolean>(Function),
     },
 } as const;
-export type CaptchaSlider = typeof captchaSliderProps;
+export type CaptchaSliderProps = typeof captchaSliderProps;
 
 export const captchaSliderEmits = {
     success: () => true,
     move: (value: number) => isNumber(value),
     fail: () => true,
 };
-export const CaptchaEmits = typeof captchaSliderEmits;
+export const CaptchaSliderEmits = typeof captchaSliderEmits;

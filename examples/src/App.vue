@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-import { nextTick, onMounted, ref, watch, h } from 'vue';
-
 const divRef = ref();
+const div2Ref = ref();
 const v = ref([]);
 watch(v, () => {
     console.log(v.value);
@@ -22,7 +20,7 @@ const fail = () => {
 
 const clo = ref(() => {});
 onMounted(() => {
-    // CdxLoading.service({ text: '3333' });
+    CdxLoading.service({ target: div2Ref.value, text: '3333' });
     clo.value = CdxModel.service({
         target: divRef.value,
         body: '123',
@@ -82,6 +80,12 @@ const aaaa = () => {
             style="width: 200px; height: 200px"
             class="cdx-relative"
             ref="divRef"
+            @click="clo"
+        ></div>
+        <div
+            style="width: 200px; height: 200px"
+            class="cdx-relative"
+            ref="div2Ref"
             @click="clo"
         ></div>
 
