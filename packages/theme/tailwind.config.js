@@ -3,6 +3,9 @@ module.exports = {
     content: ['./**/*.less'],
     theme: {
         extend: {
+            spacing: {
+                em: '1em',
+            },
             animation: {
                 'fade-in': 'cdx-fade-in var(--cdx-transition-duration) ease-in-out',
                 'fade-out': 'cdx-fade-out var(--cdx-transition-duration) ease-in-out',
