@@ -1,13 +1,13 @@
 import type { ExtractPropTypes } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { isBoolean } from '@cdx-component/utils';
+import { buildProps, isBoolean } from '@cdx-component/utils';
 
-export const overlayProps = {
+export const overlayProps = buildProps({
     modelValue: {
         type: Boolean,
         default: false,
     },
-} as const;
+} as const);
 
 export type OverlayProps = ExtractPropTypes<typeof overlayProps>;
 

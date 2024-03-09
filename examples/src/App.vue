@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { routes } from './router';
+
 onMounted(() => {
     document.body.style.backgroundColor = 'rgba(0,0,0,.2)';
 });
@@ -31,38 +33,19 @@ onMounted(() => {
     //     body: '123',
     // });
 });
-
-const imgs = [
-    'https://img.btstu.cn/api/images/5e699637490a3.jpg',
-    'https://img.btstu.cn/api/images/5ccfc851275d7.jpg',
-    'https://img.btstu.cn/api/images/5e54ceb87fea1.png',
-];
-const img = ref(imgs[0]);
-const texts = ref('ming'.split(''));
-const refresh = () => {
-    console.log('refresh');
-    hh.value = true;
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            let c = img.value;
-            while (c === img.value) {
-                c = imgs[Math.floor(Math.random() * imgs.length)];
-            }
-            console.log(c);
-            img.value = c;
-            resolve(true);
-            nextTick(() => (hh.value = false));
-        }, 300);
-    });
-};
-const www = ref('slider');
-const aaaa = () => {
-    if (www.value === 'slider') www.value = 'pointer';
-    else www.value = 'slider';
-};
 </script>
 
 <template>
+    <div style="position: fixed; right: 0px; bottom: 0px; border-top: 1px solid">
+        <router-link
+            v-for="item in routes"
+            :to="item.path"
+        >
+            {{ item.path }}
+        </router-link>
+    </div>
+
+    <router-view></router-view>
     <div v-mytest="'loading'">
         <CdxDrawer v-model="cc">
             <CdxDrawer v-model="ww">
@@ -81,20 +64,6 @@ const aaaa = () => {
                 <div style="height: 200px; border: 1px solid">wwwww</div>
             </template>
         </CdxDrawer>
-
-        <button @click="aaaa">change</button>
-        <div style="width: 400px">
-            <CdxCaptcha
-                :type="www"
-                :loading="hh"
-                :image="img"
-                :texts="texts"
-                @success="success"
-                @fail="fail"
-                :refresh="refresh"
-            ></CdxCaptcha>
-            <CdxCaptchaSlider></CdxCaptchaSlider>
-        </div>
 
         <div
             style="width: 200px; height: 200px"

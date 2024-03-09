@@ -1,15 +1,15 @@
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { definePropType, isBoolean } from '@cdx-component/utils';
+import { buildProps, isBoolean } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
-export type Directive = 'left' | 'right' | 'top' | 'bottom';
-export const drawerProps = {
+export const drawerProps = buildProps({
     modelValue: {
         type: Boolean,
         default: false,
     },
     direction: {
-        type: definePropType<Directive>(String),
+        type: String,
+        values: ['left', 'right', 'top', 'bottom'],
         default: 'left',
     },
     fullscreen: {
@@ -36,7 +36,7 @@ export const drawerProps = {
         type: Boolean,
         default: true,
     },
-};
+} as const);
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
 
 export const drawerEmits = {

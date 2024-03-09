@@ -1,10 +1,11 @@
-import { isBoolean } from '@cdx-component/utils';
+import { buildProps, isBoolean } from '@cdx-component/utils';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { ExtractPropTypes } from 'vue';
 
-export const textEllipsisProps = {
+export const textEllipsisProps = buildProps({
     modelValue: {
         type: Boolean,
+        default: false,
     },
     content: {
         type: String,
@@ -30,7 +31,7 @@ export const textEllipsisProps = {
         type: String,
         default: '收起',
     },
-} as const;
+} as const);
 export type TextEllipsisProps = ExtractPropTypes<typeof textEllipsisProps>;
 
 export const textEllipsisEmits = {
