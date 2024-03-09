@@ -1,4 +1,4 @@
-import { definePropType } from '@cdx-component/utils';
+import { buildProps, definePropType } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
 export type CheckStatusInfo = {
@@ -14,9 +14,10 @@ export enum CaptchType {
     slider = 'slider',
     pointer = 'pointer',
 }
-export const captchaProps = {
+export const captchaProps = buildProps({
     type: {
-        type: definePropType<CaptchType>(String),
+        type: String,
+        values: ['slider', 'pointer'],
         default: CaptchType.slider,
     },
     image: {
@@ -29,7 +30,6 @@ export const captchaProps = {
     },
     texts: {
         type: definePropType<string[]>(Array),
-        required: true,
         validator: (v: any) =>
             Array.isArray(v) && v.every((item: any) => typeof item === 'string' && item.length === 1),
     },
@@ -52,7 +52,7 @@ export const captchaProps = {
         type: Number,
         default: 3000,
     },
-} as const;
+} as const);
 export type CaptchaProps = ExtractPropTypes<typeof captchaProps>;
 
 export const captchaEmits = {

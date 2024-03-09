@@ -1,9 +1,9 @@
 import type { ExtractPropTypes } from 'vue';
 import { ElementSelectValueType, elementSelectValueType } from './element-select';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { isString, isBoolean, isNumber, definePropType } from '@cdx-component/utils';
+import { isString, isBoolean, isNumber, definePropType, buildProps } from '@cdx-component/utils';
 
-export const elementSelectItemProps = {
+export const elementSelectItemProps = buildProps({
     modelValue: {
         type: definePropType<ElementSelectValueType>(elementSelectValueType),
     },
@@ -23,7 +23,7 @@ export const elementSelectItemProps = {
         type: Boolean,
         default: false,
     },
-} as const;
+} as const);
 export type ElementSelectItemProps = ExtractPropTypes<typeof elementSelectItemProps>;
 
 export const elementSelectItemEmits = {

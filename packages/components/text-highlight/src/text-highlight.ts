@@ -1,7 +1,7 @@
-import { definePropType } from '@cdx-component/utils';
+import { buildProps, definePropType } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
-export const textHighlightProps = {
+export const textHighlightProps = buildProps({
     texts: {
         type: definePropType<string | string[]>([Array, String]),
         default: '',
@@ -22,6 +22,6 @@ export const textHighlightProps = {
         type: String,
         default: '',
     },
-} as const;
+} as const);
 
 export type TextHighlightProps = ExtractPropTypes<typeof textHighlightProps>;

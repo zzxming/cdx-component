@@ -1,6 +1,7 @@
+import { buildProps } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
-export const loadingProps = {
+export const loadingProps = buildProps({
     text: {
         type: String,
     },
@@ -12,5 +13,5 @@ export const loadingProps = {
         type: Boolean,
         default: false,
     },
-} as const;
+} as const);
 export type LoadingProps = ExtractPropTypes<typeof loadingProps>;

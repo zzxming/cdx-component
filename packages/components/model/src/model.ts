@@ -1,10 +1,11 @@
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { isBoolean } from '@cdx-component/utils';
+import { buildProps, isBoolean } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
-export const modelProps = {
+export const modelProps = buildProps({
     modelValue: {
         type: Boolean,
+        default: false,
     },
     width: {
         type: String,
@@ -22,7 +23,7 @@ export const modelProps = {
         type: Boolean,
         default: true,
     },
-} as const;
+} as const);
 export type ModelProps = ExtractPropTypes<typeof modelProps>;
 
 export const modelEmits = {

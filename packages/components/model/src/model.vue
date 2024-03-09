@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, type CSSProperties, onMounted } from 'vue';
+import { computed, ref, watch, type CSSProperties } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
 import { useBem, useZIndex, useModelValue } from '@cdx-component/hooks';
 import { modelEmits, modelProps } from './model';
