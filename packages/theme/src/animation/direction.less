@@ -1,14 +1,16 @@
 @import '../shared/variables.less';
 @import '../shared/functions.less';
 
-.direction(@animationName) {
+.direction(@animationName, @isSibling: false) {
     @directions: ltr, rtl, ttb, btt;
     .@{namespace}-@{animationName} {
         &-enter-active,
         &-leave-active {
             each(range(length(@directions)), {
                 @direction: extract(@directions, @value);
-                .@{direction} {
+                @resultClass: if(@isSibling, ~'&.@{direction}', ~'.@{direction}');
+
+                @{resultClass} {
                     @apply transition-transform duration-transition-duration;
                 }
             });
@@ -16,43 +18,47 @@
     }
     each(range(length(@directions)), {
         @direction: extract(@directions, @value);
-        .@{direction} {
+        @resultClass: if(@isSibling, ~'&.@{direction}', ~'.@{direction}');
+
+        @{resultClass} {
             @apply absolute transform-gpu;
         }
-        .@{direction} when (@direction = ltr), (@direction = rtl) {
+        @{resultClass} when (@direction = ltr), (@direction = rtl) {
             @apply top-0 bottom-0;
         }
-        .@{direction} when(@direction = ttb), (@direction = btt) {
+        @{resultClass} when (@direction = ttb), (@direction = btt) {
             @apply left-0 right-0;
         }
-        .@{direction} when (@direction = ltr) {
+        @{resultClass} when (@direction = ltr) {
             @apply left-0;
         }
-        .@{direction} when (@direction = rtl) {
+        @{resultClass} when (@direction = rtl) {
             @apply right-0;
         }
-        .@{direction} when (@direction = ttb) {
+        @{resultClass} when (@direction = ttb) {
             @apply top-0;
         }
-        .@{direction} when (@direction = btt) {
+        @{resultClass} when (@direction = btt) {
             @apply bottom-0;
         }
     });
     each(range(length(@directions)), {
         @direction: extract(@directions, @value);
+        @resultClass: if(@isSibling, ~'&.@{direction}', ~'.@{direction}');
+
         .@{namespace}-@{animationName} {
             &-enter-from,
             &-leave-to {
-                .@{direction} when(@direction = ltr) {
+                @{resultClass} when (@direction = ltr) {
                     --tw-translate-x: -100%;
                 }
-                .@{direction} when(@direction = rtl) {
+                @{resultClass} when (@direction = rtl) {
                     --tw-translate-x: 100%;
                 }
-                .@{direction} when(@direction = ttb) {
+                @{resultClass} when (@direction = ttb) {
                     --tw-translate-y: -100%;
                 }
-                .@{direction} when(@direction = btt) {
+                @{resultClass} when (@direction = btt) {
                     --tw-translate-y: 100%;
                 }
             }

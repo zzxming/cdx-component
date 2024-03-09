@@ -24,6 +24,8 @@ const dragging = ref(false);
 const resetting = ref(false);
 const matchLoading = ref(false);
 
+const isLoading = computed(() => props.loading || matchLoading.value);
+const isLock = computed(() => props.lock || isLoading.value || isSuccess.value);
 const currentX = computed(() => {
     const pre = (moveX.value - startX.value) / trackWidth;
     return Math.max(Math.min(pre, 1), 0) * 100;
@@ -47,7 +49,7 @@ const verifyMatch = () => {
     return nleft <= props.target && nright >= props.target;
 };
 const handleDown = (e: Event) => {
-    if (resetting.value || isSuccess.value) return;
+    if (resetting.value || isLock.value || isLoading.value) return;
     const isSupportsTouch = isSupportTouch();
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
@@ -95,10 +97,10 @@ const reset = () => {
         resetting.value = true;
         moveX.value = 0;
     }
+    isSuccess.value = false;
     matchLoading.value = false;
 };
 const afterReset = () => {
-    console.log('reset');
     resetting.value = false;
 };
 
@@ -137,15 +139,18 @@ defineExpose({
                 @transitionend="afterReset"
             >
                 <div
-                    :class="bem.be('trigger')"
+                    :class="[bem.be('trigger'), (isLock || isLoading) && bem.bem('trigger', 'lock')]"
                     @[handledEvents.down]="handleDown"
                 >
                     <slot name="trigger">
-                        <span>-></span>
+                        <CdxLoading
+                            v-if="isLoading"
+                            :visible="true"
+                        />
+                        <span v-else>-></span>
                     </slot>
                 </div>
             </div>
         </div>
-        <CdxLoading :visible="matchLoading"></CdxLoading>
     </div>
 </template>
