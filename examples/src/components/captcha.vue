@@ -6,7 +6,7 @@ const imgs = [
     'https://img.btstu.cn/api/images/5ccfc851275d7.jpg',
     'https://img.btstu.cn/api/images/5e54ceb87fea1.png',
 ];
-const img = ref(imgs[0]);
+const img = ref(imgs[1]);
 const texts = ref('ming'.split(''));
 const refresh = () => {
     console.log('refresh');
@@ -20,7 +20,7 @@ const refresh = () => {
             console.log(resultImg);
             img.value = resultImg;
             resolve(true);
-            nextTick(() => (loading.value = false));
+            loading.value = false;
         }, 300);
     });
 };
@@ -38,7 +38,7 @@ const fail = () => {
 const beforSuccess = () => {
     console.log('beforSuccess');
     return {
-        success: false,
+        success: true,
         message: 'false',
     };
 };

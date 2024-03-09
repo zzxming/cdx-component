@@ -6,6 +6,14 @@ export const captchaSliderProps = buildProps({
         default: 100,
         validator: (value: number) => value >= 0 && value <= 100,
     },
+    loading: {
+        type: Boolean,
+        default: false,
+    },
+    lock: {
+        type: Boolean,
+        default: false,
+    },
     tolerance: {
         type: Number,
         default: 1,

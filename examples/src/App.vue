@@ -47,7 +47,7 @@ onMounted(() => {
 
     <router-view></router-view>
     <div v-mytest="'loading'">
-        <CdxDrawer v-model="cc">
+        <!-- <CdxDrawer v-model="cc">
             <CdxDrawer v-model="ww">
                 <div @click="hh = !hh">content233</div>
                 <template #swipe>
@@ -144,7 +144,7 @@ onMounted(() => {
                 </CdxTextHighlight>
             </template>
             <template #expendBtn="{ isExpended }"> {{ isExpended }}2333333333333333333 </template>
-        </CdxTextEllipsis>
+        </CdxTextEllipsis> -->
     </div>
 </template>
 

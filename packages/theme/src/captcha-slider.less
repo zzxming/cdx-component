@@ -48,6 +48,9 @@
         height: .getCssVar(captcha-slider-trigger-height) [];
         color: .getCssVar(captcha-slider-trigger-color) [];
         box-shadow: .getCssVar(captcha-slider-trigger-shadow) [];
-        @apply absolute right-0 translate-x-1/2 flex items-center justify-center bg-white rounded;
+        @apply absolute right-0 translate-x-1/2 flex items-center justify-center bg-white rounded cursor-pointer;
+        &--lock {
+            @apply cursor-not-allowed;
+        }
     }
 }

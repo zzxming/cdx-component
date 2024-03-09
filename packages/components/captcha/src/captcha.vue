@@ -28,22 +28,19 @@ const imageLoading = ref(true);
 const vertifyLoading = ref(false);
 const refreshLoading = ref(false);
 const slideTarget = ref(getSlideTarget());
+const imageLoadFailed = ref(false);
 
 const trackRef = computed(() => sliderRef.value?.trackRef);
 const currentX = computed(() => sliderRef.value?.currentX);
 const isLoading = computed(() => props.loading || imageLoading.value || vertifyLoading.value || refreshLoading.value);
-const isLock = computed(() => checkStatus.value === CheckStatus.success || isLoading.value);
+const isLock = computed(() => checkStatus.value === CheckStatus.success || isLoading.value || imageLoadFailed.value);
 const subCanvasStyle = computed(() => ({
     [bem.cv('captcha-sub-image-transition')]: sliderRef.value?.resetting ? 'left 250ms ease' : 'left 0ms ease',
     left: `${currentX.value}%`,
 }));
 
-watch([() => props.texts], async () => {
-    await nextTick();
-    drawImage(props.image, canvasRef.value);
-});
-watch([() => props.image, () => props.type], () => {
-    drawImage(props.image, canvasRef.value);
+watch([() => props.texts, () => props.image, () => props.type], () => {
+    reset();
 });
 
 const cancelPointer = (i: number) => {
@@ -81,6 +78,7 @@ const formatBeforeSuccess = async () => {
         message = result.message;
     }
     vertifyLoading.value = false;
+
     return {
         isSuccess,
         message,
@@ -115,6 +113,7 @@ const loadImage = async (imageSrc: string) => {
         img.onerror = (e) => {
             console.log(e);
             reject(new Error('图片加载失败'));
+            imageLoadFailed.value = true;
             emits('error');
         };
         img.src = imageSrc;
@@ -262,7 +261,12 @@ const handlePointerSetClick = async (e: MouseEvent) => {
 const handleSliderSuccess = async () => {
     if (props.onBeforSuccess) {
         const { isSuccess, message } = await formatBeforeSuccess();
-        isSuccess ? checkedSuccess(message) : checkedFail(message);
+        if (isSuccess) {
+            checkedSuccess(message);
+        } else {
+            checkedFail(message);
+            sliderRef.value?.reset();
+        }
     } else {
         checkedSuccess();
     }
@@ -274,6 +278,20 @@ const handleSliderFail = () => {
 onMounted(() => {
     drawImage(props.image, canvasRef.value);
 });
+
+const reset = () => {
+    pointerTargets.length = 0;
+    pointers.value = [];
+    checkStatus.value = CheckStatus.none;
+    checkTipVisible.value = false;
+    vertifyLoading.value = false;
+    refreshLoading.value = false;
+    slideTarget.value = getSlideTarget();
+    imageLoadFailed.value = false;
+
+    sliderRef.value && sliderRef.value.reset();
+    drawImage(props.image, canvasRef.value);
+};
 </script>
 
 <template>
@@ -352,6 +370,8 @@ onMounted(() => {
             <CdxCaptchaSlider
                 v-else-if="type === CaptchType.slider"
                 ref="sliderRef"
+                :lock="isLock"
+                :loading="isLoading"
                 :target="slideTarget[0]"
                 @success="handleSliderSuccess"
                 @fail="handleSliderFail"
