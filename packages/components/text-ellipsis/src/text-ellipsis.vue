@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onBeforeUnmount, watch, useSlots } from 'vue';
 import { textEllipsisEmits, textEllipsisProps } from './text-ellipsis';
-import { UPDATE_MODEL_EVENT, namespace } from '@cdx-component/constants';
+import { namespace } from '@cdx-component/constants';
 import { useBem, useModelValue } from '@cdx-component/hooks';
 
+defineOptions({ name: 'CdxTextEllipsis' });
 const props = defineProps(textEllipsisProps);
 const emits = defineEmits(textEllipsisEmits);
 const slots = useSlots();

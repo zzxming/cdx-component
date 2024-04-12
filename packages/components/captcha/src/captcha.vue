@@ -7,6 +7,7 @@ import { CdxLoading, CdxCaptchaSlider } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
 import { CdxCaptchaSliderExposed, Range } from './types';
 
+defineOptions({ name: 'CdxCaptcha' });
 const props = defineProps(captchaProps);
 const emits = defineEmits(captchaEmits);
 

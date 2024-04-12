@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { textHighlightProps } from './text-highlight';
 import { useBem } from '@cdx-component/hooks';
 
+defineOptions({ name: 'CdxTextHighlight' });
 const props = defineProps(textHighlightProps);
 
 const [, bem] = useBem('text-highlight');

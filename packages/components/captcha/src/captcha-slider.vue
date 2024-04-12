@@ -10,6 +10,7 @@ const handledEvents = isSupportTouch()
     ? { down: 'touchstart', move: 'touchmove', up: 'touchend' }
     : { down: 'mousedown', move: 'mousemove', up: 'mouseup' };
 
+defineOptions({ name: 'CdxCaptchaSlider' });
 const props = defineProps(captchaSliderProps);
 const emits = defineEmits(captchaSliderEmits);
 
