@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import { loadingProps } from './loading';
 import { useBem } from '@cdx-component/hooks';
 
+defineOptions({ name: 'CdxLoading' });
 const props = defineProps(loadingProps);
 
 const [, bem] = useBem('loading');

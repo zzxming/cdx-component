@@ -3,6 +3,7 @@ import { watch, ref, nextTick, onBeforeUnmount, onMounted } from 'vue';
 import { useBem, useSameClickTarget, useLockScroll, useModelValue } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
+defineOptions({ name: 'CdxOverlay' });
 const props = defineProps(overlayProps);
 const emits = defineEmits(overlayEmits);
 

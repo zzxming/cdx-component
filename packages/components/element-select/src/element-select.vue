@@ -6,6 +6,7 @@ import { pick } from 'lodash-unified';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
 
+defineOptions({ name: 'CdxElementSelect' });
 const props = defineProps(elementSelectProps);
 const emits = defineEmits(elementSelectEmits);
 
