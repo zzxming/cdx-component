@@ -10,7 +10,7 @@ import { namespace } from '@cdx-component/constants';
 
 const distBundle = resolve(__dirname, './');
 
-const noPrefixFile = /(base)/;
+const noPrefixFile = /(base|index)/;
 const buildTheme = () => {
     return src('./src/*.less')
         .pipe(less())
