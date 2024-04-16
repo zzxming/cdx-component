@@ -6,6 +6,7 @@ import { ElementSelectValueType } from './element-select';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
 
+defineOptions({ name: 'CdxElementSelectItem' });
 const props = defineProps(elementSelectItemProps);
 const emits = defineEmits(elementSelectItemEmits);
 const selectContext = inject(selectContextKey, undefined);

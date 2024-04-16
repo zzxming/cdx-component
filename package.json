@@ -3,7 +3,8 @@
     "type": "module",
     "workspaces": [
         "packages/*",
-        "examples"
+        "docs",
+        "build"
     ],
     "scripts": {
         "build": "vite build"

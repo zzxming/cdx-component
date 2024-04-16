@@ -6,6 +6,7 @@ import { drawerProps, drawerEmits } from './drawer';
 import { useBem, useModelValue } from '@cdx-component/hooks';
 
 type HTMLElementEventName = keyof HTMLElementEventMap;
+defineOptions({ name: 'CdxDrawer' });
 const props = defineProps(drawerProps);
 const emits = defineEmits(drawerEmits);
 const slots = defineSlots<{
@@ -57,7 +58,7 @@ const drawerBodyClassName = computed(() => {
 });
 
 const close = () => {
-    if (canSlide.value || !props.clickModelCose) return;
+    if (!props.clickModelCose) return;
     model.value = false;
 };
 
@@ -172,6 +173,7 @@ onMounted(() => {
             <Transition :name="bem.ns('fade')">
                 <CdxOverlay
                     v-model="model"
+                    :fullscreen="fullscreen"
                     @click="close"
                 >
                     <div

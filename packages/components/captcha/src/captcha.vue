@@ -7,6 +7,7 @@ import { CdxLoading, CdxCaptchaSlider } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
 import { CdxCaptchaSliderExposed, Range } from './types';
 
+defineOptions({ name: 'CdxCaptcha' });
 const props = defineProps(captchaProps);
 const emits = defineEmits(captchaEmits);
 
@@ -201,8 +202,7 @@ const drawImage = async (imageSrc: string, canvasEl?: HTMLCanvasElement) => {
             width: props.canvasSize[0],
             height: props.canvasSize[1],
         });
-        // console.log(targetX, clipX, clipWidth);
-        // // 中心点偏移修正
+        // 中心点偏移修正
         const xLeftWidth = targetX - clipX;
         const translateFix = ((clipWidth * 0.5 - xLeftWidth) / clipWidth) * 100;
 
@@ -298,7 +298,7 @@ const reset = () => {
     <div :class="bem.b()">
         <div :class="bem.be('header')">
             <button
-                :class="[bem.bs('refresh'), checkStatus === CheckStatus.success && bem.bm('disabled')]"
+                :class="[bem.bs('refresh'), (checkStatus === CheckStatus.success || isLoading) && bem.bm('disabled')]"
                 @click="handleRefresh"
             >
                 <slot name="refresh">刷新</slot>

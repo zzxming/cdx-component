@@ -4,6 +4,7 @@ import { CdxOverlay } from '@cdx-component/components';
 import { useBem, useZIndex, useModelValue } from '@cdx-component/hooks';
 import { modelEmits, modelProps } from './model';
 
+defineOptions({ name: 'CdxModel' });
 const props = defineProps(modelProps);
 const emits = defineEmits(modelEmits);
 
@@ -59,6 +60,7 @@ const close = () => {
             <CdxOverlay
                 v-model="model"
                 @click="close"
+                :fullscreen="fullscreen"
                 :style="{ zIndex }"
             >
                 <div

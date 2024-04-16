@@ -1,0 +1,32 @@
+<script setup lang="ts">
+defineProps({
+    file: {
+        type: String,
+        required: true,
+    },
+    demo: {
+        type: Object,
+        required: true,
+    },
+});
+</script>
+
+<template>
+    <div class="example-showcase">
+        <ClientOnly>
+            <component
+                :is="demo"
+                v-if="demo"
+                v-bind="$attrs"
+            />
+        </ClientOnly>
+    </div>
+</template>
+
+<style lang="less" scoped>
+.example {
+    &-showcase {
+        @apply p-6;
+    }
+}
+</style>
