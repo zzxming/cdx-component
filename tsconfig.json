@@ -1,5 +1,5 @@
 {
-    "exclude": ["node_modules", "examples", "**/*.config.*", "**/dist", "**/gulpfile.ts"],
+    "exclude": ["node_modules", "**/*.config.*", "**/dist", "**/gulpfile.ts"],
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
