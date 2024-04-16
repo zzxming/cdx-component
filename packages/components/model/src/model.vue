@@ -60,6 +60,7 @@ const close = () => {
             <CdxOverlay
                 v-model="model"
                 @click="close"
+                :fullscreen="fullscreen"
                 :style="{ zIndex }"
             >
                 <div

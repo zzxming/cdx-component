@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, nextTick, onBeforeUnmount, onMounted } from 'vue';
+import { watch, ref, nextTick, onBeforeUnmount, onMounted, computed } from 'vue';
 import { useBem, useSameClickTarget, useLockScroll, useModelValue } from '@cdx-component/hooks';
 import { overlayEmits, overlayProps } from './overlay';
 
@@ -14,6 +14,10 @@ const overlayRef = ref<HTMLElement>();
 
 const { model } = useModelValue(props, false);
 const { onMouseDown, onMouseUp, onClick } = useSameClickTarget((e) => emits('click', e));
+
+const overlayStyle = computed(() => ({
+    position: props.fullscreen ? 'fixed' : 'absolute',
+}));
 
 watch(
     () => model,
@@ -42,6 +46,7 @@ onBeforeUnmount(() => {
         @click="onClick"
         @mousedown="onMouseDown"
         @mouseup="onMouseUp"
+        :style="overlayStyle"
         v-bind="$attrs"
     >
         <slot></slot>

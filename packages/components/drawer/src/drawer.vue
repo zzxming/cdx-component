@@ -58,7 +58,7 @@ const drawerBodyClassName = computed(() => {
 });
 
 const close = () => {
-    if (canSlide.value || !props.clickModelCose) return;
+    if (!props.clickModelCose) return;
     model.value = false;
 };
 
@@ -173,6 +173,7 @@ onMounted(() => {
             <Transition :name="bem.ns('fade')">
                 <CdxOverlay
                     v-model="model"
+                    :fullscreen="fullscreen"
                     @click="close"
                 >
                     <div

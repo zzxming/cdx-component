@@ -7,6 +7,10 @@ export const overlayProps = buildProps({
         type: Boolean,
         default: false,
     },
+    fullscreen: {
+        type: Boolean,
+        default: false,
+    },
 } as const);
 
 export type OverlayProps = ExtractPropTypes<typeof overlayProps>;
