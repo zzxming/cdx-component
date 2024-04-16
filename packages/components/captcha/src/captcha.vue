@@ -299,7 +299,7 @@ const reset = () => {
     <div :class="bem.b()">
         <div :class="bem.be('header')">
             <button
-                :class="[bem.bs('refresh'), checkStatus === CheckStatus.success && bem.bm('disabled')]"
+                :class="[bem.bs('refresh'), (checkStatus === CheckStatus.success || isLoading) && bem.bm('disabled')]"
                 @click="handleRefresh"
             >
                 <slot name="refresh">刷新</slot>
