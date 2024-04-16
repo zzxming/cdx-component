@@ -1,9 +1,7 @@
 {
-    "exclude": ["node_modules", "examples", "**/*.config.*", "**/dist", "**/gulpfile.ts"],
     "compilerOptions": {
         "target": "ESNext",
         "module": "ESNext",
-        "sourceMap": false,
         "moduleResolution": "Node",
         "allowJs": false,
         "strict": true,
@@ -12,15 +10,17 @@
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "removeComments": false,
-        "types": ["node"],
         "composite": true,
+        "noImplicitAny": false,
         "noEmit": true,
-        "outDir": "dist",
+        "rootDir": "../",
+        "types": ["../types/components.d.ts"],
         "lib": ["ESNext", "DOM"],
-        "baseUrl": ".",
-        "rootDir": ".",
         "paths": {
-            "@cdx-component/*": ["./packages/*"]
+            "@docs/*": ["./"],
+            "cdx-component/*": ["../packages/cdx-component"]
         }
-    }
+    },
+    "exclude": ["node_modules"],
+    "include": ["**/*", ".vitepress/**/*", "../packages/cdx-component/**/*"]
 }
