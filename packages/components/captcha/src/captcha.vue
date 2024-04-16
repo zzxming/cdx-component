@@ -202,8 +202,7 @@ const drawImage = async (imageSrc: string, canvasEl?: HTMLCanvasElement) => {
             width: props.canvasSize[0],
             height: props.canvasSize[1],
         });
-        // console.log(targetX, clipX, clipWidth);
-        // // 中心点偏移修正
+        // 中心点偏移修正
         const xLeftWidth = targetX - clipX;
         const translateFix = ((clipWidth * 0.5 - xLeftWidth) / clipWidth) * 100;
 

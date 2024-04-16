@@ -1,9 +1,9 @@
 export interface CaptchaHollowOptions {
     ctx: CanvasRenderingContext2D;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+    x: number; // 图形中心 x
+    y: number; // 图形中心 y
+    width: number; // canvas 宽度
+    height: number; // canvas 高度
 }
 export const squarePath = ({ ctx, x, y, width, height }: CaptchaHollowOptions) => {
     const side = Math.min(width, height) * 0.25;
