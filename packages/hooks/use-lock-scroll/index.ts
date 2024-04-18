@@ -19,24 +19,28 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
 
     let scrollBarWidth = 0;
     let originWidth = '0';
-    watch(trigger, (value) => {
-        if (!value) {
-            return cleanLock();
-        }
+    watch(
+        trigger,
+        (value) => {
+            const hasHiddenClass = target.classList.contains(clockClass);
+            if (!hasHiddenClass) {
+                originWidth = target.style.width;
+            }
+            scrollBarWidth = getScrollBarWidth(namespace, { target });
+            const hasOverflow =
+                (target === document.body ? document.documentElement : target).clientHeight < target.scrollHeight;
+            const overflowY = getComputedStyle(target).overflowY;
 
-        const hasHiddenClass = target.classList.contains(clockClass);
-        if (!hasHiddenClass) {
-            originWidth = target.style.width;
-        }
-        scrollBarWidth = getScrollBarWidth(namespace, { target });
-        const hasOverflow =
-            (target === document.body ? document.documentElement : target).clientHeight < target.scrollHeight;
-        const overflowY = getComputedStyle(target).overflowY;
-        // 当前滚动条存在才减去宽度
-        if (scrollBarWidth > 0 && (hasOverflow || overflowY === 'scroll') && !hasHiddenClass) {
-            document.body.style.width = `calc(100% - ${scrollBarWidth}px)`;
-        }
-        target.classList.add(clockClass);
-    });
+            if (!value) {
+                return cleanLock();
+            }
+            // 当前滚动条存在才减去宽度
+            if (scrollBarWidth > 0 && (hasOverflow || overflowY === 'scroll') && !hasHiddenClass) {
+                document.body.style.width = `calc(100% - ${scrollBarWidth}px)`;
+            }
+            target.classList.add(clockClass);
+        },
+        { immediate: true }
+    );
     onScopeDispose(() => cleanLock());
 };
