@@ -42,8 +42,8 @@ const drawerBodyStyle = computed<StyleValue>(() => {
     return {
         position: props.fullscreen ? 'fixed' : 'absolute',
         [props.direction]: 'auto',
-        // [`padding-${styleMap[props.direction]}`]: `${props.breakBoundart}px`,
-        // [`margin-${styleMap[props.direction]}`]: `-${props.breakBoundart}px`,
+        // [`padding-${styleMap[props.direction]}`]: `${props.breakBoundary}px`,
+        // [`margin-${styleMap[props.direction]}`]: `-${props.breakBoundary}px`,
         [styleMap.size]: isNumber(props.size) ? `${props.size}px` : props.size,
     };
 });
@@ -97,8 +97,8 @@ const handleMove = (e: Event) => {
     // 判断鼠标移动方向
     const isCorrectDirection = !((isPositiveDirection.value && diff < 0) || (!isPositiveDirection.value && diff > 0));
     // 可拖拽弹性距离
-    const range = isNumber(props.breakBoundart)
-        ? props.breakBoundart *
+    const range = isNumber(props.breakBoundary)
+        ? props.breakBoundary *
           (isHorizontal.value ? (isPositiveDirection.value ? -1 : 1) : isPositiveDirection.value ? -1 : 1)
         : 0;
     const changeStatus =
