@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import { isObject } from '../types';
+import { isObject, isUndefined } from '../types';
 import type { ConvertProps, FinalProps, PropOptions } from './types';
 import type { IfFinalProp, IfNativePropType, NativePropType } from './utils';
 import { PropKey } from './utils';
@@ -32,7 +32,7 @@ export const buildProp = <Type = never, Value = never, Default = never, Required
         validator: _validator,
         [PropKey]: true,
     } as any;
-    if (defaultValue) resultProp.default = defaultValue;
+    if (!isUndefined(defaultValue)) resultProp.default = defaultValue;
     return resultProp;
 };
 export const buildProps = <
