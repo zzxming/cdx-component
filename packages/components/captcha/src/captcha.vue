@@ -115,7 +115,7 @@ const loadImage = async (imageSrc: string) => {
             console.log(e);
             reject(new Error('图片加载失败'));
             imageLoadFailed.value = true;
-            emits('error');
+            emits('imgError');
         };
         img.src = imageSrc;
     }).finally(() => {
@@ -235,7 +235,7 @@ const handleRefresh = async () => {
     checkStatus.value = CheckStatus.none;
     checkTipVisible.value = false;
     refreshLoading.value = true;
-    isFunction(props.refresh) && (await props.refresh());
+    isFunction(props.onRefresh) && (await props.onRefresh());
     await nextTick();
     refreshLoading.value = false;
 };
