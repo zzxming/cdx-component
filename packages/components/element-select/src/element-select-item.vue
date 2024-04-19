@@ -15,6 +15,11 @@ const [, bem] = useBem('element-select-item');
 
 const curStatus = ref<unknown>(false);
 
+const className = computed(() => [
+    bem.b(),
+    isChecked.value && bem.bm('checked'),
+    isDisabled.value && bem.bm('disabled'),
+]);
 const model = computed({
     get() {
         return selectContext ? selectContext.modelValue.value : props.modelValue ?? curStatus.value;
@@ -90,12 +95,6 @@ const handleEnter = () => {
         setValue(!selectContext.isUnselect);
     }
 };
-
-const className = computed(() => [
-    bem.b(),
-    isChecked.value && bem.bm('checked'),
-    isDisabled.value && bem.bm('disabled'),
-]);
 </script>
 
 <template>

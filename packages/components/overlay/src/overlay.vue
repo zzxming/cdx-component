@@ -9,11 +9,10 @@ const emits = defineEmits(overlayEmits);
 
 const [, bem] = useBem('overlay');
 const [, scrollBem] = useBem('scroll');
-
-const overlayRef = ref<HTMLElement>();
-
 const { model } = useModelValue(props, false);
 const { onMouseDown, onMouseUp, onClick } = useSameClickTarget((e) => emits('click', e));
+
+const overlayRef = ref<HTMLElement>();
 
 const overlayStyle = computed(() => ({
     position: props.fullscreen ? 'fixed' : 'absolute',

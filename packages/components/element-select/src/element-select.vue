@@ -16,6 +16,14 @@ const selectGroupRef = ref();
 const isUnselect = false;
 const selecting = ref(false);
 
+const modelValue = computed({
+    get() {
+        return props.modelValue;
+    },
+    set(val) {
+        changeEvent(val);
+    },
+});
 const className = computed(() => {
     const classNames = [bem.b()];
     if (selecting.value) classNames.push(bem.bm('selecting'));
@@ -27,14 +35,6 @@ const changeEvent = async (value: ElementSelectValueType[]) => {
     await nextTick();
     emits('change', value);
 };
-const modelValue = computed({
-    get() {
-        return props.modelValue;
-    },
-    set(val) {
-        changeEvent(val);
-    },
-});
 
 provide(selectContextKey, {
     ...pick(toRefs(props), ['max', 'disabled']),
