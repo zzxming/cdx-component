@@ -1,11 +1,14 @@
+
+import { defineConfig } from 'vitepress';
 import { mdPlugin } from './plugins';
 
-export default {
+export default defineConfig({
     title: 'Cdx Component',
     description: 'A Vue 3 UI library.',
     markdown: {
         config: mdPlugin,
     },
+    appearance: false,
     themeConfig: {
         sidebar: {
             '/component/': [
@@ -20,4 +23,4 @@ export default {
             ],
         },
     },
-};
+});
