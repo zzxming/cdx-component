@@ -1,24 +1,13 @@
-<template>
-    <div class="vp-raw">
-        <ClientOnly>
-            <div class="example">
-                <Example
-                    :file="src"
-                    :demo="formatPathDemos[src]"
-                />
-            </div>
-        </ClientOnly>
-    </div>
-</template>
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 const props = defineProps<{
     src: string;
     demos: object;
     rawSource: string;
+    source: string;
 }>();
-const code = computed(() => decodeURIComponent(props.rawSource));
+
 const formatPathDemos = computed(() => {
     const demos = {};
     Object.keys(props.demos).forEach((key) => {
@@ -28,8 +17,22 @@ const formatPathDemos = computed(() => {
 });
 </script>
 
+<template>
+    <div class="vp-raw">
+        <ClientOnly>
+            <div class="example">
+                <Example
+                    :file="src"
+                    :demo="formatPathDemos[src]"
+                />
+                <Code :source="source" />
+            </div>
+        </ClientOnly>
+    </div>
+</template>
+
 <style lang="less" scoped>
 .example {
-    @apply border border-stone-200 rounded;
+    @apply border border-stone-200 rounded-lg;
 }
 </style>

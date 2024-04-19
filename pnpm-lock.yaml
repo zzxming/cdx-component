@@ -66,6 +66,9 @@ importers:
       cdx-component:
         specifier: workspace:*
         version: link:../packages/cdx-component
+      prism-theme-vars:
+        specifier: ^0.2.4
+        version: 0.2.4
     devDependencies:
       '@types/markdown-it':
         specifier: ^14.0.1
@@ -76,6 +79,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.17
         version: 10.4.17(postcss@8.4.33)
+      consola:
+        specifier: 3.2.3
+        version: 3.2.3
       less:
         specifier: ^4.2.0
         version: 4.2.0
@@ -91,6 +97,9 @@ importers:
       postcss-pxtorem:
         specifier: ^6.1.0
         version: 6.1.0(postcss@8.4.33)
+      prismjs:
+        specifier: ^1.28.0
+        version: 1.28.0
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.1
@@ -5077,6 +5086,15 @@ packages:
   /pretty-hrtime@1.0.3:
     resolution: {integrity: sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==}
     engines: {node: '>= 0.8'}
+    dev: true
+
+  /prism-theme-vars@0.2.4:
+    resolution: {integrity: sha512-B3Pht+GCT87sZph7hMRLlCQXzCM0awW7Rhk08RavpqRW4LEQOeqN0uMG4QCWkul2tr8PB61YAOJGUrEW+1uuJA==}
+    dev: false
+
+  /prismjs@1.28.0:
+    resolution: {integrity: sha512-8aaXdYvl1F7iC7Xm1spqSaY/OJBpYW3v+KJ+F17iYxvdc8sfjW194COK5wVhMZX45tGteiBQgdvD/nhxcRwylw==}
+    engines: {node: '>=6'}
     dev: true
 
   /process-nextick-args@2.0.1:

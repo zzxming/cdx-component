@@ -1,5 +1,24 @@
+@import 'prism-theme-vars/base.css';
+@import 'prism-theme-vars/marker.css';
+@import 'prism-theme-vars/themes/vitesse-light.css';
+
 .vp-doc {
     table {
         @apply table w-full;
     }
+    div[class*='language-'] {
+        @apply mt-0 mb-0 rounded-none;
+    }
+    [class*='language-'] {
+        code {
+            @apply px-1;
+        }
+        pre {
+            @apply py-2;
+        }
+    }
+}
+
+span[class*='language-'] {
+    @apply before:content-[''];
 }
