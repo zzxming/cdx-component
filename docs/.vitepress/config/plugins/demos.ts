@@ -11,7 +11,7 @@ export function demoImports(): Plugin {
             const component = path.basename(id, '.md');
             const scriptSetups = [
                 `const demos = import.meta.glob('@docs/demos/${component}/**/*.vue', { eager: true })`,
-                `const codes = import.meta.glob('@docs/demos/${component}/**/*.vue', { eager: true, as: 'raw' })`,
+                // `const codes = import.meta.glob('@docs/demos/${component}/**/*.vue', { eager: true, query: '?raw' })`,
             ];
 
             return combineMarkdown(code, [`\n<script setup>\n${scriptSetups.join('\n')}\n</script>\n`]);
