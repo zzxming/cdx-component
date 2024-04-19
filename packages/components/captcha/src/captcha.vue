@@ -19,7 +19,6 @@ const [, bem] = useBem('captcha');
 const canvasRef = ref<HTMLCanvasElement>();
 const subCanvasRef = ref<HTMLCanvasElement>();
 const sliderRef = ref<CdxCaptchaSliderExposed>();
-
 const pointerTargets: number[][] = [];
 const pointers = ref<number[][]>([]);
 const checkTip = ref('');
@@ -39,10 +38,6 @@ const subCanvasStyle = computed(() => ({
     [bem.cv('captcha-sub-image-transition')]: sliderRef.value?.resetting ? 'left 250ms ease' : 'left 0ms ease',
     left: `${currentX.value}%`,
 }));
-
-watch([() => props.texts, () => props.image, () => props.type], () => {
-    reset();
-});
 
 const cancelPointer = (i: number) => {
     if (isLock.value) return;
@@ -274,11 +269,6 @@ const handleSliderSuccess = async () => {
 const handleSliderFail = () => {
     checkedFail();
 };
-
-onMounted(() => {
-    drawImage(props.image, canvasRef.value);
-});
-
 const reset = () => {
     pointerTargets.length = 0;
     pointers.value = [];
@@ -292,6 +282,17 @@ const reset = () => {
     sliderRef.value && sliderRef.value.reset();
     drawImage(props.image, canvasRef.value);
 };
+
+watch(
+    () => [props.texts, props.image, props.type],
+    () => {
+        reset();
+    }
+);
+
+onMounted(() => {
+    drawImage(props.image, canvasRef.value);
+});
 </script>
 
 <template>
