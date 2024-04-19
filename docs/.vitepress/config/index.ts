@@ -12,8 +12,9 @@ export default {
                 {
                     text: 'Component',
                     items: [
-                        { text: 'captcha', link: '/component/captcha' },
-                        { text: 'drawer', link: '/component/drawer' },
+                        { text: 'Captcha', link: '/component/captcha' },
+                        { text: 'Drawer', link: '/component/drawer' },
+                        { text: 'CountTo', link: '/component/count-to' },
                     ],
                 },
             ],

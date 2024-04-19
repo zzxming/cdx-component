@@ -4,7 +4,7 @@
         :image="img"
         :texts="texts"
         :canvasSize="[500, 300]"
-        :refresh="handleRefresh"
+        :onRefresh="handleRefresh"
         :onBeforSuccess="handleSuccess"
         :tipDuration="3000"
     ></CdxCaptcha>
