@@ -7,6 +7,7 @@ import { CdxCaptcha, CdxCaptchaSlider } from '../components/captcha';
 import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
 import { CdxModel } from '../components/model';
+import { CdxCountTo } from '../components/count-to';
 
 import type { Plugin } from 'vue';
 
@@ -23,4 +24,5 @@ export default [
     CdxTextEllipsis,
     CdxTextHighlight,
     CdxModel,
+    CdxCountTo,
 ] as Plugin[];
