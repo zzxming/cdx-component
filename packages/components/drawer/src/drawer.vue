@@ -17,6 +17,17 @@ const slots = defineSlots<{
 const [, bem] = useBem('drawer');
 const { model } = useModelValue(props, false);
 
+const changeVisible = ref(false);
+const drawerContentSize = ref<DOMRect>();
+const drawerSwipeRef = ref<HTMLElement>();
+const drawerBodyRef = ref<HTMLElement>();
+const startPosition = ref<[number, number]>();
+const handledEvents = ref<{ [key: string]: HTMLElementEventName }>({
+    down: 'mousedown',
+    move: 'mousemove',
+    up: 'mouseup',
+});
+
 const canSlide = computed(() => !props.fullscreen && slots.swipe && props.slide);
 const isHorizontal = computed(() => ['left', 'right'].includes(props.direction));
 const isPositiveDirection = computed(() => ['left', 'top'].includes(props.direction));
@@ -42,8 +53,6 @@ const drawerBodyStyle = computed<StyleValue>(() => {
     return {
         position: props.fullscreen ? 'fixed' : 'absolute',
         [props.direction]: 'auto',
-        // [`padding-${styleMap[props.direction]}`]: `${props.breakBoundart}px`,
-        // [`margin-${styleMap[props.direction]}`]: `-${props.breakBoundart}px`,
         [styleMap.size]: isNumber(props.size) ? `${props.size}px` : props.size,
     };
 });
@@ -61,12 +70,6 @@ const close = () => {
     if (!props.clickModelCose) return;
     model.value = false;
 };
-
-const changeVisible = ref(false);
-const drawerContentSize = ref<DOMRect>();
-const drawerSwipeRef = ref<HTMLElement>();
-const drawerBodyRef = ref<HTMLElement>();
-const startPosition = ref<[number, number]>();
 const handleDown = (e: Event) => {
     if (!canSlide.value) return;
     const isSupportsTouch = supportsTouchDetector();
@@ -97,8 +100,8 @@ const handleMove = (e: Event) => {
     // 判断鼠标移动方向
     const isCorrectDirection = !((isPositiveDirection.value && diff < 0) || (!isPositiveDirection.value && diff > 0));
     // 可拖拽弹性距离
-    const range = isNumber(props.breakBoundart)
-        ? props.breakBoundart *
+    const range = isNumber(props.breakBoundary)
+        ? props.breakBoundary *
           (isHorizontal.value ? (isPositiveDirection.value ? -1 : 1) : isPositiveDirection.value ? -1 : 1)
         : 0;
     const changeStatus =
@@ -140,11 +143,6 @@ const handleUp = async () => {
     }, 300);
 };
 
-const handledEvents = ref<{ [key: string]: HTMLElementEventName }>({
-    down: 'mousedown',
-    move: 'mousemove',
-    up: 'mouseup',
-});
 const supportsTouchDetector = cacheFunction<boolean>(() => 'ontouchstart' in window);
 
 onMounted(() => {

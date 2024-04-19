@@ -2,6 +2,7 @@ import MarkdownIt, { type Token } from 'markdown-it';
 import mdContainer from 'markdown-it-container';
 import fs from 'fs';
 import path from 'path';
+import { highlight } from './highlight';
 
 export const mdPlugin = (md: MarkdownIt) => {
     md.use(useContainer);
@@ -27,12 +28,14 @@ function createDemoContainer() {
                     const matched = token.info.trim().match(demoReg);
                     const params = matched?.[1].trim().split(/\s+/) || [];
                     const src = params[0];
-                    // 转换参数为组件, 并传入源文件
+                    // 转换参数为组件, 传入源文件内容
                     const sourceFile = src ?? '';
                     const source = fs.readFileSync(path.resolve('./demos', `${sourceFile}.vue`), 'utf-8');
                     if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);
 
-                    return `<Demos :demos="demos" raw-source="${encodeURIComponent(source)}" src="${src}">\n`;
+                    return `<Demos :demos="demos" raw-source="${encodeURIComponent(
+                        source
+                    )}" source="${encodeURIComponent(highlight(source, 'vue'))}" src="${src}">\n`;
                 } else {
                     return '</Demos>\n';
                 }

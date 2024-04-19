@@ -45,8 +45,8 @@ export const captchaProps = buildProps({
         type: Boolean,
         default: false,
     },
-    refresh: {
-        type: definePropType<() => any | Promise<any>>(Function),
+    onRefresh: {
+        type: definePropType<() => void | Promise<void>>(Function),
     },
     tipDuration: {
         type: Number,
@@ -58,6 +58,6 @@ export type CaptchaProps = ExtractPropTypes<typeof captchaProps>;
 export const captchaEmits = {
     success: () => true,
     fail: () => true,
-    error: () => true,
+    imgError: () => true,
 };
 export type CaptchaEmits = typeof captchaEmits;

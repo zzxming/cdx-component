@@ -23,6 +23,11 @@ const contentStyle = computed(() => {
     return modelStyle;
 });
 
+const close = () => {
+    if (!props.maskClose) return;
+    model.value = false;
+};
+
 watch(
     model,
     () => {
@@ -41,11 +46,6 @@ watch(model, () => {
         emits('close');
     }
 });
-
-const close = () => {
-    if (!props.maskClose) return;
-    model.value = false;
-};
 </script>
 
 <template>

@@ -24,7 +24,7 @@ export const drawerProps = buildProps({
         type: Boolean,
         default: true,
     },
-    breakBoundart: {
+    breakBoundary: {
         type: Number,
         default: 16,
     },
