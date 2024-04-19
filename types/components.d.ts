@@ -15,5 +15,6 @@ declare module '@vue/runtime-core' {
         CdxOverlay: typeof import('../packages/cdx-component')['CdxOverlay'];
         CdxTextEllipsis: typeof import('../packages/cdx-component')['CdxTextEllipsis'];
         CdxTextHighlight: typeof import('../packages/cdx-component')['CdxTextHighlight'];
+        CdxCountTo: typeof import('../packages/cdx-component')['CdxCountTo'];
     }
 }

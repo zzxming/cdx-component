@@ -7,3 +7,4 @@ export * from './captcha';
 export * from './text-ellipsis';
 export * from './text-highlight';
 export * from './model';
+export * from './count-to';
