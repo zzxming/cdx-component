@@ -1,6 +1,6 @@
 import CdxComponent from 'cdx-component';
 import DefaultTheme from 'vitepress/theme';
-import 'cdx-component/theme/index.css';
+import 'cdx-component/theme/src/index.less';
 import './style/base.less';
 import { type Theme } from 'vitepress';
 

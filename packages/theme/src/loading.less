@@ -18,6 +18,10 @@
         stroke-dashoffset: -120px;
     }
 });
+.loading-dash() {
+    animation: e('@{namespace}-loading-dash') 1.5s ease-in-out infinite;
+}
+
 .@{namespace}-loading {
     &__mask {
         .setCssVar(loading-size, 30px);
@@ -34,9 +38,10 @@
     &__spinner {
         width: .getCssVar(loading-size) [];
         height: .getCssVar(loading-size) [];
-        @apply animate-rotate inline stroke-2 stroke-current;
+        .rotate();
+        @apply inline stroke-2 stroke-current;
         circle {
-            @apply animate-loading-dash;
+            .loading-dash();
         }
     }
     &__text {

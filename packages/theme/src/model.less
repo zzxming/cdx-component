@@ -14,7 +14,8 @@
     @apply absolute inset-0 flex items-center justify-center pointer-events-none;
     &__content {
         width: .getCssVar(model-width) [];
-        @apply bg-white rounded-md shadow-wrap overflow-auto pointer-events-auto;
+        box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 0.2);
+        @apply bg-white rounded-md overflow-auto pointer-events-auto;
     }
     &__header {
         padding: .getCssVar(model-header-padding-y) [] .getCssVar(model-header-padding-x) [];
@@ -32,14 +33,14 @@
     &-enter-active {
         .@{namespace}-model {
             &__content {
-                @apply animate-zoom-in;
+                .zoom-in();
             }
         }
     }
     &-leave-active {
         .@{namespace}-model {
             &__content {
-                @apply animate-zoom-out;
+                .zoom-out();
             }
         }
     }
