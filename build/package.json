@@ -4,10 +4,9 @@
     "version": "0.0.0",
     "main": "index.ts",
     "scripts": {
-        "build": "pnpm build:component && pnpm build:theme && pnpm copy-package && pnpm yalc",
+        "build": "pnpm build:component && pnpm build:theme && pnpm copy-package",
         "build:theme": "gulp --require @esbuild-kit/cjs-loader --gulpfile ../packages/theme/gulpfile.ts",
         "build:component": "vite build --emptyOutDir",
-        "yalc": "yalc installations clean cdx-component && yalc publish --push ../dist --replace",
         "copy-package": "gulp --require @esbuild-kit/cjs-loader"
     },
     "devDependencies": {
