@@ -1,4 +1,5 @@
 @import '../shared/variables.less';
+@import '../shared/functions.less';
 @import './createKeyframe.less';
 
 .keyframes(e('@{namespace}-fade-out'), {
@@ -17,11 +18,18 @@
         opacity: 1;
     }
 });
+.fade-in() {
+    animation: e('@{namespace}-fade-in') .getCssVar(transition-duration) [] ease-in-out;
+}
+.fade-out() {
+    animation: e('@{namespace}-fade-out') .getCssVar(transition-duration) [] ease-in-out;
+}
+
 .@{namespace}-fade {
     &-enter-active {
-        @apply animate-fade-in;
+        .fade-in();
     }
     &-leave-active {
-        @apply animate-fade-out;
+        .fade-out();
     }
 }

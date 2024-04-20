@@ -1,4 +1,5 @@
 @import '../shared/variables.less';
+@import '../shared/functions.less';
 @import './createKeyframe.less';
 
 .keyframes(e('@{namespace}-zoom-out'), {
@@ -17,12 +18,18 @@
         transform: scale(1);
     }
 });
+.zoom-in() {
+    animation: e('@{namespace}-zoom-in') .getCssVar(transition-duration) [] ease-in-out;
+}
+.zoom-out() {
+    animation: e('@{namespace}-zoom-out') .getCssVar(transition-duration) [] ease-in-out;
+}
 
 .@{namespace}-zoom {
     &-enter-active {
-        @apply animate-zoom-in;
+        .zoom-in();
     }
     &-leave-active {
-        @apply animate-zoom-out;
+        .zoom-out();
     }
 }
