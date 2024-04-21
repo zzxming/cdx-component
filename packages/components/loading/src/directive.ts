@@ -5,8 +5,8 @@ import { ElementLoading } from './types';
 
 const bindLoadingInstance = (el: ElementLoading, binding: DirectiveBinding<boolean>) => {
     el[LOADING_INSTANCE] = createLoadingInstance({
-        target: el,
         text: el.getAttribute('loading-text') || undefined,
+        background: el.getAttribute('loading-background') || undefined,
     });
     el.appendChild(el[LOADING_INSTANCE].vm.$el);
     Object.assign(el.style, { position: 'relative' });
