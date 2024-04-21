@@ -11,8 +11,8 @@
                 @resultClass: if(@isSibling, ~'&.@{direction}', ~'.@{direction}');
 
                 @{resultClass} {
-                    transition-duration: .getCssVar(transition-duration) [];
                     @apply transition-transform;
+                    transition-duration: .getCssVar(transition-duration) [];
                 }
             });
         }
