@@ -4,7 +4,7 @@ import LoadingVue from './loading.vue';
 import { LoadingInstance, LoadingOptions } from './types';
 
 let unmountTimer = setTimeout(() => {}, 0);
-export const createLoadingInstance = ({ text, fullscreen }: Pick<LoadingOptions, 'fullscreen' | 'text' | 'target'>) => {
+export const createLoadingInstance = (props: Omit<LoadingOptions, 'target' | 'visible'>) => {
     const data = reactive({
         visible: true,
     });
@@ -15,7 +15,7 @@ export const createLoadingInstance = ({ text, fullscreen }: Pick<LoadingOptions,
             return () => h(LoadingVue, { ...props, visible: data.visible });
         },
     });
-    const loadingInstance = createApp(load, { text, fullscreen });
+    const loadingInstance = createApp(load, props);
     const vm = loadingInstance.mount(document.createElement('div'));
 
     const close = () => {
@@ -38,24 +38,30 @@ export const createLoadingInstance = ({ text, fullscreen }: Pick<LoadingOptions,
 };
 
 let fullscreenInstance: LoadingInstance | undefined = undefined;
-export const vLoading = (options: LoadingOptions) => {
-    const [_, bem] = useBem('relative');
-    const { target = document.body, ...props } = options;
-    if (options.fullscreen && fullscreenInstance) return fullscreenInstance;
+export const vLoading = (options?: LoadingOptions) => {
+    const [, relativeBem] = useBem('relative');
+    const [, scrollBem] = useBem('scroll');
+    const { target = document.body, lock = true, ...props } = options || {};
+    if (props.fullscreen && fullscreenInstance) return fullscreenInstance;
     const instance = createLoadingInstance(props);
-    if (options.fullscreen) {
+
+    if (props.fullscreen) {
         instance.vm.$el.style.zIndex = useZIndex().nextZIndex();
-        const originClose = instance.close;
-        instance.close = () => {
-            originClose();
-            target.classList.remove(bem.b());
-            fullscreenInstance = undefined;
-        };
-    }
-    target.appendChild(instance.vm.$el);
-    target.classList.add(bem.b());
-    if (options?.fullscreen) {
         fullscreenInstance = instance;
     }
+    const originClose = instance.close;
+    instance.close = () => {
+        originClose();
+        target.classList.remove(relativeBem.b());
+        target.classList.remove(scrollBem.bm('lock'));
+        if (props.fullscreen) {
+            fullscreenInstance = undefined;
+        }
+    };
+    target.classList.add(relativeBem.b());
+    if (lock) {
+        target.classList.add(scrollBem.bm('lock'));
+    }
+    target.appendChild(instance.vm.$el);
     return instance;
 };

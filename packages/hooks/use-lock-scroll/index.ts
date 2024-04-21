@@ -10,7 +10,6 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
     }
     const [, bem] = useBem('scroll');
     const clockClass = bem.bm('lock');
-    if (target.classList.contains(clockClass)) return;
 
     const cleanLock = () => {
         target && (target.style.width = originWidth);
@@ -19,6 +18,7 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
 
     let scrollBarWidth = 0;
     let originWidth = '0';
+
     watch(
         trigger,
         (value) => {
@@ -30,7 +30,6 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
             const hasOverflow =
                 (target === document.body ? document.documentElement : target).clientHeight < target.scrollHeight;
             const overflowY = getComputedStyle(target).overflowY;
-
             if (!value) {
                 return cleanLock();
             }
@@ -40,7 +39,8 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
             }
             target.classList.add(clockClass);
         },
-        { immediate: true }
+        { immediate: true, flush: 'post' }
     );
+
     onScopeDispose(() => cleanLock());
 };
