@@ -9,7 +9,7 @@ const langMap = {
     html: 'markup',
     md: 'markdown',
     ts: 'typescript',
-    js: 'js',
+    js: 'javascript',
     py: 'python',
     sh: 'bash',
 };
