@@ -19,10 +19,6 @@ export const elementSelectItemProps = buildProps({
         type: Boolean,
         default: false,
     },
-    checked: {
-        type: Boolean,
-        default: false,
-    },
 } as const);
 export type ElementSelectItemProps = ExtractPropTypes<typeof elementSelectItemProps>;
 
