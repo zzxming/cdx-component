@@ -84,6 +84,7 @@ const handleDown = (e: Event) => {
         isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY,
     ];
 
+    drawerBodyTransition.value = false;
     isOpening = !model.value;
     document.addEventListener(handledEvents.value.move, handleMove, { passive: false });
     document.addEventListener(handledEvents.value.up, handleUp, { passive: false });
