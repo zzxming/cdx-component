@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useBem } from '@cdx-component/hooks';
-import { isFunction, isUndefined, cacheFunction } from '@cdx-component/utils';
+import { useBem, useSupportTouch } from '@cdx-component/hooks';
+import { isFunction, isUndefined } from '@cdx-component/utils';
 import { CdxLoading } from '@cdx-component/components';
 import { captchaSliderProps, captchaSliderEmits } from './captcha-slider';
 
-const isSupportTouch = cacheFunction(() => 'ontouchstart' in window);
-const handledEvents = isSupportTouch()
-    ? { down: 'touchstart', move: 'touchmove', up: 'touchend' }
-    : { down: 'mousedown', move: 'mousemove', up: 'mouseup' };
+const { isSupportTouch, events: handledEvents } = useSupportTouch();
 
 defineOptions({ name: 'CdxCaptchaSlider' });
 const props = defineProps(captchaSliderProps);
@@ -51,30 +48,28 @@ const verifyMatch = () => {
 };
 const handleDown = (e: Event) => {
     if (resetting.value || isLock.value || isLoading.value) return;
-    const isSupportsTouch = isSupportTouch();
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
-    startX.value = isSupportsTouch ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
+    startX.value = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
     trackWidth = trackRef.value!.getBoundingClientRect().width;
 
-    document.addEventListener(handledEvents.move, handleMove);
-    document.addEventListener(handledEvents.up, handleUp);
+    document.addEventListener(handledEvents.value.move, handleMove);
+    document.addEventListener(handledEvents.value.up, handleUp);
 
     dragging.value = true;
 };
 const handleMove = (e: Event) => {
     if (resetting.value || isSuccess.value) return;
-    const isSupportsTouch = isSupportTouch();
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
 
-    moveX.value = isSupportsTouch ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
+    moveX.value = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
     emits('move', currentX.value);
 };
 const handleUp = async () => {
     if (resetting.value || isSuccess.value) return;
-    document.removeEventListener(handledEvents.move, handleMove);
-    document.removeEventListener(handledEvents.up, handleUp);
+    document.removeEventListener(handledEvents.value.move, handleMove);
+    document.removeEventListener(handledEvents.value.up, handleUp);
 
     matchLoading.value = true;
     let beforeMatched;
