@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "cdx-component": "workspace:*",
-        "prism-theme-vars": "^0.2.4"
+        "prism-theme-vars": "^0.2.5"
     },
     "devDependencies": {
         "@types/markdown-it": "^14.0.1",

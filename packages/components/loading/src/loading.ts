@@ -13,5 +13,12 @@ export const loadingProps = buildProps({
         type: Boolean,
         default: false,
     },
+    background: {
+        type: String,
+    },
+    lock: {
+        type: Boolean,
+        default: true,
+    },
 } as const);
 export type LoadingProps = ExtractPropTypes<typeof loadingProps>;

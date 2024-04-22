@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { loadingProps } from './loading';
-import { useBem } from '@cdx-component/hooks';
+import { useBem, useLockScroll } from '@cdx-component/hooks';
 
 defineOptions({ name: 'CdxLoading' });
 const props = defineProps(loadingProps);
 
 const [, bem] = useBem('loading');
 
+const loadingRef = ref<HTMLElement>();
 const currentVisible = ref(props.visible);
+
+const loadingStyle = computed(() => ({
+    backgroundColor: props?.background,
+}));
 
 watch(
     () => props.visible,
@@ -16,6 +21,9 @@ watch(
         currentVisible.value = props.visible;
     }
 );
+onMounted(() => {
+    useLockScroll(currentVisible, { target: loadingRef.value?.parentElement! });
+});
 </script>
 
 <template>
@@ -24,8 +32,10 @@ watch(
         appear
     >
         <div
+            ref="loadingRef"
             v-if="currentVisible"
             :class="[bem.be('mask'), fullscreen && bem.bm('fullscreen')]"
+            :style="loadingStyle"
         >
             <div :class="bem.be('tip')">
                 <svg

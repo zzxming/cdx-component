@@ -10,15 +10,17 @@
         @apply mt-0 mb-0 rounded-none;
     }
     [class*='language-'] {
+        .lang {
+            @apply hidden;
+        }
         code {
             @apply px-1;
         }
         pre {
             @apply py-2;
         }
+        [class*='language-'] {
+            @apply before:content-[''];
+        }
     }
-}
-
-span[class*='language-'] {
-    @apply before:content-[''];
 }

@@ -2,7 +2,8 @@
 
 .@{namespace}-scroll {
     &--lock {
-        @apply relative overflow-hidden;
+        overflow: hidden !important;
+        @apply relative;
     }
     &__wrap {
         @apply w-full h-full overflow-auto;
