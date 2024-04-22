@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, onMounted, Teleport, type StyleValue, nextTick } from 'vue';
+import { computed, ref, Teleport, type StyleValue, nextTick } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
-import { isNumber, cacheFunction } from '@cdx-component/utils';
+import { isNumber } from '@cdx-component/utils';
 import { drawerProps, drawerEmits } from './drawer';
-import { useBem, useModelValue } from '@cdx-component/hooks';
+import { useBem, useModelValue, useSupportTouch } from '@cdx-component/hooks';
+import { namespace } from '@cdx-component/constants';
 
-type HTMLElementEventName = keyof HTMLElementEventMap;
 defineOptions({ name: 'CdxDrawer' });
 const props = defineProps(drawerProps);
 const emits = defineEmits(drawerEmits);
@@ -17,26 +17,26 @@ const slots = defineSlots<{
 const [, bem] = useBem('drawer');
 const { model } = useModelValue(props, false);
 
-const changeVisible = ref(false);
-const drawerContentSize = ref<DOMRect>();
+let isOpening = false;
+let bodySize = 0;
+const drawerContentRect = ref<DOMRect>();
 const drawerSwipeRef = ref<HTMLElement>();
 const drawerBodyRef = ref<HTMLElement>();
 const startPosition = ref<[number, number]>();
-const handledEvents = ref<{ [key: string]: HTMLElementEventName }>({
-    down: 'mousedown',
-    move: 'mousemove',
-    up: 'mouseup',
-});
+const { isSupportTouch, events: handledEvents } = useSupportTouch();
+const drawerBodyTransform = ref<string>();
+const drawerBodyTransition = ref(false);
 
 const canSlide = computed(() => !props.fullscreen && slots.swipe && props.slide);
 const isHorizontal = computed(() => ['left', 'right'].includes(props.direction));
 const isPositiveDirection = computed(() => ['left', 'top'].includes(props.direction));
-const stopBodyEvent = computed(() => [handledEvents.value.down]);
-const bodySlideEvent = computed(() => {
-    const events = {} as { [key in HTMLElementEventName]: Function };
+const breakBoundary = computed(() => (isNumber(props.breakBoundary) ? props.breakBoundary : 0));
+const bodySlideStopEvent = computed(() => {
+    const events = {} as { [key in keyof HTMLElementEventMap]: Function };
     if (!props.bodySlide) {
         const stopFunc = (e: Event) => e.stopPropagation();
-        for (const key of stopBodyEvent.value) {
+        const stopEvent = [handledEvents.value.down];
+        for (const key of stopEvent) {
             events[key] = stopFunc;
         }
     }
@@ -54,6 +54,10 @@ const drawerBodyStyle = computed<StyleValue>(() => {
         position: props.fullscreen ? 'fixed' : 'absolute',
         [props.direction]: 'auto',
         [styleMap.size]: isNumber(props.size) ? `${props.size}px` : props.size,
+        transform: drawerBodyTransform.value,
+        transition: !drawerBodyTransition.value
+            ? undefined
+            : `transform var(--${namespace}-transition-duration) linear`,
     };
 });
 const drawerBodyClassName = computed(() => {
@@ -72,90 +76,89 @@ const close = () => {
 };
 const handleDown = (e: Event) => {
     if (!canSlide.value) return;
-    const isSupportsTouch = supportsTouchDetector();
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
-    drawerContentSize.value = drawerSwipeRef.value!.getBoundingClientRect();
+    drawerContentRect.value = drawerSwipeRef.value!.getBoundingClientRect();
     startPosition.value = [
-        isSupportsTouch ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX,
-        isSupportsTouch ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY,
+        isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX,
+        isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY,
     ];
 
-    document.addEventListener(handledEvents.value.move, handleMove);
-    document.addEventListener(handledEvents.value.up, handleUp);
+    isOpening = !model.value;
+    document.addEventListener(handledEvents.value.move, handleMove, { passive: false });
+    document.addEventListener(handledEvents.value.up, handleUp, { passive: false });
 };
-const handleMove = (e: Event) => {
+const handleMove = async (e: Event) => {
     if (!startPosition.value || !drawerBodyRef.value) return;
-    const isSupportsTouch = supportsTouchDetector();
+    e.preventDefault();
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
-    const moveToX = isSupportsTouch ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
-    const moveToY = isSupportsTouch ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
+    const moveToX = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
+    const moveToY = isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
 
-    const { width, height } = drawerContentSize.value!;
     const [startX, startY] = startPosition.value!;
-    // 计算鼠标移动距离是否超过 25%
-    const changeStatusBoundary = (isHorizontal.value ? width : height) / 4;
     const diff = isHorizontal.value ? moveToX - startX : moveToY - startY;
-    // 判断鼠标移动方向
-    const isCorrectDirection = !((isPositiveDirection.value && diff < 0) || (!isPositiveDirection.value && diff > 0));
-    // 可拖拽弹性距离
-    const range = isNumber(props.breakBoundary)
-        ? props.breakBoundary *
-          (isHorizontal.value ? (isPositiveDirection.value ? -1 : 1) : isPositiveDirection.value ? -1 : 1)
-        : 0;
-    const changeStatus =
-        (model.value ? isCorrectDirection : !isCorrectDirection) && Math.abs(diff) > changeStatusBoundary;
 
-    changeVisible.value =
-        changeStatus && ((model.value && isCorrectDirection) || (!model.value && !isCorrectDirection));
-    // 改变 transform
-    const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](diff, range);
-    Object.assign(drawerBodyRef.value.style, {
-        transform: `translate3d(${isHorizontal.value ? translateVal : 0}px, ${
-            !isHorizontal.value ? translateVal : 0
-        }px, 0)`,
-    });
+    // 判断鼠标移动方向
+    const isCorrectDirection = (isPositiveDirection.value && diff > 0) || (!isPositiveDirection.value && diff < 0);
+    if (!model.value && isCorrectDirection) return;
+
+    model.value = true;
+    await nextTick();
+    if (!bodySize) {
+        bodySize = parseFloat(getComputedStyle(drawerBodyRef.value)[isHorizontal.value ? 'width' : 'height']);
+    }
+
+    // 可拖拽弹性距离
+    const range = breakBoundary.value * (isPositiveDirection.value ? -1 : 1);
+    // 位移距离
+    const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](
+        diff,
+        (isPositiveDirection.value ? -1 : 1) * (isOpening ? bodySize : 0) + range
+    );
+    const positivePosition = isPositiveDirection.value ? '' : '-';
+    const x = isHorizontal.value ? translateVal : 0;
+    const y = !isHorizontal.value ? translateVal : 0;
+    const translateX = isOpening && isHorizontal.value ? `calc(${positivePosition}100% + ${x}px)` : `${x}px`;
+    const translateY = isOpening && !isHorizontal.value ? `calc(${positivePosition}100% + ${y}px)` : `${y}px`;
+    drawerBodyTransform.value = `translate3d(${translateX}, ${translateY}, 0)`;
 };
-const handleUp = async () => {
+const handleUp = async (e: Event) => {
     await nextTick();
     document.removeEventListener(handledEvents.value.move, handleMove);
     document.removeEventListener(handledEvents.value.up, handleUp);
-
     if (!startPosition.value || !drawerBodyRef.value) return;
+    e.preventDefault();
+    const touchEvent = e as TouchEvent;
+    const mouseEvent = e as MouseEvent;
+    const moveToX = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
+    const moveToY = isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
 
-    drawerContentSize.value = undefined;
-    startPosition.value = undefined;
-    if (changeVisible.value) {
+    const { width, height } = drawerContentRect.value!;
+    const [startX, startY] = startPosition.value!;
+
+    // 计算鼠标移动距离是否超过 25%
+    const changeStatusBoundary = (isHorizontal.value ? width : height) / 4;
+    const diff = isHorizontal.value ? moveToX - startX : moveToY - startY;
+    if (isOpening ? Math.abs(diff) < changeStatusBoundary : Math.abs(diff) > changeStatusBoundary) {
         model.value = !model.value;
-        changeVisible.value = false;
     }
+    bodySize = 0;
+    drawerContentRect.value = undefined;
+    startPosition.value = undefined;
 
-    Object.assign(drawerBodyRef.value.style, {
-        transition: `transform .3s linear`,
-        transform: null,
-    });
-    setTimeout(() => {
-        drawerBodyRef.value &&
-            Object.assign(drawerBodyRef.value.style, {
-                transition: null,
-            });
-    }, 300);
+    drawerBodyTransition.value = true;
+    drawerBodyTransform.value = undefined;
 };
-
-const supportsTouchDetector = cacheFunction<boolean>(() => 'ontouchstart' in window);
-
-onMounted(() => {
-    handledEvents.value = supportsTouchDetector()
-        ? { down: 'touchstart', move: 'touchmove', up: 'touchend' }
-        : { down: 'mousedown', move: 'mousemove', up: 'mouseup' };
-});
+const handleTransitionEnd = () => {
+    drawerBodyTransition.value = false;
+};
 </script>
 
 <template>
     <div
         :class="[bem.b(), canSlide && bem.bm('slide')]"
-        @[handledEvents.down].stop="handleDown"
+        @[handledEvents.down].prevent.stop="handleDown"
     >
         <div
             v-if="!fullscreen"
@@ -179,7 +182,8 @@ onMounted(() => {
                         :class="[bem.be('body'), drawerBodyClassName]"
                         :style="drawerBodyStyle"
                         :direction="direction"
-                        v-on="bodySlideEvent"
+                        v-on="bodySlideStopEvent"
+                        @transitionend="handleTransitionEnd"
                     >
                         <div :class="bem.be('content')">
                             <slot></slot>
