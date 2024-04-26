@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, Teleport, type StyleValue, nextTick } from 'vue';
+import { computed, ref, Teleport, nextTick, type StyleValue } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
 import { isNumber } from '@cdx-component/utils';
 import { drawerProps, drawerEmits } from './drawer';
-import { useBem, useModelValue, useSupportTouch } from '@cdx-component/hooks';
+import { useBem, useModelValue, useSlide, useSupportTouch } from '@cdx-component/hooks';
 import { namespace } from '@cdx-component/constants';
 
 defineOptions({ name: 'CdxDrawer' });
@@ -16,16 +16,79 @@ const slots = defineSlots<{
 
 const [, bem] = useBem('drawer');
 const { model } = useModelValue(props, false);
+const { events: handledEvents } = useSupportTouch();
 
 let isOpening = false;
 let bodySize = 0;
 const drawerContentRect = ref<DOMRect>();
 const drawerSwipeRef = ref<HTMLElement>();
 const drawerBodyRef = ref<HTMLElement>();
-const startPosition = ref<[number, number]>();
-const { isSupportTouch, events: handledEvents } = useSupportTouch();
 const drawerBodyTransform = ref<string>();
 const drawerBodyTransition = ref(false);
+const slidRef = ref<HTMLElement>();
+
+const { direction: slideDirection } = useSlide(slidRef, {
+    start: () => {
+        if (!canSlide.value) return;
+        drawerContentRect.value = drawerSwipeRef.value!.getBoundingClientRect();
+
+        drawerBodyTransition.value = false;
+        isOpening = !model.value;
+    },
+    move: async (e, { diffX, diffY }) => {
+        if (!canSlide.value || !drawerBodyRef.value) return;
+
+        const diff = isHorizontal.value ? diffX : diffY;
+        // 判断鼠标移动方向
+        if ((!model.value && isPositiveDirection.value && diff > 0) || (!isPositiveDirection.value && diff < 0)) return;
+        model.value = true;
+        await nextTick();
+        if (!bodySize) {
+            bodySize = parseFloat(getComputedStyle(drawerBodyRef.value)[isHorizontal.value ? 'width' : 'height']);
+        }
+        // 可拖拽弹性距离
+        const range = breakBoundary.value * (isPositiveDirection.value ? -1 : 1);
+        // 位移距离
+        const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](
+            diff,
+            (isPositiveDirection.value ? -1 : 1) * (isOpening ? bodySize : 0) + range
+        );
+        const positivePosition = isPositiveDirection.value ? '' : '-';
+        const x = isHorizontal.value ? translateVal : 0;
+        const y = !isHorizontal.value ? translateVal : 0;
+        const translateX = isOpening && isHorizontal.value ? `calc(${positivePosition}100% + ${x}px)` : `${x}px`;
+        const translateY = isOpening && !isHorizontal.value ? `calc(${positivePosition}100% + ${y}px)` : `${y}px`;
+        drawerBodyTransform.value = `translate3d(${translateX}, ${translateY}, 0)`;
+    },
+    end: async (e, { diffX, diffY }) => {
+        await nextTick();
+        if (!canSlide.value || !drawerBodyRef.value) return;
+        const { width, height } = drawerContentRect.value!;
+
+        // 计算鼠标移动距离是否超过 25%
+        const changeStatusBoundary = (isHorizontal.value ? width : height) / 4;
+        const diff = isHorizontal.value ? diffX : diffY;
+
+        let i = -1;
+        if (isHorizontal.value) {
+            i = isPositiveDirection.value ? (isOpening ? 3 : 1) : isOpening ? 1 : 3;
+        } else {
+            i = isPositiveDirection.value ? (isOpening ? 0 : 2) : isOpening ? 2 : 0;
+        }
+        if (slideDirection.value[i]) {
+            if (!isOpening && Math.abs(diff) > changeStatusBoundary) {
+                model.value = !model.value;
+            } else if (isOpening && Math.abs(diff) < changeStatusBoundary) {
+                model.value = !model.value;
+            }
+        }
+
+        bodySize = 0;
+        drawerContentRect.value = undefined;
+        drawerBodyTransition.value = true;
+        drawerBodyTransform.value = undefined;
+    },
+});
 
 const canSlide = computed(() => !props.fullscreen && slots.swipe && props.slide);
 const isHorizontal = computed(() => ['left', 'right'].includes(props.direction));
@@ -74,83 +137,6 @@ const close = () => {
     if (!props.clickModelCose) return;
     model.value = false;
 };
-const handleDown = (e: Event) => {
-    if (!canSlide.value) return;
-    const touchEvent = e as TouchEvent;
-    const mouseEvent = e as MouseEvent;
-    drawerContentRect.value = drawerSwipeRef.value!.getBoundingClientRect();
-    startPosition.value = [
-        isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX,
-        isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY,
-    ];
-
-    drawerBodyTransition.value = false;
-    isOpening = !model.value;
-    document.addEventListener(handledEvents.value.move, handleMove, { passive: false });
-    document.addEventListener(handledEvents.value.up, handleUp, { passive: false });
-};
-const handleMove = async (e: Event) => {
-    if (!startPosition.value || !drawerBodyRef.value) return;
-    e.preventDefault();
-    const touchEvent = e as TouchEvent;
-    const mouseEvent = e as MouseEvent;
-    const moveToX = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
-    const moveToY = isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
-
-    const [startX, startY] = startPosition.value!;
-    const diff = isHorizontal.value ? moveToX - startX : moveToY - startY;
-
-    // 判断鼠标移动方向
-    const isCorrectDirection = (isPositiveDirection.value && diff > 0) || (!isPositiveDirection.value && diff < 0);
-    if (!model.value && isCorrectDirection) return;
-
-    model.value = true;
-    await nextTick();
-    if (!bodySize) {
-        bodySize = parseFloat(getComputedStyle(drawerBodyRef.value)[isHorizontal.value ? 'width' : 'height']);
-    }
-
-    // 可拖拽弹性距离
-    const range = breakBoundary.value * (isPositiveDirection.value ? -1 : 1);
-    // 位移距离
-    const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](
-        diff,
-        (isPositiveDirection.value ? -1 : 1) * (isOpening ? bodySize : 0) + range
-    );
-    const positivePosition = isPositiveDirection.value ? '' : '-';
-    const x = isHorizontal.value ? translateVal : 0;
-    const y = !isHorizontal.value ? translateVal : 0;
-    const translateX = isOpening && isHorizontal.value ? `calc(${positivePosition}100% + ${x}px)` : `${x}px`;
-    const translateY = isOpening && !isHorizontal.value ? `calc(${positivePosition}100% + ${y}px)` : `${y}px`;
-    drawerBodyTransform.value = `translate3d(${translateX}, ${translateY}, 0)`;
-};
-const handleUp = async (e: Event) => {
-    await nextTick();
-    document.removeEventListener(handledEvents.value.move, handleMove);
-    document.removeEventListener(handledEvents.value.up, handleUp);
-    if (!startPosition.value || !drawerBodyRef.value) return;
-    e.preventDefault();
-    const touchEvent = e as TouchEvent;
-    const mouseEvent = e as MouseEvent;
-    const moveToX = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
-    const moveToY = isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
-
-    const { width, height } = drawerContentRect.value!;
-    const [startX, startY] = startPosition.value!;
-
-    // 计算鼠标移动距离是否超过 25%
-    const changeStatusBoundary = (isHorizontal.value ? width : height) / 4;
-    const diff = isHorizontal.value ? moveToX - startX : moveToY - startY;
-    if (isOpening ? Math.abs(diff) < changeStatusBoundary : Math.abs(diff) > changeStatusBoundary) {
-        model.value = !model.value;
-    }
-    bodySize = 0;
-    drawerContentRect.value = undefined;
-    startPosition.value = undefined;
-
-    drawerBodyTransition.value = true;
-    drawerBodyTransform.value = undefined;
-};
 const handleTransitionEnd = () => {
     drawerBodyTransition.value = false;
 };
@@ -158,8 +144,8 @@ const handleTransitionEnd = () => {
 
 <template>
     <div
+        ref="slidRef"
         :class="[bem.b(), canSlide && bem.bm('slide')]"
-        @[handledEvents.down].prevent.stop="handleDown"
     >
         <div
             v-if="!fullscreen"
