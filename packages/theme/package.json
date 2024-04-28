@@ -2,8 +2,7 @@
     "name": "@cdx-component/theme",
     "version": "0.0.0",
     "devDependencies": {
-        "@cdx-component/build": "workspace:^",
-        "@cdx-component/constants": "workspace:^",
+        "@cdx-component/build-utils": "workspace:^",
         "@esbuild-kit/cjs-loader": "^2.4.4",
         "@types/gulp": "^4.0.17",
         "@types/gulp-clean-css": "^4.3.4",
