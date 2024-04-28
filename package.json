@@ -8,7 +8,9 @@
     ],
     "packageManager": "pnpm@8.14.3",
     "scripts": {
-        "build": "pnpm -C ./internal/build build ",
+        "build": "pnpm -C ./internal/build build",
+        "build:common": "pnpm build:build-utils",
+        "build:build-utils": "pnpm -C ./internal/build-utils build && pnpm i",
         "docs:dev": "pnpm -C ./docs dev",
         "docs:build": "pnpm -C ./docs build",
         "create": "tsx ./scripts/create.ts"
