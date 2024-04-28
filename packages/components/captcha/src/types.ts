@@ -1,4 +1,4 @@
-import { CdxCaptchaSlider } from '@cdx-component/cdx-component';
+import { CdxCaptchaSlider } from '@cdx-component/components';
 
 export type CdxCaptchaSliderExposed = InstanceType<typeof CdxCaptchaSlider>;
 
