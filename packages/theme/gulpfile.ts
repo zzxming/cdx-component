@@ -5,8 +5,7 @@ import rename from 'gulp-rename';
 import cleanCSS from 'gulp-clean-css';
 import consola from 'consola';
 import { resolve } from 'path';
-import { buildOutput } from '@cdx-component/build';
-import { namespace } from '@cdx-component/constants';
+import { buildOutput } from '@cdx-component/build-utils';
 
 const distBundle = resolve(__dirname, './');
 
@@ -20,16 +19,16 @@ const buildTheme = () => {
                 consola.success(
                     `${details.name}: ${details.stats.originalSize / 1000} KB -> ${
                         details.stats.minifiedSize / 1000
-                    } KB`
+                    } KB`,
                 );
-            })
+            }),
         )
         .pipe(
             rename((p) => {
                 if (!noPrefixFile.test(p.basename)) {
-                    p.basename = `${namespace}-${p.basename}`;
+                    p.basename = `cdx-${p.basename}`;
                 }
-            })
+            }),
         )
         .pipe(dest(distBundle));
 };
