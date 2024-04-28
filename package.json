@@ -10,7 +10,8 @@
     "scripts": {
         "build": "pnpm -C ./internal/build build ",
         "docs:dev": "pnpm -C ./docs dev",
-        "docs:build": "pnpm -C ./docs build"
+        "docs:build": "pnpm -C ./docs build",
+        "create": "tsx ./scripts/create.ts"
     },
     "peerDependencies": {
         "vue": "^3.3.11"
