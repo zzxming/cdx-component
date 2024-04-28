@@ -5,7 +5,7 @@ import { captchaProps, CheckStatus, captchaEmits, CaptchType } from './captcha';
 import { squarePath } from './canvasPath';
 import { CdxLoading, CdxCaptchaSlider } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
-import { CdxCaptchaSliderExposed, Range } from './types';
+import type { CdxCaptchaSliderExposed, Range } from './types';
 
 defineOptions({ name: 'CdxCaptcha' });
 const props = defineProps(captchaProps);
@@ -287,7 +287,7 @@ watch(
     () => [props.texts, props.image, props.type],
     () => {
         reset();
-    }
+    },
 );
 
 onMounted(() => {

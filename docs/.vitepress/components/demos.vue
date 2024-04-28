@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 
 const formatPathDemos = computed(() => {
-    const demos = {};
+    const demos: Record<string, any> = {};
     Object.keys(props.demos).forEach((key) => {
         demos[key.replace('/demos/', '').replace('.vue', '')] = props.demos[key].default;
     });
