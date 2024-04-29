@@ -25,6 +25,7 @@ export default defineConfig({
                         { text: 'Captcha', link: '/component/captcha' },
                         { text: 'Drawer', link: '/component/drawer' },
                         { text: 'CountTo', link: '/component/count-to' },
+                        { text: 'Loading', link: '/component/loading' },
                     ],
                 },
             ],
