@@ -1,10 +1,11 @@
 import { createApp, defineComponent, h, reactive } from 'vue';
 import { useBem, useZIndex } from '@cdx-component/hooks';
 import LoadingVue from './loading.vue';
-import { LoadingInstance, LoadingOptions } from './types';
+import { LoadingInstance, ServiceOptions } from './types';
+import { isString } from '@cdx-component/utils';
 
 let unmountTimer = setTimeout(() => {}, 0);
-export const createLoadingInstance = (props: Omit<LoadingOptions, 'target' | 'visible'>) => {
+export const createLoadingInstance = (props: ServiceOptions) => {
     const data = reactive({
         visible: true,
     });
@@ -12,7 +13,11 @@ export const createLoadingInstance = (props: Omit<LoadingOptions, 'target' | 'vi
     const load = defineComponent({
         name: 'CdxLoading',
         setup(props) {
-            return () => h(LoadingVue, { ...props, visible: data.visible });
+            return () =>
+                h(LoadingVue, {
+                    ...props,
+                    visible: data.visible,
+                });
         },
     });
     const loadingInstance = createApp(load, props);
@@ -25,7 +30,7 @@ export const createLoadingInstance = (props: Omit<LoadingOptions, 'target' | 'vi
                 vm.$el.remove();
                 loadingInstance.unmount();
             }
-        }, 3000);
+        }, 300);
         data.visible = false;
     };
     data.visible = true;
@@ -38,30 +43,42 @@ export const createLoadingInstance = (props: Omit<LoadingOptions, 'target' | 'vi
 };
 
 let fullscreenInstance: LoadingInstance | undefined = undefined;
-export const vLoading = (options?: LoadingOptions) => {
+export const vLoading = (options?: ServiceOptions) => {
     const [, relativeBem] = useBem('relative');
-    const [, scrollBem] = useBem('scroll');
-    const { target = document.body, lock = true, ...props } = options || {};
-    if (props.fullscreen && fullscreenInstance) return fullscreenInstance;
-    const instance = createLoadingInstance(props);
 
-    if (props.fullscreen) {
-        instance.vm.$el.style.zIndex = useZIndex().nextZIndex();
+    const resolvedOps = resolveOptions(options);
+    if (resolvedOps.fullscreen && fullscreenInstance) return fullscreenInstance;
+    const instance = createLoadingInstance(resolvedOps);
+
+    if (resolvedOps.fullscreen) {
         fullscreenInstance = instance;
     }
     const originClose = instance.close;
     instance.close = () => {
         originClose();
-        target.classList.remove(relativeBem.b());
-        target.classList.remove(scrollBem.bm('lock'));
-        if (props.fullscreen) {
+        resolvedOps.target.classList.remove(relativeBem.b());
+        if (resolvedOps.fullscreen) {
             fullscreenInstance = undefined;
         }
     };
-    target.classList.add(relativeBem.b());
-    if (lock) {
-        target.classList.add(scrollBem.bm('lock'));
-    }
-    target.appendChild(instance.vm.$el);
+
+    resolvedOps.target.classList.add(relativeBem.b());
+    resolvedOps.target.appendChild(instance.vm.$el);
     return instance;
+};
+
+const resolveOptions = (options: ServiceOptions = {}) => {
+    let target: HTMLElement;
+    if (isString(options.target)) {
+        target = document.querySelector(options.target) ?? document.body;
+    } else {
+        target = options.target || document.body;
+    }
+    return {
+        text: options.text || '',
+        background: options.background || '',
+        fullscreen: target === document.body && (options.fullscreen ?? true),
+        lock: options.lock ?? true,
+        target,
+    };
 };

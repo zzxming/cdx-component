@@ -5,6 +5,9 @@ export const loadingProps = buildProps({
     text: {
         type: String,
     },
+    background: {
+        type: String,
+    },
     fullscreen: {
         type: Boolean,
         default: false,
@@ -13,8 +16,8 @@ export const loadingProps = buildProps({
         type: Boolean,
         default: false,
     },
-    background: {
-        type: String,
+    target: {
+        type: [String, HTMLElement],
     },
     lock: {
         type: Boolean,
