@@ -26,7 +26,18 @@ defineProps({
 <style lang="less" scoped>
 .example {
     &-showcase {
-        @apply p-6;
+        @apply relative p-6;
+    }
+}
+</style>
+<style lang="less">
+.example {
+    &-showcase {
+        .cdx {
+            &-loading__mask {
+                z-index: 9;
+            }
+        }
     }
 }
 </style>
