@@ -35,11 +35,11 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
             }
             // 当前滚动条存在才减去宽度
             if (scrollBarWidth > 0 && (hasOverflow || overflowY === 'scroll') && !hasHiddenClass) {
-                document.body.style.width = `calc(100% - ${scrollBarWidth}px)`;
+                target.style.width = `calc(100% - ${scrollBarWidth}px)`;
             }
             target.classList.add(clockClass);
         },
-        { immediate: true, flush: 'post' }
+        { immediate: true, flush: 'post' },
     );
 
     onScopeDispose(() => cleanLock());
