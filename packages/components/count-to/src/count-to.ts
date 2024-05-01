@@ -21,6 +21,14 @@ export const countToProps = buildProps({
         type: Boolean,
         default: true,
     },
+    animation: {
+        type: Boolean,
+        default: false,
+    },
+    animationDuration: {
+        type: Number,
+        default: 2000,
+    },
 } as const);
 export type CountToProps = ExtractPropTypes<typeof countToProps>;
 
