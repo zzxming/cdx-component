@@ -4,8 +4,6 @@ import { countToProps, countToEmits } from './count-to';
 import { useBem } from '@cdx-component/hooks';
 import { raf, caf, getDecimalLength, toStringNumber, getIntegerLength } from '@cdx-component/utils';
 
-// 负到正, 相同整数位,
-
 defineOptions({ name: 'CdxCountTo' });
 const props = defineProps(countToProps);
 const emits = defineEmits(countToEmits);
