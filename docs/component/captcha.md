@@ -64,6 +64,20 @@
 | fail    | 当验证失败时触发 | -                 |
 | move    | 当滑块移动时触发 | `(value: number)` |
 
+## CaptchaSlider 暴露属性
+
+| 名称      | 说明               | 类型                |
+| --------- | ------------------ | ------------------- |
+| trackRef  | 滑块 `ref`         | `HTMLDivElement   ` |
+| resetting | 是否处于重置状态中 | `boolean`           |
+| currentX  | 当前移动百分比     | `number`            |
+
+## CaptchaSlider 暴露方法
+
+| 名称  | 说明     | 类型                      |
+| ----- | -------- | ------------------------- |
+| reset | 重置验证 | `(value: number) => void` |
+
 ## CaptchaSlider 插槽
 
 | 名称    | 说明         | 参数                   |

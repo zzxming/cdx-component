@@ -10,7 +10,6 @@
         :end-value="endValue"
         :duration="duration"
         :animation="true"
-        :animationDuration="0"
     ></CdxCountTo>
 </template>
 
