@@ -1,11 +1,10 @@
 # CountTo
 
-<!--
 ## 基础用法
 
 :::demo count-to/base
 
-::: -->
+:::
 
 ## 手动控制开始与暂停
 
@@ -13,12 +12,11 @@
 
 :::
 
-<!--
 ## 设置计数保留小数点位数
 
 :::demo count-to/decimal
 
-::: -->
+:::
 
 当在使用 `animation` 动画时，整体的计数动画时长会改变，整体时长会由 `duration` 变为 `duration` + `animationDuration`，在使用 `stopCount` 时也会延迟 `animationDuration` 的时间才完全停止，所以如果将 `animationDuration` 设置为 0 ，则不会出现滚动动画
 

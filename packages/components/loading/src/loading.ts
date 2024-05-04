@@ -1,6 +1,10 @@
 import { buildProps } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
+let HTMLElement: any;
+if (typeof window !== 'undefined') {
+    HTMLElement = window.HTMLElement;
+}
 export const loadingProps = buildProps({
     text: {
         type: String,
