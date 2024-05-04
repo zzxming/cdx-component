@@ -2,7 +2,7 @@
 
 ## 安装
 
-```
+```sh
 npm install cdx-component
 ```
 
@@ -18,14 +18,13 @@ npm install cdx-component
 
 安装插件：
 
-```
+```sh
 npm i -D unplugin-vue-components
 ```
 
 在 `vite.config.ts` 中拓展以下内容：
 
 ```ts
-// vite.config.ts
 import { defineConfig } from 'vite';
 import Components from 'unplugin-vue-components/vite';
 import { CdxComponentResolver } from 'cdx-component';

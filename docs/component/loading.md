@@ -1,5 +1,7 @@
-<script >
-document.body.classList.add('vp-raw')
+<script>
+if (!import.meta.env.SSR) {
+    document.body.classList.add('vp-raw')
+}
 </script>
 
 # Drawer
@@ -32,14 +34,14 @@ console.log(loadingInstance1 === loadingInstance2); // true
 
 ## Loading Props
 
-| 名称       | 类型                    | 说明                 | 默认值 |
-| ---------- | ----------------------- | -------------------- | ------ |
-| visible    | `boolean`               | 是否显示加载         | false  |
-| fullscreen | `boolean`               | 是否全屏显示         | false  |
-| text       | `string`                | 在加载图标下面的文字 | -      |
-| background | `string`                | 遮罩背景色           | -      |
-| lock       | `boolean`               | 锁定滚动条           | true   |
-| target     | `string \| HTMLElement` | teleport 值          | -      |
+| 名称       | 类型      | 说明                 | 默认值  |
+| ---------- | --------- | -------------------- | ------- |
+| visible    | `boolean` | 是否显示加载         | `false` |
+| fullscreen | `boolean` | 是否全屏显示         | `false` |
+| text       | `string`  | 在加载图标下面的文字 | -       |
+| background | `string`  | 遮罩背景色           | -       |
+| lock       | `boolean` | 锁定滚动条           | `true`  |
+| target     | `string ` | teleport 值          | -       |
 
 ## v-loading 指令
 
@@ -50,12 +52,12 @@ console.log(loadingInstance1 === loadingInstance2); // true
 
 ## CdxLoading.service 函数
 
-| 参数       | 类型                    | 说明                                                                                                                            | 默认值 |
-| ---------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| text       | `string`                | 同组件的 `text` 属性                                                                                                            | -      |
-| background | `string`                | 同组件的 `background` 属性                                                                                                      | -      |
-| fullscreen | `boolean`               | 同组件的 `fullscreen` 属性                                                                                                      | false  |
-| target     | `string \| HTMLElement` | 插入至的 DOM 节点。可传入一个 DOM 对象或字符串； 若传入字符串，则会将其作为参数传入 document.querySelector以获取到对应 DOM 节点 | -      |
+| 参数       | 类型                    | 说明                                                                                                                            | 默认值  |
+| ---------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| text       | `string`                | 同组件的 `text` 属性                                                                                                            | -       |
+| background | `string`                | 同组件的 `background` 属性                                                                                                      | -       |
+| fullscreen | `boolean`               | 同组件的 `fullscreen` 属性                                                                                                      | `false` |
+| target     | `string \| HTMLElement` | 插入至的 DOM 节点。可传入一个 DOM 对象或字符串； 若传入字符串，则会将其作为参数传入 document.querySelector以获取到对应 DOM 节点 | -       |
 
 | 返回值   | 类型         | 说明             |
 | -------- | ------------ | ---------------- |
