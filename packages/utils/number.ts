@@ -1,5 +1,11 @@
 /**
- * 确保数字计算精度
+ * 获取整数位个数
+ * @param num 要处理的数字
+ * @returns 整数位个数
+ */
+export const getIntegerLength = (num: number) => String(precisionNumber(num)).split('.')[0].length - (num < 0 ? 1 : 0);
+/**
+ * 确保数字计算精度, 过大仍会处于科学计数发状态
  * @param num 要处理的数字
  * @returns 精度处理后的数字
  */

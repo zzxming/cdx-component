@@ -1,5 +1,5 @@
 <template>
-    <button @click="restart">restart</button>
+    <button @click="reset">reset</button>
     <button @click="start">start</button>
     <button @click="stop">stop</button>
     <br />
@@ -9,6 +9,8 @@
         :start-value="startValue"
         :end-value="endValue"
         :duration="duration"
+        :animation="true"
+        :animationDuration="0"
     ></CdxCountTo>
 </template>
 
@@ -16,12 +18,12 @@
 import { ref } from 'vue';
 
 const countToRef = ref();
-const startValue = ref(0);
-const endValue = ref(3000);
+const startValue = ref(2000);
+const endValue = ref(-12345.6789);
 const duration = ref(5000);
 
-const restart = () => {
-    countToRef.value.restart();
+const reset = () => {
+    countToRef.value.reset();
 };
 const start = () => {
     countToRef.value.startCount();
