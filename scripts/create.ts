@@ -15,7 +15,7 @@ import {
 } from '@cdx-component/build-utils';
 
 // cdx-component/component.ts
-// docs/.vitepress/index.ts
+// docs/.vitepress/config/index.ts
 
 const main = async () => {
     const name = (
@@ -164,6 +164,15 @@ const create = async (name: string) => {
     if (!allowAppend) return false;
 
     const generatedFiles: string[] = [];
+    const removeGeneratedFiles = () => {
+        return Promise.all(
+            generatedFiles.map((file) =>
+                fs.rm(file).catch((rmError: Error) => {
+                    console.error(`Failed to delete partially created file ${file}:`, rmError);
+                }),
+            ),
+        );
+    };
     const prettierParser = {
         ts: 'typescript',
         vue: 'vue',
@@ -179,7 +188,7 @@ const create = async (name: string) => {
                 }
                 const parser = fileExts.find((ext) => filePath.endsWith(ext));
                 if (!parser) {
-                    throw new Error(`file ${filePath} extension not find prettoer parser`);
+                    throw new Error(`file ${filePath} extension not find prettier parser`);
                 }
 
                 appendFileSync(filePath, source, { flag: 'a' });
@@ -204,13 +213,7 @@ const create = async (name: string) => {
         );
     } catch (error) {
         console.error('An error occurred during file generation:', error);
-        await Promise.all(
-            generatedFiles.map((file) =>
-                fs.rm(file).catch((rmError: Error) => {
-                    console.error(`Failed to delete partially created file ${file}:`, rmError);
-                }),
-            ),
-        );
+        await removeGeneratedFiles();
         return false;
     }
 
@@ -222,7 +225,7 @@ const create = async (name: string) => {
                 }
                 const parser = fileExts.find((ext) => filePath.endsWith(ext));
                 if (!parser) {
-                    throw new Error(`file ${filePath} extension not find prettoer parser`);
+                    throw new Error(`file ${filePath} extension not find prettier parser`);
                 }
                 return await fs.appendFile(
                     filePath,
@@ -233,7 +236,11 @@ const create = async (name: string) => {
                 );
             }),
         );
-    } catch (error) {}
+    } catch (error) {
+        console.error('An error occurred during file append:', error);
+        await removeGeneratedFiles();
+        return false;
+    }
     return true;
 };
 
