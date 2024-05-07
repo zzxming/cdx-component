@@ -35,33 +35,38 @@ const { direction: slideDirection } = useSlide(slidRef, {
         drawerBodyTransition.value = false;
         isOpening = !model.value;
     },
-    move: async (e, { diffX, diffY }) => {
+    move: async (_, { diffX, diffY }) => {
         if (!canSlide.value || !drawerBodyRef.value) return;
 
         const diff = isHorizontal.value ? diffX : diffY;
         // 判断鼠标移动方向
-        if ((!model.value && isPositiveDirection.value && diff > 0) || (!isPositiveDirection.value && diff < 0)) return;
-        model.value = true;
-        await nextTick();
-        if (!bodySize) {
-            bodySize = parseFloat(getComputedStyle(drawerBodyRef.value)[isHorizontal.value ? 'width' : 'height']);
+        if (
+            (isOpening && ((isPositiveDirection.value && diff < 0) || (!isPositiveDirection.value && diff > 0))) ||
+            (!isOpening &&
+                ((isPositiveDirection.value && diff > -1 * props.breakBoundary) ||
+                    (!isPositiveDirection.value && diff < props.breakBoundary)))
+        ) {
+            model.value = true;
+            await nextTick();
+            if (!bodySize) {
+                bodySize = parseFloat(getComputedStyle(drawerBodyRef.value)[isHorizontal.value ? 'width' : 'height']);
+            }
+            // 可拖拽弹性距离
+            const range = breakBoundary.value * (isPositiveDirection.value ? -1 : 1);
+            // 位移距离
+            const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](
+                diff,
+                (isPositiveDirection.value ? -1 : 1) * (isOpening ? bodySize : 0) + range,
+            );
+            const positivePosition = isPositiveDirection.value ? '' : '-';
+            const x = isHorizontal.value ? translateVal : 0;
+            const y = !isHorizontal.value ? translateVal : 0;
+            const translateX = isOpening && isHorizontal.value ? `calc(${positivePosition}100% + ${x}px)` : `${x}px`;
+            const translateY = isOpening && !isHorizontal.value ? `calc(${positivePosition}100% + ${y}px)` : `${y}px`;
+            drawerBodyTransform.value = `translate3d(${translateX}, ${translateY}, 0)`;
         }
-        // 可拖拽弹性距离
-        const range = breakBoundary.value * (isPositiveDirection.value ? -1 : 1);
-        // 位移距离
-        const translateVal = Math[isPositiveDirection.value ? 'max' : 'min'](
-            diff,
-            (isPositiveDirection.value ? -1 : 1) * (isOpening ? bodySize : 0) + range
-        );
-        const positivePosition = isPositiveDirection.value ? '' : '-';
-        const x = isHorizontal.value ? translateVal : 0;
-        const y = !isHorizontal.value ? translateVal : 0;
-        const translateX = isOpening && isHorizontal.value ? `calc(${positivePosition}100% + ${x}px)` : `${x}px`;
-        const translateY = isOpening && !isHorizontal.value ? `calc(${positivePosition}100% + ${y}px)` : `${y}px`;
-        drawerBodyTransform.value = `translate3d(${translateX}, ${translateY}, 0)`;
     },
-    end: async (e, { diffX, diffY }) => {
-        await nextTick();
+    end: async (_, { diffX, diffY }) => {
         if (!canSlide.value || !drawerBodyRef.value) return;
         const { width, height } = drawerContentRect.value!;
 
