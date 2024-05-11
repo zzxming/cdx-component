@@ -1,9 +1,8 @@
 import prompts from 'prompts';
 import consola from 'consola';
 import { components, getPrettierConfig } from './constants';
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
 import fs from 'fs-extra';
-import { appendFileSync } from 'fs';
 import { format } from 'prettier';
 import {
     componentRoot,
@@ -25,6 +24,10 @@ const main = async () => {
             message: 'Input a component name:',
         })
     ).component;
+    if (!name) {
+        console.error('Please input a component name.');
+        return false;
+    }
 
     const code = await create(name);
 
@@ -108,7 +111,7 @@ const create = async (name: string) => {
             filePath: resolve(themeRoot, `src/${kebabCaseName}.less`),
             source: `
                 @import './shared/variables.less';
-                
+
                 .@{namespace}-${kebabCaseName} {}
             `,
         },
@@ -118,9 +121,9 @@ const create = async (name: string) => {
                 # ${upperCamelCaseName}
 
                 ## 基础用法
-                
+
                 :::demo ${kebabCaseName}/base
-                
+
                 :::
             `,
         },
@@ -181,38 +184,38 @@ const create = async (name: string) => {
     } as const;
     const fileExts = Object.keys(prettierParser);
     try {
-        await Promise.all(
-            generateFile.map(async ({ filePath, source }) => {
-                if (!fs.existsSync(filePath)) {
-                    throw new Error(`exists ${filePath}`);
-                }
-                const parser = fileExts.find((ext) => filePath.endsWith(ext));
-                if (!parser) {
-                    throw new Error(`file ${filePath} extension not find prettier parser`);
-                }
+        for (let i = 0; i < generateFile.length; i++) {
+            const { filePath, source } = generateFile[i];
+            if (fs.existsSync(filePath)) {
+                throw new Error(`file already exists ${filePath}`);
+            }
+            const parser = fileExts.find((ext) => filePath.endsWith(ext));
+            if (!parser) {
+                throw new Error(`file ${filePath} extension not find prettier parser`);
+            }
 
-                appendFileSync(filePath, source, { flag: 'a' });
-                await fs.writeFile(
-                    filePath,
-                    await format(
-                        parser === 'md'
-                            ? source
-                                  .split('\n')
-                                  .map((line) => line.trim())
-                                  .join('\n')
-                            : source,
-                        {
-                            ...(await getPrettierConfig()),
-                            parser: prettierParser[parser as keyof typeof prettierParser],
-                        },
-                    ),
-                );
+            await fs.ensureDir(dirname(filePath));
+            await fs.writeFile(
+                filePath,
+                await format(
+                    parser === 'md'
+                        ? source
+                              .split('\n')
+                              .map((line) => line.trim())
+                              .join('\n')
+                        : source,
+                    {
+                        ...(await getPrettierConfig()),
+                        parser: prettierParser[parser as keyof typeof prettierParser],
+                    },
+                ),
+            );
 
-                generatedFiles.push(filePath);
-            }),
-        );
+            generatedFiles.push(filePath);
+        }
     } catch (error) {
-        console.error('An error occurred during file generation:', error);
+        console.error('An error occurred during file generation');
+        console.error(error);
         await removeGeneratedFiles();
         return false;
     }
@@ -237,10 +240,11 @@ const create = async (name: string) => {
             }),
         );
     } catch (error) {
-        console.error('An error occurred during file append:', error);
-        await removeGeneratedFiles();
+        console.error('An error occurred during file append. Please handle it manually');
+        console.error(error);
         return false;
     }
+
     return true;
 };
 
