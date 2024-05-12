@@ -1,3 +1,4 @@
+import { CHANGE_EVENT } from '@cdx-component/constants';
 import { buildProps, isNumber } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
@@ -34,6 +35,6 @@ export type CountToProps = ExtractPropTypes<typeof countToProps>;
 
 export const countToEmits = {
     finish: () => true,
-    change: (value: number) => isNumber(value),
+    [CHANGE_EVENT]: (value: number) => isNumber(value),
 };
 export type CountToEmits = typeof countToEmits;

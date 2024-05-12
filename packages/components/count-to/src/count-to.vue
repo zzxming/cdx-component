@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { countToProps, countToEmits } from './count-to';
 import { useBem } from '@cdx-component/hooks';
 import { raf, caf, getDecimalLength, toStringNumber, getIntegerLength } from '@cdx-component/utils';
+import { CHANGE_EVENT } from '@cdx-component/constants';
 
 defineOptions({ name: 'CdxCountTo' });
 const props = defineProps(countToProps);
@@ -49,7 +50,7 @@ const count = (time: number) => {
     const currentNum = stepFn(progress, startValue.value, props.endValue - startValue.value, durationTime.value);
     currentValue.value = Math[isCountDown.value ? 'max' : 'min'](props.endValue, currentNum);
 
-    emits('change', currentValue.value);
+    emits(CHANGE_EVENT, currentValue.value);
     if (progress < durationTime.value && currentValue.value !== props.endValue) {
         animateId.value = raf(count);
     } else {
