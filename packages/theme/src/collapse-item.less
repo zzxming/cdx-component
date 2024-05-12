@@ -1,0 +1,9 @@
+@import './shared/variables.less';
+
+.@{namespace}-collapse-item {
+    border-color: .getCssVar(border-color-light-2) [];
+    @apply border-t border-b;
+    &__header {
+        @apply flex items-center w-full leading-10 font-semibold outline-none cursor-pointer;
+    }
+}

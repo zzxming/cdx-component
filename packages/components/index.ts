@@ -8,3 +8,5 @@ export * from './text-ellipsis';
 export * from './text-highlight';
 export * from './model';
 export * from './count-to';
+export * from './collapse';
+export * from './collapse-transition';

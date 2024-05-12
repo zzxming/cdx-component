@@ -4,7 +4,17 @@
 @import './shared/variables.less';
 
 :root {
-    --@{namespace}-transition-duration: 300ms;
+    .setCssVar(transition-duration, 300ms);
+
+    .setCssVar(border-color-light-2, #e9ecef);
+
+    .setCssVar(color-white, #ffffff);
+    .setCssVar(color-black, #000000);
+    .setCssVar(text-color-primary, #303133);
+    .setCssVar(text-color-regular, #606266);
+    .setCssVar(text-color-secondary, #909399);
+    .setCssVar(text-color-placeholder, #a8abb2);
+    .setCssVar(text-color-disabled, #c0c4cc);
 }
 
 .@{namespace}-relative {

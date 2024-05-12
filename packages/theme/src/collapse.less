@@ -1,0 +1,10 @@
+@import './shared/variables.less';
+
+.@{namespace}-collapse {
+    .setCssVar(border-color, .getCssVar(border-color-light-2) []);
+    border-color: .getCssVar(border-color) [];
+    @apply border-t;
+    & &-item {
+        @apply border-t-0;
+    }
+}
