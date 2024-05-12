@@ -8,6 +8,8 @@ import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
 import { CdxModel } from '../components/model';
 import { CdxCountTo } from '../components/count-to';
+import { CdxCollapse ,CdxCollapseItem} from '../components/collapse';
+import { CdxCollapseTransition } from '../components/collapse-transition';
 
 import type { Plugin } from 'vue';
 
@@ -25,4 +27,7 @@ export default [
     CdxTextHighlight,
     CdxModel,
     CdxCountTo,
+    CdxCollapse,
+    CdxCollapseItem,
+    CdxCollapseTransition,
 ] as Plugin[];
