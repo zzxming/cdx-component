@@ -1,9 +1,8 @@
 import prompts from 'prompts';
 import consola from 'consola';
 import { components, getPrettierConfig } from './constants';
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
 import fs from 'fs-extra';
-import { appendFileSync } from 'fs';
 import { format } from 'prettier';
 import {
     componentRoot,
@@ -15,7 +14,7 @@ import {
 } from '@cdx-component/build-utils';
 
 // cdx-component/component.ts
-// docs/.vitepress/index.ts
+// docs/.vitepress/config/index.ts
 
 const main = async () => {
     const name = (
@@ -25,6 +24,10 @@ const main = async () => {
             message: 'Input a component name:',
         })
     ).component;
+    if (!name) {
+        console.error('Please input a component name.');
+        return false;
+    }
 
     const code = await create(name);
 
@@ -91,10 +94,10 @@ const create = async (name: string) => {
                 import type { ExtractPropTypes } from 'vue';
                 
                 export const ${camelCaseName}Props = buildProps({} as const);
-                export type CountToProps = ExtractPropTypes<typeof ${camelCaseName}Props>;
+                export type ${upperCamelCaseName}Props = ExtractPropTypes<typeof ${camelCaseName}Props>;
                 
                 export const ${camelCaseName}Emits = {};
-                export type CountToEmits = typeof ${camelCaseName}Emits;
+                export type ${upperCamelCaseName}Emits = typeof ${camelCaseName}Emits;
             `,
         },
         {
@@ -108,7 +111,7 @@ const create = async (name: string) => {
             filePath: resolve(themeRoot, `src/${kebabCaseName}.less`),
             source: `
                 @import './shared/variables.less';
-                
+
                 .@{namespace}-${kebabCaseName} {}
             `,
         },
@@ -118,9 +121,9 @@ const create = async (name: string) => {
                 # ${upperCamelCaseName}
 
                 ## 基础用法
-                
+
                 :::demo ${kebabCaseName}/base
-                
+
                 :::
             `,
         },
@@ -164,6 +167,15 @@ const create = async (name: string) => {
     if (!allowAppend) return false;
 
     const generatedFiles: string[] = [];
+    const removeGeneratedFiles = () => {
+        return Promise.all(
+            generatedFiles.map((file) =>
+                fs.rm(file).catch((rmError: Error) => {
+                    console.error(`Failed to delete partially created file ${file}:`, rmError);
+                }),
+            ),
+        );
+    };
     const prettierParser = {
         ts: 'typescript',
         vue: 'vue',
@@ -172,45 +184,39 @@ const create = async (name: string) => {
     } as const;
     const fileExts = Object.keys(prettierParser);
     try {
-        await Promise.all(
-            generateFile.map(async ({ filePath, source }) => {
-                if (!fs.existsSync(filePath)) {
-                    throw new Error(`exists ${filePath}`);
-                }
-                const parser = fileExts.find((ext) => filePath.endsWith(ext));
-                if (!parser) {
-                    throw new Error(`file ${filePath} extension not find prettoer parser`);
-                }
+        for (let i = 0; i < generateFile.length; i++) {
+            const { filePath, source } = generateFile[i];
+            if (fs.existsSync(filePath)) {
+                throw new Error(`file already exists ${filePath}`);
+            }
+            const parser = fileExts.find((ext) => filePath.endsWith(ext));
+            if (!parser) {
+                throw new Error(`file ${filePath} extension not find prettier parser`);
+            }
 
-                appendFileSync(filePath, source, { flag: 'a' });
-                await fs.writeFile(
-                    filePath,
-                    await format(
-                        parser === 'md'
-                            ? source
-                                  .split('\n')
-                                  .map((line) => line.trim())
-                                  .join('\n')
-                            : source,
-                        {
-                            ...(await getPrettierConfig()),
-                            parser: prettierParser[parser as keyof typeof prettierParser],
-                        },
-                    ),
-                );
+            await fs.ensureDir(dirname(filePath));
+            await fs.writeFile(
+                filePath,
+                await format(
+                    parser === 'md'
+                        ? source
+                              .split('\n')
+                              .map((line) => line.trim())
+                              .join('\n')
+                        : source,
+                    {
+                        ...(await getPrettierConfig()),
+                        parser: prettierParser[parser as keyof typeof prettierParser],
+                    },
+                ),
+            );
 
-                generatedFiles.push(filePath);
-            }),
-        );
+            generatedFiles.push(filePath);
+        }
     } catch (error) {
-        console.error('An error occurred during file generation:', error);
-        await Promise.all(
-            generatedFiles.map((file) =>
-                fs.rm(file).catch((rmError: Error) => {
-                    console.error(`Failed to delete partially created file ${file}:`, rmError);
-                }),
-            ),
-        );
+        console.error('An error occurred during file generation');
+        console.error(error);
+        await removeGeneratedFiles();
         return false;
     }
 
@@ -222,7 +228,7 @@ const create = async (name: string) => {
                 }
                 const parser = fileExts.find((ext) => filePath.endsWith(ext));
                 if (!parser) {
-                    throw new Error(`file ${filePath} extension not find prettoer parser`);
+                    throw new Error(`file ${filePath} extension not find prettier parser`);
                 }
                 return await fs.appendFile(
                     filePath,
@@ -233,7 +239,12 @@ const create = async (name: string) => {
                 );
             }),
         );
-    } catch (error) {}
+    } catch (error) {
+        console.error('An error occurred during file append. Please handle it manually');
+        console.error(error);
+        return false;
+    }
+
     return true;
 };
 
