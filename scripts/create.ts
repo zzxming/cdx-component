@@ -94,10 +94,10 @@ const create = async (name: string) => {
                 import type { ExtractPropTypes } from 'vue';
                 
                 export const ${camelCaseName}Props = buildProps({} as const);
-                export type CountToProps = ExtractPropTypes<typeof ${camelCaseName}Props>;
+                export type ${upperCamelCaseName}Props = ExtractPropTypes<typeof ${camelCaseName}Props>;
                 
                 export const ${camelCaseName}Emits = {};
-                export type CountToEmits = typeof ${camelCaseName}Emits;
+                export type ${upperCamelCaseName}Emits = typeof ${camelCaseName}Emits;
             `,
         },
         {
