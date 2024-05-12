@@ -3,7 +3,7 @@ import { computed, inject, ref } from 'vue';
 import { selectContextKey } from './constants';
 import { elementSelectItemProps, elementSelectItemEmits } from './element-select-item';
 import { ElementSelectValueType } from './element-select';
-import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
 
 defineOptions({ name: 'CdxElementSelectItem' });
@@ -39,7 +39,7 @@ const model = computed({
 const isChecked = computed(() =>
     selectContext
         ? (model.value as ElementSelectValueType[]).includes(props.trueValue)
-        : model.value === props.trueValue
+        : model.value === props.trueValue,
 );
 const isDisabled = computed(() => {
     if (props.disabled || selectContext?.disabled?.value) return true;
@@ -53,7 +53,7 @@ const isMaxGroup = computed(
     () =>
         selectContext &&
         selectContext.max?.value !== undefined &&
-        selectContext.modelValue.value.length >= selectContext.max.value
+        selectContext.modelValue.value.length >= selectContext.max.value,
 );
 
 const setValue = (status: boolean) => {
@@ -70,11 +70,11 @@ const setValue = (status: boolean) => {
     } else {
         model.value = status ? trueValue : falseValue;
     }
-    emits('change', status ? trueValue : falseValue);
+    emits(CHANGE_EVENT, status ? trueValue : falseValue);
 };
 const handleChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
-    emits('change', target.checked ? props.trueValue : props.falseValue);
+    emits(CHANGE_EVENT, target.checked ? props.trueValue : props.falseValue);
 };
 const handleUp = () => {
     selectContext && (selectContext.selecting.value = false);

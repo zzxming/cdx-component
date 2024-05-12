@@ -1,4 +1,4 @@
-import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { buildProps, definePropType, isArray } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
@@ -26,6 +26,6 @@ export type ElementSelectProps = ExtractPropTypes<typeof elementSelectProps>;
 
 export const elementSelectEmits = {
     [UPDATE_MODEL_EVENT]: (value: ElementSelectValueType[]) => isArray(value),
-    change: (value: ElementSelectValueType[]) => isArray(value),
+    [CHANGE_EVENT]: (value: ElementSelectValueType[]) => isArray(value),
 };
 export type ElementSelectEmits = typeof elementSelectEmits;

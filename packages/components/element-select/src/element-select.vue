@@ -3,7 +3,7 @@ import { computed, nextTick, provide, ref, toRefs } from 'vue';
 import { selectContextKey } from './constants';
 import { elementSelectProps, ElementSelectValueType, elementSelectEmits } from './element-select';
 import { pick } from 'lodash-unified';
-import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
 
 defineOptions({ name: 'CdxElementSelect' });
@@ -33,7 +33,7 @@ const className = computed(() => {
 const changeEvent = async (value: ElementSelectValueType[]) => {
     emits(UPDATE_MODEL_EVENT, value);
     await nextTick();
-    emits('change', value);
+    emits(CHANGE_EVENT, value);
 };
 
 provide(selectContextKey, {
