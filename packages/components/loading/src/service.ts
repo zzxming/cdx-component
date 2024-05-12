@@ -1,5 +1,5 @@
 import { createApp, defineComponent, h, reactive } from 'vue';
-import { useBem, useZIndex } from '@cdx-component/hooks';
+import { useBem } from '@cdx-component/hooks';
 import LoadingVue from './loading.vue';
 import { LoadingInstance, ServiceOptions } from './types';
 import { isString } from '@cdx-component/utils';
