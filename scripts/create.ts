@@ -182,7 +182,7 @@ const create = async (name: string) => {
         md: 'markdown',
         less: 'less',
     } as const;
-    const fileExts = Object.keys(prettierParser);
+    const fileExts = Object.keys(prettierParser) as (keyof typeof prettierParser)[];
     try {
         for (let i = 0; i < generateFile.length; i++) {
             const { filePath, source } = generateFile[i];
@@ -206,7 +206,7 @@ const create = async (name: string) => {
                         : source,
                     {
                         ...(await getPrettierConfig()),
-                        parser: prettierParser[parser as keyof typeof prettierParser],
+                        parser: prettierParser[parser],
                     },
                 ),
             );
