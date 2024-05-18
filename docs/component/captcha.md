@@ -8,6 +8,8 @@
 
 ## 点击验证
 
+可使用 `onBeforeSuccess` 监听验证验证并控制是否验证成功
+
 :::demo captcha/point
 
 :::
