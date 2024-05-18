@@ -3,13 +3,14 @@
 
 .@{namespace}-element-select-item {
     .setCssVar(element-select-color, transparent);
+
     border-color: .getCssVar(element-select-color) [];
     @apply relative inline-flex m-1 border border-dashed select-none;
     &--checked {
-        .setCssVar(element-select-color, #0ea5e9);
+        .setCssVar(element-select-color, .getCssVar(blue-opacity-9) []);
     }
     &--disabled {
-        .setCssVar(element-select-color, #a3a3a3);
+        .setCssVar(element-select-color, .getCssVar(gray-opacity-9) []);
         @apply cursor-not-allowed;
     }
     &__mask {

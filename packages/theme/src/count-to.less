@@ -1,12 +1,12 @@
-@import './shared/functions.less';
 @import './shared/variables.less';
 
 .@{namespace}-count-to {
     @apply inline-flex items-center;
     &__animate {
+        .setCssVar(count-transition-duration, 2000ms);
+
         display: inline-flex;
         height: 1em;
-        .setCssVar(count-transition-duration, 2000ms);
         @apply inline-flex overflow-y-hidden leading-none;
         &-wrapper {
             @apply flex flex-col items-center justify-start translate-y-0 will-change-transform transition;

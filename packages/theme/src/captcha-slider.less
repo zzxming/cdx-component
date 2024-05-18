@@ -1,29 +1,28 @@
 @import './shared/variables.less';
-@import './shared/functions.less';
 
 .@{namespace}-captcha-slider {
-    .setCssVar(captcha-slider-bg, #f8f9fa);
-    .setCssVar(captcha-slider-bg-color, #67e8f9);
+    .setCssVar(captcha-slider-bg-color, .getCssVar(fill-color-background) []);
+    .setCssVar(captcha-slider-bg-color-fill, .getCssVar(blue-2) []);
     .setCssVar(captcha-slider-bg-transition, width 0ms ease);
     .setCssVar(captcha-slider-height, 40px);
-    .setCssVar(captcha-slider-tip-color, #495057);
-    .setCssVar(captcha-slider-tip-color-fill, #ffffff);
+    .setCssVar(captcha-slider-tip-color, .getCssVar(text-color-primary) []);
+    .setCssVar(captcha-slider-tip-color-fill, .getCssVar(color-white) []);
     .setCssVar(captcha-slider-tip-transition, background-position-x 0ms ease);
     .setCssVar(captcha-slider-trigger-width, 40px);
     .setCssVar(captcha-slider-trigger-height, 40px);
-    .setCssVar(captcha-slider-trigger-color, #a1adb1);
-    .setCssVar(captcha-slider-trigger-shadow,  0 0 6px #dee2e6);
+    .setCssVar(captcha-slider-trigger-color, .getCssVar(text-color-placeholder) []);
+    .setCssVar(captcha-slider-trigger-shadow,  .getCssVar(shadow-base) []);
     .setCssVar(captcha-slider-trigger-transition, width 0ms ease);
 
     height: .getCssVar(captcha-slider-height) [];
     padding: 0 calc(.getCssVar(captcha-slider-trigger-width) [] * 0.5);
-    background-color: .getCssVar(captcha-slider-bg) [];
+    background-color: .getCssVar(captcha-slider-bg-color) [];
     @apply relative border border-gray-300 rounded select-none;
     &__track {
         @apply relative flex items-center justify-center w-full h-full;
     }
     &__bg {
-        background-color: .getCssVar(captcha-slider-bg-color) [];
+        background-color: .getCssVar(captcha-slider-bg-color-fill) [];
         transition: .getCssVar(captcha-slider-bg-transition) [];
         @apply absolute top-0 left-0 h-full;
     }
@@ -51,6 +50,9 @@
         @apply absolute right-0 translate-x-1/2 flex items-center justify-center bg-white rounded cursor-pointer;
         &--lock {
             @apply cursor-not-allowed;
+        }
+        &:hover {
+            color: .getCssVar(captcha-slider-bg-color-fill) [];
         }
     }
 }
