@@ -1,14 +1,13 @@
 @import './shared/variables.less';
-@import './shared/functions.less';
 @import './animation/fade.less';
 @import './animation/direction.less';
 
 .@{namespace}-captcha {
     .setCssVar(captcha-slider-trigger-width, 40px);
     .setCssVar(captcha-sub-image-transition, left 0ms ease);
-    .setCssVar(captcha-color, #868e96);
-    .setCssVar(captcha-color-active, #339af0);
-    .setCssVar(captcha-color-disabled, #adb5bd);
+    .setCssVar(captcha-color, .getCssVar(text-regular) []);
+    .setCssVar(captcha-color-active,  .getCssVar(blue-2) []);
+    .setCssVar(captcha-color-disabled, .getCssVar(text-disabled) []);
 
     &__container {
         @apply relative w-full h-0 ~"pt-[60%]" overflow-hidden select-none;
@@ -44,13 +43,13 @@
     &__tip {
         @apply z-10 py-1 text-sm text-center transition-all;
         &--none {
-            @apply bg-black/50;
+            background-color: fade(@color-black, 70%);
         }
         &--success {
-            @apply bg-green-500/70;
+            background-color: .getCssVar(green-opacity-7) [];
         }
         &--fail {
-            @apply bg-red-500/70;
+            background-color: .getCssVar(red-opacity-7) [];
         }
         &-text {
             @apply text-white;
