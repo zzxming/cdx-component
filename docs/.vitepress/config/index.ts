@@ -11,7 +11,7 @@ export default defineConfig({
     rewrites: {
         '/index.md': '/component/usage.md',
     },
-    appearance: false,
+    // appearance: false,
     themeConfig: {
         sidebar: {
             '/component/': [

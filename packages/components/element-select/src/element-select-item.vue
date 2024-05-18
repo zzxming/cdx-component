@@ -13,14 +13,14 @@ const selectContext = inject(selectContextKey, undefined);
 
 const [, bem] = useBem('element-select-item');
 
-const curStatus = ref<unknown>(false);
+const curStatus = ref<ElementSelectValueType>(false);
 
 const className = computed(() => [
     bem.b(),
     isChecked.value && bem.bm('checked'),
     isDisabled.value && bem.bm('disabled'),
 ]);
-const model = computed({
+const model = computed<ElementSelectValueType | ElementSelectValueType[]>({
     get() {
         return selectContext ? selectContext.modelValue.value : props.modelValue ?? curStatus.value;
     },

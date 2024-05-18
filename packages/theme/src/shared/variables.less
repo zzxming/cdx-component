@@ -1,1 +1,75 @@
+@import './functions.less';
+
 @namespace: cdx;
+
+@color-white: #ffffff;
+@color-black: #000000;
+
+#colorsMap() {
+    blue: #2196f3;
+    red: #dd2c2f;
+    green: #2dc653;
+    yellow: #f4e409;
+    gray: #909399;
+}
+
+#textColorsMap() {
+    primary: #303133;
+    regular: #606266;
+    secondary: #909399;
+    placeholder: #a8abb2;
+    disabled: #c0c4cc;
+}
+
+#bgColor() {
+    base: #ffffff;
+}
+
+#borderColorsMap() {
+    base: #e4e7ed;
+    light-1: #e7e9ef;
+    dark-1: #cdd0d5;
+    light-2: #e9ecf1;
+    dark-2: #b6b9be;
+}
+
+#borderMap() {
+    width: 1px;
+    style: solid;
+    shape: .getCssVar(border-width) [] .getCssVar(border-style) [];
+    base: .getCssVar(border-shape) [] .getCssVar(border-color-base) [];
+    light-1: .getCssVar(border-shape) [] .getCssVar(border-color-light-1) [];
+    light-2: .getCssVar(border-shape) [] .getCssVar(border-color-light-2) [];
+    dark-1: .getCssVar(border-shape) [] .getCssVar(border-color-dark-1) [];
+    dark-2: .getCssVar(border-shape) [] .getCssVar(border-color-dark-2) [];
+}
+
+#colorsFillMap() {
+    background: #f8f9fa;
+}
+
+#shadowColorsMap() {
+    base: #dee2e6;
+    light-1: #e1e5e9;
+    dark-1: #c8cbcf;
+    light-2: #e5e8eb;
+    dark-2: #b2b5b8;
+}
+
+#shadowMap() {
+    x: 0;
+    y: 0;
+    blur: 6px;
+    shape: .getCssVar(shadow-x) [] .getCssVar(shadow-y) [] .getCssVar(shadow-blur) [];
+    base: .getCssVar(shadow-shape) [] .getCssVar(shadow-color-base) [];
+    light-1: .getCssVar(shadow-shape) [] .getCssVar(shadow-color-light-1) [];
+    light-2: .getCssVar(shadow-shape) [] .getCssVar(shadow-color-light-2) [];
+    dark-1: .getCssVar(shadow-shape) [] .getCssVar(shadow-color-dark-1) [];
+    dark-2: .getCssVar(shadow-shape) [] .getCssVar(shadow-color-dark-2) [];
+}
+
+#transitionMap () {
+    duration: 300ms;
+    function: ease;
+    base: .getCssVar(transition-duration) [] .getCssVar(transition-function) [];
+}
