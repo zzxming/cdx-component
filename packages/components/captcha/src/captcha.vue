@@ -14,6 +14,8 @@ const emits = defineEmits(captchaEmits);
 const getSlideTarget = () => {
     return [Math.random() * 50 + 25, Math.random() * 50 + 25];
 };
+let tipVisibleTimer = setTimeout(() => {}, 0);
+
 const [, bem] = useBem('captcha');
 
 const canvasRef = ref<HTMLCanvasElement>();
@@ -81,23 +83,31 @@ const formatBeforeSuccess = async () => {
     };
 };
 const checkedFail = (message: string = '验证失败，请重试') => {
-    checkTip.value = message;
-    checkStatus.value = CheckStatus.fail;
-    pointers.value = [];
-    emits('fail');
-    checkTipVisible.value = true;
-    setTimeout(() => {
-        checkTipVisible.value = false;
-    }, props.tipDuration);
+    clearTimeout(tipVisibleTimer);
+    if (checkTipVisible.value) checkTipVisible.value = false;
+    nextTick(() => {
+        checkTip.value = message;
+        checkStatus.value = CheckStatus.fail;
+        pointers.value = [];
+        emits('fail');
+        checkTipVisible.value = true;
+        tipVisibleTimer = setTimeout(() => {
+            checkTipVisible.value = false;
+        }, props.tipDuration);
+    });
 };
 const checkedSuccess = (message: string = '验证成功') => {
-    checkTip.value = message;
-    checkStatus.value = CheckStatus.success;
-    checkTipVisible.value = true;
-    emits('success');
-    setTimeout(() => {
-        checkTipVisible.value = false;
-    }, props.tipDuration);
+    clearTimeout(tipVisibleTimer);
+    if (checkTipVisible.value) checkTipVisible.value = false;
+    nextTick(() => {
+        checkTip.value = message;
+        checkStatus.value = CheckStatus.success;
+        checkTipVisible.value = true;
+        emits('success');
+        tipVisibleTimer = setTimeout(() => {
+            checkTipVisible.value = false;
+        }, props.tipDuration);
+    });
 };
 const loadImage = async (imageSrc: string) => {
     imageLoading.value = true;
