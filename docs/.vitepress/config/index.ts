@@ -11,7 +11,6 @@ export default defineConfig({
     rewrites: {
         '/index.md': '/component/usage.md',
     },
-    // appearance: false,
     themeConfig: {
         sidebar: {
             '/component/': [
@@ -28,6 +27,10 @@ export default defineConfig({
                         { text: 'ElementSelect', link: '/component/element-select' },
                         { text: 'Loading', link: '/component/loading' },
                         { text: 'Collapse', link: '/component/collapse' },
+                        { text: 'Model', link: '/component/model' },
+                        { text: 'Overlay', link: '/component/overlay' },
+                        { text: 'TextEllipsis', link: '/component/text-ellipsis' },
+                        { text: 'TextHighlight', link: '/component/text-highlight' },
                     ],
                 },
             ],

@@ -12,9 +12,10 @@ const [, bem] = useBem('model');
 const { model } = useModelValue(props, false);
 const { nextZIndex } = useZIndex();
 
-const contentRended = ref(false);
+const contentRended = ref(model.value);
 const zIndex = ref(nextZIndex());
 
+const disabledTeleport = computed(() => !props.fullscreen);
 const contentStyle = computed(() => {
     const modelStyle: CSSProperties = {};
     if (props.width) {
@@ -22,46 +23,41 @@ const contentStyle = computed(() => {
     }
     return modelStyle;
 });
+const overlayStyle = computed(() => ({
+    zIndex: disabledTeleport.value ? 0 : zIndex.value,
+}));
 
 const close = () => {
     if (!props.maskClose) return;
     model.value = false;
 };
 
-watch(
-    model,
-    () => {
-        if (props.destroyOnClose && !model.value) {
-            contentRended.value = false;
-        } else {
-            contentRended.value = true;
-        }
-    },
-    { immediate: true }
-);
 watch(model, () => {
     if (model.value) {
         zIndex.value = nextZIndex();
+        contentRended.value = true;
     } else {
+        props.destroyOnClose && (contentRended.value = false);
         emits('close');
     }
 });
+console.log(props);
 </script>
 
 <template>
     <Teleport
         to="body"
-        :disabled="!fullscreen"
+        :disabled="disabledTeleport"
     >
         <Transition
-            :name="bem.bs('fade')"
+            :name="bem.ns('fade')"
             appear
         >
             <CdxOverlay
                 v-model="model"
                 @click="close"
                 :fullscreen="fullscreen"
-                :style="{ zIndex }"
+                :style="overlayStyle"
             >
                 <div
                     v-if="contentRended"

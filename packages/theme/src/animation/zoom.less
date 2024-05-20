@@ -18,11 +18,11 @@
         transform: scale(1);
     }
 });
-.zoom-in() {
-    animation: e('@{namespace}-zoom-in') .getCssVar(transition-duration) [] ease-in-out;
+.zoom-in(@duration: .getCssVar(transition-duration) []) {
+    animation: e('@{namespace}-zoom-in') @duration ease-in-out;
 }
-.zoom-out() {
-    animation: e('@{namespace}-zoom-out') .getCssVar(transition-duration) [] ease-in-out;
+.zoom-out(@duration: .getCssVar(transition-duration) []) {
+    animation: e('@{namespace}-zoom-out') @duration ease-in-out;
 }
 
 .@{namespace}-zoom {

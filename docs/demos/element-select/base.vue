@@ -1,9 +1,3 @@
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-const value = ref([]);
-</script>
-
 <template>
     <CdxElementSelect
         v-model="value"
@@ -18,6 +12,12 @@ const value = ref([]);
         </CdxElementSelectItem>
     </CdxElementSelect>
 </template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+const value = ref([]);
+</script>
 
 <style scoped>
 .item {

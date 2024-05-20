@@ -26,7 +26,8 @@
         .setCssVar(loading-size, 30px);
         .setCssVar(loading-mask-color, rgba(255, 255, 255, 0.8));
         background-color: .getCssVar(loading-mask-color) [];
-        @apply absolute inset-0 m-auto ~"z-[1000]" text-cyan-400;
+        color: .getCssVar(blue-3) [];
+        @apply absolute inset-0 m-auto ~"z-[1000]";
     }
     &--fullscreen {
         @apply fixed;
