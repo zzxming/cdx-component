@@ -3,6 +3,8 @@
 @import './animation/direction.less';
 
 .@{namespace}-drawer {
+    .setCssVar(drawer-bg-color, .getCssVar(bg-color-base) []);
+
     @apply relative overflow-hidden;
     &--slide {
         @apply select-none;
