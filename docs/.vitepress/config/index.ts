@@ -28,6 +28,7 @@ export default defineConfig({
                         { text: 'ElementSelect', link: '/component/element-select' },
                         { text: 'Loading', link: '/component/loading' },
                         { text: 'Collapse', link: '/component/collapse' },
+                        { text: 'Model', link: '/component/model' },
                     ],
                 },
             ],
