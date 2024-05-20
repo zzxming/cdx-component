@@ -16,12 +16,16 @@ const isEllipsis = ref(!!slots.default);
 const text = ref('');
 const rootRef = ref<HTMLDivElement>();
 
-const hasExpandBtn = computed(() => props.canExpand && isEllipsis.value);
+const hasExpandBtn = computed(() => {
+    console.log(props.canExpand, isEllipsis.value);
+    return props.canExpand && isEllipsis.value;
+});
 const expandBtnText = computed(() => (model.value ? props.collapseText : props.expandText));
 const ellipsisLines = computed(() => (model.value ? 0 : props.lines));
 
 const cloneNode = <T extends HTMLElement>(node: T, content: string) => {
     const copy = node.cloneNode(false) as T;
+    copy.style.width = getComputedStyle(node).width;
     copy.style.position = 'fixed';
     copy.style.zIndex = '-9999';
     copy.style.top = '-9999px';
@@ -77,7 +81,7 @@ watch(
     () => [props.content, props.ellipsisText, props.expandText, props.collapseText],
     () => {
         calcEllipsis();
-    }
+    },
 );
 
 onMounted(() => {
