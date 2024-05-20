@@ -32,7 +32,7 @@ const stop = () => {
 };
 </script>
 
-<style>
+<style scoped>
 button {
     padding: 4px 10px;
     border: 1px solid #ccc;
