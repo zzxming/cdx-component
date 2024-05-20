@@ -1,12 +1,3 @@
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-const show = ref(true);
-const change = () => {
-    show.value = !show.value;
-};
-</script>
-
 <template>
     <button @click="change">change visiable</button>
     <CdxCollapseTransition>
@@ -17,3 +8,11 @@ const change = () => {
         </p>
     </CdxCollapseTransition>
 </template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+const show = ref(true);
+const change = () => {
+    show.value = !show.value;
+};
+</script>
