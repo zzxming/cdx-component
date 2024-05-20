@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-import { ref } from 'vue';
-const value = ref('fail');
-</script>
-
 <template>
     <CdxElementSelectItem
         v-model="value"
@@ -12,3 +7,8 @@ const value = ref('fail');
         {{ value }}
     </CdxElementSelectItem>
 </template>
+
+<script lang="ts" setup>
+import { ref } from 'vue';
+const value = ref('fail');
+</script>
