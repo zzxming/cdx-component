@@ -19,7 +19,8 @@ export const useModelValue = <T>(props: Object & { modelValue: T }, defaultValue
         () => props.modelValue,
         (val) => {
             model.value = val;
-        }
+        },
+        { immediate: true },
     );
     return { model };
 };

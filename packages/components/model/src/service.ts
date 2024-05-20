@@ -1,16 +1,37 @@
-import { VNode, createApp, defineComponent, h, ref, watch } from 'vue';
+import { VNode, createApp, defineComponent, h, reactive } from 'vue';
 import { ModelProps } from './model';
 import ModelVue from './model.vue';
-import { isUndefined } from '@cdx-component/utils';
+import { isString, isUndefined } from '@cdx-component/utils';
 
-export interface ModelOptions extends Exclude<Partial<ModelProps>, 'fullscreen' | 'modelValue'> {
+export interface ModelOptions extends Partial<Omit<ModelProps, 'modelValue'>> {
     header?: VNode | string;
     body: VNode | string;
     footer?: VNode | string;
-    target?: HTMLElement;
+    target?: string | HTMLElement;
 }
+
+const resolveOptions = (options: ModelOptions) => {
+    let target: HTMLElement;
+    if (isString(options.target)) {
+        target = document.querySelector(options.target) ?? document.body;
+    } else {
+        target = options.target || document.body;
+    }
+    return {
+        width: options.width || '50%',
+        fullscreen: isUndefined(options.fullscreen) ? (target === document.body ? true : false) : options.fullscreen,
+        maskClose: options.maskClose ?? true,
+        destroyOnClose: options.destroyOnClose ?? true,
+        target,
+        header: options.header,
+        body: options.body,
+        footer: options.footer,
+    };
+};
+
+let unmountTimer = setTimeout(() => {}, 0);
 export const createModelInstance = (options: ModelOptions) => {
-    const { target = document.body, header, body, footer, ...props } = options;
+    const { target, header, body, footer, ...props } = resolveOptions(options);
 
     const model = defineComponent({
         name: 'CdxModel',
@@ -20,38 +41,42 @@ export const createModelInstance = (options: ModelOptions) => {
                     ModelVue,
                     {
                         ...props,
+                        modelValue: data.visible,
+                        'onUpdate:modelValue': (value: boolean) => {
+                            data.visible = value;
+                        },
                     },
                     {
                         header: header ? () => header : null,
                         default: body ? () => body : null,
                         footer: footer ? () => footer : null,
-                    }
+                    },
                 );
         },
     });
-    const modelValue = ref(true);
+    const data = reactive({
+        visible: true,
+    });
+    const close = () => {
+        clearTimeout(unmountTimer);
+        unmountTimer = setTimeout(() => {
+            if (vm) {
+                vm.$el.remove();
+                modelInstance.unmount();
+            }
+        }, 300);
+        data.visible = false;
+    };
     const modelInstance = createApp(model, {
         ...props,
-        fullscreen: isUndefined(props.fullscreen) ? (target === document.body ? true : false) : props.fullscreen,
-        modelValue: modelValue.value,
-        'onUpdate:modelValue': (value: any) => {
-            modelValue.value = value;
-        },
+        onClose: close,
     });
-    const vm = modelInstance.mount(document.createElement('div'));
-    target.appendChild(vm.$el);
+    const container = document.createElement('div');
+    const vm = modelInstance.mount(container);
+    Array.from(container.children).map((child) => target.appendChild(child));
 
-    watch(modelValue, () => {
-        if (!modelValue.value) {
-            close();
-        }
-    });
-
-    const close = () => {
-        if (vm.$.isUnmounted) return;
-        modelInstance.unmount();
-        vm.$el.remove();
+    data.visible = true;
+    return {
+        close,
     };
-
-    return close;
 };

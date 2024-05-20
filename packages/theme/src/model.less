@@ -10,15 +10,17 @@
     .setCssVar(model-body-padding-y, 8px);
     .setCssVar(model-footer-padding-x, 14px);
     .setCssVar(model-footer-padding-y, 8px);
+    .setCssVar(model-transition-duration, 150ms);
     @apply absolute inset-0 flex items-center justify-center pointer-events-none;
     &__content {
         width: .getCssVar(model-width) [];
         box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 0.2);
-        @apply bg-white rounded-md overflow-auto pointer-events-auto;
+        background-color: .getCssVar(bg-color-base) [];
+        @apply rounded-md overflow-auto pointer-events-auto;
     }
     &__header {
         padding: .getCssVar(model-header-padding-y) [] .getCssVar(model-header-padding-x) [];
-        @apply border-b;
+        border-bottom: .getCssVar(border-base) [];
     }
     &__body {
         padding: .getCssVar(model-body-padding-y) [] .getCssVar(model-body-padding-x) [];
@@ -32,14 +34,14 @@
     &-enter-active {
         .@{namespace}-model {
             &__content {
-                .zoom-in();
+                .zoom-in(.getCssVar(model-transition-duration) []);
             }
         }
     }
     &-leave-active {
         .@{namespace}-model {
             &__content {
-                .zoom-out();
+                .zoom-out(.getCssVar(model-transition-duration) []);
             }
         }
     }
