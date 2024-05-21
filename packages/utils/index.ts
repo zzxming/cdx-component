@@ -6,3 +6,4 @@ export * from './bem';
 export * from './scroll';
 export * from './raf';
 export * from './number';
+export * from './object';

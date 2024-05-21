@@ -9,10 +9,7 @@
         "@cdx-component/components": "workspace:^",
         "@cdx-component/constants": "workspace:^",
         "@cdx-component/hooks": "workspace:^",
-        "@cdx-component/utils": "workspace:^",
-        "@cdx-component/theme": "workspace:^"
-    },
-    "dependencies": {
-        "lodash-unified": "^1.0.3"
+        "@cdx-component/theme": "workspace:^",
+        "@cdx-component/utils": "workspace:^"
     }
 }
