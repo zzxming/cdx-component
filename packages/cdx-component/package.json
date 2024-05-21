@@ -14,9 +14,6 @@
         "ui",
         "vue"
     ],
-    "dependencies": {
-        "lodash-unified": "^1.0.3"
-    },
     "peerDependencies": {
         "vue": "^3.3.11"
     },

@@ -2,7 +2,7 @@
 import { computed, nextTick, provide, ref, toRefs } from 'vue';
 import { selectContextKey } from './constants';
 import { elementSelectProps, ElementSelectValueType, elementSelectEmits } from './element-select';
-import { pick } from 'lodash-unified';
+import { pick } from '@cdx-component/utils';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
 
