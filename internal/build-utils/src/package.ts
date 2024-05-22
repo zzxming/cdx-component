@@ -9,13 +9,20 @@ export const getPackageManifest = (pkgPath: string) => {
     return require(pkgPath);
 };
 
-export const rollupExternalFromPackage = (pkgPath: string, callback: (id: string) => boolean = () => false) => {
+export const rollupExternalFromPackage = (
+    pkgPath: string,
+    callback: (id: string) => boolean = () => false,
+    options: { full: boolean },
+) => {
     const { dependencies, peerDependencies } = getPackageManifest(pkgPath);
     const dependenciesKeys = Object.keys(dependencies ?? {});
     const peerDependenciesKeys = Object.keys(peerDependencies ?? {});
 
     return (id: string) => {
-        const packages = ['@vue', ...dependenciesKeys, ...peerDependenciesKeys];
+        const packages = [...peerDependenciesKeys];
+        if (!options.full) {
+            packages.push('@vue', ...dependenciesKeys);
+        }
         return Array.from(new Set(packages)).some((pkg) => id === pkg || id.startsWith(`${pkg}/`)) || callback(id);
     };
 };
