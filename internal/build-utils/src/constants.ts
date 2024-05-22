@@ -13,4 +13,3 @@ export const PKG_PREFIX = '@cdx-component';
 export const PKG_NAME = 'cdx-component';
 
 export const cdxPackage = resolve(cdxRoot, 'package.json');
-export const componentPackage = resolve(componentRoot, 'package.json');

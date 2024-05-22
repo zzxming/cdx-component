@@ -9,21 +9,22 @@ import esbuild from 'rollup-plugin-esbuild';
 import {
     pkgRoot,
     buildOutput,
-    componentPackage,
+    cdxPackage,
     rollupExternalFromPackage,
     dtsConfig,
     cdxRoot,
     PKG_PREFIX,
     PKG_NAME,
 } from '@cdx-component/build-utils';
-import type { ModuleFormat } from 'rollup';
+import type { ModuleFormat, OutputOptions } from 'rollup';
 
-const rollupOutput = (target: ModuleFormat, format: string) => ({
+const rollupOutput = (target: ModuleFormat, format: string): OutputOptions => ({
     format: target,
     entryFileNames: '[name].js',
     preserveModules: true,
     dir: resolve(buildOutput, format),
     preserveModulesRoot: cdxRoot,
+    exports: 'named',
     paths: (id: string) => {
         if (id.startsWith(`${PKG_PREFIX}/theme`)) {
             return id.replace(PKG_PREFIX, PKG_NAME);
@@ -54,15 +55,17 @@ export default defineConfig({
         dts(dtsConfig('lib')),
     ],
     build: {
-        target: 'modules',
-        outDir: resolve(buildOutput, 'es'),
         sourcemap: true,
         minify: false,
         rollupOptions: {
             input,
-            external: rollupExternalFromPackage(componentPackage, (id: string) => {
-                return /css$/.test(id);
-            }),
+            external: rollupExternalFromPackage(
+                cdxPackage,
+                (id: string) => {
+                    return /css$/.test(id);
+                },
+                { full: false },
+            ),
             treeshake: false,
             preserveEntrySignatures: 'allow-extension',
             output: [rollupOutput('es', 'es'), rollupOutput('cjs', 'lib')],

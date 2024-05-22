@@ -1,6 +1,9 @@
 {
     "name": "@cdx-component/theme",
     "version": "0.0.0",
+    "scripts": {
+        "build": "gulp --require @esbuild-kit/cjs-loader"
+    },
     "devDependencies": {
         "@cdx-component/build-utils": "workspace:^",
         "@esbuild-kit/cjs-loader": "^2.4.4",
