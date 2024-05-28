@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { isFunction, isBoolean, generateRandomColor } from '@cdx-component/utils';
 import { ref, computed, watch, nextTick, onMounted } from 'vue';
-import { captchaProps, CheckStatus, captchaEmits, CaptchType } from './captcha';
+import { captchaProps, CheckStatus, captchaEmits } from './captcha';
 import { squarePath } from './canvasPath';
 import { CdxLoading, CdxCaptchaSlider } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
@@ -176,14 +176,14 @@ const drawImage = async (imageSrc: string, canvasEl?: HTMLCanvasElement) => {
     if (!ctx) return;
     const { width, height } = canvasEl;
     ctx.drawImage(image, 0, 0, width, height);
-    if (props.type === CaptchType.pointer) {
+    if (props.type === 'pointer') {
         return drawText(ctx, { width, height });
     }
 
     const subCanvasEl = subCanvasRef.value;
     const subCtx = subCanvasEl?.getContext?.('2d');
     if (!subCanvasEl || !subCtx || !trackRef.value) return;
-    if (props.type === CaptchType.slider) {
+    if (props.type === 'slider') {
         const canvasRect = canvasEl.getBoundingClientRect();
         const trackRect = trackRef.value.getBoundingClientRect();
         // 滑动时以轨道为准, 需要补正 canvas 宽度和 track 宽度的差值
@@ -245,7 +245,7 @@ const handleRefresh = async () => {
     refreshLoading.value = false;
 };
 const handlePointerSetClick = async (e: MouseEvent) => {
-    if (props.type !== CaptchType.pointer || !canvasRef.value || !pointerTargets.length || isLock.value) return;
+    if (props.type !== 'pointer' || !canvasRef.value || !pointerTargets.length || isLock.value) return;
     const { offsetX, offsetY } = e;
     const { clientWidth: width, clientHeight: height } = canvasRef.value;
     pointers.value.push([(offsetX / width) * 100, (offsetY / height) * 100]);
@@ -319,7 +319,7 @@ onMounted(() => {
             :class="[
                 bem.be('container'),
                 isLock && bem.bem('container', 'lock'),
-                type === CaptchType.pointer && bem.bs('pointer'),
+                type === 'pointer' && bem.bs('pointer'),
             ]"
             @click="handlePointerSetClick"
         >
@@ -331,7 +331,7 @@ onMounted(() => {
                     :height="canvasSize[1]"
                 ></canvas>
                 <div
-                    v-if="type === CaptchType.slider"
+                    v-if="type === 'slider'"
                     :class="bem.be('sub-image')"
                 >
                     <canvas
@@ -342,7 +342,7 @@ onMounted(() => {
                     ></canvas>
                 </div>
             </template>
-            <template v-if="type === CaptchType.pointer">
+            <template v-if="type === 'pointer'">
                 <span
                     v-for="([x, y], i) in pointers"
                     :class="bem.be('pointer')"
@@ -367,7 +367,7 @@ onMounted(() => {
         </div>
         <div :class="bem.be('footer')">
             <div
-                v-if="type === CaptchType.pointer"
+                v-if="type === 'pointer'"
                 :class="bem.be('text-list')"
             >
                 <span :class="bem.be('tip')">请依次点击：</span>
@@ -379,7 +379,7 @@ onMounted(() => {
                 </span>
             </div>
             <CdxCaptchaSlider
-                v-else-if="type === CaptchType.slider"
+                v-else-if="type === 'slider'"
                 ref="sliderRef"
                 :lock="isLock"
                 :loading="isLoading"
