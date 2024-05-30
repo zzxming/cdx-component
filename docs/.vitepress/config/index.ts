@@ -31,6 +31,7 @@ export default defineConfig({
                         { text: 'Overlay', link: '/component/overlay' },
                         { text: 'TextEllipsis', link: '/component/text-ellipsis' },
                         { text: 'TextHighlight', link: '/component/text-highlight' },
+                        { text: 'PullRefresh', link: '/component/pull-refresh' },
                     ],
                 },
             ],

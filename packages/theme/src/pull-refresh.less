@@ -1,0 +1,15 @@
+@import './shared/variables.less';
+
+.@{namespace}-pull-refresh {
+    .setCssVar(head-duration, .getCssVar(transition-duration) []);
+    .setCssVar(head-text-color, .getCssVar(gray-3) []);
+
+    @apply overflow-hidden;
+    &__wrapper {
+        @apply relative h-full transition-transform;
+    }
+    &__head {
+        color: .getCssVar(head-text-color) [];
+        @apply absolute left-0 flex items-center justify-center w-full text-xs overflow-hidden -translate-y-full;
+    }
+}
