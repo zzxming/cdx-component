@@ -24,7 +24,7 @@
 
 | 名称            | 类型                                                                      | 说明                              | 默认值       |
 | --------------- | ------------------------------------------------------------------------- | --------------------------------- | ------------ |
-| type            | `CaptchType`                                                              | 验证的方式                        | `'slider'`   |
+| type            | `'slider' \| 'pointer'`                                                   | 验证的方式                        | `'slider'`   |
 | canvasSize      | `[number, number]`                                                        | 画布大小                          | `[500, 300]` |
 | image           | `string`                                                                  | 图片地址                          | -            |
 | texts           | `string[]`                                                                | 验证方式为 `pointer` 时的验证文字 | -            |
@@ -90,11 +90,6 @@
 ## 内置类型
 
 ```ts
-enum CaptchType {
-    slider = 'slider',
-    pointer = 'pointer',
-}
-
 type CheckStatusInfo = {
     success: boolean;
     message: string;

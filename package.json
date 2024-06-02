@@ -13,6 +13,7 @@
         "build:build-utils": "pnpm -C ./internal/build-utils build && pnpm i",
         "docs:dev": "pnpm -C ./docs dev",
         "docs:build": "pnpm -C ./docs build",
+        "play:dev": "pnpm -C ./playground dev",
         "create": "tsx ./scripts/create.ts"
     },
     "peerDependencies": {

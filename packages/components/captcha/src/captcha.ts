@@ -10,15 +10,12 @@ export enum CheckStatus {
     fail = 'fail',
     none = 'none',
 }
-export enum CaptchType {
-    slider = 'slider',
-    pointer = 'pointer',
-}
+
 export const captchaProps = buildProps({
     type: {
         type: String,
         values: ['slider', 'pointer'],
-        default: CaptchType.slider,
+        default: 'slider',
     },
     image: {
         type: String,
