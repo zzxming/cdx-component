@@ -3,7 +3,7 @@ import { buildProps, isBoolean } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 
 export enum PullRefreshStatus {
-    success = 'success',
+    pulling = 'pulling',
     loading = 'loading',
     loosing = 'loosing',
     none = 'none',

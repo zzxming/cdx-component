@@ -9,8 +9,11 @@ interface ClientPosition {
 interface ClientDiffPosition extends ClientPosition {
     diffX: number;
     diffY: number;
+    startX: number;
+    startY: number;
 }
 interface Options {
+    preventDefault?: boolean;
     eventOptions?: AddEventListenerOptions;
     start?: (e: TouchEvent | MouseEvent, position: ClientPosition) => void;
     move?: (e: TouchEvent | MouseEvent, position: ClientDiffPosition) => void;
@@ -18,7 +21,7 @@ interface Options {
 }
 
 export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options) => {
-    const { eventOptions = {}, start, move, end } = options || {};
+    const { preventDefault = true, eventOptions = {}, start, move, end } = options || {};
 
     const { isSupportTouch, events } = useSupportTouch();
 
@@ -56,7 +59,7 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
         document.removeEventListener(events.value.up, endSlide);
     };
     const startSlide = (e: Event) => {
-        e.preventDefault();
+        preventDefault && e.preventDefault();
         const { x, y } = defineEvent(e);
         clearDirection();
         startPosition = [x, y];
@@ -66,7 +69,7 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
         start && start(e as TouchEvent | MouseEvent, { clientX: x, clientY: y });
     };
     const moveSlide = (e: Event) => {
-        e.preventDefault();
+        preventDefault && e.preventDefault();
         const [x1, y1] = startPosition;
         const { x: x2, y: y2 } = defineEvent(e);
         const diffX = x2 - x1;
@@ -94,10 +97,11 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
             direction.value[2] = false;
         }
 
-        move && move(e as TouchEvent | MouseEvent, { clientX: x2, clientY: y2, diffX, diffY });
+        move && move(e as TouchEvent | MouseEvent, { clientX: x2, clientY: y2, diffX, diffY, startX: x1, startY: y1 });
     };
     const endSlide = (e: Event) => {
-        e.preventDefault();
+        preventDefault && e.preventDefault();
+        const [x1, y1] = startPosition;
         const { x, y } = defineEvent(e);
         document.removeEventListener(events.value.move, moveSlide);
         document.removeEventListener(events.value.up, endSlide);
@@ -106,8 +110,10 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
             end(e as TouchEvent | MouseEvent, {
                 clientX: x,
                 clientY: y,
-                diffX: x - startPosition[0],
-                diffY: y - startPosition[1],
+                diffX: x - x1,
+                diffY: y - y1,
+                startX: x1,
+                startY: y1,
             });
 
         startPosition = [0, 0];
