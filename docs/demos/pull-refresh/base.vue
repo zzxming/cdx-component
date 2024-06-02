@@ -2,9 +2,9 @@
     <CdxPullRefresh
         v-model="loading"
         @refresh="handleRefresh"
-        style="height: 400px; overflow: auto"
+        style="height: 400px"
     >
-        <p v-for="i in 100">{{ i }}</p>
+        <p v-for="i in 20">{{ i }}</p>
     </CdxPullRefresh>
 </template>
 
@@ -14,6 +14,7 @@ import { ref } from 'vue';
 const loading = ref(false);
 
 const handleRefresh = () => {
+    console.log('refresh');
     setTimeout(() => {
         loading.value = false;
     }, 3000);

@@ -2,7 +2,6 @@
 import { ref, computed, watch } from 'vue';
 import { pullRefreshProps, pullRefreshEmits, PullRefreshStatus } from './pull-refresh';
 import { useBem, useSlide } from '@cdx-component/hooks';
-import { isNumber } from '@cdx-component/utils';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 
 defineOptions({ name: 'CdxPullRefresh' });
@@ -11,16 +10,40 @@ const emits = defineEmits(pullRefreshEmits);
 
 const [, bem] = useBem('pull-refresh');
 
-const wrapperRef = ref<HTMLElement>();
+const headTextMap = {
+    [PullRefreshStatus.pulling]: '下拉即可刷新...',
+    [PullRefreshStatus.loosing]: '松开即可刷新...',
+    [PullRefreshStatus.loading]: '加载中...',
+    [PullRefreshStatus.none]: '',
+};
+
+const trackRef = ref<HTMLElement>();
+const contentRef = ref<HTMLElement>();
 const loadingStatus = ref(PullRefreshStatus.none);
 const headDistance = ref(0);
 const headShouldTransition = ref(false);
 
-const { direction } = useSlide(wrapperRef, {
-    move: (_, position) => {
-        if (!canPull.value) return;
-        if (direction.value[2]) {
-            setHeadDistance(ease(position.diffY));
+let slideRemark: [number, number] | undefined;
+const { direction } = useSlide(trackRef, {
+    preventDefault: false,
+    start: () => {
+        if (canPull.value) {
+            loadingStatus.value = PullRefreshStatus.pulling;
+        }
+    },
+    move: (e, position) => {
+        if (canPull.value) {
+            if (contentRef.value!.scrollTop === 0) {
+                if (!slideRemark) slideRemark = [position.clientX, position.clientY];
+                const diffY = Math.max(0, position.clientY - slideRemark[1] - contentRef.value!.scrollTop);
+                if (direction.value[2] && diffY > 0) {
+                    e.preventDefault();
+                    setHeadDistance(ease(diffY));
+                }
+            } else {
+                slideRemark = undefined;
+                setHeadDistance(0);
+            }
         }
     },
     end: () => {
@@ -35,30 +58,22 @@ const { direction } = useSlide(wrapperRef, {
 });
 
 const refreshDistance = computed(() => Number(props.refreshDistance || props.headHeight));
-const canPull = computed(
-    () => !props.disabled && ![PullRefreshStatus.loading, PullRefreshStatus.success].includes(loadingStatus.value),
-);
-const wrapperStyle = computed(() => ({
+const canPull = computed(() => !props.disabled && PullRefreshStatus.loading !== loadingStatus.value);
+const trackStyle = computed(() => ({
     transform: `translate3d(0, ${headDistance.value}px, 0)`,
     transitionDuration: headShouldTransition.value ? `var(${bem.cv('head-duration')})` : '0s',
 }));
-const headText = computed(() => {
-    const text = {
-        [PullRefreshStatus.success]: '刷新成功',
-        [PullRefreshStatus.loosing]: '松开即可刷新...',
-        [PullRefreshStatus.loading]: '加载中...',
-        [PullRefreshStatus.none]: '下拉即可刷新...',
-    };
-    return text[loadingStatus.value];
-});
+const headText = computed(() => headTextMap[loadingStatus.value]);
 const headStyle = computed(() => ({
-    height: isNumber(props.headHeight) ? `${props.headHeight}px` : props.headHeight,
+    height: `${Number(props.headHeight)}px`,
 }));
 
 const setHeadDistance = (distance: number) => {
     headDistance.value = distance;
-    if (distance < refreshDistance.value) {
+    if (distance === 0) {
         loadingStatus.value = PullRefreshStatus.none;
+    } else if (distance < refreshDistance.value) {
+        loadingStatus.value = PullRefreshStatus.pulling;
     } else if (distance >= refreshDistance.value) {
         loadingStatus.value = PullRefreshStatus.loosing;
     }
@@ -75,8 +90,8 @@ const ease = (distance: number) => {
     return Math.round(distance);
 };
 
-watch(loadingStatus, (value, oldValue) => {
-    headShouldTransition.value = [PullRefreshStatus.loosing, PullRefreshStatus.loading].includes(oldValue);
+watch(loadingStatus, (value) => {
+    headShouldTransition.value = [PullRefreshStatus.none, PullRefreshStatus.loading].includes(value);
     if (value === PullRefreshStatus.loading) {
         emits('refresh');
     }
@@ -97,9 +112,9 @@ watch(
 <template>
     <div :class="bem.b()">
         <div
-            ref="wrapperRef"
-            :class="bem.be('wrapper')"
-            :style="wrapperStyle"
+            ref="trackRef"
+            :class="bem.be('track')"
+            :style="trackStyle"
         >
             <div
                 :class="bem.be('head')"
@@ -112,7 +127,12 @@ watch(
                     {{ headText }}
                 </slot>
             </div>
-            <slot></slot>
+            <div
+                ref="contentRef"
+                :class="bem.be('content')"
+            >
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>
