@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import dts from 'vite-plugin-dts';
@@ -44,7 +44,7 @@ export default defineConfig({
     plugins: [
         vue(),
         vueJsx(),
-        commonjs() as Plugin,
+        commonjs(),
         esbuild({
             target: 'chrome64',
             loaders: {
