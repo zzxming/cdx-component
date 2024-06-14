@@ -11,7 +11,7 @@ export const setupCdxComponent = () => {
 };
 
 export const loadStyle = () => {
-    const styles = ['/cdx-component/index.css'].map((style) => {
+    const styles = ['$STYLE'].map((style) => {
         return new Promise((resolve, reject) => {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
