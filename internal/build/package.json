@@ -5,7 +5,7 @@
         "build": "pnpm build:component && pnpm build:full && pnpm build:theme && pnpm copy:package",
         "build:full": "vite build --config vite.full.config.ts",
         "build:theme": "pnpm -C ../../packages/theme build",
-        "build:component": "vite build --config vite.config.ts",
+        "build:component": "vite build --config vite.config.ts --emptyOutDir",
         "copy:package": "gulp --require @esbuild-kit/cjs-loader"
     },
     "devDependencies": {

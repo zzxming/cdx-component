@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { CdxCaptchaSlider } from 'cdx-component';
+import { ref } from 'vue';
+
+const msg = ref('Hello World!');
 </script>
 
 <template>
-    <CdxCaptchaSlider :model-value="true"></CdxCaptchaSlider>
+    <h1>{{ msg }}</h1>
 </template>
