@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useDocBem } from '../composables';
+
 defineProps({
     file: {
         type: String,
@@ -9,10 +11,12 @@ defineProps({
         required: true,
     },
 });
+
+const [, bem] = useDocBem('example');
 </script>
 
 <template>
-    <div class="example-showcase">
+    <div :class="bem.be('showcase')">
         <ClientOnly>
             <component
                 :is="demo"
@@ -24,15 +28,15 @@ defineProps({
 </template>
 
 <style lang="less" scoped>
-.example {
-    &-showcase {
+.doc-example {
+    &__showcase {
         @apply relative p-6;
     }
 }
 </style>
 <style lang="less">
-.example {
-    &-showcase {
+.doc-example {
+    &__showcase {
         .cdx {
             &-loading__mask {
                 z-index: 9;
