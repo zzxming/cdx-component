@@ -33,9 +33,12 @@ function createDemoContainer() {
                     const source = fs.readFileSync(path.resolve('./demos', `${sourceFile}.vue`), 'utf-8');
                     if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);
 
-                    return `<Demos :demos="demos" raw-source="${encodeURIComponent(
-                        source
-                    )}" source="${encodeURIComponent(highlight(source, 'vue'))}" src="${src}">\n`;
+                    return `<Demos 
+                        :demos="demos" 
+                        raw-source="${encodeURIComponent(source)}" 
+                        source="${encodeURIComponent(highlight(source, 'vue'))}" 
+                        src="${src}"
+                    >\n`;
                 } else {
                     return '</Demos>\n';
                 }
