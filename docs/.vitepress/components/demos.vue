@@ -25,7 +25,11 @@ const formatPathDemos = computed(() => {
                     :file="src"
                     :demo="formatPathDemos[src]"
                 />
-                <Code :source="source" />
+                <Code
+                    :source="source"
+                    :rawSource="rawSource"
+                    :path="src"
+                />
             </div>
         </ClientOnly>
     </div>

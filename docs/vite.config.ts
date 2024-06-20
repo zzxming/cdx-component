@@ -3,6 +3,8 @@ import inspect from 'vite-plugin-inspect';
 import path from 'path';
 import Components from 'unplugin-vue-components/vite';
 import { demoImports } from './.vitepress/config/plugins';
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 
 const projRoot = path.resolve(__dirname, '..');
 
@@ -29,6 +31,11 @@ export default defineConfig({
             include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
             allowOverrides: true,
             dirs: ['.vitepress/components'],
+            resolvers: [IconsResolver()],
+        }),
+        Icons({
+            autoInstall: true,
+            compiler: 'vue3',
         }),
         inspect(),
         demoImports(),
