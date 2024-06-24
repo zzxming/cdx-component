@@ -31,17 +31,14 @@ const close = () => {
     if (!props.maskClose) return;
     model.value = false;
 };
-
-watch(model, () => {
-    if (model.value) {
-        zIndex.value = nextZIndex();
-        contentRended.value = true;
-    } else {
-        props.destroyOnClose && (contentRended.value = false);
-        emits('close');
-    }
-});
-console.log(props);
+const handleTransitionEnter = () => {
+    zIndex.value = nextZIndex();
+    contentRended.value = true;
+}
+const handleTransitionAfterLeave = () => {
+    props.destroyOnClose && (contentRended.value = false);
+    emits('close');
+}
 </script>
 
 <template>
@@ -52,6 +49,8 @@ console.log(props);
         <Transition
             :name="bem.ns('fade')"
             appear
+            @enter="handleTransitionEnter"
+            @after-leave="handleTransitionAfterLeave"
         >
             <CdxOverlay
                 v-model="model"
