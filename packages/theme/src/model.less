@@ -10,7 +10,7 @@
     .setCssVar(model-body-padding-y, 8px);
     .setCssVar(model-footer-padding-x, 14px);
     .setCssVar(model-footer-padding-y, 8px);
-    .setCssVar(model-transition-duration, 150ms);
+    .setCssVar(model-transition-duration, .getCssVar(transition-duration) []);
     @apply absolute inset-0 flex items-center justify-center pointer-events-none;
     &__content {
         width: .getCssVar(model-width) [];
