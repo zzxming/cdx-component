@@ -9,17 +9,17 @@ import pluginStylistic from '@stylistic/eslint-plugin';
 import pluginVue from 'eslint-plugin-vue';
 import pluginTailwind from 'eslint-plugin-tailwindcss';
 import pluginJsonc from 'eslint-plugin-jsonc';
-import pluginFormat from 'eslint-plugin-format';
 import pluginMarkdown from 'eslint-plugin-markdown';
 import pluginYaml from 'eslint-plugin-yml';
 import pluginAntfu from 'eslint-plugin-antfu';
+import pluginFormat from 'eslint-plugin-format';
+import pluginPrettier from 'eslint-plugin-prettier';
+import configPrettier from 'eslint-config-prettier';
 
 import parserTs from '@typescript-eslint/parser';
 import parserVue from 'vue-eslint-parser';
 import parserJsonc from 'jsonc-eslint-parser';
 import parserYaml from 'yaml-eslint-parser';
-
-// stylelint
 
 const GLOB_TS = '**/*.?([cm])ts';
 const GLOB_TSX = '**/*.?([cm])tsx';
@@ -721,8 +721,8 @@ const ignore = (enableGitignore = true) => {
     '**/dist',
     '**/.vitepress/cache',
     '**/LICENSE*',
-    '**/auto-import?(s).d.ts',
-    '**/components.d.ts',
+    // '**/auto-import?(s).d.ts',
+    // '**/components.d.ts',
     '**/package-lock.json',
     '**/pnpm-lock.yaml',
   ];
@@ -749,6 +749,7 @@ const stylistic = (options = {}) => {
     jsx,
     quotes,
     semi,
+    overrides = {},
   } = {
     ...StylisticConfigDefaults,
     ...options,
@@ -780,11 +781,12 @@ const stylistic = (options = {}) => {
           },
         ],
 
-        'antfu/indent-unindent': 'error',
+        'antfu/indent-unindent': 'off',
         'antfu/consistent-list-newline': 'error',
         'antfu/curly': 'error',
         'antfu/if-newline': 'off',
         'antfu/top-level-function': 'off',
+        ...overrides,
       },
     },
   ];
@@ -907,14 +909,17 @@ const formatters = (options = {}) => {
     ...stylistic,
   };
 
-  const prettierOptions = {
-    endOfLine: 'auto',
-    semi,
-    singleQuote: quotes === 'single',
-    tabWidth: typeof indent === 'number' ? indent : 2,
-    trailingComma: 'all',
-    useTabs: indent === 'tab',
-  };
+  const prettierOptions = Object.assign(
+    {
+      endOfLine: 'auto',
+      semi,
+      singleQuote: quotes === 'single',
+      tabWidth: typeof indent === 'number' ? indent : 2,
+      trailingComma: 'all',
+      useTabs: indent === 'tab',
+    },
+    options.prettierOptions,
+  );
 
   const configs = [
     {
@@ -987,8 +992,21 @@ const formatters = (options = {}) => {
       languageOptions: {
         parser: languageParser,
       },
+      plugins: {
+        prettier: pluginPrettier,
+      },
       name: `formatter/prettier`,
       rules: {
+        ...configPrettier.rules,
+        ...pluginPrettier.configs.recommended.rules,
+        'prettier/prettier': [
+          'warn',
+          {
+            ...prettierOptions,
+            ...extraRules,
+            parser,
+          },
+        ],
         'format/prettier': [
           'error',
           {
@@ -1145,6 +1163,18 @@ const factory = (options = {}) => {
   return configs;
 };
 
+// wrong less each indent
+// prettier can't fix it
 export default factory({
   tailwindcss: true,
+  formatters: {
+    prettierOptions: {
+      endOfLine: 'auto',
+      printWidth: 120,
+      tabWidth: 2,
+      useTabs: false,
+      semi: true,
+      singleQuote: true,
+    },
+  },
 });
