@@ -5,8 +5,8 @@ import Loading from './src/loading.vue';
 
 export const CdxLoadingDirective = withInstallDirective(vLoadingDirective, 'loading');
 export const CdxLoading = withInstall(Loading, {
-    directive: CdxLoadingDirective,
-    service: vLoadingService,
+  directive: CdxLoadingDirective,
+  service: vLoadingService,
 });
 export * from './src/loading';
 export * from './src/constants';

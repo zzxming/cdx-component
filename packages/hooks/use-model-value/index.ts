@@ -1,26 +1,27 @@
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { ref, computed, getCurrentInstance, watch } from 'vue';
-export const useModelValue = <T>(props: Object & { modelValue: T }, defaultValue: T) => {
-    const { emit } = getCurrentInstance()!;
+import { computed, getCurrentInstance, ref, watch } from 'vue';
 
-    const visible = ref(defaultValue);
+export const useModelValue = <T>(props: { modelValue: T }, defaultValue: T) => {
+  const { emit } = getCurrentInstance()!;
 
-    const model = computed({
-        get() {
-            return props.modelValue || visible.value;
-        },
-        set(value: any) {
-            visible.value = value;
-            emit(UPDATE_MODEL_EVENT, value);
-        },
-    });
+  const visible = ref(defaultValue);
 
-    watch(
-        () => props.modelValue,
-        (val) => {
-            model.value = val;
-        },
-        { immediate: true },
-    );
-    return { model };
+  const model = computed({
+    get() {
+      return props.modelValue || visible.value;
+    },
+    set(value: any) {
+      visible.value = value;
+      emit(UPDATE_MODEL_EVENT, value);
+    },
+  });
+
+  watch(
+    () => props.modelValue,
+    (val) => {
+      model.value = val;
+    },
+    { immediate: true },
+  );
+  return { model };
 };

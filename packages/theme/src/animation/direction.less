@@ -2,9 +2,9 @@
 @import '../shared/functions.less';
 
 .direction(@animationName, @isSibling: false) {
-    @directions: ltr, rtl, ttb, btt;
+  @directions: ltr, rtl, ttb, btt;
 
-    each(@directions, {
+  each(@directions, {
         @resultClass: if(@isSibling, ~'&.@{value}', ~'.@{value}');
 
         .@{namespace}-@{animationName} {
@@ -32,7 +32,7 @@
             }
         }
     });
-    each(@directions, {
+  each(@directions, {
         @resultClass:if(@isSibling, ~'&.@{value}', ~'.@{value}');
 
         @{resultClass} {

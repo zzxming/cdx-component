@@ -1,18 +1,18 @@
 @import './shared/variables.less';
 
 .@{namespace}-count-to {
-    @apply inline-flex items-center;
-    &__animate {
-        .setCssVar(count-transition-duration, 2000ms);
+  @apply inline-flex items-center;
+  &__animate {
+    .setCssVar(count-transition-duration, 2000ms);
 
-        display: inline-flex;
-        height: 1em;
-        @apply inline-flex overflow-y-hidden leading-none;
-        &-wrapper {
-            @apply flex flex-col items-center justify-start translate-y-0 will-change-transform transition;
-            transition-property: transform;
-            transition-timing-function: ease-out;
-            transition-duration: .getCssVar(count-transition-duration) [];
-        }
+    display: inline-flex;
+    height: 1em;
+    @apply inline-flex overflow-y-hidden leading-none;
+    &-wrapper {
+      @apply flex flex-col items-center justify-start translate-y-0 will-change-transform transition;
+      transition-property: transform;
+      transition-timing-function: ease-out;
+      transition-duration: .getCssVar(count-transition-duration) [];
     }
+  }
 }

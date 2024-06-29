@@ -3,24 +3,24 @@
 @import 'prism-theme-vars/themes/vitesse-light.css';
 
 .vp-doc {
-    table {
-        @apply table w-full;
+  table {
+    @apply table w-full;
+  }
+  div[class*='language-'] {
+    @apply mt-0 mb-0 rounded-none;
+  }
+  [class*='language-'] {
+    .lang {
+      @apply hidden;
     }
-    div[class*='language-'] {
-        @apply mt-0 mb-0 rounded-none;
+    code {
+      @apply px-1;
+    }
+    pre {
+      @apply py-2;
     }
     [class*='language-'] {
-        .lang {
-            @apply hidden;
-        }
-        code {
-            @apply px-1;
-        }
-        pre {
-            @apply py-2;
-        }
-        [class*='language-'] {
-            @apply before:content-[''];
-        }
+      @apply before:content-[''];
     }
+  }
 }

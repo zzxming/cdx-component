@@ -2,11 +2,11 @@
 @import './shared/functions.less';
 
 .@{namespace}-collapse-item {
-    .setCssVar(collapse-border, .getCssVar(border-light-2) []);
+  .setCssVar(collapse-border, .getCssVar(border-light-2) []);
 
-    border-top: .getCssVar(collapse-border) [];
-    border-bottom: .getCssVar(collapse-border) [];
-    &__header {
-        @apply flex items-center w-full leading-10 font-semibold outline-none cursor-pointer;
-    }
+  border-top: .getCssVar(collapse-border) [];
+  border-bottom: .getCssVar(collapse-border) [];
+  &__header {
+    @apply flex items-center w-full leading-10 font-semibold outline-none cursor-pointer;
+  }
 }

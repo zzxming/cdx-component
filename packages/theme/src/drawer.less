@@ -3,47 +3,47 @@
 @import './animation/direction.less';
 
 .@{namespace}-drawer {
-    .setCssVar(drawer-bg-color, .getCssVar(bg-color-base) []);
+  .setCssVar(drawer-bg-color, .getCssVar(bg-color-base) []);
 
-    @apply relative overflow-hidden;
-    &--slide {
-        @apply select-none;
-    }
-    &__swipe {
-    }
-    &__body {
+  @apply relative overflow-hidden;
+  &--slide {
+    @apply select-none;
+  }
+  &__swipe {
+  }
+  &__body {
+    background-color: .getCssVar(bg-color-base) [];
+    @apply absolute shadow-2xl max-w-full max-h-full m-auto;
+    &[direction='left'],
+    &[direction='right'] {
+      &::after {
         background-color: .getCssVar(bg-color-base) [];
-        @apply absolute shadow-2xl max-w-full max-h-full m-auto;
-        &[direction='left'],
-        &[direction='right'] {
-            &::after {
-                background-color: .getCssVar(bg-color-base) [];
-                @apply content-[''] absolute top-0 bottom-0 w-full;
-            }
-        }
-        &[direction='top'],
-        &[direction='bottom'] {
-            &::after {
-                background-color: .getCssVar(bg-color-base) [];
-                @apply content-[''] absolute left-0 right-0 h-full;
-            }
-        }
+        @apply content-[''] absolute top-0 bottom-0 w-full;
+      }
+    }
+    &[direction='top'],
+    &[direction='bottom'] {
+      &::after {
+        background-color: .getCssVar(bg-color-base) [];
+        @apply content-[''] absolute left-0 right-0 h-full;
+      }
+    }
 
-        &[direction='left']::after {
-            @apply left-full;
-        }
-        &[direction='right']::after {
-            @apply right-full;
-        }
-        &[direction='top']::after {
-            @apply top-full;
-        }
-        &[direction='bottom']::after {
-            @apply bottom-full;
-        }
+    &[direction='left']::after {
+      @apply left-full;
     }
-    &__content {
-        @apply w-full h-full overflow-auto;
+    &[direction='right']::after {
+      @apply right-full;
     }
+    &[direction='top']::after {
+      @apply top-full;
+    }
+    &[direction='bottom']::after {
+      @apply bottom-full;
+    }
+  }
+  &__content {
+    @apply w-full h-full overflow-auto;
+  }
 }
 .direction(fade);
