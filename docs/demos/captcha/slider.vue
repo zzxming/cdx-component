@@ -1,3 +1,3 @@
 <template>
-    <CdxCaptchaSlider></CdxCaptchaSlider>
+  <CdxCaptchaSlider />
 </template>

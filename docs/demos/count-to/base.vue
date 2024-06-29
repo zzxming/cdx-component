@@ -1,3 +1,3 @@
 <template>
-    <CdxCountTo :end-value="3000"></CdxCountTo>
+  <CdxCountTo :end-value="3000" />
 </template>

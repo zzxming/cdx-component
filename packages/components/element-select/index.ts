@@ -1,6 +1,6 @@
+import { withInstall } from '@cdx-component/utils';
 import ElementSelect from './src/element-select.vue';
 import ElementSelectItem from './src/element-select-item.vue';
-import { withInstall } from '@cdx-component/utils';
 
 export const CdxElementSelect = withInstall(ElementSelect);
 export const CdxElementSelectItem = withInstall(ElementSelectItem);

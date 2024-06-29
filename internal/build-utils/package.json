@@ -1,15 +1,15 @@
 {
-    "name": "@cdx-component/build-utils",
-    "private": "true",
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
-    "scripts": {
-        "build": "unbuild",
-        "dev": "unbuild --stub"
-    },
-    "devDependencies": {
-        "@pnpm/types": "^8.4.0",
-        "unbuild": "^2.0.0"
-    }
+  "name": "@cdx-component/build-utils",
+  "private": "true",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub"
+  },
+  "devDependencies": {
+    "@pnpm/types": "^8.4.0",
+    "unbuild": "^2.0.0"
+  }
 }

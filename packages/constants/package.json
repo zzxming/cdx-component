@@ -1,9 +1,9 @@
 {
-    "name": "@cdx-component/constants",
-    "version": "0.0.0",
-    "main": "index.ts",
-    "author": "",
-    "peerDependencies": {
-        "vue": "^3.3.11"
-    }
+  "name": "@cdx-component/constants",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "author": "",
+  "peerDependencies": {
+    "vue": "^3.3.11"
+  }
 }

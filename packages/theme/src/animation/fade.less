@@ -19,17 +19,19 @@
     }
 });
 .fade-in() {
-    animation: e('@{namespace}-fade-in') .getCssVar(transition-duration) [] ease-in-out;
+  animation: e('@{namespace}-fade-in') .getCssVar(transition-duration) []
+    ease-in-out;
 }
 .fade-out() {
-    animation: e('@{namespace}-fade-out') .getCssVar(transition-duration) [] ease-in-out;
+  animation: e('@{namespace}-fade-out') .getCssVar(transition-duration) []
+    ease-in-out;
 }
 
 .@{namespace}-fade {
-    &-enter-active {
-        .fade-in();
-    }
-    &-leave-active {
-        .fade-out();
-    }
+  &-enter-active {
+    .fade-in();
+  }
+  &-leave-active {
+    .fade-out();
+  }
 }

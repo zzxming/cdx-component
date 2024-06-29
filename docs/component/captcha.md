@@ -90,14 +90,14 @@
 ## 内置类型
 
 ```ts
-type CheckStatusInfo = {
-    success: boolean;
-    message: string;
-};
+interface CheckStatusInfo {
+  success: boolean;
+  message: string;
+}
 
 enum CheckStatus {
-    success = 'success',
-    fail = 'fail',
-    none = 'none',
+  success = 'success',
+  fail = 'fail',
+  none = 'none',
 }
 ```

@@ -4,14 +4,14 @@ import autoprefixer from 'autoprefixer';
 import postcssPxtorem from 'postcss-pxtorem';
 
 export default {
-    plugins: [
-        postcssIsolateStyles(),
-        tailwindcss(),
-        autoprefixer(),
-        postcssPxtorem({
-            rootValue: 16,
-            propList: ['*'],
-            selectorBlackList: ['*-origin'],
-        }),
-    ],
+  plugins: [
+    postcssIsolateStyles(),
+    tailwindcss(),
+    autoprefixer(),
+    postcssPxtorem({
+      rootValue: 16,
+      propList: ['*'],
+      selectorBlackList: ['*-origin'],
+    }),
+  ],
 };

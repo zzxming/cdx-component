@@ -1,39 +1,56 @@
 {
-    "private": true,
-    "type": "module",
-    "workspaces": [
-        "packages/*",
-        "docs",
-        "build"
-    ],
-    "packageManager": "pnpm@8.14.3",
-    "scripts": {
-        "build": "pnpm -C ./internal/build build",
-        "build:common": "pnpm build:build-utils",
-        "build:build-utils": "pnpm -C ./internal/build-utils build && pnpm i",
-        "docs:dev": "pnpm -C ./docs dev",
-        "docs:build": "pnpm -C ./docs build",
-        "play:dev": "pnpm -C ./playground dev",
-        "create": "tsx ./scripts/create.ts"
-    },
-    "peerDependencies": {
-        "vue": "^3.3.11"
-    },
-    "devDependencies": {
-        "@cdx-component/build-utils": "workspace:^",
-        "@cdx-component/constants": "workspace:^",
-        "@cdx-component/utils": "workspace:^",
-        "@types/fs-extra": "^11.0.4",
-        "@types/node": "^18.19.10",
-        "@types/prompts": "^2.4.9",
-        "@vue/tsconfig": "^0.5.0",
-        "fs-extra": "^11.2.0",
-        "npm-run-all2": "^6.1.1",
-        "prettier": "^3.2.5",
-        "prompts": "^2.4.2",
-        "tsx": "^4.7.3",
-        "typescript": "~5.3.0",
-        "vite": "^5.0.10",
-        "vue-tsc": "^1.8.25"
-    }
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "docs",
+    "build"
+  ],
+  "packageManager": "pnpm@8.14.3",
+  "scripts": {
+    "build": "pnpm -C ./internal/build build",
+    "build:theme": "pnpm -C ./internal/build build:theme",
+    "build:common": "pnpm build:build-utils",
+    "build:build-utils": "pnpm -C ./internal/build-utils build && pnpm i",
+    "docs:dev": "pnpm -C ./docs dev",
+    "docs:build": "pnpm -C ./docs build",
+    "play:dev": "pnpm -C ./playground dev",
+    "create": "tsx ./scripts/create.ts",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --fix",
+    "prepare": "simple-git-hooks"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.11"
+  },
+  "devDependencies": {
+    "@cdx-component/build-utils": "workspace:^",
+    "@cdx-component/constants": "workspace:^",
+    "@cdx-component/utils": "workspace:^",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^18.19.10",
+    "@types/prompts": "^2.4.9",
+    "@vue/tsconfig": "^0.5.0",
+    "@zzxming/eslint-config": "0.0.4-bata",
+    "eslint": "^9.3.0",
+    "eslint-plugin-yml": "^1.14.0",
+    "fs-extra": "^11.2.0",
+    "globals": "^15.6.0",
+    "lint-staged": "^15.2.7",
+    "local-pkg": "^0.5.0",
+    "npm-run-all2": "^6.1.1",
+    "prettier": "^3.2.5",
+    "prompts": "^2.4.2",
+    "simple-git-hooks": "^2.11.1",
+    "tsx": "^4.7.3",
+    "typescript": "~5.3.0",
+    "vite": "^5.0.10",
+    "vue-tsc": "^1.8.25"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
 }
