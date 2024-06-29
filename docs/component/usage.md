@@ -30,13 +30,13 @@ import Components from 'unplugin-vue-components/vite';
 import { CdxComponentResolver } from 'cdx-component';
 
 export default defineConfig({
+  // ...
+  plugins: [
     // ...
-    plugins: [
-        // ...
-        Components({
-            resolvers: [CdxComponentResolver()],
-        }),
-    ],
+    Components({
+      resolvers: [CdxComponentResolver()],
+    }),
+  ],
 });
 ```
 

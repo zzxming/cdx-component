@@ -3,46 +3,49 @@
 @import './animation/zoom.less';
 
 .@{namespace}-model {
-    .setCssVar(model-width, 50%);
-    .setCssVar(model-header-padding-x, 14px);
-    .setCssVar(model-header-padding-y, 8px);
-    .setCssVar(model-body-padding-x, 14px);
-    .setCssVar(model-body-padding-y, 8px);
-    .setCssVar(model-footer-padding-x, 14px);
-    .setCssVar(model-footer-padding-y, 8px);
-    .setCssVar(model-transition-duration, .getCssVar(transition-duration) []);
-    @apply absolute inset-0 flex items-center justify-center pointer-events-none;
-    &__content {
-        width: .getCssVar(model-width) [];
-        box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 0.2);
-        background-color: .getCssVar(bg-color-base) [];
-        @apply rounded-md overflow-auto pointer-events-auto;
-    }
-    &__header {
-        padding: .getCssVar(model-header-padding-y) [] .getCssVar(model-header-padding-x) [];
-        border-bottom: .getCssVar(border-base) [];
-    }
-    &__body {
-        padding: .getCssVar(model-body-padding-y) [] .getCssVar(model-body-padding-x) [];
-    }
-    &__footer {
-        padding: .getCssVar(model-footer-padding-y) [] .getCssVar(model-footer-padding-x) [];
-    }
+  .setCssVar(model-width, 50%);
+  .setCssVar(model-header-padding-x, 14px);
+  .setCssVar(model-header-padding-y, 8px);
+  .setCssVar(model-body-padding-x, 14px);
+  .setCssVar(model-body-padding-y, 8px);
+  .setCssVar(model-footer-padding-x, 14px);
+  .setCssVar(model-footer-padding-y, 8px);
+  .setCssVar(model-transition-duration, .getCssVar(transition-duration) []);
+  @apply absolute inset-0 flex items-center justify-center pointer-events-none;
+  &__content {
+    width: .getCssVar(model-width) [];
+    box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 0.2);
+    background-color: .getCssVar(bg-color-base) [];
+    @apply rounded-md overflow-auto pointer-events-auto;
+  }
+  &__header {
+    padding: .getCssVar(model-header-padding-y) []
+      .getCssVar(model-header-padding-x) [];
+    border-bottom: .getCssVar(border-base) [];
+  }
+  &__body {
+    padding: .getCssVar(model-body-padding-y) []
+      .getCssVar(model-body-padding-x) [];
+  }
+  &__footer {
+    padding: .getCssVar(model-footer-padding-y) []
+      .getCssVar(model-footer-padding-x) [];
+  }
 }
 
 .@{namespace}-fade {
-    &-enter-active {
-        .@{namespace}-model {
-            &__content {
-                .zoom-in(.getCssVar(model-transition-duration) []);
-            }
-        }
+  &-enter-active {
+    .@{namespace}-model {
+      &__content {
+        .zoom-in(.getCssVar(model-transition-duration) []);
+      }
     }
-    &-leave-active {
-        .@{namespace}-model {
-            &__content {
-                .zoom-out(.getCssVar(model-transition-duration) []);
-            }
-        }
+  }
+  &-leave-active {
+    .@{namespace}-model {
+      &__content {
+        .zoom-out(.getCssVar(model-transition-duration) []);
+      }
     }
+  }
 }

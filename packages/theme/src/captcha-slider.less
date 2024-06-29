@@ -1,58 +1,58 @@
 @import './shared/variables.less';
 
 .@{namespace}-captcha-slider {
-    .setCssVar(captcha-slider-bg-color, .getCssVar(fill-color-background) []);
-    .setCssVar(captcha-slider-bg-color-fill, .getCssVar(blue-2) []);
-    .setCssVar(captcha-slider-bg-transition, width 0ms ease);
-    .setCssVar(captcha-slider-height, 40px);
-    .setCssVar(captcha-slider-tip-color, .getCssVar(text-color-primary) []);
-    .setCssVar(captcha-slider-tip-color-fill, .getCssVar(color-white) []);
-    .setCssVar(captcha-slider-tip-transition, background-position-x 0ms ease);
-    .setCssVar(captcha-slider-trigger-width, 40px);
-    .setCssVar(captcha-slider-trigger-height, 40px);
-    .setCssVar(captcha-slider-trigger-color, .getCssVar(text-color-placeholder) []);
-    .setCssVar(captcha-slider-trigger-shadow,  .getCssVar(shadow-base) []);
-    .setCssVar(captcha-slider-trigger-transition, width 0ms ease);
+  .setCssVar(captcha-slider-bg-color, .getCssVar(fill-color-background) []);
+  .setCssVar(captcha-slider-bg-color-fill, .getCssVar(blue-2) []);
+  .setCssVar(captcha-slider-bg-transition, width 0ms ease);
+  .setCssVar(captcha-slider-height, 40px);
+  .setCssVar(captcha-slider-tip-color, .getCssVar(text-color-primary) []);
+  .setCssVar(captcha-slider-tip-color-fill, .getCssVar(color-white) []);
+  .setCssVar(captcha-slider-tip-transition, background-position-x 0ms ease);
+  .setCssVar(captcha-slider-trigger-width, 40px);
+  .setCssVar(captcha-slider-trigger-height, 40px);
+  .setCssVar(captcha-slider-trigger-color, .getCssVar(text-color-placeholder) []);
+  .setCssVar(captcha-slider-trigger-shadow,  .getCssVar(shadow-base) []);
+  .setCssVar(captcha-slider-trigger-transition, width 0ms ease);
 
-    height: .getCssVar(captcha-slider-height) [];
-    padding: 0 calc(.getCssVar(captcha-slider-trigger-width) [] * 0.5);
-    background-color: .getCssVar(captcha-slider-bg-color) [];
-    @apply relative border border-gray-300 rounded select-none;
-    &__track {
-        @apply relative flex items-center justify-center w-full h-full;
+  height: .getCssVar(captcha-slider-height) [];
+  padding: 0 calc(.getCssVar(captcha-slider-trigger-width) [] * 0.5);
+  background-color: .getCssVar(captcha-slider-bg-color) [];
+  @apply relative border border-gray-300 rounded select-none;
+  &__track {
+    @apply relative flex items-center justify-center w-full h-full;
+  }
+  &__bg {
+    background-color: .getCssVar(captcha-slider-bg-color-fill) [];
+    transition: .getCssVar(captcha-slider-bg-transition) [];
+    @apply absolute top-0 left-0 h-full;
+  }
+  &__tip {
+    background-image: linear-gradient(
+      to right,
+      .getCssVar(captcha-slider-tip-color) [],
+      .getCssVar(captcha-slider-tip-color) [] 50%,
+      .getCssVar(captcha-slider-tip-color-fill) [] 50%
+    );
+    background-size: 200% 100%;
+    background-position-y: center;
+    transition: .getCssVar(captcha-slider-tip-transition) [];
+    @apply absolute inset-0 flex items-center justify-center text-transparent bg-clip-text;
+  }
+  &__inner {
+    transition: .getCssVar(captcha-slider-trigger-transition) [];
+    @apply absolute top-0 left-0 flex items-center h-full;
+  }
+  &__trigger {
+    width: .getCssVar(captcha-slider-trigger-width) [];
+    height: .getCssVar(captcha-slider-trigger-height) [];
+    color: .getCssVar(captcha-slider-trigger-color) [];
+    box-shadow: .getCssVar(captcha-slider-trigger-shadow) [];
+    @apply absolute right-0 translate-x-1/2 flex items-center justify-center bg-white rounded cursor-pointer;
+    &--lock {
+      @apply cursor-not-allowed;
     }
-    &__bg {
-        background-color: .getCssVar(captcha-slider-bg-color-fill) [];
-        transition: .getCssVar(captcha-slider-bg-transition) [];
-        @apply absolute top-0 left-0 h-full;
+    &:hover {
+      color: .getCssVar(captcha-slider-bg-color-fill) [];
     }
-    &__tip {
-        background-image: linear-gradient(
-            to right,
-            .getCssVar(captcha-slider-tip-color) [],
-            .getCssVar(captcha-slider-tip-color) [] 50%,
-            .getCssVar(captcha-slider-tip-color-fill) [] 50%
-        );
-        background-size: 200% 100%;
-        background-position-y: center;
-        transition: .getCssVar(captcha-slider-tip-transition) [];
-        @apply absolute inset-0 flex items-center justify-center text-transparent bg-clip-text;
-    }
-    &__inner {
-        transition: .getCssVar(captcha-slider-trigger-transition) [];
-        @apply absolute top-0 left-0 flex items-center h-full;
-    }
-    &__trigger {
-        width: .getCssVar(captcha-slider-trigger-width) [];
-        height: .getCssVar(captcha-slider-trigger-height) [];
-        color: .getCssVar(captcha-slider-trigger-color) [];
-        box-shadow: .getCssVar(captcha-slider-trigger-shadow) [];
-        @apply absolute right-0 translate-x-1/2 flex items-center justify-center bg-white rounded cursor-pointer;
-        &--lock {
-            @apply cursor-not-allowed;
-        }
-        &:hover {
-            color: .getCssVar(captcha-slider-bg-color-fill) [];
-        }
-    }
+  }
 }

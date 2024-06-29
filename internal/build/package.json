@@ -1,25 +1,25 @@
 {
-    "name": "@cdx-component/build",
-    "private": true,
-    "scripts": {
-        "build": "pnpm build:component && pnpm build:full && pnpm build:theme && pnpm copy:package",
-        "build:full": "vite build --config vite.full.config.ts",
-        "build:theme": "pnpm -C ../../packages/theme build",
-        "build:component": "vite build --config vite.config.ts --emptyOutDir",
-        "copy:package": "gulp --require @esbuild-kit/cjs-loader"
-    },
-    "devDependencies": {
-        "@cdx-component/build-utils": "workspace:^",
-        "@esbuild-kit/cjs-loader": "^2.4.4",
-        "@rollup/plugin-commonjs": "^25.0.7",
-        "@rollup/plugin-node-resolve": "^15.2.3",
-        "@vitejs/plugin-vue": "^4.5.2",
-        "@vitejs/plugin-vue-jsx": "^3.1.0",
-        "glob": "^10.3.10",
-        "rollup": "^4.17.0",
-        "rollup-plugin-dts": "^6.1.0",
-        "rollup-plugin-esbuild": "^6.1.1",
-        "vite": "^5.0.10",
-        "vite-plugin-dts": "^3.9.0"
-    }
+  "name": "@cdx-component/build",
+  "private": true,
+  "scripts": {
+    "build": "pnpm build:component && pnpm build:full && pnpm build:theme && pnpm copy:package",
+    "build:full": "vite build --config vite.full.config.ts",
+    "build:theme": "pnpm -C ../../packages/theme build",
+    "build:component": "vite build --config vite.config.ts --emptyOutDir",
+    "copy:package": "gulp --require @esbuild-kit/cjs-loader"
+  },
+  "devDependencies": {
+    "@cdx-component/build-utils": "workspace:^",
+    "@esbuild-kit/cjs-loader": "^2.4.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@vitejs/plugin-vue": "^4.5.2",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "glob": "^10.3.10",
+    "rollup": "^4.17.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.1",
+    "vite": "^5.0.10",
+    "vite-plugin-dts": "^3.9.0"
+  }
 }

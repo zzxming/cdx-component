@@ -1,20 +1,20 @@
 @import './shared/variables.less';
 
 .@{namespace}-text-ellipsis {
-    .setCssVar(line, 0);
+  .setCssVar(line, 0);
 
-    @apply break-words;
-    &__content {
-        &--block {
-            @apply line-clamp-1;
-            -webkit-line-clamp: .getCssVar(line) [];
-        }
+  @apply break-words;
+  &__content {
+    &--block {
+      @apply line-clamp-1;
+      -webkit-line-clamp: .getCssVar(line) [];
     }
-    &__expand-btn {
-        color: .getCssVar(blue-4) [];
-        @apply cursor-pointer;
-        &:hover {
-            color: .getCssVar(blue-5) [];
-        }
+  }
+  &__expand-btn {
+    color: .getCssVar(blue-4) [];
+    @apply cursor-pointer;
+    &:hover {
+      color: .getCssVar(blue-5) [];
     }
+  }
 }

@@ -18,33 +18,33 @@
     }
 });
 .loading-dash() {
-    animation: e('@{namespace}-loading-dash') 1.5s ease-in-out infinite;
+  animation: e('@{namespace}-loading-dash') 1.5s ease-in-out infinite;
 }
 
 .@{namespace}-loading {
-    &__mask {
-        .setCssVar(loading-size, 30px);
-        .setCssVar(loading-mask-color, rgba(255, 255, 255, 0.8));
-        background-color: .getCssVar(loading-mask-color) [];
-        color: .getCssVar(blue-3) [];
-        @apply absolute inset-0 m-auto ~"z-[1000]";
+  &__mask {
+    .setCssVar(loading-size, 30px);
+    .setCssVar(loading-mask-color, rgba(255, 255, 255, 0.8));
+    background-color: .getCssVar(loading-mask-color) [];
+    color: .getCssVar(blue-3) [];
+    @apply absolute inset-0 m-auto ~"z-[1000]";
+  }
+  &--fullscreen {
+    @apply fixed;
+  }
+  &__tip {
+    @apply absolute top-1/2 -translate-y-1/2 flex flex-col items-center w-full;
+  }
+  &__spinner {
+    width: .getCssVar(loading-size) [];
+    height: .getCssVar(loading-size) [];
+    .rotate();
+    circle {
+      .loading-dash();
+      @apply stroke-2 stroke-current;
     }
-    &--fullscreen {
-        @apply fixed;
-    }
-    &__tip {
-        @apply absolute top-1/2 -translate-y-1/2 flex flex-col items-center w-full;
-    }
-    &__spinner {
-        width: .getCssVar(loading-size) [];
-        height: .getCssVar(loading-size) [];
-        .rotate();
-        circle {
-            .loading-dash();
-            @apply stroke-2 stroke-current;
-        }
-    }
-    &__text {
-        @apply mt-1 text-current text-sm text-center;
-    }
+  }
+  &__text {
+    @apply mt-1 text-current text-sm text-center;
+  }
 }

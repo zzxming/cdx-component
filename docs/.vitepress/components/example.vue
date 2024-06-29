@@ -2,29 +2,29 @@
 import { useDocBem } from '../composables';
 
 defineProps({
-    file: {
-        type: String,
-        required: true,
-    },
-    demo: {
-        type: Object,
-        required: true,
-    },
+  file: {
+    type: String,
+    required: true,
+  },
+  demo: {
+    type: Object,
+    required: true,
+  },
 });
 
 const [, bem] = useDocBem('example');
 </script>
 
 <template>
-    <div :class="bem.be('showcase')">
-        <ClientOnly>
-            <component
-                :is="demo"
-                v-if="demo"
-                v-bind="$attrs"
-            />
-        </ClientOnly>
-    </div>
+  <div :class="bem.be('showcase')">
+    <ClientOnly>
+      <component
+        :is="demo"
+        v-if="demo"
+        v-bind="$attrs"
+      />
+    </ClientOnly>
+  </div>
 </template>
 
 <style lang="less" scoped>
@@ -34,6 +34,7 @@ const [, bem] = useDocBem('example');
     }
 }
 </style>
+
 <style lang="less">
 .doc-example {
     &__showcase {

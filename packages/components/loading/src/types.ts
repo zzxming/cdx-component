@@ -1,12 +1,12 @@
-import { LOADING_INSTANCE } from './constants';
-import { LoadingProps } from './loading';
-import { createLoadingInstance } from './service';
+import type { LOADING_INSTANCE } from './constants';
+import type { LoadingProps } from './loading';
+import type { createLoadingInstance } from './service';
 
 export interface ElementLoading extends HTMLElement {
-    [LOADING_INSTANCE]?: LoadingInstance;
+  [LOADING_INSTANCE]?: LoadingInstance;
 }
 export interface LoadingOptions extends Partial<LoadingProps> {
-    target: HTMLElement | string;
+  target: HTMLElement | string;
 }
 
 export type LoadingInstance = ReturnType<typeof createLoadingInstance>;

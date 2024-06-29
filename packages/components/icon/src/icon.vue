@@ -7,7 +7,7 @@ const [, bem] = useBem('icon');
 </script>
 
 <template>
-    <i :class="bem.b()">
-        <slot></slot>
-    </i>
+  <i :class="bem.b()">
+    <slot />
+  </i>
 </template>

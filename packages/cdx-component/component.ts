@@ -1,3 +1,4 @@
+import type { Plugin } from 'vue';
 import { CdxDrawer } from '../components/drawer';
 import { CdxOverlay } from '../components/overlay';
 import { CdxElementSelect, CdxElementSelectItem } from '../components/element-select';
@@ -12,24 +13,22 @@ import { CdxCollapse, CdxCollapseItem } from '../components/collapse';
 import { CdxCollapseTransition } from '../components/collapse-transition';
 import { CdxPullRefresh } from '../components/pull-refresh';
 
-import type { Plugin } from 'vue';
-
 export default [
-    CdxDrawer,
-    CdxOverlay,
-    CdxElementSelect,
-    CdxElementSelectItem,
-    CdxIcon,
-    CdxLoading,
-    CdxLoadingDirective,
-    CdxCaptcha,
-    CdxCaptchaSlider,
-    CdxTextEllipsis,
-    CdxTextHighlight,
-    CdxModel,
-    CdxCountTo,
-    CdxCollapse,
-    CdxCollapseItem,
-    CdxCollapseTransition,
-    CdxPullRefresh,
+  CdxDrawer,
+  CdxOverlay,
+  CdxElementSelect,
+  CdxElementSelectItem,
+  CdxIcon,
+  CdxLoading,
+  CdxLoadingDirective,
+  CdxCaptcha,
+  CdxCaptchaSlider,
+  CdxTextEllipsis,
+  CdxTextHighlight,
+  CdxModel,
+  CdxCountTo,
+  CdxCollapse,
+  CdxCollapseItem,
+  CdxCollapseTransition,
+  CdxPullRefresh,
 ] as Plugin[];

@@ -2,22 +2,22 @@
 @import './shared/functions.less';
 
 .@{namespace}-element-select-item {
-    .setCssVar(element-select-color, transparent);
+  .setCssVar(element-select-color, transparent);
 
-    border-color: .getCssVar(element-select-color) [];
-    @apply relative inline-flex m-1 border border-dashed select-none;
-    &--checked {
-        .setCssVar(element-select-color, .getCssVar(blue-opacity-9) []);
-    }
-    &--disabled {
-        .setCssVar(element-select-color, .getCssVar(gray-opacity-9) []);
-        @apply cursor-not-allowed;
-    }
-    &__mask {
-        background-color: .getCssVar(element-select-color) [];
-        @apply absolute inset-0 opacity-20 z-10;
-    }
-    &__input {
-        @apply hidden;
-    }
+  border-color: .getCssVar(element-select-color) [];
+  @apply relative inline-flex m-1 border border-dashed select-none;
+  &--checked {
+    .setCssVar(element-select-color, .getCssVar(blue-opacity-9) []);
+  }
+  &--disabled {
+    .setCssVar(element-select-color, .getCssVar(gray-opacity-9) []);
+    @apply cursor-not-allowed;
+  }
+  &__mask {
+    background-color: .getCssVar(element-select-color) [];
+    @apply absolute inset-0 opacity-20 z-10;
+  }
+  &__input {
+    @apply hidden;
+  }
 }

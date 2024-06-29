@@ -2,10 +2,10 @@
 @import './shared/functions.less';
 
 .@{namespace}-collapse {
-    .setCssVar(collapse-border, .getCssVar(border-light-2) []);
+  .setCssVar(collapse-border, .getCssVar(border-light-2) []);
 
-    border-top: .getCssVar(collapse-border) [];
-    & &-item {
-        @apply border-t-0;
-    }
+  border-top: .getCssVar(collapse-border) [];
+  & &-item {
+    @apply border-t-0;
+  }
 }
