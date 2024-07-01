@@ -28,8 +28,7 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
         originWidth = target.style.width;
       }
       scrollBarWidth = getScrollBarWidth(namespace, { target });
-      const hasOverflow
-                = (target === document.body ? document.documentElement : target).clientHeight < target.scrollHeight;
+      const hasOverflow = (target === document.body ? document.documentElement : target).clientHeight < target.scrollHeight;
       const overflowY = getComputedStyle(target).overflowY;
       if (!value) {
         return cleanLock();
