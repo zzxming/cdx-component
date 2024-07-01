@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { useBem, useSlide } from '@cdx-component/hooks';
+import { useBem, useLockScroll, useSlide } from '@cdx-component/hooks';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { PullRefreshStatus, pullRefreshEmits, pullRefreshProps } from './pull-refresh';
 
@@ -23,7 +23,9 @@ const contentRef = ref<HTMLElement>();
 const loadingStatus = ref(PullRefreshStatus.none);
 const headDistance = ref(0);
 const headShouldTransition = ref(false);
+const bodyLockScroll = ref(false);
 
+const isBodyLockScroll = computed(() => props.bodyLock && bodyLockScroll.value);
 const refreshDistance = computed(() => Number(props.refreshDistance || props.headHeight));
 const canPull = computed(() => !props.disabled && PullRefreshStatus.loading !== loadingStatus.value);
 const trackStyle = computed(() => ({
@@ -55,6 +57,7 @@ const ease = (distance: number) => {
   return Math.round(distance);
 };
 
+useLockScroll(isBodyLockScroll);
 const { direction } = useSlide(trackRef, {
   preventDefault: false,
   start: () => {
@@ -66,20 +69,25 @@ const { direction } = useSlide(trackRef, {
     if (canPull.value) {
       if (contentRef.value!.scrollTop === 0) {
         if (!slideRemark) slideRemark = [position.clientX, position.clientY];
-        const diffY = Math.max(0, position.clientY - slideRemark[1] - contentRef.value!.scrollTop);
-        if (direction.value[2] && diffY > 0) {
-          e.preventDefault();
+        const diffY = Math.max(0, position.clientY - slideRemark[1]);
+        const hasTransform = direction.value[2] && diffY > 0;
+        if (hasTransform) {
+          e.cancelable && e.preventDefault();
+          bodyLockScroll.value = hasTransform;
           setHeadDistance(ease(diffY));
         }
       }
       else {
         slideRemark = undefined;
+        bodyLockScroll.value = false;
         setHeadDistance(0);
       }
     }
   },
   end: () => {
     if (!canPull.value) return;
+    bodyLockScroll.value = false;
+    slideRemark = undefined;
     if (loadingStatus.value === PullRefreshStatus.loosing) {
       loadingStatus.value = PullRefreshStatus.loading;
       emits(UPDATE_MODEL_EVENT, true);
