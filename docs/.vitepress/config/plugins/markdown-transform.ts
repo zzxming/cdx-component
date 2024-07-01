@@ -4,9 +4,11 @@ import type MarkdownIt from 'markdown-it';
 import type { Token } from 'markdown-it';
 import mdContainer from 'markdown-it-container';
 import { highlight } from './highlight';
+import { tableWrapper } from './table-wrapper';
 
 export const mdPlugin = (md: MarkdownIt) => {
   md.use(useContainer);
+  md.use(tableWrapper);
 };
 
 function useContainer(md: MarkdownIt) {
@@ -35,11 +37,11 @@ function createDemoContainer() {
           if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);
 
           return `<Demos 
-                        :demos="demos" 
-                        raw-source="${encodeURIComponent(source)}" 
-                        source="${encodeURIComponent(highlight(source, 'vue'))}" 
-                        src="${src}"
-                    >\n`;
+            :demos="demos" 
+            raw-source="${encodeURIComponent(source)}" 
+            source="${encodeURIComponent(highlight(source, 'vue'))}" 
+            src="${src}"
+          >\n`;
         }
         else {
           return '</Demos>\n';

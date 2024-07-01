@@ -3,11 +3,14 @@
 @import 'prism-theme-vars/themes/vitesse-light.css';
 
 .vp-doc {
-  table {
-    @apply table w-full;
+  .vp-table {
+    @apply w-full my-5 overflow-x-auto;
+    table {
+      @apply table w-full my-0;
+    }
   }
   div[class*='language-'] {
-    @apply mt-0 mb-0 rounded-none;
+    @apply mx-0 rounded-none;
   }
   [class*='language-'] {
     .lang {

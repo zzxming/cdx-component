@@ -25,6 +25,10 @@ export const pullRefreshProps = buildProps({
   refreshDistance: {
     type: [Number, String],
   },
+  bodyLock: {
+    type: Boolean,
+    default: true,
+  },
 } as const);
 export type PullRefreshProps = ExtractPropTypes<typeof pullRefreshProps>;
 
