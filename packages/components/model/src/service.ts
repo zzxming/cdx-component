@@ -19,9 +19,9 @@ const resolveOptions = (options: ModelOptions) => {
     maskClose: options.maskClose ?? true,
     destroyOnClose: options.destroyOnClose ?? true,
     target,
-    header: options.header,
-    body: options.body,
-    footer: options.footer,
+    header: options.header ? () => options.header : null,
+    body: options.body ? () => options.body : null,
+    footer: options.footer ? () => options.footer : null,
   };
 };
 
@@ -47,9 +47,9 @@ export const createModelInstance = (options: ModelOptions) => {
             },
           },
           {
-            header: header ? () => header : null,
-            default: body ? () => body : null,
-            footer: footer ? () => footer : null,
+            header,
+            default: body,
+            footer,
           },
         );
     },
