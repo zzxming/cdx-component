@@ -28,6 +28,13 @@ const bodyLockScroll = ref(false);
 const isBodyLockScroll = computed(() => props.bodyLock && bodyLockScroll.value);
 const refreshDistance = computed(() => Number(props.refreshDistance || props.headHeight));
 const canPull = computed(() => !props.disabled && PullRefreshStatus.loading !== loadingStatus.value);
+const trackClass = computed(() => [
+  bem.be('track'),
+  [
+    PullRefreshStatus.pulling,
+    PullRefreshStatus.loosing,
+  ].includes(loadingStatus.value) && bem.bm('pulling'),
+]);
 const trackStyle = computed(() => ({
   transform: `translate3d(0, ${headDistance.value}px, 0)`,
   transitionDuration: headShouldTransition.value ? `var(${bem.cv('head-duration')})` : '0s',
@@ -122,7 +129,7 @@ watch(
   <div :class="bem.b()">
     <div
       ref="trackRef"
-      :class="bem.be('track')"
+      :class="trackClass"
       :style="trackStyle"
     >
       <div
