@@ -1,14 +1,13 @@
+import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { buildOutput, buildRoot, pkgRoot } from './constants';
-// import type { ProjectManifest } from '@pnpm/types';
 
-export const getPackageManifest = (pkgPath: string) => {
-  // TODO
-  // 使用 @pnpm/types 会出现 unbuild build 出现 cannot find module
-  // return require(pkgPath) as ProjectManifest;
-
-  // eslint-disable-next-line ts/no-require-imports
-  return require(pkgPath);
+interface Manifest {
+  dependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+}
+export const getPackageManifest = (pkgPath: string): Manifest => {
+  return JSON.parse(readFileSync(pkgPath, 'utf8')) as Manifest;
 };
 
 export const rollupExternalFromPackage = (
@@ -49,4 +48,9 @@ export const dtsConfig = (target: string) => {
     tsconfigPath: resolve(buildRoot, 'tsconfig.json'),
     beforeWriteFile: beforeWriteFile(target),
   };
+};
+
+export const excludeFiles = (files: string[]) => {
+  const excludes = ['node_modules', '__tests__', 'gulpfile', 'dist'];
+  return files.filter(path => !excludes.some(exclude => path.includes(exclude)));
 };

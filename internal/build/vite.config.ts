@@ -13,6 +13,7 @@ import {
   cdxPackage,
   cdxRoot,
   dtsConfig,
+  excludeFiles,
   pkgRoot,
   rollupExternalFromPackage,
 } from '@cdx-component/build-utils';
@@ -32,13 +33,13 @@ const rollupOutput = (target: ModuleFormat, format: string): OutputOptions => ({
     return id;
   },
 });
-const input = glob
-  .sync('**/*.{js,ts,vue}', {
+const input = excludeFiles(
+  glob.sync('**/*.{js,ts,vue}', {
     cwd: pkgRoot,
     ignore: ['**/*.config.*'],
     absolute: true,
-  })
-  .filter(path => !['node_modules', 'gulpfile', 'dist'].some(exclude => path.includes(exclude)));
+  }),
+);
 
 export default defineConfig({
   plugins: [
