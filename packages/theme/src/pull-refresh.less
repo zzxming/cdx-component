@@ -7,6 +7,9 @@
   @apply overflow-hidden;
   &__track {
     @apply relative h-full transition-transform;
+    &.@{namespace}-pull-refresh--pulling {
+      @apply select-none;
+    }
   }
   &__head {
     color: .getCssVar(head-text-color) [];
