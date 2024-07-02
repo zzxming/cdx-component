@@ -1,11 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
-  "exclude": ["node_modules", "**/*.config.*", "**/dist", "**/gulpfile.ts"],
-  "include": ["packages/**/*", "types/components.d.ts", "types/env.d.ts"],
   "compilerOptions": {
     "composite": true,
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true
-  }
+  },
+  "include": ["packages/**/*", "types/components.d.ts", "types/env.d.ts"],
+  "exclude": ["node_modules", "**/*.config.*", "**/__tests__/**/*", "**/dist", "**/gulpfile.ts"]
 }

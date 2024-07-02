@@ -7,5 +7,5 @@
     "skipLibCheck": true
   },
   "include": ["internal/**/*", "scripts/**/*", "packages/theme/*"],
-  "exclude": ["**/dist"]
+  "exclude": ["**/dist", "**/__tests__/**/*"]
 }
