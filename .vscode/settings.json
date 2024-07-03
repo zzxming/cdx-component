@@ -54,6 +54,7 @@
     "**/.vscode": true,
     "**/.yarn": true,
     "**/dist/**": true,
+    "**/coverage": true,
     "**/logs": true,
     "**/node_modules": true,
     "**/out/**": true,
