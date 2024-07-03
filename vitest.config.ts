@@ -11,6 +11,7 @@ export default defineConfig({
     include: ['**/__tests__/*.{test,spec}.?([cm])[jt]s?(x)'],
     exclude: ['docs/**', '**/dits/**', '**/node_modules/**'],
     coverage: {
+      reportsDirectory: resolve(__dirname, 'coverage'),
       reporter: ['html'],
       enabled: true,
     },
