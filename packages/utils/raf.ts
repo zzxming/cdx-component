@@ -1,4 +1,4 @@
-const isServer = typeof window === 'undefined';
+import { isServer } from './types';
 
 export const raf = (fn: (t: number) => void) => {
   if (isServer) {
@@ -15,5 +15,4 @@ export const raf = (fn: (t: number) => void) => {
   }
 };
 
-export const caf = (id: ReturnType<typeof raf>) =>
-  isServer ? clearTimeout(id) : window.cancelAnimationFrame(id as number);
+export const caf = (id: ReturnType<typeof raf>) => isServer ? clearTimeout(id) : window.cancelAnimationFrame(id as number);
