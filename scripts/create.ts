@@ -3,7 +3,6 @@ import { dirname, resolve } from 'node:path';
 import consola from 'consola';
 import prompts from 'prompts';
 import fs from 'fs-extra';
-import { format } from 'prettier';
 import {
   componentRoot,
   docsRoot,
@@ -12,7 +11,8 @@ import {
   toKebabCase,
   toUpperCamelCase,
 } from '@cdx-component/build-utils';
-import { components, getPrettierConfig } from './constants';
+import { components } from './constants';
+import { lintFiles } from './lint';
 
 // cdx-component/component.ts
 // docs/.vitepress/config/index.ts
@@ -41,80 +41,80 @@ const create = async (name: string) => {
     {
       filePath: resolve(componentRoot, `${kebabCaseName}/index.ts`),
       source: `
-                import { withInstall } from '@cdx-component/utils';
-                import ${upperCamelCaseName} from './src/${kebabCaseName}.vue';
-                
-                export const Cdx${upperCamelCaseName} = withInstall(${upperCamelCaseName});
-                export * from './src/${kebabCaseName}';
-                export default Cdx${upperCamelCaseName};
-            `,
+        import { withInstall } from '@cdx-component/utils';
+        import ${upperCamelCaseName} from './src/${kebabCaseName}.vue';
+
+        export const Cdx${upperCamelCaseName} = withInstall(${upperCamelCaseName});
+        export * from './src/${kebabCaseName}';
+        export default Cdx${upperCamelCaseName};
+      `,
     },
     {
       filePath: resolve(componentRoot, `${kebabCaseName}/src/${kebabCaseName}.vue`),
       source: `
-                <script setup lang="ts">
-                import { ${camelCaseName}Props, ${camelCaseName}Emits } from './${kebabCaseName}';
-                import { useBem } from '@cdx-component/hooks';
+        <script setup lang="ts">
+        import { ${camelCaseName}Props, ${camelCaseName}Emits } from './${kebabCaseName}';
+        import { useBem } from '@cdx-component/hooks';
 
-                defineOptions({ name: 'Cdx${upperCamelCaseName}' });
-                const props = defineProps(${camelCaseName}Props);
-                const emits = defineEmits(${camelCaseName}Emits);
+        defineOptions({ name: 'Cdx${upperCamelCaseName}' });
+        const props = defineProps(${camelCaseName}Props);
+        const emits = defineEmits(${camelCaseName}Emits);
 
-                const [, bem] = useBem('${kebabCaseName}');
-                </script>
+        const [, bem] = useBem('${kebabCaseName}');
+        </script>
 
-                <template>
-                    <div :class="bem.b()"></div>
-                </template>
-            `,
+        <template>
+            <div :class="bem.b()"></div>
+        </template>
+      `,
     },
     {
       filePath: resolve(componentRoot, `${kebabCaseName}/src/${kebabCaseName}.ts`),
       source: `
-                import { buildProps } from '@cdx-component/utils';
-                import type { ExtractPropTypes } from 'vue';
-                
-                export const ${camelCaseName}Props = buildProps({} as const);
-                export type ${upperCamelCaseName}Props = ExtractPropTypes<typeof ${camelCaseName}Props>;
-                
-                export const ${camelCaseName}Emits = {};
-                export type ${upperCamelCaseName}Emits = typeof ${camelCaseName}Emits;
-            `,
+      import { buildProps } from '@cdx-component/utils';
+      import type { ExtractPropTypes } from 'vue';
+
+      export const ${camelCaseName}Props = buildProps({} as const);
+      export type ${upperCamelCaseName}Props = ExtractPropTypes<typeof ${camelCaseName}Props>;
+
+      export const ${camelCaseName}Emits = {};
+      export type ${upperCamelCaseName}Emits = typeof ${camelCaseName}Emits;
+    `,
     },
     {
       filePath: resolve(componentRoot, `${kebabCaseName}/style/index.ts`),
       source: `
-                import '@cdx-component/components/base/style';
-                import '@cdx-component/theme/cdx-${kebabCaseName}.css';
-            `,
+        import '@cdx-component/components/base/style';
+        import '@cdx-component/theme/cdx-${kebabCaseName}.css';
+      `,
     },
     {
       filePath: resolve(themeRoot, `src/${kebabCaseName}.less`),
       source: `
-                @import './shared/variables.less';
+      @import './shared/variables.less';
 
-                .@{namespace}-${kebabCaseName} {}
-            `,
+      .@{namespace}-${kebabCaseName} {}
+    `,
     },
     {
       filePath: resolve(docsRoot, `component/${kebabCaseName}.md`),
       source: `
-                # ${upperCamelCaseName}
+        # ${upperCamelCaseName}
 
-                ## 基础用法
+        ## 基础用法
 
-                :::demo ${kebabCaseName}/base
+        :::demo ${kebabCaseName}/base
 
-                :::
-            `,
+        :::
+      `,
     },
     {
       filePath: resolve(docsRoot, `demos/${kebabCaseName}/base.vue`),
       source: `
-                <template>
-                    <Cdx${upperCamelCaseName}></Cdx${upperCamelCaseName}>
-                </template>
-            `,
+        <template>
+          <Cdx${upperCamelCaseName}></Cdx${upperCamelCaseName}>
+        </template>
+      `,
     },
   ];
   const allowCreate = await consola.prompt(
@@ -128,15 +128,11 @@ const create = async (name: string) => {
   const appendFile = [
     {
       filePath: resolve(componentRoot, `index.ts`),
-      source: `
-                export * from './${kebabCaseName}';
-            `,
+      source: `export * from './${kebabCaseName}';`,
     },
     {
       filePath: resolve(themeRoot, `src/index.less`),
-      source: `
-                @import './${kebabCaseName}.less';
-            `,
+      source: `@import './${kebabCaseName}.less';`,
     },
   ];
   const allowAppend = await consola.prompt(
@@ -152,45 +148,31 @@ const create = async (name: string) => {
     return Promise.all(
       generatedFiles.map(file =>
         fs.rm(file).catch((rmError: Error) => {
-          console.error(`Failed to delete partially created file ${file}:`, rmError);
+          consola.error(`Failed to delete partially created file ${file}:`, rmError);
         }),
       ),
     );
   };
-  const prettierParser = {
-    ts: 'typescript',
-    vue: 'vue',
-    md: 'markdown',
-    less: 'less',
-  } as const;
-  const fileExts = Object.keys(prettierParser) as (keyof typeof prettierParser)[];
+
   try {
     for (let i = 0; i < generateFile.length; i++) {
       const { filePath, source } = generateFile[i];
       if (fs.existsSync(filePath)) {
         throw new Error(`file already exists ${filePath}`);
       }
-      const parser = fileExts.find(ext => filePath.endsWith(ext));
-      if (!parser) {
-        throw new Error(`file ${filePath} extension not find prettier parser`);
-      }
 
+      const isMarkdown = (filePath.endsWith('.md'));
       await fs.ensureDir(dirname(filePath));
       await fs.writeFile(
         filePath,
-        await format(
-          parser === 'md'
-            ? source
-              .split('\n')
-              .map(line => line.trim())
-              .join('\n')
-            : source,
-          {
-            ...(await getPrettierConfig()),
-            parser: prettierParser[parser],
-          },
-        ),
+        isMarkdown
+          ? source
+            .split('\n')
+            .map(line => line.trim())
+            .join('\n')
+          : source,
       );
+      await lintFiles(filePath);
 
       generatedFiles.push(filePath);
     }
@@ -208,17 +190,8 @@ const create = async (name: string) => {
         if (!fs.existsSync(filePath)) {
           throw new Error(`${filePath} does not exist`);
         }
-        const parser = fileExts.find(ext => filePath.endsWith(ext));
-        if (!parser) {
-          throw new Error(`file ${filePath} extension not find prettier parser`);
-        }
-        return await fs.appendFile(
-          filePath,
-          await format(source, {
-            ...(await getPrettierConfig()),
-            parser: prettierParser[parser as keyof typeof prettierParser],
-          }),
-        );
+        await fs.appendFile(filePath, source);
+        return await lintFiles(filePath);
       }),
     );
   }
@@ -237,7 +210,7 @@ const main = async () => {
     message: 'Input a component name:',
   });
   if (!name) {
-    console.error('Please input a component name.');
+    consola.error('Please input a component name.');
     return false;
   }
 
@@ -251,6 +224,7 @@ const main = async () => {
   }
 };
 
-main().catch(() => {
+main().catch((error) => {
+  consola.error(error);
   process.exit(1);
 });
