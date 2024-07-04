@@ -4,3 +4,5 @@
 **/coverage
 .eslintcache
 **/*.css
+
+internal/build-utils/src/version.ts

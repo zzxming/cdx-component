@@ -1,6 +1,6 @@
 {
-  "private": true,
   "type": "module",
+  "private": true,
   "workspaces": [
     "packages/*",
     "docs",
@@ -16,6 +16,7 @@
     "docs:build": "pnpm -C ./docs build",
     "play:dev": "pnpm -C ./playground dev",
     "create": "tsx ./scripts/create.ts",
+    "publish": "tsx ./scripts/publish.ts",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
     "prepare": "simple-git-hooks",
@@ -36,7 +37,8 @@
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "@vue/tsconfig": "^0.5.0",
-    "@zzxming/eslint-config": "0.0.4-bata",
+    "@zzxming/eslint-config": "0.0.7",
+    "consola": "^3.2.3",
     "eslint": "^9.3.0",
     "eslint-plugin-yml": "^1.14.0",
     "fs-extra": "^11.2.0",
