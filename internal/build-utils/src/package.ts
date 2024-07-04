@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { buildOutput, buildRoot, pkgRoot } from './constants';
 
 interface Manifest {
+  version: string;
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
 }

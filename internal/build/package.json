@@ -2,10 +2,10 @@
   "name": "@cdx-component/build",
   "private": true,
   "scripts": {
-    "build": "pnpm build:component && pnpm build:full && pnpm build:theme && pnpm copy:package",
+    "build": "tsx ./build.ts",
     "build:full": "vite build --config vite.full.config.ts",
     "build:theme": "pnpm -C ../../packages/theme build",
-    "build:component": "vite build --config vite.config.ts --emptyOutDir",
+    "build:modules": "vite build --config vite.config.ts --emptyOutDir",
     "copy:package": "gulp --require @esbuild-kit/cjs-loader"
   },
   "devDependencies": {
@@ -19,6 +19,7 @@
     "rollup": "^4.17.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.1",
+    "tsx": "4.7.3",
     "vite": "^5.0.10",
     "vite-plugin-dts": "^3.9.0"
   }
