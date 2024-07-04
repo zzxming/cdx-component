@@ -43,8 +43,11 @@ importers:
         specifier: ^0.5.0
         version: 0.5.1
       '@zzxming/eslint-config':
-        specifier: 0.0.4-bata
-        version: 0.0.4-bata(eslint@9.3.0)(prettier@3.2.5)(tailwindcss@3.4.1)(typescript@5.3.3)
+        specifier: 0.0.7
+        version: 0.0.7(eslint@9.3.0)(prettier@3.2.5)(tailwindcss@3.4.1)(typescript@5.3.3)
+      consola:
+        specifier: ^3.2.3
+        version: 3.2.3
       eslint:
         specifier: ^9.3.0
         version: 9.3.0
@@ -69,9 +72,6 @@ importers:
       npm-run-all2:
         specifier: ^6.1.1
         version: 6.1.1
-      prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
@@ -86,7 +86,7 @@ importers:
         version: 5.3.3
       vite:
         specifier: ^5.0.10
-        version: 5.0.12(@types/node@18.19.10)(less@4.2.0)
+        version: 5.0.12(@types/node@18.19.10)
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@18.19.10)(@vitest/ui@1.6.0)(jsdom@24.1.0)
@@ -187,6 +187,9 @@ importers:
       rollup-plugin-esbuild:
         specifier: ^6.1.1
         version: 6.1.1(esbuild@0.20.2)(rollup@4.17.0)
+      tsx:
+        specifier: 4.7.3
+        version: 4.7.3
       vite:
         specifier: ^5.0.10
         version: 5.2.11(@types/node@18.19.10)
@@ -1561,7 +1564,7 @@ packages:
     resolution: {integrity: sha512-H8r2KpL5uKyrkb3z9/3HD/22JcxqW3BJyjEWZhX2T7DehnYVZthEap1cNsEl/UtCDC3TlpNmwiPX8wg3y8E4dg==}
     dependencies:
       '@antfu/install-pkg': 0.1.1
-      '@antfu/utils': 0.7.7
+      '@antfu/utils': 0.7.10
       '@iconify/types': 2.0.0
       debug: 4.3.4
       kolorist: 1.8.0
@@ -3028,8 +3031,8 @@ packages:
       - vue
     dev: true
 
-  /@zzxming/eslint-config@0.0.4-bata(eslint@9.3.0)(prettier@3.2.5)(tailwindcss@3.4.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-dXffR7SZK9I7pNgaWJ62GSrxwOYQ2KvHNA0yNpC1UG3+Q+dW1r1ttVbqa5QyUidLJcKwbkL7y6pgZREOcKJ+xA==}
+  /@zzxming/eslint-config@0.0.7(eslint@9.3.0)(prettier@3.2.5)(tailwindcss@3.4.1)(typescript@5.3.3):
+    resolution: {integrity: sha512-7Mpb0fizTgL8VQxenzCCABGwgq2bpjavwmEQfKSkmRBcqlUjiLfPwxCU004yqwIhOdl2dZ/0AhuSQXD+OevkkA==}
     peerDependencies:
       eslint: ^9.0.0
     dependencies:
@@ -7416,7 +7419,7 @@ packages:
       postcss: ^8.4.38
     dependencies:
       postcss: 8.4.38
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.0
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -7533,7 +7536,7 @@ packages:
     dependencies:
       lilconfig: 3.0.0
       postcss: 8.4.33
-      yaml: 2.3.4
+      yaml: 2.4.5
     dev: true
 
   /postcss-merge-longhand@7.0.0(postcss@8.4.38):
@@ -7557,7 +7560,7 @@ packages:
       caniuse-api: 3.0.0
       cssnano-utils: 5.0.0(postcss@8.4.38)
       postcss: 8.4.38
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-minify-font-values@7.0.0(postcss@8.4.38):
@@ -7601,7 +7604,7 @@ packages:
       postcss: ^8.4.31
     dependencies:
       postcss: 8.4.38
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-nested@6.0.1(postcss@8.4.38):
@@ -7744,14 +7747,6 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-selector-parser@6.0.16:
-    resolution: {integrity: sha512-A0RVJrX+IUkVZbW3ClroRWurercFhieevHB38sr2+l9eUClMqome3LmEmnhlNy+5Mr2EYN6B2Kaw9wYdd+VHiw==}
-    engines: {node: '>=4'}
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
-    dev: true
-
   /postcss-selector-parser@6.1.0:
     resolution: {integrity: sha512-UMz42UD0UY0EApS0ZL9o1XnLhSTtvvvLe5Dc2H2O56fvRZi+KulDyf5ctDhhtYJBGKStV2FL1fy6253cmLgqVQ==}
     engines: {node: '>=4'}
@@ -7778,7 +7773,7 @@ packages:
       postcss: ^8.4.31
     dependencies:
       postcss: 8.4.38
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-value-parser@4.2.0:
@@ -8737,7 +8732,7 @@ packages:
     dependencies:
       browserslist: 4.23.0
       postcss: 8.4.38
-      postcss-selector-parser: 6.0.16
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /sucrase@3.35.0:
@@ -9035,7 +9030,7 @@ packages:
     hasBin: true
     dependencies:
       esbuild: 0.19.12
-      get-tsconfig: 4.7.2
+      get-tsconfig: 4.7.5
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -9526,6 +9521,42 @@ packages:
       - supports-color
     dev: true
 
+  /vite@5.0.12(@types/node@18.19.10):
+    resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 18.19.10
+      esbuild: 0.19.12
+      postcss: 8.4.33
+      rollup: 4.14.1
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
   /vite@5.0.12(@types/node@18.19.10)(less@4.2.0):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -9997,12 +10028,7 @@ packages:
     dependencies:
       eslint-visitor-keys: 3.4.3
       lodash: 4.17.21
-      yaml: 2.3.4
-    dev: true
-
-  /yaml@2.3.4:
-    resolution: {integrity: sha512-8aAvwVUSHpfEqTQ4w/KMlf3HcRdt50E5ODIQJBw1fQ5RL34xabzxtUlzTXVqc4rkZsPbvrXKWnABCD7kWSmocA==}
-    engines: {node: '>= 14'}
+      yaml: 2.4.5
     dev: true
 
   /yaml@2.4.5:
