@@ -1,17 +1,7 @@
 import type { ExtractPropTypes, PropType } from 'vue';
-import type { IfNever, PropKey, UnknownToNever } from './utils';
+import type { IfNever, PropKey, UnknownToNever, WritableArray } from './utils';
 
 export type Value<T> = T[keyof T];
-export type Writable<T> = { -readonly [P in keyof T]: T[P] };
-export type WritableArray<T> = T extends readonly any[] ? Writable<T> : T;
-
-export interface PropOptions<Type = never, Value = never, Validator = never, Default = never, Required extends boolean = false> {
-  type?: Type;
-  required?: Required;
-  default?: Default;
-  values?: readonly Value[];
-  validator?: (Validator) | ((val: any) => boolean);
-}
 
 export type ExtractPropType<T extends object> = Value<
   ExtractPropTypes<{
@@ -19,6 +9,7 @@ export type ExtractPropType<T extends object> = Value<
   }>
 >;
 
+/** 处理原始 type 类型 */
 export type ResolvePropType<T> = IfNever<
   T,
   never,
@@ -28,22 +19,48 @@ export type ResolvePropType<T> = IfNever<
   }>
 >;
 
-export type MergePropType<Type, Value, Validator> =
-  | IfNever<UnknownToNever<Value>, ResolvePropType<Type>, never>
-  | UnknownToNever<Value>
-  | UnknownToNever<Validator>;
+// 不允许默认原始值和 required 同时存在
+/** 处理默认与必填的情况 */
+export type PropInputDefaultValue<
+  Required extends boolean,
+  Default,
+> = Required extends true
+  ? never
+  : Default extends Record<string, unknown> | Array<any>
+    ? () => Default
+    : (() => Default) | Default;
 
-export type ConvertProps<Input> = Input extends PropOptions<infer Type, infer Value, infer Validator, any, infer Required>
-  ? FinalProps<Type, Value, Validator, Input['default'], Required>
+/** buildProp 输入类型 */
+export interface PropOptions<Type, Value, Validator, Default, Required extends boolean> {
+  type?: Type;
+  required?: Required;
+  default?: PropInputDefaultValue<Required, Default>;
+  values?: readonly Value[];
+  validator?: ((val: any) => val is Validator) | ((val: any) => boolean);
+}
+
+/** 转换为最终输出 */
+export type ConvertProps<Options> = Options extends PropOptions<infer Type, infer Value, infer Validator, any, infer Required>
+  ? FinalProps<Type, Value, Validator, Options['default'], Required>
   : never;
 
+/** 合并验证类型至 type */
+export type MergePropType<Type, Value, Validator, Default> =
+  | IfNever<UnknownToNever<Value>, ResolvePropType<Type>, never>
+  | UnknownToNever<Value>
+  | UnknownToNever<Validator>
+  | UnknownToNever<MergeDefaultToValue<Default, Value>>;
+
+/** 合并 default 与 value 类型 */
+export type MergeDefaultToValue<Default, Value> = IfNever<UnknownToNever<Default>, Value, UnknownToNever<Default> | Value>;
+
 export type FinalProps<Type, Value, Validator, Default, Required> = {
-  readonly type: PropType<MergePropType<Type, Value, Validator>>;
+  readonly type: PropType<MergePropType<UnknownToNever<Type>, Value, Validator, Default>>;
   readonly required: [Required] extends [true] ? true : false;
   readonly validator: IfNever<
     IfNever<UnknownToNever<Validator>, UnknownToNever<Value>, UnknownToNever<Validator>>,
     undefined,
-    ((val: unknown) => boolean)
+    (val: unknown) => boolean
   >;
   [PropKey]: true;
 } & IfNever<UnknownToNever<Default>, unknown, { readonly default: Default }>;
