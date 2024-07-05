@@ -11,6 +11,7 @@ import { lintFiles } from './lint';
 import { version } from './constants';
 
 const main = async () => {
+  consola.info(`Update version to: ${version}`);
   const projectPkg = getPackageManifest(cdxPackage);
   projectPkg.version = version;
 
