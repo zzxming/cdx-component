@@ -11,3 +11,5 @@ export const components = fs.readdirSync(componentRoot).filter((f) => {
 
   return fs.existsSync(`${path}/index.ts`);
 });
+
+export const version = '0.0.8-beta.1';

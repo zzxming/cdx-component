@@ -5,10 +5,10 @@ import {
   cdxPackage,
   getPackageManifest,
   run,
-  version,
 } from '@cdx-component/build-utils';
 import fs from 'fs-extra';
 import { lintFiles } from './lint';
+import { version } from './constants';
 
 const main = async () => {
   const projectPkg = getPackageManifest(cdxPackage);
