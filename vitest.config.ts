@@ -15,6 +15,9 @@ export default defineConfig({
       reporter: ['html'],
       enabled: true,
     },
+    typecheck: {
+      enabled: true,
+    },
   },
   plugins: [
     Vue(),
