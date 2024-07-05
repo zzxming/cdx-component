@@ -71,15 +71,15 @@ const create = async (name: string) => {
     {
       filePath: resolve(componentRoot, `${kebabCaseName}/src/${kebabCaseName}.ts`),
       source: `
-      import { buildProps } from '@cdx-component/utils';
-      import type { ExtractPropTypes } from 'vue';
+        import { buildProps } from '@cdx-component/utils';
+        import type { ExtractPropTypes } from 'vue';
 
-      export const ${camelCaseName}Props = buildProps({} as const);
-      export type ${upperCamelCaseName}Props = ExtractPropTypes<typeof ${camelCaseName}Props>;
+        export const ${camelCaseName}Props = buildProps({} as const);
+        export type ${upperCamelCaseName}Props = ExtractPropTypes<typeof ${camelCaseName}Props>;
 
-      export const ${camelCaseName}Emits = {};
-      export type ${upperCamelCaseName}Emits = typeof ${camelCaseName}Emits;
-    `,
+        export const ${camelCaseName}Emits = {};
+        export type ${upperCamelCaseName}Emits = typeof ${camelCaseName}Emits;
+      `,
     },
     {
       filePath: resolve(componentRoot, `${kebabCaseName}/style/index.ts`),
@@ -91,10 +91,10 @@ const create = async (name: string) => {
     {
       filePath: resolve(themeRoot, `src/${kebabCaseName}.less`),
       source: `
-      @import './shared/variables.less';
+        @import './shared/variables.less';
 
-      .@{namespace}-${kebabCaseName} {}
-    `,
+        .@{namespace}-${kebabCaseName} {}
+      `,
     },
     {
       filePath: resolve(docsRoot, `component/${kebabCaseName}.md`),
@@ -124,24 +124,6 @@ const create = async (name: string) => {
         },
   );
   if (!allowCreate) return false;
-
-  const appendFile = [
-    {
-      filePath: resolve(componentRoot, `index.ts`),
-      source: `export * from './${kebabCaseName}';`,
-    },
-    {
-      filePath: resolve(themeRoot, `src/index.less`),
-      source: `@import './${kebabCaseName}.less';`,
-    },
-  ];
-  const allowAppend = await consola.prompt(
-        `The following files will be appended\n${appendFile.map(data => data.filePath).join('\n')}`,
-        {
-          type: 'confirm',
-        },
-  );
-  if (!allowAppend) return false;
 
   const generatedFiles: string[] = [];
   const removeGeneratedFiles = () => {
@@ -183,6 +165,24 @@ const create = async (name: string) => {
     await removeGeneratedFiles();
     return false;
   }
+
+  const appendFile = [
+    {
+      filePath: resolve(componentRoot, `index.ts`),
+      source: `export * from './${kebabCaseName}';`,
+    },
+    {
+      filePath: resolve(themeRoot, `src/index.less`),
+      source: `@import './${kebabCaseName}.less';`,
+    },
+  ];
+  const allowAppend = await consola.prompt(
+    `The following files will be appended\n${appendFile.map(data => data.filePath).join('\n')}`,
+    {
+      type: 'confirm',
+    },
+  );
+  if (!allowAppend) return false;
 
   try {
     await Promise.all(

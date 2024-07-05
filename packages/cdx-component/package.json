@@ -2,9 +2,6 @@
   "name": "cdx-component",
   "version": "0.0.4",
   "description": "A Component Library for Vue 3",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "types": "es/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zzxming/cdx-component"
@@ -14,11 +11,14 @@
     "ui",
     "vue"
   ],
-  "dependencies": {
-    "async-validator": "^4.2.5"
-  },
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "peerDependencies": {
     "vue": "^3.3.11"
+  },
+  "dependencies": {
+    "async-validator": "^4.2.5"
   },
   "browserslist": [
     "> 1%",
