@@ -4,9 +4,7 @@
   "scripts": {
     "build": "tsx ./build.ts",
     "build:full": "vite build --config vite.full.config.ts",
-    "build:theme": "pnpm -C ../../packages/theme build",
-    "build:modules": "vite build --config vite.config.ts --emptyOutDir",
-    "copy:package": "gulp --require @esbuild-kit/cjs-loader"
+    "build:modules": "vite build --config vite.config.ts --emptyOutDir"
   },
   "devDependencies": {
     "@cdx-component/build-utils": "workspace:^",

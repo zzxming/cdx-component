@@ -1,11 +1,15 @@
 #!/usr/bin/env node
-import { run } from '@cdx-component/build-utils';
+import { join } from 'node:path';
+import { buildOutput, buildRoot, cdxPackage, run, themeRoot } from '@cdx-component/build-utils';
+import { copyFile } from 'fs-extra';
 
 const main = async () => {
-  await run('pnpm build:modules');
-  await run('pnpm build:full');
-  await run('pnpm build:theme && pnpm copy:package');
-  await run('pnpm copy:package');
+  await run('pnpm build:modules', buildRoot);
+  await run('pnpm build:full', buildRoot);
+
+  await run('pnpm build', themeRoot);
+
+  copyFile(cdxPackage, join(buildOutput, 'package.json'));
 };
 
 main().catch((error) => {
