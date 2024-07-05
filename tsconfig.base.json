@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ESNext",
+    "baseUrl": ".",
+    "rootDir": ".",
     "module": "ESNext",
-    "sourceMap": false,
     "moduleResolution": "Node",
+    "paths": {
+      "@cdx-component/*": ["./packages/*"]
+    },
+    "resolveJsonModule": true,
+    "types": [],
     "allowJs": false,
     "strict": true,
     "noUnusedLocals": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "removeComments": true,
-    "types": [],
-    "composite": true,
     "noEmit": true,
     "outDir": "dist",
-    "baseUrl": ".",
-    "rootDir": ".",
-    "paths": {
-      "@cdx-component/*": ["./packages/*"]
-    }
+    "removeComments": true,
+    "sourceMap": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   }
 }

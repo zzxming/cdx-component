@@ -1,26 +1,26 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "rootDir": "../",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "allowJs": false,
-    "strict": true,
-    "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "removeComments": false,
-    "composite": true,
-    "noImplicitAny": false,
-    "noEmit": true,
-    "rootDir": "../",
-    "types": ["../types/components.d.ts"],
-    "lib": ["ESNext", "DOM"],
     "paths": {
       "@docs/*": ["./"],
       "cdx-component/*": ["../packages/cdx-component"]
-    }
+    },
+    "resolveJsonModule": true,
+    "types": ["../types/components.d.ts"],
+    "allowJs": false,
+    "strict": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noEmit": true,
+    "removeComments": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*", ".vitepress/**/*", "../packages/cdx-component/**/*"]
+  "include": ["**/*", ".vitepress/**/*", "../packages/cdx-component/**/*"],
+  "exclude": ["node_modules"]
 }

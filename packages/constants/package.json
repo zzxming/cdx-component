@@ -1,8 +1,8 @@
 {
   "name": "@cdx-component/constants",
   "version": "0.0.0",
-  "main": "index.ts",
   "author": "",
+  "main": "index.ts",
   "peerDependencies": {
     "vue": "^3.3.11"
   }
