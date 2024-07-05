@@ -5,7 +5,14 @@ import type { IfFinalProp, IfNativePropType, NativePropType } from './utils';
 import { PropKey } from './utils';
 
 export const definePropType = <T>(val: any): PropType<T> => val;
-export const buildProp = <Type = never, Value = never, Validator extends (...arg: any[]) => any = never, Default = never, Required extends boolean = false>(
+
+export const buildProp = <
+  Type = never,
+  Value = never,
+  Validator = never,
+  Default = never,
+  Required extends boolean = false,
+>(
   prop: PropOptions<Type, Value, Validator, Default, Required>,
 ): FinalProps<Type, Value, Validator, Default, Required> => {
   if (!isObject(prop)) return prop;
@@ -34,6 +41,7 @@ export const buildProp = <Type = never, Value = never, Validator extends (...arg
   if (!isUndefined(defaultValue)) resultProp.default = defaultValue;
   return resultProp;
 };
+
 export const buildProps = <
   Props extends Record<string, { [PropKey]: true } | NativePropType | PropOptions<any, any, any, any, any>>,
 >(
