@@ -6,8 +6,6 @@
     "vue": "^3.3.11"
   },
   "dependencies": {
-    "@cdx-component/constants": "workspace:^",
-    "@cdx-component/utils": "workspace:^",
     "async-validator": "^4.2.5"
   }
 }

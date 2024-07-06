@@ -3,8 +3,7 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "docs",
-    "build"
+    "docs"
   ],
   "packageManager": "pnpm@8.14.3",
   "scripts": {
@@ -15,6 +14,7 @@
     "docs:dev": "pnpm -C ./docs dev",
     "docs:build": "pnpm -C ./docs build",
     "play:dev": "pnpm -C ./playground dev",
+    "bootstrap": "tsx ./scripts/bootstrap.ts",
     "create": "tsx ./scripts/create.ts",
     "publish": "tsx ./scripts/publish.ts",
     "lint": "eslint . --cache",
@@ -28,7 +28,10 @@
   },
   "devDependencies": {
     "@cdx-component/build-utils": "workspace:^",
+    "@cdx-component/components": "workspace:^",
     "@cdx-component/constants": "workspace:^",
+    "@cdx-component/hooks": "workspace:^",
+    "@cdx-component/theme": "workspace:^",
     "@cdx-component/utils": "workspace:^",
     "@types/fs-extra": "^11.0.4",
     "@types/jsdom": "^21.1.7",
@@ -38,6 +41,7 @@
     "@vitest/ui": "^1.6.0",
     "@vue/tsconfig": "^0.5.0",
     "@zzxming/eslint-config": "0.0.7",
+    "cdx-component": "workspace:^",
     "consola": "^3.2.3",
     "eslint": "^9.3.0",
     "eslint-plugin-yml": "^1.14.0",

@@ -4,12 +4,5 @@
   "main": "index.ts",
   "peerDependencies": {
     "vue": "^3.3.11"
-  },
-  "devDependencies": {
-    "@cdx-component/components": "workspace:^",
-    "@cdx-component/constants": "workspace:^",
-    "@cdx-component/hooks": "workspace:^",
-    "@cdx-component/theme": "workspace:^",
-    "@cdx-component/utils": "workspace:^"
   }
 }
