@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { join } from 'node:path';
-import { buildOutput, buildRoot, cdxPackage, run, themeRoot } from '@cdx-component/build-utils';
+import { join, resolve } from 'node:path';
+import { buildOutput, buildRoot, cdxPackage, projRoot, run, themeRoot } from '@cdx-component/build-utils';
 import { copyFile } from 'fs-extra';
 
 const main = async () => {
@@ -10,6 +10,8 @@ const main = async () => {
   await run('pnpm build', themeRoot);
 
   copyFile(cdxPackage, join(buildOutput, 'package.json'));
+  copyFile(resolve(projRoot, 'README.md'), resolve(buildOutput, 'README.md'));
+  copyFile(resolve(projRoot, 'global.d.ts'), resolve(buildOutput, 'global.d.ts'));
 };
 
 main().catch((error) => {

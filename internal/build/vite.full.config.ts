@@ -47,6 +47,9 @@ export default defineConfig({
           format: 'umd',
           name: 'CdxComponent',
           exports: 'named',
+          globals: {
+            vue: 'Vue',
+          },
         },
         {
           dir: buildOutput,

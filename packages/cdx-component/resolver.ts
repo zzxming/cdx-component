@@ -11,8 +11,8 @@ const resolveComponent = (name: string) => {
     name,
     from: `cdx-component/es`,
     sideEffects: [
-            `cdx-component/es/components/base/style/index`,
-            `cdx-component/es/components/${partialName}/style/index`,
+      `cdx-component/es/components/base/style/index`,
+      `cdx-component/es/components/${partialName}/style/index`,
     ],
   };
 };
@@ -26,8 +26,8 @@ const resolveDirective = async (name: string) => {
     name: `Cdx${name}Directive`,
     from: `cdx-component/es`,
     sideEffects: [
-            `cdx-component/es/components/base/style/index`,
-            `cdx-component/es/components/${partialName}/style/index`,
+      `cdx-component/es/components/base/style/index`,
+      `cdx-component/es/components/${partialName}/style/index`,
     ],
   };
 };
