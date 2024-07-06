@@ -39,6 +39,7 @@
     "@types/prompts": "^2.4.9",
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.0",
     "@zzxming/eslint-config": "0.0.7",
     "cdx-component": "workspace:^",
