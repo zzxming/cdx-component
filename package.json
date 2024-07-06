@@ -3,8 +3,7 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "docs",
-    "build"
+    "docs"
   ],
   "packageManager": "pnpm@8.14.3",
   "scripts": {
@@ -28,7 +27,10 @@
   },
   "devDependencies": {
     "@cdx-component/build-utils": "workspace:^",
+    "@cdx-component/components": "workspace:^",
     "@cdx-component/constants": "workspace:^",
+    "@cdx-component/hooks": "workspace:^",
+    "@cdx-component/theme": "workspace:^",
     "@cdx-component/utils": "workspace:^",
     "@types/fs-extra": "^11.0.4",
     "@types/jsdom": "^21.1.7",
