@@ -5,7 +5,6 @@
     "build": "gulp --require @esbuild-kit/cjs-loader"
   },
   "devDependencies": {
-    "@cdx-component/build-utils": "workspace:^",
     "@esbuild-kit/cjs-loader": "^2.4.4",
     "@types/gulp": "^4.0.17",
     "@types/gulp-clean-css": "^4.3.4",
