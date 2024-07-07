@@ -40,6 +40,9 @@ jobs:
       - name: Build common packages
         run: pnpm run build:common
 
+      - name: Build depend files
+        run: pnpm run bootstrap
+
       - name: Build VitePress
         run: pnpm run docs:build
 
