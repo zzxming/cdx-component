@@ -23,7 +23,7 @@ export const toCamelCase = (key: string) => {
  * @param key 需要转换的短横线连接字符
  * @returns 转换后的大驼峰字符
  */
-export const toUpperCamelCase = (key: string) => {
+export const toPascalCase = (key: string) => {
   const name = toCamelCase(key);
   return name.slice(0, 1).toUpperCase() + name.slice(1);
 };

@@ -9,7 +9,7 @@ import {
   themeRoot,
   toCamelCase,
   toKebabCase,
-  toUpperCamelCase,
+  toPascalCase,
 } from '@cdx-component/build-utils';
 import { components } from './constants';
 import { lintFiles } from './lint';
@@ -29,12 +29,12 @@ const create = async (name: string) => {
   if (/[A-Z]/.test(name)) {
     camelCaseName = toCamelCase(name);
     kebabCaseName = toKebabCase(camelCaseName);
-    upperCamelCaseName = toUpperCamelCase(camelCaseName);
+    upperCamelCaseName = toPascalCase(camelCaseName);
   }
   else {
     kebabCaseName = name;
     camelCaseName = toCamelCase(kebabCaseName);
-    upperCamelCaseName = toUpperCamelCase(camelCaseName);
+    upperCamelCaseName = toPascalCase(camelCaseName);
   }
 
   const generateFile = [
