@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createNamespace } from '..'; // 替换为实际文件路径
+import { createNamespace } from '..';
 
 describe('test function about bem', () => {
   describe('createNamespace', () => {

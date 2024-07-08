@@ -3,6 +3,14 @@ import type { IfNever, PropKey, UnknownToNever, WritableArray } from './utils';
 
 export type Value<T> = T[keyof T];
 
+/**
+ * 提取单个 prop 的参数类型
+ *
+ * @example
+ * ExtractPropType<{ type: StringConstructor }> => string | undefined
+ * ExtractPropType<{ type: StringConstructor, required: true }> => string
+ * ExtractPropType<{ type: BooleanConstructor }> => boolean
+ */
 export type ExtractPropType<T extends object> = Value<
   ExtractPropTypes<{
     key: T;
@@ -47,9 +55,8 @@ export type ConvertProps<Options> = Options extends PropOptions<infer Type, infe
 /** 合并验证类型至 type */
 export type MergePropType<Type, Value, Validator, Default> =
   | IfNever<UnknownToNever<Value>, ResolvePropType<Type>, never>
-  | UnknownToNever<Value>
-  | UnknownToNever<Validator>
-  | UnknownToNever<MergeDefaultToValue<Default, Value>>;
+  | UnknownToNever<MergeDefaultToValue<Default, Value>>
+  | UnknownToNever<Validator>;
 
 /** 合并 default 与 value 类型 */
 export type MergeDefaultToValue<Default, Value> = IfNever<UnknownToNever<Default>, Value, UnknownToNever<Default> | Value>;
