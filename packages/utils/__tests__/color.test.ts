@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { generateRandomColor } from '..'; // 替换为实际的文件路径
+import { generateRandomColor } from '..';
 
 describe('test function about color', () => {
   it('should generate a valid rgb color string', () => {

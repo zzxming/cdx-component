@@ -240,22 +240,41 @@ describe('test types about vue props', () => {
       }>();
     });
 
+    // // TODO, expect-type 验证问题, 对全是 required 和全是 optional 的会出现错误
     // it('should extract type', () => {
-    //   const props = {
-    //     key1: buildProp({
+    //   const prop1 = {
+    //     key1: String,
+    //     key2: {
+    //       type: Number,
+    //     },
+    //   } as const;
+    //   type P1 = ExtractPropTypes<typeof prop1>;
+    //   expectTypeOf<P1>().toEqualTypeOf<{
+    //     readonly key1?: string;
+    //     readonly key2?: number;
+    //   }>();
+    //   // eslint-disable-next-line ts/ban-types
+    //   expectTypeOf<P1>().toEqualTypeOf<{} & {
+    //     readonly key1?: string;
+    //     readonly key2?: number;
+    //   }>();
+
+    //   const prop2 = {
+    //     key1: String,
+    //     key2: {
+    //       type: Number,
+    //     },
+    //     key3: {
     //       type: String,
     //       required: true,
-    //     }),
-    //     key2: buildProp({
-    //       type: [String, Number],
-    //       required: true,
-    //     }),
+    //     },
     //   } as const;
-    //   type Extracted = ExtractPropTypes<typeof props>;
-
-    //   expectTypeOf<Extracted>().toEqualTypeOf<{
-    //     readonly key1: string;
-    //     readonly key2: string | number;
+    //   type P2 = ExtractPropTypes<typeof prop2>;
+    //   expectTypeOf<P2>().toEqualTypeOf<{
+    //     readonly key3: string;
+    //   } & {
+    //     readonly key1?: string;
+    //     readonly key2?: number;
     //   }>();
     // });
 

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { caf, raf } from '../'; // 替换为实际模块路径
+import { caf, raf } from '..';
 
 let isServerMocked = true;
 vi.mock('../types', () => ({

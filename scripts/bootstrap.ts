@@ -2,7 +2,7 @@
 import { readdirSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
 import consola from 'consola';
-import { PKG_NAME, componentRoot, projRoot, toUpperCamelCase } from '@cdx-component/build-utils';
+import { PKG_NAME, componentRoot, projRoot, toPascalCase } from '@cdx-component/build-utils';
 import fs from 'fs-extra';
 import { lintFiles } from './lint';
 
@@ -16,7 +16,7 @@ const main = async () => {
       export interface GlobalComponents {
         ${
           componentNames.map((name) => {
-            const upperCamel = `Cdx${toUpperCamelCase(name)}`;
+            const upperCamel = `Cdx${toPascalCase(name)}`;
             return `${upperCamel}: (typeof import('${PKG_NAME}'))['${upperCamel}']`;
           }).join('\r\n')
         }
@@ -34,7 +34,7 @@ const main = async () => {
       export interface GlobalComponents {
         ${
           componentNames.map((name) => {
-            const upperCamel = `Cdx${toUpperCamelCase(name)}`;
+            const upperCamel = `Cdx${toPascalCase(name)}`;
             return `${upperCamel}: (typeof import('../packages/cdx-component'))['${upperCamel}']`;
           }).join('\r\n')
         }
