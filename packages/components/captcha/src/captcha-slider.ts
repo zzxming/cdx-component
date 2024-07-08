@@ -1,4 +1,5 @@
 import { buildProps, definePropType, isNumber } from '@cdx-component/utils';
+import type { ExtractPropTypes } from 'vue';
 
 export const captchaSliderProps = buildProps({
   target: {
@@ -23,7 +24,7 @@ export const captchaSliderProps = buildProps({
     type: definePropType<() => Promise<boolean> | boolean>(Function),
   },
 } as const);
-export type CaptchaSliderProps = typeof captchaSliderProps;
+export type CaptchaSliderProps = ExtractPropTypes<typeof captchaSliderProps>;
 
 export const captchaSliderEmits = {
   success: () => true,
