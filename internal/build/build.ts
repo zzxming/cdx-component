@@ -4,6 +4,8 @@ import { buildOutput, buildRoot, cdxPackage, projRoot, run, themeRoot } from '@c
 import { copyFile } from 'fs-extra';
 
 const main = async () => {
+  await run('pnpm run bootstrap');
+
   await run('pnpm build:modules', buildRoot);
   await run('pnpm build:full', buildRoot);
 
