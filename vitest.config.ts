@@ -8,14 +8,15 @@ export default defineConfig({
   test: {
     clearMocks: true,
     environment: 'jsdom',
-    include: ['**/__tests__/*.{test,spec}.?([cm])[jt]s?(x)'],
-    exclude: ['docs/**', '**/dits/**', '**/node_modules/**'],
+    include: ['**/__tests__/*.{test,spec}.?([cm])[jt]s?(x)', '**/__tests__/*.{test,spec}-d.?([cm])[jt]s?(x)'],
+    exclude: ['**/dits/**', '**/node_modules/**'],
     coverage: {
       reportsDirectory: resolve(__dirname, 'coverage'),
       reporter: ['html'],
       enabled: true,
     },
     typecheck: {
+      include: ['**/__tests__/*.{test,spec}-d.?([cm])[jt]s?(x)'],
       enabled: true,
     },
   },
