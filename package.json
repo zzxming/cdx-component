@@ -8,7 +8,7 @@
   "packageManager": "pnpm@8.14.3",
   "scripts": {
     "build": "pnpm -C ./internal/build build",
-    "build:theme": "pnpm -C ./internal/build build:theme",
+    "build:theme": "pnpm -C ./packages/theme build",
     "build:common": "pnpm build:build-utils",
     "build:build-utils": "pnpm -C ./internal/build-utils build && pnpm i",
     "docs:dev": "pnpm -C ./docs dev",
@@ -45,7 +45,6 @@
     "cdx-component": "workspace:^",
     "consola": "^3.2.3",
     "eslint": "^9.3.0",
-    "eslint-plugin-yml": "^1.14.0",
     "fs-extra": "^11.2.0",
     "globals": "^15.6.0",
     "jsdom": "^24.1.0",
