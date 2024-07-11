@@ -1,5 +1,5 @@
 import { describe, expectTypeOf, it } from 'vitest';
-import type { PropType } from 'vue';
+import type { ExtractPropTypes, PropType } from 'vue';
 import { buildProp, buildProps, definePropType, keepConstType } from '..';
 import type { IfNever, IfUnknown, PropKey, Writable, WritableArray } from '..';
 
@@ -240,43 +240,38 @@ describe('test types about vue props', () => {
       }>();
     });
 
-    // // TODO, expect-type 验证问题, 对全是 required 和全是 optional 的会出现错误
-    // it('should extract type', () => {
-    //   const prop1 = {
-    //     key1: String,
-    //     key2: {
-    //       type: Number,
-    //     },
-    //   } as const;
-    //   type P1 = ExtractPropTypes<typeof prop1>;
-    //   expectTypeOf<P1>().toEqualTypeOf<{
-    //     readonly key1?: string;
-    //     readonly key2?: number;
-    //   }>();
-    //   // eslint-disable-next-line ts/ban-types
-    //   expectTypeOf<P1>().toEqualTypeOf<{} & {
-    //     readonly key1?: string;
-    //     readonly key2?: number;
-    //   }>();
+    it('should extract type', () => {
+      const props1 = {
+        key1: buildProp({
+          type: String,
+        }),
+        key2: buildProp({
+          type: [String, Number],
+          required: true,
+        }),
+      } as const;
+      expectTypeOf<ExtractPropTypes<typeof props1>>().branded.toEqualTypeOf<{
+        readonly key1?: string;
+        readonly key2: string | number;
+      }>();
 
-    //   const prop2 = {
-    //     key1: String,
-    //     key2: {
-    //       type: Number,
-    //     },
-    //     key3: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //   } as const;
-    //   type P2 = ExtractPropTypes<typeof prop2>;
-    //   expectTypeOf<P2>().toEqualTypeOf<{
-    //     readonly key3: string;
-    //   } & {
-    //     readonly key1?: string;
-    //     readonly key2?: number;
-    //   }>();
-    // });
+      const prop2 = {
+        key1: String,
+        key2: {
+          type: Number,
+        },
+        key3: {
+          type: String,
+          required: true,
+        },
+      } as const;
+      expectTypeOf<ExtractPropTypes<typeof prop2>>().toEqualTypeOf<{
+        readonly key3: string;
+      } & {
+        readonly key1?: string;
+        readonly key2?: number;
+      }>();
+    });
 
     it('should correctly process a mix of prop definitions', () => {
       const props = buildProps({
