@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-// import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { defineComponent, ref } from 'vue';
 import type { VueWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
