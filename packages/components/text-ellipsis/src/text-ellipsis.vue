@@ -16,10 +16,7 @@ const isEllipsis = ref(!!slots.default);
 const text = ref('');
 const rootRef = ref<HTMLDivElement>();
 
-const hasExpandBtn = computed(() => {
-  console.log(props.canExpand, isEllipsis.value);
-  return props.canExpand && isEllipsis.value;
-});
+const hasExpandBtn = computed(() => props.canExpand && isEllipsis.value);
 const expandBtnText = computed(() => (model.value ? props.collapseText : props.expandText));
 const ellipsisLines = computed(() => (model.value ? 0 : props.lines));
 
@@ -57,8 +54,7 @@ const calcEllipsis = () => {
   if (!rootRef.value || !props.content) return;
   const copy = cloneNode(rootRef.value, props.content);
   const { paddingTop, paddingBottom, lineHeight } = getComputedStyle(copy);
-  const totalHeight
-        = parseNum(paddingTop) + parseNum(paddingBottom) + parseNum(lineHeight) * (Number(props.lines) + 0.5);
+  const totalHeight = parseNum(paddingTop) + parseNum(paddingBottom) + parseNum(lineHeight) * (Number(props.lines) + 0.5);
 
   if (copy.offsetHeight > totalHeight) {
     isEllipsis.value = true;
