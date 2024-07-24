@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue'
 import { namespace } from '@cdx-component/constants';
 import { useBem, useModelValue } from '@cdx-component/hooks';
 import { textEllipsisEmits, textEllipsisProps } from './text-ellipsis';
+import { cloneNode } from './utils';
 
 defineOptions({ name: 'CdxTextEllipsis' });
 const props = defineProps(textEllipsisProps);
@@ -20,18 +21,6 @@ const hasExpandBtn = computed(() => props.canExpand && isEllipsis.value);
 const expandBtnText = computed(() => (model.value ? props.collapseText : props.expandText));
 const ellipsisLines = computed(() => (model.value ? 0 : props.lines));
 
-const cloneNode = <T extends HTMLElement>(node: T, content: string) => {
-  const copy = node.cloneNode(false) as T;
-  copy.style.width = getComputedStyle(node).width;
-  copy.style.position = 'fixed';
-  copy.style.zIndex = '-9999';
-  copy.style.top = '-9999px';
-  copy.style.left = '-9999px';
-  copy.style.minHeight = 'auto';
-  copy.innerHTML = content;
-  document.body.appendChild(copy);
-  return copy;
-};
 const parseNum = (num: any) => {
   const n = Number.parseFloat(num);
   return Number.isNaN(n) ? 0 : n;
