@@ -4,7 +4,6 @@ import type { ExtractPropTypes } from 'vue';
 export const textHighlightProps = buildProps({
   texts: {
     type: definePropType<string | string[]>([Array, String]),
-    default: '',
   },
   content: {
     type: String,
