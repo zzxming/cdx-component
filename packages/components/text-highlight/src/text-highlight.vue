@@ -12,9 +12,12 @@ const textKeywords = computed(() => {
   if (Array.isArray(props.texts)) {
     return props.texts.filter(v => !!v);
   }
-  return [props.texts];
+  return props.texts ? [props.texts] : [];
 });
-const textMatchReg = computed(() => new RegExp(`(${textKeywords.value.join('|')})`, `g${props.ignoreCase ? 'i' : ''}`));
+const textMatchReg = computed(() => {
+  if (textKeywords.value.length === 0) return /^(?!)$/g;
+  return new RegExp(`(${textKeywords.value.join('|')})`, `g${props.ignoreCase ? 'i' : ''}`);
+});
 const splitedContent = computed(() =>
   props.content.split(textMatchReg.value).map(text => ({ isKey: textMatchReg.value.test(text), text })),
 );
