@@ -1,17 +1,18 @@
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { isUndefined } from '@cdx-component/utils';
 import { computed, getCurrentInstance, ref, watch } from 'vue';
 
 export const useModelValue = <T>(props: { modelValue: T }, defaultValue: T) => {
   const { emit } = getCurrentInstance()!;
 
-  const visible = ref(defaultValue);
+  const internalValue = ref(defaultValue);
 
   const model = computed({
     get() {
-      return props.modelValue || visible.value;
+      return props.modelValue || internalValue.value;
     },
     set(value: any) {
-      visible.value = value;
+      internalValue.value = value;
       emit(UPDATE_MODEL_EVENT, value);
     },
   });
@@ -19,9 +20,10 @@ export const useModelValue = <T>(props: { modelValue: T }, defaultValue: T) => {
   watch(
     () => props.modelValue,
     (val) => {
-      model.value = val;
+      model.value = isUndefined(val) ? defaultValue : val;
     },
     { immediate: true },
   );
+
   return { model };
 };
