@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-const activeName = ref(['1']);
+const activeName = ref([1]);
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { provide, ref } from 'vue';
-import { useBem } from '@cdx-component/hooks';
-import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { provide } from 'vue';
+import { useBem, useModelValue } from '@cdx-component/hooks';
+import { CHANGE_EVENT } from '@cdx-component/constants';
 import { CollapseModelValueType, collapseEmits, collapseProps } from './collapse';
 import { collapseContextKey } from './constants';
 
@@ -11,16 +11,10 @@ const emits = defineEmits(collapseEmits);
 
 const [, bem] = useBem('collapse');
 
-const activeNames = ref(props.modelValue);
-
-const setActiveNames = (value: CollapseModelValueType[]) => {
-  activeNames.value = value;
-  emits(UPDATE_MODEL_EVENT, value);
-  emits(CHANGE_EVENT, value);
-};
+const { model } = useModelValue(props, []);
 
 const handleItemClick = (name: CollapseModelValueType) => {
-  const _activeNames = [...activeNames.value];
+  const _activeNames = [...model.value];
   const index = _activeNames.indexOf(name);
 
   if (index > -1) {
@@ -29,11 +23,12 @@ const handleItemClick = (name: CollapseModelValueType) => {
   else {
     _activeNames.push(name);
   }
-  setActiveNames(_activeNames);
+  model.value = _activeNames;
+  emits(CHANGE_EVENT, _activeNames);
 };
 
 provide(collapseContextKey, {
-  activeNames,
+  activeNames: model,
   handleItemClick,
 });
 </script>
