@@ -43,6 +43,10 @@ export default defineConfig({
             { text: 'PullRefresh', link: '/component/pull-refresh' },
           ],
         },
+        {
+          text: '指令',
+          items: [{ text: 'vToolTip', link: '/component/v-tooltip' }],
+        },
       ],
     },
   },

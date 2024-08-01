@@ -19,6 +19,7 @@ const resolveComponent = (name: string) => {
 const resolveDirective = async (name: string) => {
   const directiveMap: Record<string, any> = {
     Loading: {},
+    Tooltip: {},
   };
   if (!directiveMap[name]) return;
   const partialName = name.toLowerCase();
