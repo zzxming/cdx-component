@@ -8,12 +8,9 @@ const distance = 4;
 type ToolTipElement = HTMLElement & { [tooltipKey]: HTMLElement };
 type ToolTipOptions = string;
 
+let tooltipWrapper: HTMLElement;
 const { nextZIndex } = useZIndex();
 const [, bem] = useBem('tooltip');
-
-const tooltipWrapper = document.createElement('div');
-tooltipWrapper.className = bem.be('wrapper');
-document.body.appendChild(tooltipWrapper);
 
 const directions = ['top', 'right', 'bottom', 'left'] as const;
 const getValidDirection = (val: any): typeof directions[number] => {
@@ -114,6 +111,11 @@ const updateTooltipValue = (el: ToolTipElement, binding: DirectiveBinding<ToolTi
   el.dataset.direction = getValidDirection(binding.arg || '');
 };
 const createTooltip = (el: ToolTipElement, binding: DirectiveBinding<ToolTipOptions>) => {
+  if (!tooltipWrapper) {
+    tooltipWrapper = document.createElement('div');
+    tooltipWrapper.className = bem.be('wrapper');
+    document.body.appendChild(tooltipWrapper);
+  }
   const tooltipContent = document.createElement('div');
   tooltipContent.className = `${bem.b()} ${bem.bm('hidden')}`;
   const tooltipText = document.createElement('span');
