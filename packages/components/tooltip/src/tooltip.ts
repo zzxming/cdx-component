@@ -1,11 +1,9 @@
 import type { ExtractPropTypes } from 'vue';
 import { buildProps } from '@cdx-component/utils';
+import { tooltipContentProps } from './tooltip-content';
 
 export const tooltipProps = buildProps({
-  directive: {
-    values: ['top', 'right', 'bottom', 'left'],
-    default: 'top',
-  },
+  ...tooltipContentProps,
   text: {
     type: String,
     default: '',
