@@ -1,4 +1,4 @@
-import { onScopeDispose } from 'vue';
+import { getCurrentInstance, onScopeDispose } from 'vue';
 
 export const useTimeout = () => {
   let timeout: number;
@@ -9,9 +9,11 @@ export const useTimeout = () => {
     timeout = window.setTimeout(fn, delay);
   };
 
-  onScopeDispose(() => {
-    clearTimeout();
-  });
+  if (getCurrentInstance()) {
+    onScopeDispose(() => {
+      clearTimeout();
+    });
+  }
 
   return {
     startTimeout,
