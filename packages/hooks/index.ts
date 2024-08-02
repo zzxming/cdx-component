@@ -5,3 +5,5 @@ export * from './use-model-value';
 export * from './use-lock-scroll';
 export * from './use-support-touch';
 export * from './use-slide';
+export * from './use-forward-ref';
+export * from './use-timeout';

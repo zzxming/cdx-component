@@ -1,12 +1,10 @@
 @import './shared/variables.less';
+@import './animation/fade.less';
 
 .@{namespace}-tooltip {
   background-color: .getCssVar(text-color-primary) [];
   color: .getCssVar(bg-color-base) [];
   @apply absolute px-3 py-1 rounded text-xs;
-  &--hidden {
-    @apply hidden;
-  }
   &__arrow {
     @apply absolute -z-10;
     &::before {

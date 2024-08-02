@@ -11,3 +11,5 @@ export * from './count-to';
 export * from './collapse';
 export * from './collapse-transition';
 export * from './pull-refresh';
+export * from './tooltip';
+export * from './only-child';
