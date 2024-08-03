@@ -42,7 +42,7 @@ provide(TOOLTIP_INJECTION_KEY, {
     <slot />
   </CdxOnlyChild>
   <CdxTooltipContent :direction="direction">
-    <slot name="content">
+    <slot name="content" :text="text">
       <span>{{ text }}</span>
     </slot>
   </CdxTooltipContent>
