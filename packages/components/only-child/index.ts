@@ -1,4 +1,5 @@
-import CdxOnlyChild from './src/only-child';
+import { withInstall } from '@cdx-component/utils';
+import OnlyChild from './src/only-child';
 
-export { CdxOnlyChild };
+export const CdxOnlyChild = withInstall(OnlyChild);
 export default CdxOnlyChild;

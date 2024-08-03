@@ -55,11 +55,11 @@ const getOnlyDefaultChild = (vnode: VNode[]): VNode | null => {
 export default defineComponent({
   name: 'CdxOnlyChild',
   setup(_, { slots, attrs }) {
-    const defaultChild = slots.default!(attrs);
     const forwardInject = inject(FORWARD_PROVIDE_KEY);
     const directive = createElementDirective(forwardInject?.setForwardRef || NOOP);
 
     return () => {
+      const defaultChild = slots.default!(attrs);
       if (defaultChild.length !== 1) {
         console.error('OnlyChild requires only one valid child.');
         return null;
