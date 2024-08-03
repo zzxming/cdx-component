@@ -18,7 +18,7 @@ vi.mock('@cdx-component/hooks/use-support-touch', async (importOriginal) => {
   };
 });
 
-describe('CdxPullRefresh', () => {
+describe('PullRefresh.vue', () => {
   it('render test', async () => {
     const wrapper = mount(() => (
       <PullRefresh>
