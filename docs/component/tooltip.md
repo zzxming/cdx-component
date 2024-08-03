@@ -12,9 +12,9 @@ if (!import.meta.env.SSR) {
 
 :::
 
-## 提示位置
+## 插槽替换
 
-:::demo tooltip/position
+:::demo tooltip/slot
 
 :::
 
