@@ -1,6 +1,6 @@
-import { isRef, onScopeDispose, watch } from 'vue';
+import { isRef, watch } from 'vue';
 import type { Ref } from 'vue';
-import { getScrollBarWidth } from '@cdx-component/utils';
+import { getScrollBarWidth, tryOnScopeDispose } from '@cdx-component/utils';
 import { namespace } from '@cdx-component/constants';
 import { useBem } from '../use-bem';
 
@@ -42,5 +42,7 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
     { immediate: true, flush: 'post' },
   );
 
-  onScopeDispose(() => cleanLock());
+  tryOnScopeDispose(() => {
+    cleanLock();
+  });
 };

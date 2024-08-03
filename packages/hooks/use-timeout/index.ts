@@ -1,4 +1,4 @@
-import { getCurrentInstance, onScopeDispose } from 'vue';
+import { tryOnScopeDispose } from '@cdx-component/utils';
 
 export const useTimeout = () => {
   let timeout: number;
@@ -9,11 +9,9 @@ export const useTimeout = () => {
     timeout = window.setTimeout(fn, delay);
   };
 
-  if (getCurrentInstance()) {
-    onScopeDispose(() => {
-      clearTimeout();
-    });
-  }
+  tryOnScopeDispose(() => {
+    clearTimeout();
+  });
 
   return {
     startTimeout,

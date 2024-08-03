@@ -1,3 +1,5 @@
+import { getCurrentScope, onScopeDispose } from 'vue';
+
 export const PropKey = '__propKey';
 
 export type IfFinalProp<T, Y = true, N = false> = T extends { [PropKey]: true } ? Y : N;
@@ -9,3 +11,11 @@ export type UnknownToNever<T> = IfUnknown<T, never, T>;
 
 export type Writable<T> = { -readonly [K in keyof T]: T[K] };
 export type WritableArray<T> = T extends readonly any[] ? Writable<T> : T;
+
+export const tryOnScopeDispose = (fn: (...args: any[]) => any) => {
+  if (getCurrentScope()) {
+    onScopeDispose(fn);
+    return true;
+  }
+  return false;
+};
