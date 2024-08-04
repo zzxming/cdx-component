@@ -12,7 +12,7 @@ import { CdxCountTo } from '../components/count-to';
 import { CdxCollapse, CdxCollapseItem } from '../components/collapse';
 import { CdxCollapseTransition } from '../components/collapse-transition';
 import { CdxPullRefresh } from '../components/pull-refresh';
-import { CdxTooltip, CdxTooltipContent } from '../components/tooltip';
+import { CdxTooltip } from '../components/tooltip';
 import { CdxOnlyChild } from '../components/only-child';
 
 export default [
@@ -33,6 +33,5 @@ export default [
   CdxCollapseTransition,
   CdxPullRefresh,
   CdxTooltip,
-  CdxTooltipContent,
   CdxOnlyChild,
 ] as Plugin[];

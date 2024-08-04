@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { provide, ref } from 'vue';
 import { useForwardRef, useTimeout } from '@cdx-component/hooks';
-import { CdxOnlyChild, CdxTooltipContent } from '@cdx-component/components';
+import { CdxOnlyChild } from '@cdx-component/components';
+import CdxTooltipContent from './tooltip-content.vue';
 import { tooltipProps } from './tooltip';
 import { TOOLTIP_INJECTION_KEY } from './constants';
 

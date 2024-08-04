@@ -1,6 +1,6 @@
 import type { InjectionKey, Ref } from 'vue';
 
-interface TooltipInjectionContext {
+export interface TooltipInjectionContext {
   isVisiable: Ref<boolean>;
   triggerRef: Ref<HTMLElement | undefined>;
   open: () => void;
