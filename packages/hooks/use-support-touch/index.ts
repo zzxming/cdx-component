@@ -1,5 +1,5 @@
 import { cacheFunction } from '@cdx-component/utils';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 type SupportEventName = 'down' | 'move' | 'up';
 const supportsTouchDetector = cacheFunction<boolean>(() => 'ontouchstart' in window);
@@ -12,16 +12,14 @@ export const useSupportTouch = () => {
     up: 'mouseup',
   } as const);
 
-  onMounted(() => {
-    isSupportTouch.value = supportsTouchDetector();
-    if (isSupportTouch.value) {
-      events.value = {
-        down: 'touchstart',
-        move: 'touchmove',
-        up: 'touchend',
-      } as const;
-    }
-  });
+  isSupportTouch.value = supportsTouchDetector();
+  if (isSupportTouch.value) {
+    events.value = {
+      down: 'touchstart',
+      move: 'touchmove',
+      up: 'touchend',
+    } as const;
+  }
 
   const defineEventPosition = (e: Event) => {
     const touchEvent = e as TouchEvent;
