@@ -11,3 +11,9 @@ if (!import.meta.env.SSR) {
 :::demo v-resize/base
 
 :::
+
+## v-resize 参数
+
+| 参数      | 说明       | 类型                                     |
+| --------- | ---------- | ---------------------------------------- |
+| modifiers | 可拖拽的边 | `'top' \| 'right' \| 'bottom' \| 'left'` |
