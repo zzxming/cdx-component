@@ -14,6 +14,15 @@ vi.mock('@cdx-component/hooks/use-support-touch', async (importOriginal) => {
         move: 'mousemove',
         up: 'mouseup',
       }),
+      defineEventPosition: (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        const moveToX = mouseEvent.clientX;
+        const moveToY = mouseEvent.clientY;
+        return {
+          x: moveToX,
+          y: moveToY,
+        };
+      },
     }),
   };
 });
