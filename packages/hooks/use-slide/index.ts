@@ -23,7 +23,7 @@ interface Options {
 export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options) => {
   const { preventDefault = true, eventOptions = {}, start, move, end } = options || {};
 
-  const { isSupportTouch, events } = useSupportTouch();
+  const { events, defineEventPosition } = useSupportTouch();
 
   let startPosition: [number, number] = [0, 0];
   // top, right, bottom, left
@@ -34,23 +34,13 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
     passive: false,
   }));
 
-  const defineEvent = (e: Event) => {
-    const touchEvent = e as TouchEvent;
-    const mouseEvent = e as MouseEvent;
-    const moveToX = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
-    const moveToY = isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
-    return {
-      x: moveToX,
-      y: moveToY,
-    };
-  };
   const clearDirection = () => {
     for (const [i, _] of direction.value.entries()) (direction.value[i] = false);
   };
   const moveSlide = (e: Event) => {
     preventDefault && e.preventDefault();
     const [x1, y1] = startPosition;
-    const { x: x2, y: y2 } = defineEvent(e);
+    const { x: x2, y: y2 } = defineEventPosition(e);
     const diffX = x2 - x1;
     const diffY = y2 - y1;
 
@@ -85,7 +75,7 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
   const endSlide = (e: Event) => {
     preventDefault && e.preventDefault();
     const [x1, y1] = startPosition;
-    const { x, y } = defineEvent(e);
+    const { x, y } = defineEventPosition(e);
     document.removeEventListener(events.value.move, moveSlide);
     document.removeEventListener(events.value.up, endSlide);
 
@@ -103,7 +93,7 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
   };
   const startSlide = (e: Event) => {
     preventDefault && e.preventDefault();
-    const { x, y } = defineEvent(e);
+    const { x, y } = defineEventPosition(e);
     clearDirection();
     startPosition = [x, y];
     document.addEventListener(events.value.move, moveSlide, eventBindOptions.value);

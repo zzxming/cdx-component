@@ -41,11 +41,12 @@ export default defineConfig({
             { text: 'TextEllipsis', link: '/component/text-ellipsis' },
             { text: 'TextHighlight', link: '/component/text-highlight' },
             { text: 'PullRefresh', link: '/component/pull-refresh' },
+            { text: 'Tooltip', link: '/component/tooltip' },
           ],
         },
         {
           text: '指令',
-          items: [{ text: 'vToolTip', link: '/component/v-tooltip' }],
+          items: [{ text: 'v-resize', link: '/component/v-resize' }],
         },
       ],
     },

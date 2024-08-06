@@ -36,7 +36,7 @@ afterEach(() => {
 });
 const TEXT = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos repellat adipisci nulla amet dolorem veritatis. Assumenda sapiente vel nihil repellendus beatae delectus molestiae, recusandae quo autem neque, provident magnam! Blanditiis?';
 
-describe('TextEllipsis', () => {
+describe('TextEllipsis.vue', () => {
   beforeEach(() => {
     window.innerWidth = 300;
     window.innerHeight = 600;

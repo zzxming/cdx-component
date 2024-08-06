@@ -1,0 +1,19 @@
+@import './shared/variables.less';
+
+.@{namespace}-resize {
+  &__dragger {
+    background-color: .getCssVar(border-color-dark-1) [];
+    @apply absolute rounded;
+    &:hover {
+      background-color: .getCssVar(border-color-base) [];
+    }
+    &.right,
+    &.left {
+      @apply cursor-ew-resize;
+    }
+    &.top,
+    &.bottom {
+      @apply cursor-ns-resize;
+    }
+  }
+}

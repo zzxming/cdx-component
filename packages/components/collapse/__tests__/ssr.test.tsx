@@ -20,4 +20,16 @@ describe('SSR for Collapse', () => {
       expect(error).toBeFalsy();
     }
   });
+
+  it('render collapse item', async () => {
+    try {
+      const html = await renderToString(() => (
+        <CdxCollapseItem name="1" title="1">1</CdxCollapseItem>
+      ));
+      expect(html).toContain('<div class="cdx-collapse-item__content">');
+    }
+    catch (error) {
+      expect(error).toBeFalsy();
+    }
+  });
 });

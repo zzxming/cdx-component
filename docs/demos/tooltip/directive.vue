@@ -1,5 +1,5 @@
 <template>
-  <button v-tooltip="false">
+  <button v-tooltip:left="'tip text'">
     hover
   </button>
 </template>

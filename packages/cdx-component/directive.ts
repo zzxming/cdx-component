@@ -1,4 +1,10 @@
 import type { Plugin } from 'vue';
-import { CdxVTooltip } from '../directives/tooltip';
+import { CdxLoadingDirective } from '../components/loading';
+import { CdxTooltipDirective } from '../components/tooltip';
+import { CdxResizeDirective } from '../directives';
 
-export default [CdxVTooltip] as Plugin[]; ;
+export default [
+  CdxLoadingDirective,
+  CdxTooltipDirective,
+  CdxResizeDirective,
+] as Plugin[]; ;
