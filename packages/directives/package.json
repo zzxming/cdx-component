@@ -1,12 +1,8 @@
 {
-  "name": "directives",
-  "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
-  "keywords": [],
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "@cdx-component/directives",
+  "type": "module",
+  "main": "index.ts",
+  "peerDependencies": {
+    "vue": "^3.3.11"
   }
 }

@@ -26,9 +26,6 @@
   "peerDependencies": {
     "vue": "^3.3.11"
   },
-  "dependencies": {
-    "lodash-unified": "^1.0.3"
-  },
   "devDependencies": {
     "@cdx-component/build-utils": "workspace:^",
     "@cdx-component/components": "workspace:^",
