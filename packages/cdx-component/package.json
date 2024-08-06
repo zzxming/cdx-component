@@ -1,6 +1,6 @@
 {
   "name": "cdx-component",
-  "version": "0.0.8-beta.2",
+  "version": "0.0.8-beta.3",
   "description": "A Component Library for Vue 3",
   "repository": { "type": "git", "url": "git+https://github.com/zzxming/cdx-component" },
   "keywords": ["component", "ui", "vue"],
