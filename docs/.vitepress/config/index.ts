@@ -44,6 +44,10 @@ export default defineConfig({
             { text: 'Tooltip', link: '/component/tooltip' },
           ],
         },
+        {
+          text: '指令',
+          items: [{ text: 'v-resize', link: '/component/v-resize' }],
+        },
       ],
     },
   },
