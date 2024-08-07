@@ -1,4 +1,4 @@
-import { getCurrentScope, onScopeDispose } from 'vue';
+import { getCurrentScope } from 'vue';
 
 export const PropKey = '__propKey';
 
@@ -12,9 +12,9 @@ export type UnknownToNever<T> = IfUnknown<T, never, T>;
 export type Writable<T> = { -readonly [K in keyof T]: T[K] };
 export type WritableArray<T> = T extends readonly any[] ? Writable<T> : T;
 
-export const tryOnScopeDispose = (fn: (...args: any[]) => any) => {
+export const tryOnScope = (fn: (...args: any[]) => any, ...args: any[]) => {
   if (getCurrentScope()) {
-    onScopeDispose(fn);
+    fn(...args);
     return true;
   }
   return false;

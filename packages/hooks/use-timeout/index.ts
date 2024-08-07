@@ -1,4 +1,5 @@
-import { tryOnScopeDispose } from '@cdx-component/utils';
+import { tryOnScope } from '@cdx-component/utils';
+import { onScopeDispose } from 'vue';
 
 export const useTimeout = () => {
   let timeout: number;
@@ -9,7 +10,7 @@ export const useTimeout = () => {
     timeout = window.setTimeout(fn, delay);
   };
 
-  tryOnScopeDispose(() => {
+  tryOnScope(onScopeDispose, () => {
     clearTimeout();
   });
 
