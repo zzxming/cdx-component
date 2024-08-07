@@ -92,29 +92,29 @@ const toggleExpand = () => {
 
 <style lang="less">
 .doc-example {
-    &__actions {
-        @apply flex items-center justify-end py-2 px-4 border-t;
-        &-btn {
-            color: var(--cdx-gray-4);
-            @apply mx-1 cursor-pointer;
-            &:hover {
-                color: var(--cdx-gray-1);
-            }
-        }
+  &__actions {
+    @apply flex items-center justify-end py-2 px-4 border-t;
+    &-btn {
+      color: var(--cdx-gray-4);
+      @apply mx-1 cursor-pointer;
+      &:hover {
+          color: var(--cdx-gray-1);
+      }
     }
-    &__code {
-        &-wrapper {
-            @apply overflow-hidden;
-        }
-        &-expand {
-            color: var(--cdx-gray-2);
-            background-color: var(--vp-c-bg);
-            @apply sticky bottom-0 z-10 w-full flex items-center justify-center p-2
-                   border-t cursor-pointer rounded-b-lg;
-            &:hover {
-                color: var(--cdx-blue-2);
-            }
-        }
+  }
+  &__code {
+    &-wrapper {
+      @apply overflow-hidden;
     }
+    &-expand {
+      color: var(--cdx-gray-2);
+      background-color: var(--vp-c-bg);
+      @apply sticky bottom-0 z-10 w-full flex items-center justify-center p-2
+              border-t cursor-pointer rounded-b-lg;
+      &:hover {
+          color: var(--cdx-blue-2);
+      }
+    }
+  }
 }
 </style>

@@ -4,18 +4,18 @@
 @import './animation/fade.less';
 
 .keyframes(e('@{namespace}-loading-dash'), {
-    0% {
-        stroke-dasharray: 1, 200;
-        stroke-dashoffset: 0;
-    }
-    50% {
-        stroke-dasharray: 90, 150;
-        stroke-dashoffset: -40px;
-    }
-    100% {
-        stroke-dasharray: 90, 150;
-        stroke-dashoffset: -120px;
-    }
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
+  }
 });
 .loading-dash() {
   animation: e('@{namespace}-loading-dash') 1.5s ease-in-out infinite;

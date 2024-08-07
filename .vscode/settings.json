@@ -64,6 +64,7 @@
     "**/temp": true,
     "**/yarn.lock": true,
     "**/CHANGELOG*": true,
-    "**/LICENSE*": true
+    "**/LICENSE*": true,
+    "**/.vitepress/cache": true
   }
 }

@@ -216,12 +216,12 @@ describe('test types about vue props', () => {
           default: () => keepConstType({} as const),
         } as const),
       ).toEqualTypeOf<{
-        // eslint-disable-next-line ts/ban-types
+        // eslint-disable-next-line ts/no-empty-object-type
         readonly type: PropType<Record<string, any> | {}>;
         readonly required: false;
         readonly validator: undefined;
         [PropKey]: true;
-        // eslint-disable-next-line ts/ban-types
+        // eslint-disable-next-line ts/no-empty-object-type
       } & { readonly default: {} }>();
     });
 
@@ -241,7 +241,7 @@ describe('test types about vue props', () => {
     });
 
     it('should extract type', () => {
-      const props1 = {
+      const _props1 = {
         key1: buildProp({
           type: String,
         }),
@@ -250,12 +250,12 @@ describe('test types about vue props', () => {
           required: true,
         }),
       } as const;
-      expectTypeOf<ExtractPropTypes<typeof props1>>().branded.toEqualTypeOf<{
+      expectTypeOf<ExtractPropTypes<typeof _props1>>().branded.toEqualTypeOf<{
         readonly key1?: string;
         readonly key2: string | number;
       }>();
 
-      const prop2 = {
+      const _prop2 = {
         key1: String,
         key2: {
           type: Number,
@@ -265,7 +265,7 @@ describe('test types about vue props', () => {
           required: true,
         },
       } as const;
-      expectTypeOf<ExtractPropTypes<typeof prop2>>().toEqualTypeOf<{
+      expectTypeOf<ExtractPropTypes<typeof _prop2>>().toEqualTypeOf<{
         readonly key3: string;
       } & {
         readonly key1?: string;

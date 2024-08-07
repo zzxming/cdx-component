@@ -5,56 +5,56 @@
   @directions: ltr, rtl, ttb, btt;
 
   each(@directions, {
-        @resultClass: if(@isSibling, ~'&.@{value}', ~'.@{value}');
+    @resultClass: if(@isSibling, ~'&.@{value}', ~'.@{value}');
 
-        .@{namespace}-@{animationName} {
-            &-enter-active,
-            &-leave-active {
-                @{resultClass} {
-                    @apply transition-transform;
-                    transition-duration: .getCssVar(transition-duration) [];
-                }
-            }
-            &-enter-from,
-            &-leave-to {
-                @{resultClass} when (@value = ltr) {
-                    --tw-translate-x: -100%;
-                }
-                @{resultClass} when (@value = rtl) {
-                    --tw-translate-x: 100%;
-                }
-                @{resultClass} when (@value = ttb) {
-                    --tw-translate-y: -100%;
-                }
-                @{resultClass} when (@value = btt) {
-                    --tw-translate-y: 100%;
-                }
-            }
-        }
-    });
-  each(@directions, {
-        @resultClass:if(@isSibling, ~'&.@{value}', ~'.@{value}');
-
+    .@{namespace}-@{animationName} {
+      &-enter-active,
+      &-leave-active {
         @{resultClass} {
-            @apply absolute transform-gpu;
+          @apply transition-transform;
+          transition-duration: .getCssVar(transition-duration) [];
         }
-        @{resultClass} when (@value = ltr), (@value = rtl) {
-            @apply top-0 bottom-0;
-        }
-        @{resultClass} when (@value = ttb), (@value = btt) {
-            @apply left-0 right-0;
-        }
+      }
+      &-enter-from,
+      &-leave-to {
         @{resultClass} when (@value = ltr) {
-            @apply left-0;
+          --tw-translate-x: -100%;
         }
         @{resultClass} when (@value = rtl) {
-            @apply right-0;
+          --tw-translate-x: 100%;
         }
         @{resultClass} when (@value = ttb) {
-            @apply top-0;
+          --tw-translate-y: -100%;
         }
         @{resultClass} when (@value = btt) {
-            @apply bottom-0;
+          --tw-translate-y: 100%;
         }
-    });
+      }
+    }
+  });
+  each(@directions, {
+    @resultClass:if(@isSibling, ~'&.@{value}', ~'.@{value}');
+
+    @{resultClass} {
+      @apply absolute transform-gpu;
+    }
+    @{resultClass} when (@value = ltr), (@value = rtl) {
+      @apply top-0 bottom-0;
+    }
+    @{resultClass} when (@value = ttb), (@value = btt) {
+      @apply left-0 right-0;
+    }
+    @{resultClass} when (@value = ltr) {
+      @apply left-0;
+    }
+    @{resultClass} when (@value = rtl) {
+      @apply right-0;
+    }
+    @{resultClass} when (@value = ttb) {
+      @apply top-0;
+    }
+    @{resultClass} when (@value = btt) {
+      @apply bottom-0;
+    }
+  });
 }

@@ -18,8 +18,7 @@ export interface IFormItem {
   validateErrorMessage?: string;
   resetFormItem: () => void;
 }
-export interface CreateFormItemOption
-  extends Omit<IFormItem, 'parent' | 'validateState' | 'validateErrorMessage' | 'resetFormItem'> {}
+export type CreateFormItemOption = Omit<IFormItem, 'parent' | 'validateState' | 'validateErrorMessage' | 'resetFormItem'>;
 export interface FormValidateFailure {
   errors: ValidateError[];
   fields: ValidateFieldsError;

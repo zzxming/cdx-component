@@ -1,6 +1,6 @@
 <script>
 if (!import.meta.env.SSR) {
-    document.body.classList.add('vp-raw')
+  document.body.classList.add('vp-raw')
 }
 </script>
 

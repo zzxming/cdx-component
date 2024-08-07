@@ -37,6 +37,6 @@ const formatPathDemos = computed(() => {
 
 <style lang="less" scoped>
 .example {
-    @apply border border-stone-200 rounded-lg;
+  @apply border border-stone-200 rounded-lg;
 }
 </style>

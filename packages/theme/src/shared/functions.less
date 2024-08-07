@@ -11,18 +11,18 @@
 }
 .setCssVarMap(@name, @map) {
   each(@map, {
-        .setCssVar(e('@{name}-@{key}'), @value);
-    });
+    .setCssVar(e('@{name}-@{key}'), @value);
+  });
 }
 
 .defineLevelColor(@base, @name, @mixColor, @maxLevel: 9, @start: 1) {
   each(range(@start, @maxLevel), {
-        .setCssVar(e('@{name}-@{value}'), mix(@base, @mixColor, 100% - (@value - 1) * 10%));
-    });
+    .setCssVar(e('@{name}-@{value}'), mix(@base, @mixColor, 100% - (@value - 1) * 10%));
+  });
 }
 
 .defineLevelOpacityColor(@base, @name, @maxLevel: 9, @start: 1) {
   each(range(@start, @maxLevel), {
-        .setCssVar(e('@{name}-opacity-@{value}'), fade(@base, (@value) * 10%));
-    });
+    .setCssVar(e('@{name}-opacity-@{value}'), fade(@base, (@value) * 10%));
+  });
 }

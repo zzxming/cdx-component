@@ -29,20 +29,20 @@ const [, bem] = useDocBem('example');
 
 <style lang="less" scoped>
 .doc-example {
-    &__showcase {
-        @apply relative p-6;
-    }
+  &__showcase {
+    @apply relative p-6;
+  }
 }
 </style>
 
 <style lang="less">
 .doc-example {
-    &__showcase {
-        .cdx {
-            &-loading__mask {
-                z-index: 9;
-            }
-        }
+  &__showcase {
+    .cdx {
+      &-loading__mask {
+        z-index: 9;
+      }
     }
+  }
 }
 </style>
