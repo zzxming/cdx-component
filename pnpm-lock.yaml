@@ -30,6 +30,9 @@ importers:
       '@cdx-component/utils':
         specifier: workspace:^
         version: link:packages/utils
+      '@types/eslint':
+        specifier: ^9.6.0
+        version: 9.6.0
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -62,7 +65,7 @@ importers:
         version: 0.5.1
       '@zzxming/eslint-config':
         specifier: ^0.0.12
-        version: 0.0.12(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3)
+        version: 0.0.12(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3)
       cdx-component:
         specifier: workspace:^
         version: link:packages/cdx-component
@@ -2294,6 +2297,13 @@ packages:
       source-map: 0.6.1
     dev: true
 
+  /@types/eslint@9.6.0:
+    resolution: {integrity: sha512-gi6WQJ7cHRgZxtkQEoyHMppPjq9Kxo5Tjn2prSKDSmZrCz8TZ3jSRCeTJm+WoM+oB0WG37bRqLzaaU3q7JypGg==}
+    dependencies:
+      '@types/estree': 1.0.5
+      '@types/json-schema': 7.0.15
+    dev: true
+
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
@@ -2365,6 +2375,10 @@ packages:
       '@types/node': 18.19.42
       '@types/tough-cookie': 4.0.5
       parse5: 7.1.2
+    dev: true
+
+  /@types/json-schema@7.0.15:
+    resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
   /@types/jsonfile@6.1.4:
@@ -3036,7 +3050,7 @@ packages:
       - vue
     dev: true
 
-  /@zzxming/eslint-config@0.0.12(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3):
+  /@zzxming/eslint-config@0.0.12(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3):
     resolution: {integrity: sha512-9KgW9ICIi7nfCCuyB0P2DFRy0MCAeNz76cYQXwOuEnXjJDmgFDE1woaM/QpjR5dnvBoETWpEMtq5FAhCiHBJaw==}
     hasBin: true
     peerDependencies:
@@ -3049,7 +3063,7 @@ packages:
       eslint-plugin-antfu: 2.3.4(eslint@9.8.0)
       eslint-plugin-format: 0.1.2(eslint@9.8.0)
       eslint-plugin-import-x: 3.1.0(eslint@9.8.0)(typescript@5.3.3)
-      eslint-plugin-prettier: 5.2.1(eslint@9.8.0)(prettier@3.3.3)
+      eslint-plugin-prettier: 5.2.1(@types/eslint@9.6.0)(eslint@9.8.0)(prettier@3.3.3)
       eslint-plugin-unicorn: 54.0.0(eslint@9.8.0)
       eslint-plugin-unused-imports: 4.0.1(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)
       prompts: 2.4.2
@@ -4672,7 +4686,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-prettier@5.2.1(eslint@9.8.0)(prettier@3.3.3):
+  /eslint-plugin-prettier@5.2.1(@types/eslint@9.6.0)(eslint@9.8.0)(prettier@3.3.3):
     resolution: {integrity: sha512-gH3iR3g4JfF+yYPaJYkN7jEl9QbweL/YfkoRlNnuIEHEz1vHVlCmWOS+eGGiRuzHQXdJFCOTxRgvju9b8VUmrw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -4686,6 +4700,7 @@ packages:
       eslint-config-prettier:
         optional: true
     dependencies:
+      '@types/eslint': 9.6.0
       eslint: 9.8.0
       prettier: 3.3.3
       prettier-linter-helpers: 1.0.0

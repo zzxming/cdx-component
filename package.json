@@ -34,6 +34,7 @@
     "@cdx-component/hooks": "workspace:^",
     "@cdx-component/theme": "workspace:^",
     "@cdx-component/utils": "workspace:^",
+    "@types/eslint": "^9.6.0",
     "@types/fs-extra": "^11.0.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^18.19.10",
