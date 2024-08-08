@@ -7,8 +7,8 @@ import {
   run,
 } from '@cdx-component/build-utils';
 import fs from 'fs-extra';
+import { version } from '../packages/cdx-component/version';
 import { lintFiles } from './lint';
-import { version } from './constants';
 
 const main = async () => {
   consola.info(`Update version to: ${version}`);

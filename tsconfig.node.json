@@ -6,6 +6,6 @@
     "types": ["node"],
     "skipLibCheck": true
   },
-  "include": ["internal/**/*", "scripts/**/*", "packages/theme/*"],
+  "include": ["internal/**/*", "scripts/**/*", "packages/theme/*", "packages/cdx-component/version.ts"],
   "exclude": ["**/dist", "**/__tests__/**/*"]
 }

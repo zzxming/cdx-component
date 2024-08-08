@@ -2,6 +2,7 @@ import type { App, Plugin } from '@vue/runtime-core';
 import { INSTALLED_KEY } from '../constants';
 import Components from './component';
 import Directives from './directive';
+import { version } from './version';
 
 export const makeInstaller = (components: Plugin[] = []) => {
   const install = (app: App) => {
@@ -15,6 +16,7 @@ export const makeInstaller = (components: Plugin[] = []) => {
 
   return {
     install,
+    version,
   };
 };
 
