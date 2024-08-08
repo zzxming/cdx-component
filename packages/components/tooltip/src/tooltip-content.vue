@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { inject, nextTick, ref, watch } from 'vue';
-import { useBem, useZIndex } from '@cdx-component/hooks';
+import { useBem, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
 import { TOOLTIP_INJECTION_KEY } from './constants';
-import { useTooltipContainter } from './use-tooltip-container';
 import { tooltipContentProps } from './tooltip-content';
 
 defineOptions({ name: 'CdxTooltipContent' });
@@ -11,7 +10,7 @@ const props = defineProps(tooltipContentProps);
 const distance = 4;
 const [, bem] = useBem('tooltip');
 const { nextZIndex } = useZIndex();
-const { selector } = useTooltipContainter();
+const { selector } = useTeleportContainer(bem.be('container'));
 
 const { isVisiable, triggerRef, open, close } = inject(TOOLTIP_INJECTION_KEY)!;
 
