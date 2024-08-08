@@ -9,6 +9,10 @@ export const collapseProps = buildProps({
     type: definePropType<CollapseModelValueType[]>(Array),
     default: () => [],
   },
+  isSolo: {
+    type: Boolean,
+    default: false,
+  },
 } as const);
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
 
