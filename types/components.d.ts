@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     CdxOnlyChild: (typeof import('../packages/cdx-component'))['CdxOnlyChild'];
     CdxOverlay: (typeof import('../packages/cdx-component'))['CdxOverlay'];
     CdxPullRefresh: (typeof import('../packages/cdx-component'))['CdxPullRefresh'];
+    CdxResize: (typeof import('../packages/cdx-component'))['CdxResize'];
     CdxTextEllipsis: (typeof import('../packages/cdx-component'))['CdxTextEllipsis'];
     CdxTextHighlight: (typeof import('../packages/cdx-component'))['CdxTextHighlight'];
     CdxTooltip: (typeof import('../packages/cdx-component'))['CdxTooltip'];
