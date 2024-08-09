@@ -33,7 +33,9 @@ const handleItemClick = () => {
       tabindex="0"
       @click="handleItemClick"
     >
-      {{ title }}
+      <slot name="title" :title="title">
+        {{ title }}
+      </slot>
     </button>
     <CdxCollapseTransition>
       <div
