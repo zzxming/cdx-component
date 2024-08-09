@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBem, useForwardRef, useSupportTouch, useTeleportContainer } from '@cdx-component/hooks';
-import { ComponentPublicInstance, computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { ComponentPublicInstance, computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { ensureArray } from '@cdx-component/utils';
 import { CdxOnlyChild } from '@cdx-component/components';
 import { Direction, resizeProps } from './resize';
@@ -122,10 +122,14 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', updateDraggerPosition);
   resizeObserver.disconnect();
 });
+
+watch(() => props.directions, () => {
+  nextTick(updateDraggerPosition);
+}, { immediate: true });
 </script>
 
 <template>
-  <CdxOnlyChild ref="contentRef">
+  <CdxOnlyChild>
     <slot />
   </CdxOnlyChild>
   <Teleport :to="selector">
