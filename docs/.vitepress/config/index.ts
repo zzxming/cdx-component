@@ -45,10 +45,6 @@ export default defineConfig({
             { text: 'Resize', link: '/component/resize' },
           ],
         },
-        {
-          text: '指令',
-          items: [{ text: 'v-resize', link: '/component/v-resize' }],
-        },
       ],
     },
   },

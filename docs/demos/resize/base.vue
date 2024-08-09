@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { CdxResize } from 'cdx-component';
+import { ref } from 'vue';
+
+const directions = ref(['bottom', 'right']);
 </script>
 
 <template>
-  <CdxResize :directions="['top', 'right', 'left', 'bottom']">
+  <CdxResize :directions="directions">
     <div style="width: 100px; height: 100px; background-color: #333;" />
   </CdxResize>
 </template>

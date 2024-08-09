@@ -33,7 +33,7 @@
 | modelValue / v-model | `string \| number` | 当前展开项             | `[]`    |
 | is-solo              | `boolean`          | 是否为最多展开一个面板 | `false` |
 
-## Collapse 事件
+## Collapse Events
 
 | 名称   | 说明                 | 参数                   |
 | ------ | -------------------- | ---------------------- |
@@ -46,3 +46,10 @@
 | expend / v-model:expend | `boolean`          | 当前是否展开     | `true` |
 | name                    | `string \| number` | 当前展开项标识符 | -      |
 | title                   | `string`           | 标题             | `''`   |
+
+## CollapseItem Slots
+
+| 名称    | 说明         | 参数              |
+| ------- | ------------ | ----------------- |
+| default | 主体显示内容 | -                 |
+| title   | 展开按钮     | `(title: string)` |

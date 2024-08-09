@@ -32,14 +32,14 @@
 | animation         | `boolean` | 是否使用滚动动画                                                       | `false` |
 | animationDuration | `number`  | 滚动动画的持续时长，单位ms                                             | `2000`  |
 
-## CaptchaSlider 事件
+## CaptchaSlider Events
 
 | 名称   | 说明               | 参数              |
 | ------ | ------------------ | ----------------- |
 | change | 当前数字变化时触发 | `(value: number)` |
 | finish | 计数完成后触发     | -                 |
 
-## CaptchaSlider 暴露方法
+## CaptchaSlider Exposes
 
 | 名称       | 说明           | 类型         |
 | ---------- | -------------- | ------------ |
@@ -47,7 +47,7 @@
 | startCount | 开始计数       | `() => void` |
 | stopCount  | 暂停计数       | `() => void` |
 
-## CountTo 插槽
+## CountTo slots
 
 | 名称    | 说明     | 参数              |
 | ------- | -------- | ----------------- |

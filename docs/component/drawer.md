@@ -33,7 +33,7 @@
 | bodySlide            | `boolean`                                | 可否在打开内容出滑动拖拽                                                       | `true`   |
 | breakBoundary        | `number`                                 | 内容后多显示的距离，单位为 px                                                  | `16`     |
 
-## Drawer 插槽
+## Drawer Slots
 
 | 名称    | 说明                      | 参数 |
 | ------- | ------------------------- | ---- |

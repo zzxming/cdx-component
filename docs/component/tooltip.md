@@ -32,13 +32,13 @@ if (!import.meta.env.SSR) {
 | text      | `string`                                 | 提示文字         | `''`    |
 | hideDelay | `number`                                 | 隐藏延迟时间(ms) | `200`   |
 
-## ToolTip 插槽
+## ToolTip Slots
 
 | 名称    | 说明         | 参数 |
 | ------- | ------------ | ---- |
 | default | 主体显示内容 | -    |
 
-## v-tooltip 参数
+## v-tooltip
 
 | 参数  | 说明               | 类型                                     |
 | ----- | ------------------ | ---------------------------------------- |
