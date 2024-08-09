@@ -128,7 +128,7 @@ const handleTransitionAfterLeave = () => {
   };
 };
 
-watch(isVisiable, (val) => {
+watch(() => [isVisiable.value, props.text], (val) => {
   val && nextTick(() => {
     updateTooltipPosition();
   });

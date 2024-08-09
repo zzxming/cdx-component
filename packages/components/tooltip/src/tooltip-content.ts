@@ -7,5 +7,9 @@ export const tooltipContentProps = buildProps({
     values: validDirection,
     default: 'top',
   },
+  text: {
+    type: String,
+    default: '',
+  },
 } as const);
 export type TooltipContentProps = ExtractPropTypes<typeof tooltipContentProps>;
