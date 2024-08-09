@@ -9,8 +9,6 @@ defineOptions({ name: 'CdxResize' });
 
 const props = defineProps(resizeProps);
 
-const size = 8;
-
 const [, bem] = useBem('resize');
 const { events, defineEventPosition } = useSupportTouch();
 const { selector } = useTeleportContainer(bem.be('container'));
@@ -50,17 +48,17 @@ const dragDirections = computed<Direction[]>(() => props.directions ? ensureArra
 const getBoundingPage = (el: HTMLElement, direction: string) => {
   const { scrollX, scrollY } = window;
   const rect = el.getBoundingClientRect();
-  const top = rect.top + scrollY - size / 2;
-  const left = rect.left + scrollX - size / 2;
-  const bottom = rect.bottom + scrollY - size / 2;
-  const right = rect.right + scrollX - size / 2;
-  const width = rect.width + size;
-  const height = rect.height + size;
+  const top = rect.top + scrollY - props.size / 2;
+  const left = rect.left + scrollX - props.size / 2;
+  const bottom = rect.bottom + scrollY - props.size / 2;
+  const right = rect.right + scrollX - props.size / 2;
+  const width = rect.width + props.size;
+  const height = rect.height + props.size;
   return {
     top: `${direction === 'bottom' ? bottom : top}px`,
     left: `${direction === 'right' ? right : left}px`,
-    width: `${['left', 'right'].includes(direction) ? size : width}px`,
-    height: `${['top', 'bottom'].includes(direction) ? size : height}px`,
+    width: `${['left', 'right'].includes(direction) ? props.size : width}px`,
+    height: `${['top', 'bottom'].includes(direction) ? props.size : height}px`,
   };
 };
 const updateDraggerPosition = () => {

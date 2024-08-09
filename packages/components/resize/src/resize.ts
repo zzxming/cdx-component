@@ -17,5 +17,9 @@ export const resizeProps = buildProps({
       }
     },
   },
+  size: {
+    type: Number,
+    default: 8,
+  },
 } as const);
 export type ResizeProps = ExtractPropTypes<typeof resizeProps>;
