@@ -77,13 +77,12 @@ const dragStart = (e: Event, direction: Direction) => {
 
 const resizeObserver = new ResizeObserver(updateDraggerPosition);
 onMounted(() => {
-  window.addEventListener('resize', updateDraggerPosition);
   if (contentRef.value) {
     resizeObserver.observe(contentRef.value);
+    resizeObserver.observe(document.body);
   }
 });
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateDraggerPosition);
   resizeObserver.disconnect();
 });
 </script>
