@@ -47,29 +47,37 @@ const updateDraggerPosition = () => {
     draggerStyle.value = Object.assign(draggerStyle.value, getBoundingPage(contentRef.value, props.direction));
   }
 };
+const resizeXHandler = (e: Event) => {
+  if (!contentRef.value) return;
+  e.preventDefault();
+  const { x } = defineEventPosition(e);
+  const { x: startX, width } = startDragData;
+  let diff = x - startX;
+  if (props.direction === 'left') {
+    diff = startX - x;
+  }
+  const newWidth = Math.max(0, diff + width);
+  contentRef.value.style.width = `${newWidth}px`;
+};
+const resizeYHandler = (e: Event) => {
+  if (!contentRef.value) return;
+  e.preventDefault();
+  const { y } = defineEventPosition(e);
+  const { y: startY, height } = startDragData;
+  let diff = y - startY;
+  if (props.direction === 'top') {
+    diff = startY - y;
+  }
+  const newHeight = Math.max(0, diff + height);
+  contentRef.value.style.height = `${newHeight}px`;
+};
+const resizeEndHandler = () => {
+  document.removeEventListener(events.value.move, resizeXHandler);
+  document.removeEventListener(events.value.move, resizeYHandler);
+  document.removeEventListener(events.value.up, resizeEndHandler);
+};
 const dragStart = (e: Event, direction: Direction) => {
   if (!contentRef.value) return;
-  const resizeXHandler = (e: Event) => {
-    if (!contentRef.value) return;
-    e.preventDefault();
-    const { x } = defineEventPosition(e);
-    const { x: startX, width } = startDragData;
-    const newWidth = Math.max(0, x - startX + width);
-    contentRef.value.style.width = `${newWidth}px`;
-  };
-  const resizeYHandler = (e: Event) => {
-    if (!contentRef.value) return;
-    e.preventDefault();
-    const { y } = defineEventPosition(e);
-    const { y: startY, height } = startDragData;
-    const newHeight = Math.max(0, y - startY + height);
-    contentRef.value.style.height = `${newHeight}px`;
-  };
-  const resizeEndHandler = () => {
-    document.removeEventListener(events.value.move, resizeXHandler);
-    document.removeEventListener(events.value.move, resizeYHandler);
-    document.removeEventListener(events.value.up, resizeEndHandler);
-  };
   e.preventDefault();
   const { x, y } = defineEventPosition(e);
   const { width, height } = window.getComputedStyle(contentRef.value);
