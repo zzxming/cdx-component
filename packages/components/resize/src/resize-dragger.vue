@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useBem, useSupportTouch, useTeleportContainer } from '@cdx-component/hooks';
+import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
 import { resizeDraggerProps } from './resize-dragger';
 import { Direction, RESIZE_INJECTION_KEY } from './constants';
@@ -18,9 +18,12 @@ let startDragData = {
 const [, bem] = useBem('resize');
 const { events, defineEventPosition } = useSupportTouch();
 const { selector } = useTeleportContainer(bem.be('container'));
+const { nextZIndex } = useZIndex();
 
 const draggerRef = ref<HTMLElement>();
-const draggerStyle = ref({});
+const draggerStyle = ref({
+  zIndex: nextZIndex(),
+});
 
 const getBoundingPage = (el: HTMLElement, direction: string) => {
   const { scrollX, scrollY } = window;
@@ -41,7 +44,7 @@ const getBoundingPage = (el: HTMLElement, direction: string) => {
 const updateDraggerPosition = () => {
   if (!contentRef.value) return;
   if (draggerRef.value) {
-    draggerStyle.value = getBoundingPage(contentRef.value, props.direction);
+    draggerStyle.value = Object.assign(draggerStyle.value, getBoundingPage(contentRef.value, props.direction));
   }
 };
 const dragStart = (e: Event, direction: Direction) => {
