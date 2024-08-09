@@ -1,1 +1,1 @@
-export { default as CdxResizeDirective, vResizeDirective } from './resize';
+// eslint-disable-next-line unicorn/no-empty-file
