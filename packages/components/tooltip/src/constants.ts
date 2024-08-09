@@ -8,4 +8,4 @@ export interface TooltipInjectionContext {
 };
 
 export const TOOLTIP_INJECTION_KEY: InjectionKey<TooltipInjectionContext> = Symbol('tooltip_inject');
-export const validDirection = ['top', 'right', 'bottom', 'left'] as const;
+export const tooltipValidDirection = ['top', 'right', 'bottom', 'left'] as const;

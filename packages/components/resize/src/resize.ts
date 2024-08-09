@@ -1,14 +1,14 @@
 import { buildProps, definePropType } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 import type { Direction } from './constants';
-import { validDirection } from './constants';
+import { resizeValidDirection } from './constants';
 
 export const resizeProps = buildProps({
   directions: {
     type: definePropType<Direction[]>(Array),
     default: () => [],
     validator: (val: Direction[]): val is Direction[] => {
-      return val.every(item => validDirection.includes(item));
+      return val.every(item => resizeValidDirection.includes(item));
     },
   },
   size: {

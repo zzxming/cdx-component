@@ -1,13 +1,13 @@
 import { createApp, h, provide, ref } from 'vue';
 import type { App, DirectiveBinding, ObjectDirective, Ref } from 'vue';
 import { useTimeout } from '@cdx-component/hooks';
-import { TOOLTIP_INJECTION_KEY, validDirection } from './constants';
+import { TOOLTIP_INJECTION_KEY, tooltipValidDirection } from './constants';
 import TooltipContent from './tooltip-content.vue';
 
 export const TOOLTIP_INSTANCE_KEY = Symbol('tooltip-instance');
 export const TOOLTIP_DATA_KEY = Symbol('tooltip-data');
 
-type ValidDirection = typeof validDirection[number];
+type ValidDirection = typeof tooltipValidDirection[number];
 export type TooltipElement = HTMLElement & {
   [TOOLTIP_INSTANCE_KEY]?: App;
   [TOOLTIP_DATA_KEY]?: {
@@ -17,7 +17,7 @@ export type TooltipElement = HTMLElement & {
 };
 
 const isValidDirection = (direction: any): direction is ValidDirection => {
-  if (validDirection.includes(direction)) {
+  if (tooltipValidDirection.includes(direction)) {
     return true;
   }
   return false;

@@ -6,4 +6,4 @@ export interface ResizeInjectionContext {
 export type Direction = 'top' | 'right' | 'bottom' | 'left';
 
 export const RESIZE_INJECTION_KEY: InjectionKey<ResizeInjectionContext> = Symbol('resize_inject');
-export const validDirection = ['top', 'right', 'bottom', 'left'] as const;
+export const resizeValidDirection = ['top', 'right', 'bottom', 'left'] as const;
