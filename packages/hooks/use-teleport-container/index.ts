@@ -1,10 +1,7 @@
-import { useBem } from '@cdx-component/hooks';
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, onUnmounted } from 'vue';
 
-let container: HTMLElement;
-export const useTooltipContainter = () => {
-  const [, bem] = useBem('tooltip');
-  const id = bem.be('container');
+let container: HTMLElement | null = null;
+export const useTeleportContainer = (id: string) => {
   const selector = `#${id}`;
   const createContainer = () => {
     container = document.createElement('div');
@@ -17,6 +14,9 @@ export const useTooltipContainter = () => {
     if (!container || !document.body.querySelector(selector)) {
       container = createContainer();
     }
+  });
+  onUnmounted(() => {
+    container?.children.length === 0 && container?.remove();
   });
   return {
     id,

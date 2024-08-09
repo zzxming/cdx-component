@@ -18,7 +18,7 @@
 | expandText           | `boolean` | 展开按钮显示文字     | `展开`  |
 | collapseText         | `boolean` | 收起按钮显示文字     | `收起`  |
 
-## TextEllipsis 插槽
+## TextEllipsis Slots
 
 | 名称      | 说明         | 参数                                  |
 | --------- | ------------ | ------------------------------------- |

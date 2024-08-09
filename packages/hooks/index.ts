@@ -7,3 +7,4 @@ export * from './use-support-touch';
 export * from './use-slide';
 export * from './use-forward-ref';
 export * from './use-timeout';
+export * from './use-teleport-container';

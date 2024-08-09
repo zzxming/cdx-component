@@ -19,7 +19,7 @@
 | modelValue / v-model | `boolean` | 是否打开 | `false` |
 | fullscreen           | `boolean` | 全屏显示 | `false` |
 
-## Overlay 事件
+## Overlay Events
 
 | 名称  | 说明         | 类型         |
 | ----- | ------------ | ------------ |

@@ -34,7 +34,7 @@
 | onRefresh       | `() => void        \| Promise<void>`                                      | 刷新时触发的回调                  | `true`       |
 | onBeforeSuccess | `() => boolean \| CheckStatusInfo \| Promise<CheckStatusInfo \| boolean>` | 验证成功时触发的回调              | `true`       |
 
-## Captcha 事件
+## Captcha Events
 
 | 名称     | 说明                 | 参数 |
 | -------- | -------------------- | ---- |
@@ -42,7 +42,7 @@
 | fail     | 当验证失败时触发     | -    |
 | imgError | 当图片加载失败时触发 | -    |
 
-## Captcha 插槽
+## Captcha Slots
 
 | 名称    | 说明           | 参数 |
 | ------- | -------------- | ---- |
@@ -58,7 +58,7 @@
 | tolerance       | `number`                            | 判断误差范围，范围在 0-100 | `1`     |
 | onBeforeSuccess | `() => boolean \| Promise<boolean>` | 验证成功时触发的回调       | -       |
 
-## CaptchaSlider 事件
+## CaptchaSlider Events
 
 | 名称    | 说明             | 参数              |
 | ------- | ---------------- | ----------------- |
@@ -66,21 +66,16 @@
 | fail    | 当验证失败时触发 | -                 |
 | move    | 当滑块移动时触发 | `(value: number)` |
 
-## CaptchaSlider 暴露属性
+## CaptchaSlider Exposes
 
-| 名称      | 说明               | 类型                |
-| --------- | ------------------ | ------------------- |
-| trackRef  | 滑块 `ref`         | `HTMLDivElement   ` |
-| resetting | 是否处于重置状态中 | `boolean`           |
-| currentX  | 当前移动百分比     | `number`            |
+| 名称      | 说明               | 类型                      |
+| --------- | ------------------ | ------------------------- |
+| trackRef  | 滑块 `ref`         | `HTMLDivElement`          |
+| resetting | 是否处于重置状态中 | `boolean`                 |
+| currentX  | 当前移动百分比     | `number`                  |
+| reset     | 重置验证           | `(value: number) => void` |
 
-## CaptchaSlider 暴露方法
-
-| 名称  | 说明     | 类型                      |
-| ----- | -------- | ------------------------- |
-| reset | 重置验证 | `(value: number) => void` |
-
-## CaptchaSlider 插槽
+## CaptchaSlider Slots
 
 | 名称    | 说明         | 参数                   |
 | ------- | ------------ | ---------------------- |

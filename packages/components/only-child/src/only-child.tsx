@@ -52,6 +52,7 @@ const getOnlyDefaultChild = (vnode: VNode[]): VNode | null => {
   return null;
 };
 
+// inject ref doesn't need to bind on CdxOnlyChild. it will override the directive binding.
 export default defineComponent({
   name: 'CdxOnlyChild',
   setup(_, { slots, attrs }) {

@@ -21,8 +21,14 @@ const handleItemClick = (name: CollapseModelValueType) => {
     _activeNames.splice(index, 1);
   }
   else {
-    _activeNames.push(name);
+    if (props.isSolo) {
+      _activeNames.splice(0, _activeNames.length, name);
+    }
+    else {
+      _activeNames.push(name);
+    }
   }
+
   model.value = _activeNames;
   emits(CHANGE_EVENT, _activeNames);
 };

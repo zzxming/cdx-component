@@ -16,13 +16,13 @@
 | refreshDistance      | `number`  | 触发下拉刷新的距离         | 与 `headHeight` 一致 |
 | bodyLock             | `boolean` | 在下拉时是否锁定 body 滚动 | `true`               |
 
-## PullRefresh 事件
+## PullRefresh Events
 
 | 名称    | 说明           | 参数 |
 | ------- | -------------- | ---- |
 | refresh | 下拉刷新时触发 | -    |
 
-## TextEllipsis 插槽
+## TextEllipsis Slots
 
 | 名称    | 说明           | 参数                          |
 | ------- | -------------- | ----------------------------- |

@@ -36,14 +36,13 @@ provide(TOOLTIP_INJECTION_KEY, {
 
 <template>
   <CdxOnlyChild
-    ref="triggerRef"
     @mouseenter="open"
     @mouseleave="close"
   >
     <slot />
   </CdxOnlyChild>
-  <CdxTooltipContent :direction="direction">
-    <slot name="content" :text="text">
+  <CdxTooltipContent :direction="direction" :text="text">
+    <slot name="content">
       <span>{{ text }}</span>
     </slot>
   </CdxTooltipContent>

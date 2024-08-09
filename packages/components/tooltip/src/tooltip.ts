@@ -4,10 +4,6 @@ import { tooltipContentProps } from './tooltip-content';
 
 export const tooltipProps = buildProps({
   ...tooltipContentProps,
-  text: {
-    type: String,
-    default: '',
-  },
   hideDelay: {
     type: Number,
     default: 200,

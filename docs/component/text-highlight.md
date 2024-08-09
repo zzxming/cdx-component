@@ -22,7 +22,7 @@
 | highlightTag   | `string`             | 高亮文字的标签名   | `span`  |
 | highlightClass | `boolean`            | 高亮文字标签的类名 | `''`    |
 
-## TextHighlight 插槽
+## TextHighlight Slots
 
 | 名称      | 说明       | 参数             |
 | --------- | ---------- | ---------------- |

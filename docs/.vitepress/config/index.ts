@@ -42,11 +42,8 @@ export default defineConfig({
             { text: 'TextHighlight', link: '/component/text-highlight' },
             { text: 'PullRefresh', link: '/component/pull-refresh' },
             { text: 'Tooltip', link: '/component/tooltip' },
+            { text: 'Resize', link: '/component/resize' },
           ],
-        },
-        {
-          text: '指令',
-          items: [{ text: 'v-resize', link: '/component/v-resize' }],
         },
       ],
     },

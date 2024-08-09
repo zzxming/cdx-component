@@ -43,14 +43,14 @@ console.log(loadingInstance1 === loadingInstance2); // true
 | lock       | `boolean` | 锁定滚动条           | `true`  |
 | target     | `string ` | teleport 值          | -       |
 
-## v-loading 指令
+## v-loading
 
 | 名称               | 类型     | 说明                       | 默认值 |
 | ------------------ | -------- | -------------------------- | ------ |
 | loading-text       | `string` | 同组件的 `text` 属性       | -      |
 | loading-background | `string` | 同组件的 `background` 属性 | -      |
 
-## CdxLoading.service 函数
+## CdxLoading.service
 
 | 参数       | 类型                    | 说明                                                                                                                            | 默认值  |
 | ---------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------- |
