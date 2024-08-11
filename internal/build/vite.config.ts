@@ -21,7 +21,7 @@ import type { ModuleFormat, OutputOptions } from 'rollup';
 
 const rollupOutput = (target: ModuleFormat, format: string): OutputOptions => ({
   format: target,
-  entryFileNames: '[name].js',
+  entryFileNames: `[name].${target === 'es' ? 'm' : target === 'cjs' ? 'c' : ''}js`,
   preserveModules: true,
   dir: resolve(buildOutput, format),
   preserveModulesRoot: cdxRoot,
