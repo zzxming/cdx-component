@@ -37,6 +37,7 @@ if (!import.meta.env.SSR) {
 | 名称    | 说明         | 参数 |
 | ------- | ------------ | ---- |
 | default | 主体显示内容 | -    |
+| content | 提示内容     | -    |
 
 ## v-tooltip
 

@@ -3,8 +3,8 @@
     <button>
       hover
     </button>
-    <template #content="{ text }">
-      <strong>{{ text }}</strong>
+    <template #content>
+      <strong>top tip"</strong>
     </template>
   </CdxTooltip>
 </template>
