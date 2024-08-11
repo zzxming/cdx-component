@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useBem, useLockScroll, useSlide } from '@cdx-component/hooks';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { PullRefreshStatus, pullRefreshEmits, pullRefreshProps } from './pull-refresh';
@@ -64,7 +64,6 @@ const ease = (distance: number) => {
   return Math.round(distance);
 };
 
-useLockScroll(isBodyLockScroll);
 const { direction } = useSlide(trackRef, {
   preventDefault: false,
   start: () => {
@@ -103,6 +102,10 @@ const { direction } = useSlide(trackRef, {
       setHeadDistance(0);
     }
   },
+});
+
+onMounted(() => {
+  useLockScroll(isBodyLockScroll);
 });
 
 watch(loadingStatus, (value) => {
