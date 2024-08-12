@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.web.json",
+  "compilerOptions": {
+    "rootDir": "../",
+    "paths": {
+      "cdx-component/*": ["../packages/cdx-component"]
+    },
+    "types": ["../types/components.d.ts", "vite/client"]
+  },
+  "include": ["main.ts", "src/**/*", "../packages/cdx-component/**/*"],
+  "exclude": ["node_modules"]
+}

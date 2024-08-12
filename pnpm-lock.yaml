@@ -142,15 +142,6 @@ importers:
         specifier: ^1.2.3
         version: 1.2.3
 
-  dist:
-    dependencies:
-      async-validator:
-        specifier: ^4.2.5
-        version: 4.2.5
-      vue:
-        specifier: ^3.3.11
-        version: 3.4.35
-
   docs:
     dependencies:
       cdx-component:
@@ -355,6 +346,25 @@ importers:
       vue:
         specifier: ^3.3.11
         version: 3.4.35(typescript@5.3.3)
+
+  playground:
+    dependencies:
+      cdx-component:
+        specifier: workspace:*
+        version: link:../packages/cdx-component
+      vue:
+        specifier: ^3.3.11
+        version: 3.4.35(typescript@5.3.3)
+    devDependencies:
+      typescript:
+        specifier: ~5.3.0
+        version: 5.3.3
+      unplugin-vue-components:
+        specifier: ^0.26.0
+        version: 0.26.0(vue@3.4.35)
+      vite:
+        specifier: ^5.0.10
+        version: 5.3.5(@types/node@18.19.42)(less@4.2.0)
 
 packages:
 
@@ -2968,7 +2978,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.35
       '@vue/shared': 3.4.35
-      vue: 3.4.35
+      vue: 3.4.35(typescript@5.3.3)
 
   /@vue/shared@3.4.35:
     resolution: {integrity: sha512-hvuhBYYDe+b1G8KHxsQ0diDqDMA8D9laxWZhNAjE83VZb5UDaXl9Xnz7cGdDSyiHM90qqI/CyGMcpBpiDy6VVQ==}
@@ -9699,20 +9709,6 @@ packages:
       semver: 7.6.3
       typescript: 5.3.3
     dev: true
-
-  /vue@3.4.35:
-    resolution: {integrity: sha512-+fl/GLmI4GPileHftVlCdB7fUL4aziPcqTudpTGXCT8s+iZWuOCeNEB5haX6Uz2IpRrbEXOgIFbe+XciCuGbNQ==}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@vue/compiler-dom': 3.4.35
-      '@vue/compiler-sfc': 3.4.35
-      '@vue/runtime-dom': 3.4.35
-      '@vue/server-renderer': 3.4.35(vue@3.4.35)
-      '@vue/shared': 3.4.35
 
   /vue@3.4.35(typescript@5.3.3):
     resolution: {integrity: sha512-+fl/GLmI4GPileHftVlCdB7fUL4aziPcqTudpTGXCT8s+iZWuOCeNEB5haX6Uz2IpRrbEXOgIFbe+XciCuGbNQ==}
