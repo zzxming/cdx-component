@@ -41,7 +41,6 @@ console.log(loadingInstance1 === loadingInstance2); // true
 | text       | `string`  | 在加载图标下面的文字 | -       |
 | background | `string`  | 遮罩背景色           | -       |
 | lock       | `boolean` | 锁定滚动条           | `true`  |
-| target     | `string ` | teleport 值          | -       |
 
 ## v-loading
 

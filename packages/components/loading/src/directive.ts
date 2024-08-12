@@ -5,10 +5,9 @@ import type { ElementLoading } from './types';
 
 const bindLoadingInstance = (el: ElementLoading, _binding: DirectiveBinding<boolean>) => {
   el[LOADING_INSTANCE] = createLoadingInstance({
-    target: el,
     text: el.getAttribute('loading-text') || undefined,
     background: el.getAttribute('loading-background') || undefined,
-  });
+  }, el);
 };
 const unmounLoadingInstance = (el: ElementLoading) => {
   if (el[LOADING_INSTANCE]?.instance) {

@@ -29,7 +29,7 @@ const startFullscreenLoading = () => {
   </button>
   <div
     ref="divRef"
-    style="position: relative; height: 200px; overflow-y: scroll"
+    style="height: 150px; overflow: auto"
   >
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore voluptatum est, dolore temporibus
     voluptatibus totam officiis aliquid labore qui molestiae reprehenderit consectetur omnis, ducimus praesentium
