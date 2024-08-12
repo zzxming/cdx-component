@@ -6,13 +6,10 @@ import { CdxLoading } from '@cdx-component/components';
 import { captchaSliderEmits, captchaSliderProps } from './captcha-slider';
 
 defineOptions({ name: 'CdxCaptchaSlider' });
-
 const props = defineProps(captchaSliderProps);
-
 const emits = defineEmits(captchaSliderEmits);
 
 const { isSupportTouch, events: handledEvents } = useSupportTouch();
-
 const [_, bem] = useBem('captcha-slider');
 
 let trackWidth = 1;
