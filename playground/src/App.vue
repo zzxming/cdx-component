@@ -23,7 +23,11 @@ const ww = computed(() => {
     </button>
   </CdxTooltip>
 
-  <div v-same-click-target="ww" style="width: 100px; height: 100px; border: 1px solid;">
-    <div style="width: 50px; height: 50px; background-color: aliceblue;" />
+  <div style="position: relative; width: 200px; height: 200px">
+    <CdxOverlay :model-value="true" @click="() => console.log('overlay')">
+      <div v-same-click-target="ww" style="width: 100px; height: 100px; border: 1px solid;">
+        <div style="width: 50px; height: 50px; background-color: aliceblue;" />
+      </div>
+    </CdxOverlay>
   </div>
 </template>
