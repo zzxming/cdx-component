@@ -10,18 +10,18 @@
 
   &__container {
     .setCssVar(ripple-bg-color, fade(@color-black, 20%));
-    .setCssVar(ripple-transition-duration, 0.3s);
+    .setCssVar(ripple-transform-transition-duration, 0.25s);
+    .setCssVar(ripple-opacity-transition-duration, 0.2s);
 
     @apply absolute inset-0 z-0 overflow-hidden pointer-events-none;
   }
   &--in,
   &--out {
-    // transition-duration: .getCssVar(ripple-transition-duration) [];
-    // transition-property: all;
-    // transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     transition:
-      transform 0.25s cubic-bezier(0, 0, 0.2, 1),
-      opacity 0.1s cubic-bezier(0, 0, 0.2, 1);
+      transform .getCssVar(ripple-transform-transition-duration) []
+        cubic-bezier(0, 0, 0.2, 1),
+      opacity .getCssVar(ripple-transform-transition-duration) []
+        cubic-bezier(0, 0, 0.2, 1);
   }
   &--in {
     @apply opacity-100;

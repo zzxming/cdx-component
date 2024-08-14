@@ -10,6 +10,8 @@ export type RippleEl = HTMLElement & {
   };
 };
 
+// 鼠标左右键连续点击时触发的 mousedown 与 mouseup 次数不同
+
 const bindRipple = (el: RippleEl) => {
   const { events, defineEventPosition } = useSupportTouch(supportsTouchDetector());
   const showRipple = async (e: Event) => {
@@ -30,40 +32,48 @@ const bindRipple = (el: RippleEl) => {
     const size = Math.sqrt(Number.parseFloat(width) ** 2 + Number.parseFloat(height) ** 2);
     const { x, y } = defineEventPosition(e);
     const elRect = el.getBoundingClientRect();
+
+    el.style.position = 'relative';
+    ripple.dataset.start = Date.now().toString();
+
+    Object.assign(ripple.style, {
+      width: `${size * 2}px`,
+      height: `${size * 2}px`,
+      left: `${x - elRect.left - size}px`,
+      top: `${y - elRect.top - size}px`,
+      transform: 'scale(1)',
+    });
+  };
+  const hideRipple = () => {
+    const ripple = el.getElementsByClassName(bem.b())[0] as HTMLElement;
+    if (!ripple) return;
+
     const { transitionDuration } = window.getComputedStyle(ripple);
     const [transformDuration, opacityDuration] = transitionDuration.split(', ');
     const transformDelay = transformDuration.endsWith('ms') ? Number.parseFloat(transformDuration) : Number.parseFloat(transformDuration) * 1000;
     const opacityDelay = opacityDuration.endsWith('ms') ? Number.parseFloat(opacityDuration) : Number.parseFloat(opacityDuration) * 1000;
-
-    el.style.position = 'relative';
+    const delay = Math.max(0, transformDelay - Date.now() + Number.parseFloat(ripple.dataset.start!));
 
     setTimeout(() => {
-      if (document.contains(ripple)) {
-        Object.assign(ripple.style, {
-          width: `${size * 2}px`,
-          height: `${size * 2}px`,
-          left: `${x - elRect.left - size}px`,
-          top: `${y - elRect.top - size}px`,
-          transform: 'scale(1)',
-        });
-      }
-    }, 0);
-    setTimeout(() => {
-      if (document.contains(ripple)) {
-        ripple.classList.add(bem.bm('out'));
-        setTimeout(() => {
-          if (el.contains(container)) {
-            el.removeChild(container);
-          }
-          if (el.getElementsByClassName(bem.be('container')).length === 0) {
-            el.style.position = el._ripple.position!;
-          }
-        }, opacityDelay);
-      }
-    }, transformDelay);
+      ripple.classList.add(bem.bm('out'));
+      setTimeout(() => {
+        const ripple = el.getElementsByClassName(bem.b())[0];
+        ripple.parentNode?.parentNode === el && el.removeChild(ripple.parentNode);
+
+        const container = el.getElementsByClassName(bem.be('container'));
+        if (container.length === 0) {
+          el.style.position = el._ripple.position!;
+        }
+      }, opacityDelay);
+    }, delay);
   };
 
   el.addEventListener(events.value.down, showRipple, { passive: true });
+  el.addEventListener(events.value.up, hideRipple, { passive: true });
+
+  el.addEventListener('mouseleave', hideRipple, { passive: true });
+  el.addEventListener('touchcancel', hideRipple, { passive: true });
+  el.addEventListener('dragstart', hideRipple, { passive: true });
 };
 
 export const vRipple: ObjectDirective<RippleEl> = {

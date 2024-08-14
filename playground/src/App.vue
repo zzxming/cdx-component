@@ -32,7 +32,7 @@ const ww = computed(() => {
   <div
     v-same-click-target="ww"
     v-ripple
-    style="width: 200px; height: 200px; border: 1px solid;"
+    style="height: 200px; border: 1px solid;"
   >
     <div style="width: 100px; height: 100px;  border: 1px solid;" />
   </div>
