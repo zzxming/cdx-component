@@ -8,12 +8,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: /^cdx-component(\/(es|lib))?$/,
+        find: /^cdx-component$/,
         replacement: path.resolve(projRoot, 'packages/cdx-component/index.ts'),
       },
       {
-        find: /^cdx-component\/(theme)\/(.*)$/,
-        replacement: `${path.resolve(projRoot, 'packages')}/$1/$2`,
+        find: /^cdx-component\/theme\/(.*)$/,
+        replacement: `${path.resolve(projRoot, 'packages')}/theme/$1`,
       },
     ],
   },

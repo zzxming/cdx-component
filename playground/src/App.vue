@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useDark, useToggle } from '@vueuse/core';
 
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 const clickHandler = (e: MouseEvent) => {
   console.log('click', e);
 };
@@ -14,6 +17,9 @@ const ww = computed(() => {
 </script>
 
 <template>
+  <button style="position: fixed; bottom: 24px; right: 24px; padding: 8px; border: 1px solid" @click="toggleDark()">
+    {{ isDark ? 'dark' : 'light' }}
+  </button>
   <button v-tooltip:bottom="'tip text'" @click="w = !w">
     hover
   </button>
@@ -23,11 +29,11 @@ const ww = computed(() => {
     </button>
   </CdxTooltip>
 
-  <div style="position: relative; width: 200px; height: 200px">
-    <CdxOverlay :model-value="true" @click="() => console.log('overlay')">
-      <div v-same-click-target="ww" style="width: 100px; height: 100px; border: 1px solid;">
-        <div style="width: 50px; height: 50px; background-color: aliceblue;" />
-      </div>
-    </CdxOverlay>
+  <div
+    v-same-click-target="ww"
+    v-ripple
+    style="width: 200px; height: 200px; border: 1px solid;"
+  >
+    <div style="width: 100px; height: 100px;  border: 1px solid;" />
   </div>
 </template>
