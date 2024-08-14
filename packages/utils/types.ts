@@ -1,3 +1,4 @@
+import { cacheFunction } from './function';
 import type { Writable } from './vue';
 
 export const isServer = typeof window === 'undefined';
@@ -7,3 +8,5 @@ export const isNumber = (val: any): val is number => typeof val === 'number';
 export { isString, isArray, isFunction, isObject } from '@vue/shared';
 
 export const keepConstType = <T extends readonly any[] | Record<string, any>>(val: T) => val as Writable<T>;
+
+export const supportsTouchDetector = cacheFunction<boolean>(() => 'ontouchstart' in window);
