@@ -2,7 +2,11 @@ import type { Plugin } from 'vue';
 import { CdxLoadingDirective } from '../components/loading';
 import { CdxTooltipDirective } from '../components/tooltip';
 import { CdxResizeDirective } from '../components/resize';
-import { CdxRippleDirective, CdxSameClickTargetDirective } from '../directives';
+import {
+  CdxInfinityScrollDirective,
+  CdxRippleDirective
+  , CdxSameClickTargetDirective,
+} from '../directives';
 
 export default [
   CdxLoadingDirective,
@@ -10,4 +14,5 @@ export default [
   CdxResizeDirective,
   CdxSameClickTargetDirective,
   CdxRippleDirective,
+  CdxInfinityScrollDirective,
 ] as Plugin[]; ;

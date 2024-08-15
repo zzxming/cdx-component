@@ -14,6 +14,9 @@ const w = ref(true);
 const ww = computed(() => {
   return w.value ? clickHandler : clickHandler2;
 });
+const load = () => {
+  console.log('load');
+};
 </script>
 
 <template>
@@ -32,8 +35,12 @@ const ww = computed(() => {
   <div
     v-same-click-target="ww"
     v-ripple
-    style="height: 200px; border: 1px solid;"
+    v-infinity-scroll="[load, { rootMargin: '0px 0px 100px 0px' }]"
+    style="height: 200px; border: 1px solid; overflow: auto;"
   >
     <div style="width: 100px; height: 100px;  border: 1px solid;" />
+    <p v-for="i in 50" :key="i">
+      {{ i }}
+    </p>
   </div>
 </template>
