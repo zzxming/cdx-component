@@ -1,39 +1,40 @@
 import { useSameClickTarget } from '@cdx-component/hooks';
 import { withInstallDirective } from '@cdx-component/utils';
-import type { ObjectDirective } from 'vue';
+import type { DirectiveBinding, ObjectDirective } from 'vue';
 
-type EventHanlder = (e: MouseEvent) => any;
+const EventHandlers = Symbol('same-click-target-handlers');
 export type SameClickTargetEl = HTMLElement & {
-  mouseDownHandler: EventHanlder;
-  mouseUpHandler: EventHanlder;
-  clickHandler: EventHanlder;
+  [EventHandlers]?: {
+    mousedown: EventListener;
+    mouseup: EventListener;
+    click: EventListener;
+  };
 };
 
-export const vSameClickTarget: ObjectDirective<SameClickTargetEl, EventHanlder> = {
-  mounted(el, binding) {
-    const { onMouseDown, onMouseUp, onClick } = useSameClickTarget(binding.value);
+const bindHandler = (el: SameClickTargetEl, binding: DirectiveBinding<EventListener>) => {
+  const { onMouseDown, onMouseUp, onClick } = useSameClickTarget(binding.value);
+  el[EventHandlers] = {
+    mousedown: onMouseDown,
+    mouseup: onMouseUp,
+    click: onClick,
+  };
+  for (const [event, handler] of Object.entries(el[EventHandlers])) {
+    el.addEventListener(event, handler);
+  }
+};
+const unbindHandler = (el: SameClickTargetEl) => {
+  if (!el[EventHandlers]) return;
+  for (const [event, handler] of Object.entries(el[EventHandlers])) {
+    el.removeEventListener(event, handler);
+  }
+  delete el[EventHandlers];
+};
 
-    el.mouseDownHandler = onMouseDown;
-    el.mouseUpHandler = onMouseUp;
-    el.clickHandler = onClick;
-
-    el.addEventListener('mousedown', el.mouseDownHandler);
-    el.addEventListener('mouseup', el.mouseUpHandler);
-    el.addEventListener('click', el.clickHandler);
-  },
+export const vSameClickTarget: ObjectDirective<SameClickTargetEl, EventListener> = {
+  mounted: bindHandler,
   updated(el, binding) {
-    el.removeEventListener('mousedown', el.mouseDownHandler);
-    el.removeEventListener('mouseup', el.mouseUpHandler);
-    el.removeEventListener('click', el.clickHandler);
-
-    const { onMouseDown, onMouseUp, onClick } = useSameClickTarget(binding.value);
-    el.mouseDownHandler = onMouseDown;
-    el.mouseUpHandler = onMouseUp;
-    el.clickHandler = onClick;
-
-    el.addEventListener('mousedown', el.mouseDownHandler);
-    el.addEventListener('mouseup', el.mouseUpHandler);
-    el.addEventListener('click', el.clickHandler);
+    unbindHandler(el);
+    bindHandler(el, binding);
   },
 };
 export const CdxSameClickTargetDirective = withInstallDirective(vSameClickTarget, 'same-click-target');
