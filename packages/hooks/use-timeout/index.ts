@@ -1,3 +1,4 @@
+import type { AnyFunction } from '@cdx-component/utils';
 import { tryOnScope } from '@cdx-component/utils';
 import { onScopeDispose } from 'vue';
 
@@ -5,7 +6,7 @@ export const useTimeout = () => {
   let timeout: number;
 
   const clearTimeout = () => window.clearTimeout(timeout);
-  const startTimeout = (fn: (...args: any[]) => any, delay: number) => {
+  const startTimeout = (fn: AnyFunction, delay: number) => {
     clearTimeout();
     timeout = window.setTimeout(fn, delay);
   };
