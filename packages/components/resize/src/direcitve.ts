@@ -46,6 +46,7 @@ export const vResizeDirective: ObjectDirective<HTMLEResizeElement> = {
     createResizeHandlers(el, directions);
   },
   updated(el, binding) {
+    if (binding.value === binding.oldValue) return;
     const directions: Direction[] = [];
     if (binding.modifiers.top) directions.push('top');
     if (binding.modifiers.left) directions.push('left');

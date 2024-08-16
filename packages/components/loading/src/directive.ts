@@ -22,6 +22,7 @@ export const vLoading: Directive<ElementLoading, boolean> = {
     }
   },
   updated(el, binding) {
+    if (binding.value === binding.oldValue) return;
     if (binding.value) {
       !el[LOADING_INSTANCE] && bindLoadingInstance(el, binding);
     }

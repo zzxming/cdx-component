@@ -43,6 +43,7 @@ export const vInfinityScroll: ObjectDirective<InfinityScrollEl, AnyFunction | [A
     createIO(el, handler, options);
   },
   updated(el, binding) {
+    if (binding.value === binding.oldValue) return;
     if (el[InfinityScrollData]) {
       el[InfinityScrollData].watcher.remove();
       el[InfinityScrollData].io.disconnect();

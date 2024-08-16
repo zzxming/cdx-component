@@ -2,20 +2,21 @@ import { useBem, useSupportTouch } from '@cdx-component/hooks';
 import { supportsTouchDetector, withInstallDirective } from '@cdx-component/utils';
 import type { ObjectDirective } from 'vue';
 
-const [,bem] = useBem('ripple');
+const RippleData = Symbol('ripple-data');
+const [, bem] = useBem('ripple');
 
 export type RippleEl = HTMLElement & {
-  _ripple: {
+  [RippleData]: {
     position?: string;
   };
 };
 
-// 鼠标左右键连续点击时触发的 mousedown 与 mouseup 次数不同
+// TODO: 鼠标左右键连续点击时触发的 mousedown 与 mouseup 次数不同
 
 const bindRipple = (el: RippleEl) => {
   const { events, defineEventPosition } = useSupportTouch(supportsTouchDetector());
   const showRipple = async (e: Event) => {
-    !el._ripple && (el._ripple = {});
+    !el[RippleData] && (el[RippleData] = {});
 
     const container = document.createElement('div');
     container.className = bem.be('container');
@@ -26,8 +27,8 @@ const bindRipple = (el: RippleEl) => {
     el.appendChild(container);
 
     const { width, height, position } = window.getComputedStyle(el);
-    if (!el._ripple.position) {
-      el._ripple.position = position;
+    if (!el[RippleData].position) {
+      el[RippleData].position = position;
     }
     const size = Math.sqrt(Number.parseFloat(width) ** 2 + Number.parseFloat(height) ** 2);
     const { x, y } = defineEventPosition(e);
@@ -62,7 +63,7 @@ const bindRipple = (el: RippleEl) => {
 
         const container = el.getElementsByClassName(bem.be('container'));
         if (container.length === 0) {
-          el.style.position = el._ripple.position!;
+          el.style.position = el[RippleData].position!;
         }
       }, opacityDelay);
     }, delay);

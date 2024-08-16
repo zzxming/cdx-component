@@ -33,6 +33,7 @@ const unbindHandler = (el: SameClickTargetEl) => {
 export const vSameClickTarget: ObjectDirective<SameClickTargetEl, EventListener> = {
   mounted: bindHandler,
   updated(el, binding) {
+    if (binding.value === binding.oldValue) return;
     unbindHandler(el);
     bindHandler(el, binding);
   },

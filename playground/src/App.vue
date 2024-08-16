@@ -14,9 +14,16 @@ const w = ref(true);
 const ww = computed(() => {
   return w.value ? clickHandler : clickHandler2;
 });
+
+const vertialData = ref(new Array(20).fill(0).map((_, i) => ({ value: i })));
+const addData = (val: typeof vertialData) => {
+  val.value.push(...(new Array(20).fill(0).map((_, i) => ({ value: i }))));
+};
 const load = () => {
   console.log('load');
+  addData(vertialData);
 };
+const infinityOption = computed(() => [load, { rootMargin: '0px 0px 100px 0px' }]);
 </script>
 
 <template>
@@ -33,14 +40,26 @@ const load = () => {
   </CdxTooltip>
 
   <div
+    v-infinity-scroll="infinityOption"
+    style="height: 200px; border: 1px solid; overflow: auto;"
+  >
+    <p v-for="i in vertialData" :key="i.value">
+      {{ i.value }}
+    </p>
+  </div>
+  <div
+    v-infinity-scroll="infinityOption"
+    style="display: flex; border: 1px solid; overflow: auto;"
+  >
+    <p v-for="i in vertialData" :key="i.value" style="width: 120px; flex-shrink: 0;">
+      {{ i.value }}
+    </p>
+  </div>
+  <div
     v-same-click-target="ww"
     v-ripple
-    v-infinity-scroll="[load, { rootMargin: '0px 0px 100px 0px' }]"
     style="height: 200px; border: 1px solid; overflow: auto;"
   >
     <div style="width: 100px; height: 100px;  border: 1px solid;" />
-    <p v-for="i in 50" :key="i">
-      {{ i }}
-    </p>
   </div>
 </template>
