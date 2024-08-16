@@ -2,6 +2,7 @@
 import { resolve } from 'node:path';
 import consola from 'consola';
 import {
+  buildOutput,
   cdxPackage,
   cdxRoot,
   getPackageManifest,
@@ -39,7 +40,7 @@ const main = async () => {
 
   await run('pnpm run build');
   // TODO: 增加 --proprovenance 通过 GitHub Actions 声明出处. https://docs.npmjs.com/generating-provenance-statements
-  // await run('npm publish', buildOutput);
+  await run('npm publish', buildOutput);
 };
 
 main().catch((error) => {
