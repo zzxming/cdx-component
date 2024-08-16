@@ -6,7 +6,7 @@ import { PKG_NAME, componentRoot, projRoot, toPascalCase } from '@cdx-component/
 import fs from 'fs-extra';
 import { lintFiles } from './lint';
 
-const ignoreComponentsDir = new Set(['node_modules', 'base']);
+const ignoreComponentsDir = new Set(['node_modules', 'base', 'ripple']);
 const main = async () => {
   const componentFiles = readdirSync(componentRoot);
   const componentNames = componentFiles.filter(d => !ignoreComponentsDir.has(d) && statSync(resolve(componentRoot, d)).isDirectory());
