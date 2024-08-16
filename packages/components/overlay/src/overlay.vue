@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { StyleValue, computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useBem, useLockScroll, useModelValue } from '@cdx-component/hooks';
+import { vSameClickTarget } from '@cdx-component/directives';
 import { overlayEmits, overlayProps } from './overlay';
 
 defineOptions({ name: 'CdxOverlay' });
@@ -17,7 +18,7 @@ const overlayStyle = computed<StyleValue>(() => ({
   position: props.fullscreen ? 'fixed' : 'absolute',
 }));
 
-const emitClick = (e: MouseEvent) => emits('click', e);
+const emitClick = (e: Event) => emits('click', e);
 watch(
   () => model,
   async () => {

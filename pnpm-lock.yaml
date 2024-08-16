@@ -21,6 +21,9 @@ importers:
       '@cdx-component/constants':
         specifier: workspace:^
         version: link:packages/constants
+      '@cdx-component/directives':
+        specifier: workspace:^
+        version: link:packages/directives
       '@cdx-component/hooks':
         specifier: workspace:^
         version: link:packages/hooks

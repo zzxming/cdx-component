@@ -4,8 +4,8 @@ import { CdxTooltipDirective } from '../components/tooltip';
 import { CdxResizeDirective } from '../components/resize';
 import {
   CdxInfinityScrollDirective,
-  CdxRippleDirective
-  , CdxSameClickTargetDirective,
+  CdxRippleDirective,
+  CdxSameClickTargetDirective,
 } from '../directives';
 
 export default [

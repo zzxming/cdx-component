@@ -32,6 +32,7 @@
     "@cdx-component/build-utils": "workspace:^",
     "@cdx-component/components": "workspace:^",
     "@cdx-component/constants": "workspace:^",
+    "@cdx-component/directives": "workspace:^",
     "@cdx-component/hooks": "workspace:^",
     "@cdx-component/theme": "workspace:^",
     "@cdx-component/utils": "workspace:^",
