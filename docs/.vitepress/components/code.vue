@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { CdxCollapseTransition } from 'cdx-component';
 import { computed, ref, toRef } from 'vue';
 import { useDocBem, useGithubSource, usePlayground } from '../composables';
 
@@ -98,7 +97,7 @@ const toggleExpand = () => {
       color: var(--cdx-gray-4);
       @apply mx-1 cursor-pointer;
       &:hover {
-          color: var(--cdx-gray-1);
+        color: var(--cdx-gray-1);
       }
     }
   }
@@ -112,7 +111,7 @@ const toggleExpand = () => {
       @apply sticky bottom-0 z-10 w-full flex items-center justify-center p-2
               border-t cursor-pointer rounded-b-lg;
       &:hover {
-          color: var(--cdx-blue-2);
+        color: var(--cdx-blue-2);
       }
     }
   }

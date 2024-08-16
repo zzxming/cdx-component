@@ -35,40 +35,35 @@ onMounted(() => {
 </script>
 
 <template>
-  <Teleport
-    :to="target"
-    :disabled="!target"
+  <Transition
+    :name="bem.ns('fade')"
+    appear
   >
-    <Transition
-      :name="bem.ns('fade')"
-      appear
+    <div
+      v-if="visible"
+      ref="loadingRef"
+      :class="[bem.be('mask'), fullscreen && bem.bm('fullscreen')]"
+      :style="loadingStyle"
     >
-      <div
-        v-if="visible"
-        ref="loadingRef"
-        :class="[bem.be('mask'), fullscreen && bem.bm('fullscreen')]"
-        :style="loadingStyle"
-      >
-        <div :class="bem.be('tip')">
-          <svg
-            :class="bem.be('spinner')"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              cx="25"
-              cy="25"
-              r="20"
-              fill="none"
-            />
-          </svg>
-          <span
-            v-if="text"
-            :class="bem.be('text')"
-          >
-            {{ text }}
-          </span>
-        </div>
+      <div :class="bem.be('tip')">
+        <svg
+          :class="bem.be('spinner')"
+          viewBox="0 0 50 50"
+        >
+          <circle
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+          />
+        </svg>
+        <span
+          v-if="text"
+          :class="bem.be('text')"
+        >
+          {{ text }}
+        </span>
       </div>
-    </Transition>
-  </Teleport>
+    </div>
+  </Transition>
 </template>

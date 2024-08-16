@@ -21,6 +21,9 @@ importers:
       '@cdx-component/constants':
         specifier: workspace:^
         version: link:packages/constants
+      '@cdx-component/directives':
+        specifier: workspace:^
+        version: link:packages/directives
       '@cdx-component/hooks':
         specifier: workspace:^
         version: link:packages/hooks
@@ -355,6 +358,37 @@ importers:
       vue:
         specifier: ^3.3.11
         version: 3.4.35(typescript@5.3.3)
+
+  playground:
+    dependencies:
+      cdx-component:
+        specifier: workspace:*
+        version: link:../packages/cdx-component
+      vue:
+        specifier: ^3.3.11
+        version: 3.4.35(typescript@5.3.3)
+    devDependencies:
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
+      less-loader:
+        specifier: ^12.2.0
+        version: 12.2.0(less@4.2.0)
+      postcss:
+        specifier: ^8.4.33
+        version: 8.4.40
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.7
+      typescript:
+        specifier: ~5.3.0
+        version: 5.3.3
+      unplugin-vue-components:
+        specifier: ^0.26.0
+        version: 0.26.0(vue@3.4.35)
+      vite:
+        specifier: ^5.0.10
+        version: 5.3.5(@types/node@18.19.42)(less@4.2.0)
 
 packages:
 
@@ -6380,6 +6414,22 @@ packages:
       flush-write-stream: 1.1.1
     dev: true
 
+  /less-loader@12.2.0(less@4.2.0):
+    resolution: {integrity: sha512-MYUxjSQSBUQmowc0l5nPieOYwMzGPUaTzB6inNW/bdPEG9zOL3eAAD1Qw5ZxSPk7we5dMojHwNODYMV1hq4EVg==}
+    engines: {node: '>= 18.12.0'}
+    peerDependencies:
+      '@rspack/core': 0.x || 1.x
+      less: ^3.5.0 || ^4.0.0
+      webpack: ^5.0.0
+    peerDependenciesMeta:
+      '@rspack/core':
+        optional: true
+      webpack:
+        optional: true
+    dependencies:
+      less: 4.2.0
+    dev: true
+
   /less@4.2.0:
     resolution: {integrity: sha512-P3b3HJDBtSzsXUl0im2L7gTO5Ubg8mEN6G8qoTS77iXxXX4Hvu4Qj540PZDvQ8V6DmX6iXo98k7Md0Cm1PrLaA==}
     engines: {node: '>=6'}
@@ -8310,6 +8360,7 @@ packages:
 
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    requiresBuild: true
     dev: true
 
   /sax@1.4.1:

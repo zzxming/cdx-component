@@ -4,7 +4,7 @@
       hover
     </button>
     <template #content>
-      <strong>top tip"</strong>
+      <strong>top tip</strong>
     </template>
   </CdxTooltip>
 </template>

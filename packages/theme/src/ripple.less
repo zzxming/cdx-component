@@ -1,0 +1,32 @@
+@import './shared/variables.less';
+
+.dark.@{namespace}-ripple {
+  .setCssVar(ripple-bg-color, fade(@color-white, 20%));
+}
+.@{namespace}-ripple {
+  background-color: .getCssVar(ripple-bg-color) [];
+  transform: scale(0);
+  @apply absolute top-0 left-0 z-0 w-full h-full rounded-full;
+
+  &__container {
+    .setCssVar(ripple-bg-color, fade(@color-black, 20%));
+    .setCssVar(ripple-transform-transition-duration, 0.25s);
+    .setCssVar(ripple-opacity-transition-duration, 0.2s);
+
+    @apply absolute inset-0 z-0 overflow-hidden pointer-events-none;
+  }
+  &--in,
+  &--out {
+    transition:
+      transform .getCssVar(ripple-transform-transition-duration) []
+        cubic-bezier(0, 0, 0.2, 1),
+      opacity .getCssVar(ripple-transform-transition-duration) []
+        cubic-bezier(0, 0, 0.2, 1);
+  }
+  &--in {
+    @apply opacity-100;
+  }
+  &--out {
+    @apply opacity-0;
+  }
+}

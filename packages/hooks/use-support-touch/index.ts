@@ -1,15 +1,17 @@
-import { cacheFunction, tryOnScope } from '@cdx-component/utils';
+import { supportsTouchDetector, tryOnScope } from '@cdx-component/utils';
 import { onMounted, ref } from 'vue';
 
 type SupportEventName = 'down' | 'move' | 'up';
-const supportsTouchDetector = cacheFunction<boolean>(() => 'ontouchstart' in window);
 
-export const useSupportTouch = () => {
-  const isSupportTouch = ref(false);
+/**
+ * @param isSupport is support when context is not in lifecycle
+ */
+export const useSupportTouch = (isSupport: boolean = false) => {
+  const isSupportTouch = ref(isSupport);
   const events = ref<{ [key in SupportEventName]: keyof HTMLElementEventMap }>({
-    down: 'mousedown',
-    move: 'mousemove',
-    up: 'mouseup',
+    down: isSupportTouch.value ? 'touchstart' : 'mousedown',
+    move: isSupportTouch.value ? 'touchmove' : 'mousemove',
+    up: isSupportTouch.value ? 'touchend' : 'mouseup',
   } as const);
 
   tryOnScope(onMounted, () => {

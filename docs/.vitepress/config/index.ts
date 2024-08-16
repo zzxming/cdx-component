@@ -45,6 +45,14 @@ export default defineConfig({
             { text: 'Resize', link: '/component/resize' },
           ],
         },
+        {
+          text: '指令',
+          items: [
+            { text: 'SameClickTarget', link: '/component/same-click-target' },
+            { text: 'Ripple', link: '/component/ripple' },
+            { text: 'InfinityScroll', link: '/component/infinity-scroll' },
+          ],
+        },
       ],
     },
   },

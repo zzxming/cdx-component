@@ -16,7 +16,7 @@ export const overlayProps = buildProps({
 export type OverlayProps = ExtractPropTypes<typeof overlayProps>;
 
 export const overlayEmits = {
-  click: (event: MouseEvent) => event instanceof MouseEvent,
+  click: (event: Event) => event instanceof Event,
   [UPDATE_MODEL_EVENT]: (value: boolean) => isBoolean(value),
 };
 export type OverlayEmits = typeof overlayEmits;

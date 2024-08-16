@@ -38,7 +38,7 @@ const isVisibleInWindow = ({ top, left, width, height }: {
   const isLeftWithinWindow = left > 0 && left + width < innerWidth + scrollX;
   const isTopWithinWindow = top > 0 && top + height < innerHeight + scrollY;
 
-  return isLeftWithinWindow && isTopWithinWindow;
+  return ['top', 'bottom'].includes(props.direction) ? isTopWithinWindow : isLeftWithinWindow;
 };
 const updateTooltipPosition = () => {
   if (!tooltipRef.value) return;
@@ -103,6 +103,7 @@ const updateTooltipPosition = () => {
   }
   top += extra.top;
   left += extra.left;
+  // TODO?: limit tooltip in viewport. attention arrow position
   tooltipPosition.value = {
     zIndex: String(nextZIndex()),
     top: `${top}px`,

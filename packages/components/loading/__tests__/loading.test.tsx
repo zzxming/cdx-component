@@ -15,24 +15,19 @@ describe('Loading.vue', () => {
     expect(wrapper.find('.cdx-loading__mask').exists()).toBeFalsy();
   });
 
-  it('render teleport', async () => {
+  it('render fullscreen', async () => {
     const visible = ref(true);
-    mount(() => <CdxLoading target="body" fullscreen={true} visible={visible.value} />, {
-      global: {
-        stubs: {
-          transition: false,
-        },
-      },
-    });
-    const mask = document.querySelector('.cdx-loading__mask')!;
-    expect(mask.parentNode === document.body).toBeTruthy();
-    expect(mask.classList).toContain('cdx-loading--fullscreen');
-    expect(document.body.classList).toContain('cdx-scroll--lock');
+    const wrapper = mount(() => <div><CdxLoading fullscreen={true} visible={visible.value} /></div>);
+
+    await new Promise(resolve => setTimeout(resolve, 300));
+    const parentElement = wrapper.find('div.cdx-loading__mask').element.parentElement!;
+    expect(wrapper.find('div.cdx-loading__mask').classes()).toContain('cdx-loading--fullscreen');
+    expect(parentElement.classList).toContain('cdx-scroll--lock');
 
     visible.value = false;
     await new Promise(resolve => setTimeout(resolve, 300));
     expect(document.querySelector('.cdx-loading__mask')).toBeNull();
-    expect(document.body.classList).not.toContain('cdx-scroll--lock');
+    expect(parentElement.classList).not.toContain('cdx-scroll--lock');
   });
 
   it('render directive', async () => {
@@ -100,5 +95,16 @@ describe('Loading.vue', () => {
     await wrapper.find('.target').trigger('click');
     expect(wrapper.find('.cdx-loading__mask')).toBeTruthy();
     expect(wrapper.find('.container').classes()).toContain('cdx-scroll--lock');
+  });
+
+  it('render service fullscreen single', async () => {
+    const instance1 = CdxLoading.service({
+      fullscreen: true,
+    });
+    const instance2 = CdxLoading.service({
+      fullscreen: true,
+    });
+
+    expect(instance1 === instance2).toBeTruthy();
   });
 });

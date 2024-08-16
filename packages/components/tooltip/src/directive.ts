@@ -64,9 +64,14 @@ const createTooltip = (el: TooltipElement, binding: DirectiveBinding<string>) =>
   el.addEventListener('mouseleave', close);
 };
 const updateTooltip = (el: TooltipElement, binding: DirectiveBinding<string>) => {
-  const data = el[TOOLTIP_DATA_KEY]!;
-  data.text.value = binding.value;
-  data.direction.value = isValidDirection(binding.arg) ? binding.arg! : 'top';
+  if (!el[TOOLTIP_DATA_KEY]) {
+    el[TOOLTIP_DATA_KEY] = {
+      text: ref(''),
+      direction: ref('top'),
+    };
+  }
+  el[TOOLTIP_DATA_KEY].text.value = binding.value;
+  el[TOOLTIP_DATA_KEY].direction.value = isValidDirection(binding.arg) ? binding.arg! : 'top';
 };
 
 export const vTooltipDirective: ObjectDirective<TooltipElement> = {
