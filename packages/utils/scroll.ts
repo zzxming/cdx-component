@@ -1,9 +1,12 @@
+import { useBem } from '@cdx-component/hooks';
+
 let scrollBarWidth: number;
-export const getScrollBarWidth = (namespace: string, { target = document.body } = {}): number => {
+export const getScrollBarWidth = ({ target = document.body } = {}): number => {
   if (scrollBarWidth !== undefined) return scrollBarWidth;
+  const [, bem] = useBem('scroll');
 
   const outer = document.createElement('div');
-  outer.className = `${namespace}-scrollbar__wrap`;
+  outer.className = bem.be('wrap');
   outer.style.visibility = 'hidden';
   outer.style.width = '100px';
   outer.style.position = 'absolute';

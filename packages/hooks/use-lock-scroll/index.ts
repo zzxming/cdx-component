@@ -1,7 +1,6 @@
 import { isRef, onScopeDispose, watch } from 'vue';
 import type { Ref } from 'vue';
 import { getScrollBarWidth, tryOnScope } from '@cdx-component/utils';
-import { namespace } from '@cdx-component/constants';
 import { useBem } from '../use-bem';
 
 export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } = {}) => {
@@ -27,7 +26,7 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
       if (!hasHiddenClass) {
         originWidth = target.style.width;
       }
-      scrollBarWidth = getScrollBarWidth(namespace, { target });
+      scrollBarWidth = getScrollBarWidth({ target });
       const hasOverflow = (target === document.body ? document.documentElement : target).clientHeight < target.scrollHeight;
       const overflowY = getComputedStyle(target).overflowY;
       if (!value) {
