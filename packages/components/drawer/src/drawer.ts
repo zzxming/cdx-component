@@ -20,7 +20,7 @@ export const drawerProps = buildProps({
     type: Boolean,
     default: true,
   },
-  clickModelCose: {
+  clickMaskClose: {
     type: Boolean,
     default: true,
   },

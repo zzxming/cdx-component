@@ -132,7 +132,7 @@ const { direction: slideDirection } = useSlide(slidRef, {
 });
 
 const close = () => {
-  if (!props.clickModelCose) return;
+  if (!props.clickMaskClose) return;
   model.value = false;
 };
 const handleTransitionEnd = () => {
