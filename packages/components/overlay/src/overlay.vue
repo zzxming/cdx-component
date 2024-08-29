@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { StyleValue, computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useBem, useLockScroll, useModelValue } from '@cdx-component/hooks';
+import { useBem, useLockScroll, useModelValue, useZIndex } from '@cdx-component/hooks';
 import { vSameClickTarget } from '@cdx-component/directives';
 import { overlayEmits, overlayProps } from './overlay';
 
@@ -11,19 +11,25 @@ const emits = defineEmits(overlayEmits);
 const [, bem] = useBem('overlay');
 const [, scrollBem] = useBem('scroll');
 const { model } = useModelValue(props, false);
+const { nextZIndex } = useZIndex();
 
 const overlayRef = ref<HTMLElement>();
+const zIndex = ref(nextZIndex());
 
 const overlayStyle = computed<StyleValue>(() => ({
   position: props.fullscreen ? 'fixed' : 'absolute',
+  zIndex: zIndex.value,
 }));
 
 const emitClick = (e: Event) => emits('click', e);
 watch(
-  () => model,
-  async () => {
+  model,
+  async (val) => {
     await nextTick();
-    overlayRef.value?.parentElement?.classList[model.value ? 'add' : 'remove'](scrollBem.bm('lock'));
+    overlayRef.value?.parentElement?.classList[val ? 'add' : 'remove'](scrollBem.bm('lock'));
+    if (val) {
+      zIndex.value = nextZIndex();
+    }
   },
   {
     immediate: true,
