@@ -15,4 +15,4 @@ export default [
   CdxSameClickTargetDirective,
   CdxRippleDirective,
   CdxInfinityScrollDirective,
-] as Plugin[]; ;
+] as Plugin[];

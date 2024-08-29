@@ -118,10 +118,10 @@ const create = async (name: string) => {
     },
   ];
   const allowCreate = await consola.prompt(
-        `The following files will be generated\n${generateFile.map(data => data.filePath).join('\n')}`,
-        {
-          type: 'confirm',
-        },
+    `The following files will be generated\n${generateFile.map(data => data.filePath).join('\n')}`,
+    {
+      type: 'confirm',
+    },
   );
   if (!allowCreate) return false;
 
