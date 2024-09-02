@@ -10,8 +10,8 @@ defineOptions({ name: 'CdxDrawer' });
 const props = defineProps(drawerProps);
 defineEmits(drawerEmits);
 const slots = defineSlots<{
-  default(): any;
-  swipe?(): any;
+  default: () => any;
+  swipe?: () => any;
 }>();
 
 const [, bem] = useBem('drawer');

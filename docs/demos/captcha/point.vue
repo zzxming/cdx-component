@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type CheckStatusInfo } from 'cdx-component';
+import type { CheckStatusInfo } from 'cdx-component';
 import { computed, ref } from 'vue';
 
 const imgs = [

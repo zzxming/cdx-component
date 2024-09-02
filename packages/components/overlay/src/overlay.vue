@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { StyleValue, computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import type { StyleValue } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useBem, useLockScroll, useModelValue, useZIndex } from '@cdx-component/hooks';
 import { vSameClickTarget } from '@cdx-component/directives';
 import { overlayEmits, overlayProps } from './overlay';
@@ -37,7 +38,9 @@ watch(
 );
 
 onMounted(() => {
-  useLockScroll(model, { target: overlayRef.value?.parentElement! });
+  if (overlayRef.value?.parentElement) {
+    useLockScroll(model, { target: overlayRef.value.parentElement });
+  }
 });
 onBeforeUnmount(() => {
   overlayRef.value?.parentElement?.classList.remove(scrollBem.bm('lock'));

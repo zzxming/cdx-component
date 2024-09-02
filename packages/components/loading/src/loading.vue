@@ -30,7 +30,9 @@ watch(
 );
 
 onMounted(() => {
-  useLockScroll(isLock, { target: loadingRef.value?.parentElement! });
+  if (loadingRef.value?.parentElement) {
+    useLockScroll(isLock, { target: loadingRef.value.parentElement });
+  }
 });
 </script>
 

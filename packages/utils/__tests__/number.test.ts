@@ -1,3 +1,4 @@
+/* eslint-disable no-loss-of-precision */
 import { describe, expect, it } from 'vitest';
 import { getDecimalLength, getIntegerLength, toFixed, toStringNumber } from '..';
 

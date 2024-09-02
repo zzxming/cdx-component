@@ -2,7 +2,8 @@
 import { provide } from 'vue';
 import { useBem, useModelValue } from '@cdx-component/hooks';
 import { CHANGE_EVENT } from '@cdx-component/constants';
-import { CollapseModelValueType, collapseEmits, collapseProps } from './collapse';
+import type { CollapseModelValueType } from './collapse';
+import { collapseEmits, collapseProps } from './collapse';
 import { collapseContextKey } from './constants';
 
 defineOptions({ name: 'CdxCollapse' });

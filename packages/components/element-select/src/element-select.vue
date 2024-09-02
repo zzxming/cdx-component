@@ -3,7 +3,8 @@ import { computed, nextTick, provide, ref, toRefs } from 'vue';
 import { pick } from '@cdx-component/utils';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
-import { ElementSelectValueType, elementSelectEmits, elementSelectProps } from './element-select';
+import type { ElementSelectValueType } from './element-select';
+import { elementSelectEmits, elementSelectProps } from './element-select';
 import { selectContextKey } from './constants';
 
 defineOptions({ name: 'CdxElementSelect' });
