@@ -71,11 +71,11 @@ const { direction } = useSlide(trackRef, {
       loadingStatus.value = PullRefreshStatus.pulling;
     }
   },
-  move: (e, position) => {
+  move: (e, { clientX, clientY }) => {
     if (canPull.value) {
       if (contentRef.value!.scrollTop === 0) {
-        if (!slideRemark) slideRemark = [position.clientX, position.clientY];
-        const diffY = Math.max(0, position.clientY - slideRemark[1]);
+        if (!slideRemark) slideRemark = [clientX, clientY];
+        const diffY = Math.max(0, clientY - slideRemark[1]);
         const hasTransform = direction.value[2] && diffY > 0;
         if (hasTransform) {
           e.cancelable && e.preventDefault();
