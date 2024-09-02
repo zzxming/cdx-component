@@ -42,24 +42,15 @@ const bodySlideStopEvent = computed(() => {
   }
   return events;
 });
-const drawerBodyStyle = computed<StyleValue>(() => {
-  const styleMap = {
-    left: 'right',
-    right: 'left',
-    top: 'bottom',
-    bottom: 'top',
-    size: isHorizontal.value ? 'width' : 'height',
-  };
-  return {
-    position: props.fullscreen ? 'fixed' : 'absolute',
-    [props.direction]: 'auto',
-    [styleMap.size]: isNumber(props.size) ? `${props.size}px` : props.size,
-    transform: drawerBodyTransform.value,
-    transition: !drawerBodyTransition.value
-      ? undefined
-      : `transform var(--${namespace}-transition-duration) linear`,
-  };
-});
+const drawerBodyStyle = computed<StyleValue>(() => ({
+  position: props.fullscreen ? 'fixed' : 'absolute',
+  [props.direction]: 'auto',
+  [isHorizontal.value ? 'width' : 'height']: isNumber(props.size) ? `${props.size}px` : props.size,
+  transform: drawerBodyTransform.value,
+  transition: !drawerBodyTransition.value
+    ? undefined
+    : `transform var(--${namespace}-transition-duration) linear`,
+}));
 const drawerBodyClassName = computed(() => {
   const className = {
     right: 'ltr',
@@ -141,7 +132,7 @@ const { direction: slideDirection } = useSlide(slidRef, {
 });
 
 const close = () => {
-  if (!props.clickModelCose) return;
+  if (!props.clickMaskClose) return;
   model.value = false;
 };
 const handleTransitionEnd = () => {
