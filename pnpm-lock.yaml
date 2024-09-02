@@ -57,6 +57,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0)
+      '@vitest/eslint-plugin':
+        specifier: ^1.1.0
+        version: 1.1.0(eslint@9.8.0)(typescript@5.3.3)(vitest@1.6.0)
       '@vitest/ui':
         specifier: ^1.6.0
         version: 1.6.0(vitest@1.6.0)
@@ -67,8 +70,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.1
       '@zzxming/eslint-config':
-        specifier: ^0.0.12
-        version: 0.0.12(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3)
+        specifier: ^0.0.14
+        version: 0.0.14(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3)
       cdx-component:
         specifier: workspace:^
         version: link:packages/cdx-component
@@ -2784,6 +2787,26 @@ packages:
       - supports-color
     dev: true
 
+  /@vitest/eslint-plugin@1.1.0(eslint@9.8.0)(typescript@5.3.3)(vitest@1.6.0):
+    resolution: {integrity: sha512-Ur80Y27Wbw8gFHJ3cv6vypcjXmrx6QHfw+q435h6Q2L+tf+h4Xf5pJTCL4YU/Jps9EVeggQxS85OcUZU7sdXRw==}
+    peerDependencies:
+      '@typescript-eslint/utils': '>= 8.0'
+      eslint: '>= 8.57.0'
+      typescript: '>= 5.0.0'
+      vitest: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/utils':
+        optional: true
+      typescript:
+        optional: true
+      vitest:
+        optional: true
+    dependencies:
+      eslint: 9.8.0
+      typescript: 5.3.3
+      vitest: 1.6.0(@types/node@18.19.42)(@vitest/ui@1.6.0)(jsdom@24.1.1)
+    dev: true
+
   /@vitest/expect@1.6.0:
     resolution: {integrity: sha512-ixEvFVQjycy/oNgHjqsL6AZCDduC+tflRluaHIzKIsdbzkLn2U/iBnVeJwB6HsIjQBdfMR8Z0tRxKUsvFJEeWQ==}
     dependencies:
@@ -3002,7 +3025,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.35
       '@vue/shared': 3.4.35
-      vue: 3.4.35
+      vue: 3.4.35(typescript@5.3.3)
 
   /@vue/shared@3.4.35:
     resolution: {integrity: sha512-hvuhBYYDe+b1G8KHxsQ0diDqDMA8D9laxWZhNAjE83VZb5UDaXl9Xnz7cGdDSyiHM90qqI/CyGMcpBpiDy6VVQ==}
@@ -3093,11 +3116,11 @@ packages:
       - vue
     dev: true
 
-  /@zzxming/eslint-config@0.0.12(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3):
-    resolution: {integrity: sha512-9KgW9ICIi7nfCCuyB0P2DFRy0MCAeNz76cYQXwOuEnXjJDmgFDE1woaM/QpjR5dnvBoETWpEMtq5FAhCiHBJaw==}
+  /@zzxming/eslint-config@0.0.14(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1)(eslint@9.8.0)(prettier@3.3.3)(typescript@5.3.3):
+    resolution: {integrity: sha512-ZL7W5VHNdNiGzyvH8zt9mRoOyPy4KvKIQbj8yGT/ZOwN5E7Ejlj55LLmsu29n8KNSnxdfHz2q7BLzOWIUoLZkg==}
     hasBin: true
     peerDependencies:
-      eslint: '>=8.40.0'
+      eslint: '>=8.57.0'
     dependencies:
       '@antfu/install-pkg': 0.3.3
       consola: 3.2.3
@@ -9764,6 +9787,7 @@ packages:
       '@vue/runtime-dom': 3.4.35
       '@vue/server-renderer': 3.4.35(vue@3.4.35)
       '@vue/shared': 3.4.35
+    dev: false
 
   /vue@3.4.35(typescript@5.3.3):
     resolution: {integrity: sha512-+fl/GLmI4GPileHftVlCdB7fUL4aziPcqTudpTGXCT8s+iZWuOCeNEB5haX6Uz2IpRrbEXOgIFbe+XciCuGbNQ==}
