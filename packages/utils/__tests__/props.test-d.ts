@@ -216,12 +216,10 @@ describe('test types about vue props', () => {
           default: () => keepConstType({} as const),
         } as const),
       ).toEqualTypeOf<{
-        // eslint-disable-next-line ts/no-empty-object-type
         readonly type: PropType<Record<string, any> | {}>;
         readonly required: false;
         readonly validator: undefined;
         [PropKey]: true;
-        // eslint-disable-next-line ts/no-empty-object-type
       } & { readonly default: {} }>();
     });
 

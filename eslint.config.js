@@ -16,6 +16,7 @@ export default factory({
     {
       files: ['**/__tests__/*.{test,spec}-d.?([cm])[jt]s?(x)'],
       rules: {
+        'ts/no-empty-object-type': 'off',
         'vitest/expect-expect': 'off',
       },
     },
