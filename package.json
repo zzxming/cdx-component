@@ -48,7 +48,7 @@
     "@vitest/ui": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.0",
-    "@zzxming/eslint-config": "^0.0.14",
+    "@zzxming/eslint-config": "^0.1.1",
     "cdx-component": "workspace:^",
     "consola": "^3.2.3",
     "eslint": "^9.3.0",

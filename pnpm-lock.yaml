@@ -70,8 +70,8 @@ importers:
         specifier: ^0.5.0
         version: 0.5.1
       '@zzxming/eslint-config':
-        specifier: ^0.0.14
-        version: 0.0.14(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(prettier@3.3.3)(typescript@5.5.4)
+        specifier: ^0.1.1
+        version: 0.1.1(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(prettier@3.3.3)(typescript@5.5.4)
       cdx-component:
         specifier: workspace:^
         version: link:packages/cdx-component
@@ -1996,8 +1996,8 @@ packages:
   '@vueuse/shared@10.11.0':
     resolution: {integrity: sha512-fyNoIXEq3PfX1L3NkNhtVQUSRtqYwJtJg+Bp9rIzculIZWHTkKSysujrOk2J+NrRulLTQH9+3gGSfYLWSEWU1A==}
 
-  '@zzxming/eslint-config@0.0.14':
-    resolution: {integrity: sha512-ZL7W5VHNdNiGzyvH8zt9mRoOyPy4KvKIQbj8yGT/ZOwN5E7Ejlj55LLmsu29n8KNSnxdfHz2q7BLzOWIUoLZkg==}
+  '@zzxming/eslint-config@0.1.1':
+    resolution: {integrity: sha512-/tvp+I1V8HAzxFVHmMGHfS1wOc/ULNsyvmEZF4YZuaL/M2/4qOkn4gsaJwkMaV4UpaFvfwFCJE9R54VXoE7MuA==}
     hasBin: true
     peerDependencies:
       eslint: '>=8.57.0'
@@ -7214,7 +7214,7 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@zzxming/eslint-config@0.0.14(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(prettier@3.3.3)(typescript@5.5.4)':
+  '@zzxming/eslint-config@0.1.1(@types/eslint@9.6.0)(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(typescript@5.5.4))(eslint@9.8.0)(prettier@3.3.3)(typescript@5.5.4)':
     dependencies:
       '@antfu/install-pkg': 0.3.3
       consola: 3.2.3

@@ -76,9 +76,10 @@ const { direction: slideDirection } = useSlide(slidRef, {
     // 判断鼠标移动方向
     if (
       (isOpening && ((isPositiveDirection.value && diff < 0) || (!isPositiveDirection.value && diff > 0)))
-      || (!isOpening
-      && ((isPositiveDirection.value && diff > -1 * props.breakBoundary)
-      || (!isPositiveDirection.value && diff < props.breakBoundary)))
+      || (
+        !isOpening
+        && ((isPositiveDirection.value && diff > -1 * props.breakBoundary) || (!isPositiveDirection.value && diff < props.breakBoundary))
+      )
     ) {
       model.value = true;
       await nextTick();

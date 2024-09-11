@@ -18,7 +18,7 @@ const buildTheme = () => {
       cleanCSS({}, (details) => {
         consola.success(
           `${details.name}: ${details.stats.originalSize / 1000} KB -> ${
-              details.stats.minifiedSize / 1000
+            details.stats.minifiedSize / 1000
           } KB`,
         );
       }),
