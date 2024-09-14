@@ -21,6 +21,9 @@ const formatPathDemos = computed(() => {
   <div class="vp-raw">
     <ClientOnly>
       <div class="example">
+        <div class="description">
+          <slot />
+        </div>
         <Example
           :file="src"
           :demo="formatPathDemos[src]"
@@ -38,5 +41,8 @@ const formatPathDemos = computed(() => {
 <style lang="less" scoped>
 .example {
   @apply border border-stone-200 rounded-lg;
+}
+.description{
+  @apply my-2 px-4;
 }
 </style>
