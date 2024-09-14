@@ -1,9 +1,8 @@
 @import '../shared/variables.less';
 @import '../shared/functions.less';
 
+@directions: ltr, rtl, ttb, btt;
 .direction(@animationName, @isSibling: false) {
-  @directions: ltr, rtl, ttb, btt;
-
   each(@directions, {
     @resultClass: if(@isSibling, ~'&.@{value}', ~'.@{value}');
 
