@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useBem, useModelValue, useZIndex } from '@cdx-component/hooks';
+import { CdxOverlay } from '@cdx-component/components';
 import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue';
 import { isNumber } from '@cdx-component/utils';
 import { sidebarProps } from './sidebar';
@@ -152,6 +153,17 @@ onBeforeUnmount(() => {
     to="body"
     :disabled="!fullscreen"
   >
+    <Transition
+      :name="bem.ns('fade')"
+      appear
+    >
+      <CdxOverlay
+        v-if="mask"
+        v-model="model"
+        :style="{ zIndex }"
+        @click="toggle"
+      />
+    </Transition>
     <div
       ref="sidebarRef"
       :class="[bem.b(), sidebarClassName, model && 'active']"

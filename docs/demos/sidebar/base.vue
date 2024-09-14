@@ -23,7 +23,7 @@ const direction = ref<Direction>(directionMap[3]);
     </label>
   </div>
   <div style="height: 300px; border: 1px solid" @click="model = !model">
-    <CdxSidebar v-model="model" :direction="direction" :size="100">
+    <CdxSidebar v-model="model" :direction="direction" :size="100" mask>
       content
     </CdxSidebar>
   </div>

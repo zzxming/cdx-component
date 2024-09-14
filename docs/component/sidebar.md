@@ -20,6 +20,7 @@
 | direction            | `'left' \| 'right' \| 'top' \| 'bottom'` | 展开方向                                                                       | `'left'` |
 | fullscreen           | `boolean`                                | 是否全屏打开                                                                   | `false`  |
 | size                 | `string \| number`                       | sidebar 大小，direction 为 'left' 或 'right' 时为宽度，否则为高度，单位默认 px | '300px'  |
+| mask                 | `boolean`                                | 是否显示遮罩                                                                   | `false`  |
 
 ## Sidebar Slots
 

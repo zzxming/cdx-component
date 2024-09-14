@@ -19,5 +19,9 @@ export const sidebarProps = buildProps({
     type: Boolean,
     default: false,
   },
+  mask: {
+    type: Boolean,
+    default: false,
+  },
 } as const);
 export type SidebarProps = ExtractPropTypes<typeof sidebarProps>;
