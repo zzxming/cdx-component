@@ -6,7 +6,7 @@ titleTemplate: Components For Vue3
 
 hero:
   name: Cdx Component
-  text: Vue3 组件库
+  text: Vue3 组件
   actions:
     - theme: brand
       text: Get Started

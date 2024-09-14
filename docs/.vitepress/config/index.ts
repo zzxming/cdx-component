@@ -43,6 +43,7 @@ export default defineConfig({
             { text: 'PullRefresh', link: '/component/pull-refresh' },
             { text: 'Tooltip', link: '/component/tooltip' },
             { text: 'Resize', link: '/component/resize' },
+            { text: 'Sidebar', link: '/component/sidebar' },
           ],
         },
         {

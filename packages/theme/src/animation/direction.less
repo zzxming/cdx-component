@@ -18,25 +18,33 @@
       &-enter-from,
       &-leave-to {
         @{resultClass} when (@value = ltr) {
-          --tw-translate-x: -100%;
+          .setCssVar(direction-translate-x, -100%);
         }
         @{resultClass} when (@value = rtl) {
-          --tw-translate-x: 100%;
+          .setCssVar(direction-translate-x, 100%);
         }
         @{resultClass} when (@value = ttb) {
-          --tw-translate-y: -100%;
+          .setCssVar(direction-translate-y, -100%);
         }
         @{resultClass} when (@value = btt) {
-          --tw-translate-y: 100%;
+          .setCssVar(direction-translate-y, 100%);
         }
       }
     }
   });
+
+  .direction-only(@isSibling);
+}
+
+.direction-only(@isSibling: false) {
   each(@directions, {
     @resultClass:if(@isSibling, ~'&.@{value}', ~'.@{value}');
 
     @{resultClass} {
-      @apply absolute transform-gpu;
+      .setCssVar(direction-translate-x, 0);
+      .setCssVar(direction-translate-y, 0);
+      transform: translate3d(.getCssVar(direction-translate-x) [], .getCssVar(direction-translate-y) [], 0);
+      @apply absolute;
     }
     @{resultClass} when (@value = ltr), (@value = rtl) {
       @apply top-0 bottom-0;

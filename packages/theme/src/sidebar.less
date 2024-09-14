@@ -1,0 +1,30 @@
+@import './shared/variables.less';
+@import './animation/direction.less';
+
+.@{namespace}-sidebar {
+  box-shadow: .getCssVar(shadow-base) [];
+  @apply fixed bg-white;
+  &.ltr {
+    .setCssVar(direction-translate-x, -100%);
+  }
+  &.rtl {
+    .setCssVar(direction-translate-x, 100%);
+  }
+  &.ttb {
+    .setCssVar(direction-translate-y, -100%);
+  }
+  &.btt {
+    .setCssVar(direction-translate-y, 100%);
+  }
+  &.active {
+    .setCssVar(direction-translate-x, 0);
+    .setCssVar(direction-translate-y, 0);
+  }
+  &__content {
+    @apply w-full h-full overflow-auto;
+  }
+  &__collapse {
+    @apply absolute flex items-center justify-center border rounded cursor-pointer bg-white;
+  }
+}
+.direction-only();
