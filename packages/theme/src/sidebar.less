@@ -4,7 +4,7 @@
 
 .@{namespace}-sidebar {
   box-shadow: .getCssVar(shadow-base) [];
-  @apply fixed bg-white;
+  @apply fixed;
   &.ltr {
     .setCssVar(direction-translate-x, -100%);
   }
@@ -22,10 +22,13 @@
     .setCssVar(direction-translate-y, 0);
   }
   &__content {
+    background-color: .getCssVar(bg-color-base) [];
     @apply w-full h-full overflow-auto;
   }
   &__collapse {
-    @apply absolute flex items-center justify-center border rounded cursor-pointer bg-white;
+    background-color: .getCssVar(bg-color-base) [];
+    border-color: .getCssVar(border-color-dark-1) [];
+    @apply absolute flex items-center justify-center border rounded cursor-pointer;
   }
 }
 .direction-only();
