@@ -16,6 +16,7 @@ import { CdxTooltip } from '../components/tooltip';
 import { CdxOnlyChild } from '../components/only-child';
 import { CdxResize } from '../components/resize';
 import { CdxSidebar } from '../components/sidebar';
+import { CdxButton } from '../components/button';
 
 export default [
   CdxDrawer,
@@ -39,4 +40,5 @@ export default [
   CdxOnlyChild,
   CdxResize,
   CdxSidebar,
+  CdxButton,
 ] as Plugin[];

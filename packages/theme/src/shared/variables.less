@@ -1,7 +1,5 @@
 @import './functions.less';
 
-@namespace: cdx;
-
 @color-white: #ffffff;
 @color-black: #000000;
 
@@ -11,6 +9,9 @@
   green: #2dc653;
   yellow: #f4e409;
   gray: #909399;
+  success: #6aad48;
+  warning: #d19131;
+  error: #e65f5f;
 }
 
 #textColorsMap() {
@@ -44,6 +45,13 @@
   dark-2: .getCssVar(border-shape) [] .getCssVar(border-color-dark-2) [];
 }
 
+#borderRadiusMap() {
+  base: 4px;
+  small: 2px;
+  round: 20px;
+  circle: 100%;
+}
+
 #colorsFillMap() {
   background: #f8f9fa;
 }
@@ -69,7 +77,7 @@
   dark-2: .getCssVar(shadow-shape) [] .getCssVar(shadow-color-dark-2) [];
 }
 
-#transitionMap () {
+#transitionMap() {
   duration: 250ms;
   function: ease;
   base: .getCssVar(transition-duration) [] .getCssVar(transition-function) [];

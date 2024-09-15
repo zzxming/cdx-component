@@ -1,5 +1,6 @@
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CdxButton: (typeof import('cdx-component'))['CdxButton'];
     CdxCaptcha: (typeof import('cdx-component'))['CdxCaptcha'];
     CdxCaptchaSlider: (typeof import('cdx-component'))['CdxCaptchaSlider'];
     CdxCollapse: (typeof import('cdx-component'))['CdxCollapse'];

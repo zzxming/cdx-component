@@ -4,6 +4,7 @@ import '@vue/runtime-core';
 declare module '@vue/runtime-core' {
   // GlobalComponents for Volar
   export interface GlobalComponents {
+    CdxButton: (typeof import('../packages/cdx-component'))['CdxButton'];
     CdxCaptcha: (typeof import('../packages/cdx-component'))['CdxCaptcha'];
     CdxCaptchaSlider: (typeof import('../packages/cdx-component'))['CdxCaptchaSlider'];
     CdxCollapse: (typeof import('../packages/cdx-component'))['CdxCollapse'];

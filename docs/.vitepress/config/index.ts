@@ -44,6 +44,7 @@ export default defineConfig({
             { text: 'Tooltip', link: '/component/tooltip' },
             { text: 'Resize', link: '/component/resize' },
             { text: 'Sidebar', link: '/component/sidebar' },
+            { text: 'Button', link: '/component/button' },
           ],
         },
         {

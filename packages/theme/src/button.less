@@ -1,0 +1,203 @@
+@import './shared/variables.less';
+
+#buttonTypeName() {
+  @1: primary;
+  @2: success;
+  @3: warning;
+  @4: danger;
+  @5: info;
+  @6: default;
+}
+.@{namespace}-button {
+  #buttonTypeCssVarMap() {
+    buttonPrimaryCssVarMap {
+      text-color: .getCssVar(color-white) [];
+      bg-color: .getCssVar(blue-3) [];
+      border-color: .getCssVar(blue-5) [];
+      hover-text-color: .getCssVar(color-white) [];
+      hover-border-color: .getCssVar(blue-7) [];
+      hover-bg-color: .getCssVar(blue-5) [];
+      disabled-text-color: .getCssVar(color-white) [];
+      disabled-border-color: .getCssVar(blue-7) [];
+      disabled-bg-color: .getCssVar(blue-7) [];
+    }
+    buttonSuccessCssVarMap {
+      text-color: .getCssVar(color-white) [];
+      bg-color: .getCssVar(green-3) [];
+      border-color: .getCssVar(green-5) [];
+      hover-text-color: .getCssVar(color-white) [];
+      hover-border-color: .getCssVar(green-7) [];
+      hover-bg-color: .getCssVar(green-5) [];
+      disabled-text-color: .getCssVar(color-white) [];
+      disabled-border-color: .getCssVar(green-7) [];
+      disabled-bg-color: .getCssVar(green-7) [];
+    }
+    buttonWarningCssVarMap {
+      text-color: .getCssVar(color-white) [];
+      bg-color: .getCssVar(warning-3) [];
+      border-color: .getCssVar(warning-5) [];
+      hover-text-color: .getCssVar(color-white) [];
+      hover-border-color: .getCssVar(warning-7) [];
+      hover-bg-color: .getCssVar(warning-5) [];
+      disabled-text-color: .getCssVar(color-white) [];
+      disabled-border-color: .getCssVar(warning-7) [];
+      disabled-bg-color: .getCssVar(warning-7) [];
+    }
+    buttonDangerCssVarMap {
+      text-color: .getCssVar(color-white) [];
+      bg-color: .getCssVar(error-3) [];
+      border-color: .getCssVar(error-5) [];
+      hover-text-color: .getCssVar(color-white) [];
+      hover-border-color: .getCssVar(error-7) [];
+      hover-bg-color: .getCssVar(error-5) [];
+      disabled-text-color: .getCssVar(color-white) [];
+      disabled-border-color: .getCssVar(error-7) [];
+      disabled-bg-color: .getCssVar(error-7) [];
+    }
+    buttonInfoCssVarMap {
+      text-color: .getCssVar(color-white) [];
+      bg-color: .getCssVar(gray-3) [];
+      border-color: .getCssVar(gray-5) [];
+      hover-text-color: .getCssVar(color-white) [];
+      hover-border-color: .getCssVar(gray-7) [];
+      hover-bg-color: .getCssVar(gray-5) [];
+      disabled-text-color: .getCssVar(color-white) [];
+      disabled-border-color: .getCssVar(gray-7) [];
+      disabled-bg-color: .getCssVar(gray-7) [];
+    }
+    buttonDefaultCssVarMap {
+      text-color: .getCssVar(text-color-regular) [];
+      bg-color: .getCssVar(fill-color-background) [];
+      border-color: .getCssVar(border-color-base) [];
+      hover-text-color: .getCssVar(blue-1) [];
+      hover-border-color: .getCssVar(blue-5) [];
+      hover-bg-color: .getCssVar(blue-7) [];
+      disabled-text-color: .getCssVar(text-color-disabled) [];
+      disabled-border-color: .getCssVar(gray-7) [];
+      disabled-bg-color: .getCssVar(fill-color-background) [];
+
+      size: .getCssVar(size-default) [];
+      border-radius: .getCssVar(border-radius-base) [];
+      border: .getCssVar(border-shape) [] .getCssVar(button-border-color) [];
+    }
+  }
+  .setCssVarByMapping(button, #buttonTypeName(), #buttonTypeCssVarMap());
+
+  @apply relative inline-flex items-center justify-center text-sm leading-none whitespace-nowrap font-normal select-none cursor-pointer;
+  color: .getCssVar(button-text-color) [];
+  height: .getCssVar(button-size) [];
+  padding: 0px 14px;
+  background-color: .getCssVar(button-bg-color) [];
+  border: .getCssVar(button-border) [];
+  border-radius: .getCssVar(button-border-radius) [];
+  transition: all 0.1s ease;
+  outline: none;
+  &:hover {
+    color: .getCssVar(button-hover-text-color) [];
+    border-color: .getCssVar(button-hover-border-color) [];
+    background-color: .getCssVar(button-hover-bg-color) [];
+  }
+  &.is-round {
+    .setCssVar(button-border-radius, .getCssVar(border-radius-round) []);
+  }
+  &.is-disabled,
+  &.is-loading {
+    @apply cursor-not-allowed;
+    each(#buttonTypeName(), .(@value) {
+      @className: if(not (@value=default), e('.@{namespace}-button--@{value}'), e(''));
+      &@{className} {
+        &,
+        &:hover {
+          color: .getCssVar(button-disabled-text-color) [];
+          border-color: .getCssVar(button-disabled-border-color) [];
+          background-color: .getCssVar(button-disabled-bg-color) [];
+        }
+      }
+    });
+  }
+  &.is-plain {
+    .setCssVar(button-hover-bg-color, .getCssVar(color-white) []);
+    #buttonPlainCssVarMap() {
+      buttonPrimaryCssVarMap {
+        text-color: .getCssVar(blue-3) [];
+        border-color: .getCssVar(blue-6) [];
+        bg-color: .getCssVar(blue-8) [];
+        hover-text-color: .getCssVar(color-white) [];
+        hover-border-color: .getCssVar(blue-5) [];
+        hover-bg-color: .getCssVar(blue-3) [];
+        disabled-text-color: .getCssVar(blue-5) [];
+        disabled-border-color: .getCssVar(blue-7) [];
+        disabled-bg-color: .getCssVar(blue-9) [];
+      }
+      buttonSuccessCssVarMap {
+        text-color: .getCssVar(green-3) [];
+        border-color: .getCssVar(green-6) [];
+        bg-color: .getCssVar(green-8) [];
+        hover-text-color: .getCssVar(color-white) [];
+        hover-border-color: .getCssVar(green-5) [];
+        hover-bg-color: .getCssVar(green-3) [];
+        disabled-text-color: .getCssVar(green-5) [];
+        disabled-border-color: .getCssVar(green-7) [];
+        disabled-bg-color: .getCssVar(green-9) [];
+      }
+      buttonWarningCssVarMap {
+        text-color: .getCssVar(warning-3) [];
+        border-color: .getCssVar(warning-6) [];
+        bg-color: .getCssVar(warning-9) [];
+        hover-text-color: .getCssVar(color-white) [];
+        hover-border-color: .getCssVar(warning-5) [];
+        hover-bg-color: .getCssVar(warning-3) [];
+        disabled-text-color: .getCssVar(warning-5) [];
+        disabled-border-color: .getCssVar(warning-7) [];
+        disabled-bg-color: .getCssVar(warning-9) [];
+      }
+      buttonDangerCssVarMap {
+        text-color: .getCssVar(error-3) [];
+        border-color: .getCssVar(error-6) [];
+        bg-color: .getCssVar(error-8) [];
+        hover-text-color: .getCssVar(color-white) [];
+        hover-border-color: .getCssVar(error-5) [];
+        hover-bg-color: .getCssVar(error-3) [];
+        disabled-text-color: .getCssVar(error-5) [];
+        disabled-border-color: .getCssVar(error-7) [];
+        disabled-bg-color: .getCssVar(error-9) [];
+      }
+      buttonInfoCssVarMap {
+        text-color: .getCssVar(gray-3) [];
+        border-color: .getCssVar(gray-6) [];
+        bg-color: .getCssVar(gray-8) [];
+        hover-text-color: .getCssVar(color-white) [];
+        hover-border-color: .getCssVar(gray-5) [];
+        hover-bg-color: .getCssVar(gray-3) [];
+        disabled-text-color: .getCssVar(gray-5) [];
+        disabled-border-color: .getCssVar(gray-7) [];
+        disabled-bg-color: .getCssVar(gray-9) [];
+      }
+      buttonDefaultCssVarMap {
+        bg-color: .getCssVar(fill-color-background) [];
+        hover-text-color: .getCssVar(blue-3) [];
+        hover-border-color: .getCssVar(blue-5) [];
+        hover-bg-color: .getCssVar(fill-color-background) [];
+        disabled-text-color: .getCssVar(blue-5) [];
+        disabled-border-color: .getCssVar(blue-7) [];
+        disabled-bg-color: .getCssVar(fill-color-background) [];
+      }
+    }
+    .setCssVarByMapping(button, #buttonTypeName(), #buttonPlainCssVarMap());
+  }
+  &__content {
+    @apply mx-2;
+  }
+  each(#sizeMap(), .(@value, @key) {
+    &--@{key} {
+      .setCssVar(button-size, .getCssVar(e('size-@{key}')) []);
+    }
+  });
+  &--small {
+    padding: 0px 8px;
+  }
+  &--large {
+    padding: 0px 20px;
+  }
+}
+// active

@@ -1,4 +1,4 @@
-@import './variables.less';
+@namespace: cdx;
 
 .getCssVarName(@name) {
   @result: e('--@{namespace}-@{name}');
@@ -17,12 +17,50 @@
 
 .defineLevelColor(@base, @name, @mixColor, @maxLevel: 9, @start: 1) {
   each(range(@start, @maxLevel), {
-    .setCssVar(e('@{name}-@{value}'), mix(@base, @mixColor, 100% - (@value - 1) * 10%));
+    .setCssVar(e('@{name}-@{value}'), mix(@base, @mixColor, 100% - (@value - 1) * 12%));
   });
 }
 
 .defineLevelOpacityColor(@base, @name, @maxLevel: 9, @start: 1) {
   each(range(@start, @maxLevel), {
     .setCssVar(e('@{name}-opacity-@{value}'), fade(@base, (@value) * 10%));
+  });
+}
+
+/**
+  .typeName() {
+    @1: primary;
+    @2: success;
+  }
+  .cssMap() {
+    name1 {
+      var1: value1;
+      var2: value1;
+    }
+    name2 {
+      var3: value3;
+    }
+  }
+  .setCssVarByMapping(button, .typeName(), .cssMap());
+
+  the code above will output css like below
+
+  .cdx-button--primary {
+    --cdx-primary-var1: value1;
+    --cdx-primary-var2: value1;
+  }
+  .cdx-button--success {
+    --cdx-success-var3: value3;
+  }
+*/
+.setCssVarByMapping(@name, @names, @map, @clssLinkMode: --) {
+  each(@map, .(@value, @key) {
+    @pre: @names[@@key];
+    @className: if(not (@pre=default), e('.@{namespace}-@{name}@{clssLinkMode}@{pre}'), e(''));
+    &@{className} {
+      each(@value, .(@value2, @key2) {
+        .setCssVar(e('@{name}-@{key2}'), @value2);
+      });
+    }
   });
 }

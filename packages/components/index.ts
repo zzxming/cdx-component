@@ -15,3 +15,4 @@ export * from './tooltip';
 export * from './only-child';
 export * from './resize';
 export * from './sidebar';
+export * from './button';
