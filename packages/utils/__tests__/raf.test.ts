@@ -2,11 +2,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { caf, raf } from '..';
 
 let isServerMocked = true;
-vi.mock('../types', () => ({
-  get isServer() {
-    return isServerMocked;
-  },
-}));
+vi.mock('../types', async (importOriginal) => {
+  const mod = await importOriginal<typeof import('@cdx-component/hooks/use-support-touch')>();
+  return {
+    ...mod,
+    get isServer() {
+      return isServerMocked;
+    },
+  };
+});
 describe('RAF and CAF Functions', () => {
   beforeEach(() => {
     vi.useFakeTimers();
