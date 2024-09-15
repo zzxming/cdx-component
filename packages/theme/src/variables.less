@@ -9,7 +9,9 @@
   });
   .setCssVarMap(transition, #transitionMap());
   .setCssVarMap(border, #borderMap());
+  .setCssVarMap(border-radius, #borderRadiusMap());
   .setCssVarMap(shadow, #shadowMap());
+  .setCssVarMap(size, #sizeMap());
 }
 
 :root {
@@ -25,11 +27,11 @@
 }
 :root.dark {
   #textColorsMap() {
-    primary: #e5eaf3;
-    regular: #cfd3dc;
-    secondary: #a3a6ad;
-    placeholder: #8d9095;
-    disabled: #6c6e72;
+    primary: #6c6e72;
+    regular: #8d9095;
+    secondary: #9fa6ad;
+    placeholder: #cecfd4;
+    disabled: #d9d9d9;
   }
 
   #colorsFillMap() {

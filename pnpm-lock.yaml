@@ -220,9 +220,6 @@ importers:
       '@rollup/plugin-commonjs':
         specifier: ^25.0.7
         version: 25.0.8(rollup@4.19.2)
-      '@rollup/plugin-node-resolve':
-        specifier: ^15.2.3
-        version: 15.2.3(rollup@4.19.2)
       '@vitejs/plugin-vue':
         specifier: ^4.5.2
         version: 4.6.2(vite@5.3.5(@types/node@18.19.42)(less@4.2.0))(vue@3.4.35(typescript@5.5.4))
@@ -6572,17 +6569,6 @@ snapshots:
       resolve: 1.22.8
     optionalDependencies:
       rollup: 3.29.4
-
-  '@rollup/plugin-node-resolve@15.2.3(rollup@4.19.2)':
-    dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@4.19.2)
-      '@types/resolve': 1.20.2
-      deepmerge: 4.3.1
-      is-builtin-module: 3.2.1
-      is-module: 1.0.0
-      resolve: 1.22.8
-    optionalDependencies:
-      rollup: 4.19.2
 
   '@rollup/plugin-replace@5.0.7(rollup@3.29.4)':
     dependencies:

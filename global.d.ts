@@ -1,5 +1,6 @@
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CdxButton: (typeof import('cdx-component'))['CdxButton'];
     CdxCaptcha: (typeof import('cdx-component'))['CdxCaptcha'];
     CdxCaptchaSlider: (typeof import('cdx-component'))['CdxCaptchaSlider'];
     CdxCollapse: (typeof import('cdx-component'))['CdxCollapse'];
@@ -16,6 +17,7 @@ declare module '@vue/runtime-core' {
     CdxOverlay: (typeof import('cdx-component'))['CdxOverlay'];
     CdxPullRefresh: (typeof import('cdx-component'))['CdxPullRefresh'];
     CdxResize: (typeof import('cdx-component'))['CdxResize'];
+    CdxSidebar: (typeof import('cdx-component'))['CdxSidebar'];
     CdxTextEllipsis: (typeof import('cdx-component'))['CdxTextEllipsis'];
     CdxTextHighlight: (typeof import('cdx-component'))['CdxTextHighlight'];
     CdxTooltip: (typeof import('cdx-component'))['CdxTooltip'];

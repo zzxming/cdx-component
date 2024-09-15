@@ -1,0 +1,34 @@
+@import './shared/variables.less';
+@import './animation/direction.less';
+@import './animation/fade.less';
+
+.@{namespace}-sidebar {
+  box-shadow: .getCssVar(shadow-base) [];
+  @apply fixed;
+  &.ltr {
+    .setCssVar(direction-translate-x, -100%);
+  }
+  &.rtl {
+    .setCssVar(direction-translate-x, 100%);
+  }
+  &.ttb {
+    .setCssVar(direction-translate-y, -100%);
+  }
+  &.btt {
+    .setCssVar(direction-translate-y, 100%);
+  }
+  &.active {
+    .setCssVar(direction-translate-x, 0);
+    .setCssVar(direction-translate-y, 0);
+  }
+  &__content {
+    background-color: .getCssVar(bg-color-base) [];
+    @apply w-full h-full overflow-auto;
+  }
+  &__collapse {
+    background-color: .getCssVar(bg-color-base) [];
+    border-color: .getCssVar(border-color-dark-1) [];
+    @apply absolute flex items-center justify-center border rounded cursor-pointer;
+  }
+}
+.direction-only();

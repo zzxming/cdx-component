@@ -32,6 +32,6 @@ const buildTheme = () => {
     )
     .pipe(dest(distBundle));
 };
-const copyThemeSource = () => src('./src/*.less').pipe(dest(resolve(buildOutput, 'theme', 'src')));
+const copyThemeSource = () => src('./src/**/*.less').pipe(dest(resolve(buildOutput, 'theme', 'src')));
 const copyThemeBundle = () => src('./*.css').pipe(dest(resolve(buildOutput, 'theme')));
 task('default', series(buildTheme, copyThemeSource, copyThemeBundle));

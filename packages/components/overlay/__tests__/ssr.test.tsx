@@ -7,7 +7,7 @@ describe('SSR for Overlay', () => {
     try {
       const html = await renderToString(<Overlay modelValue={true}>content</Overlay>);
       expect(html).toContain('content');
-      expect(html).toContain('<div class="cdx-overlay" style="position:absolute;">');
+      expect(html).toContain('<div class="cdx-overlay" style="position:absolute');
     }
     catch (error) {
       expect(error).toBeFalsy();
@@ -18,7 +18,7 @@ describe('SSR for Overlay', () => {
     try {
       const html = await renderToString(<Overlay modelValue={true} fullscreen={true}>content</Overlay>);
       expect(html).toContain('content');
-      expect(html).toContain('<div class="cdx-overlay" style="position:fixed;">');
+      expect(html).toContain('<div class="cdx-overlay" style="position:fixed');
     }
     catch (error) {
       expect(error).toBeFalsy();

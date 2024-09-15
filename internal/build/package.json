@@ -10,7 +10,6 @@
     "@cdx-component/build-utils": "workspace:^",
     "@esbuild-kit/cjs-loader": "^2.4.4",
     "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-node-resolve": "^15.2.3",
     "@vitejs/plugin-vue": "^4.5.2",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "glob": "^10.3.10",
