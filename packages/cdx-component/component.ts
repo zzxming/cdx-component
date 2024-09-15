@@ -3,7 +3,7 @@ import { CdxDrawer } from '../components/drawer';
 import { CdxOverlay } from '../components/overlay';
 import { CdxElementSelect, CdxElementSelectItem } from '../components/element-select';
 import { CdxIcon } from '../components/icon';
-import { CdxLoading } from '../components/loading';
+import { CdxLoading, CdxLoadingIcon } from '../components/loading';
 import { CdxCaptcha, CdxCaptchaSlider } from '../components/captcha';
 import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
@@ -24,6 +24,7 @@ export default [
   CdxElementSelectItem,
   CdxIcon,
   CdxLoading,
+  CdxLoadingIcon,
   CdxCaptcha,
   CdxCaptchaSlider,
   CdxTextEllipsis,
