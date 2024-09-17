@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="flex flex-wrap items-center">
     <CdxButton class="ml-2">
       default
     </CdxButton>
@@ -19,7 +19,7 @@
       info
     </CdxButton>
   </div>
-  <div class="mt-2 flex items-center">
+  <div class="mt-2 flex flex-wrap items-center">
     <CdxButton class="ml-2" plain>
       default
     </CdxButton>
@@ -39,7 +39,7 @@
       info
     </CdxButton>
   </div>
-  <div class="mt-2 flex items-center">
+  <div class="mt-2 flex flex-wrap items-center">
     <CdxButton class="ml-2" round>
       default
     </CdxButton>
@@ -59,7 +59,7 @@
       info
     </CdxButton>
   </div>
-  <div class="mt-2 flex items-center">
+  <div class="mt-2 flex flex-wrap items-center">
     <CdxButton class="ml-2" disabled>
       default
     </CdxButton>
@@ -79,7 +79,7 @@
       info
     </CdxButton>
   </div>
-  <div class="mt-2 flex items-center">
+  <div class="mt-2 flex flex-wrap items-center">
     <CdxButton class="ml-2" plain disabled>
       default
     </CdxButton>

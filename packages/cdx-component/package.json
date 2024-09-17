@@ -3,12 +3,27 @@
   "type": "module",
   "version": "0.1.0",
   "description": "A Component Library for Vue 3",
-  "repository": { "type": "git", "url": "git+https://github.com/zzxming/cdx-component" },
-  "keywords": ["component", "ui", "vue"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzxming/cdx-component"
+  },
+  "keywords": [
+    "component",
+    "ui",
+    "vue"
+  ],
   "main": "lib/index.cjs",
   "module": "es/index.mjs",
   "types": "es/index.d.ts",
-  "peerDependencies": { "vue": "^3.3.11" },
-  "dependencies": { "async-validator": "^4.2.5" },
-  "browserslist": ["> 1%", "not ie 11"]
+  "peerDependencies": {
+    "vue": "^3.3.11"
+  },
+  "dependencies": {
+    "@ctrl/tinycolor": "^4.1.0",
+    "async-validator": "^4.2.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11"
+  ]
 }

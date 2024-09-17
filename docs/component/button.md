@@ -18,16 +18,24 @@
 
 :::
 
+## 自定义颜色
+
+:::demo button/custom
+
+:::
+
 ## Button Props
 
-| 名称     | 类型                                                              | 说明                 | 默认值  |
-| -------- | ----------------------------------------------------------------- | -------------------- | ------- |
-| size     | `'small' \| 'default' \| 'large' \| ''`                           | 尺寸                 | `''`    |
-| type     | `'primary' \| 'success' \| 'warning' \| 'info' \| 'danger' \| ''` | 类型                 | `''`    |
-| plain    | `Boolean`                                                         | 是否为朴素按钮       | `false` |
-| round    | `Boolean`                                                         | 是否为圆角按钮       | `false` |
-| loading  | `Boolean`                                                         | 是否为加载中状态     | `false` |
-| disabled | `Boolean`                                                         | 是否为加载中禁用状态 | `false` |
+| 名称     | 类型                                                              | 说明                           | 默认值  |
+| -------- | ----------------------------------------------------------------- | ------------------------------ | ------- |
+| size     | `'small' \| 'default' \| 'large' \| ''`                           | 尺寸                           | `''`    |
+| type     | `'primary' \| 'success' \| 'warning' \| 'info' \| 'danger' \| ''` | 类型                           | `''`    |
+| plain    | `boolean`                                                         | 是否为朴素按钮                 | `false` |
+| round    | `boolean`                                                         | 是否为圆角按钮                 | `false` |
+| loading  | `boolean`                                                         | 是否为加载中状态               | `false` |
+| disabled | `boolean`                                                         | 是否为加载中禁用状态           | `false` |
+| color    | `string`                                                          | 自定义按钮颜色                 | -       |
+| dark     | `boolean`                                                         | 自定义按钮颜色是否为 dark 模式 | `false` |
 
 ## Button Slots
 

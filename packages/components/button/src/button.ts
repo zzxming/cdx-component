@@ -20,5 +20,7 @@ export const buttonProps = buildProps({
   plain: Boolean,
   disabled: Boolean,
   loading: Boolean,
+  color: String,
+  dark: Boolean,
 } as const);
 export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
