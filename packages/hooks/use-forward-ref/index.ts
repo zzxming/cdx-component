@@ -1,5 +1,5 @@
-import { provide } from 'vue';
 import type { InjectionKey, Ref } from 'vue';
+import { provide } from 'vue';
 
 export interface InjectForwardRef {
   setForwardRef: <T>(el: T) => void;

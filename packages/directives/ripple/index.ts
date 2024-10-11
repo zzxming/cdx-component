@@ -1,6 +1,6 @@
+import type { ObjectDirective } from 'vue';
 import { useBem, useSupportTouch } from '@cdx-component/hooks';
 import { supportsTouchDetector, withInstallDirective } from '@cdx-component/utils';
-import type { ObjectDirective } from 'vue';
 
 const RippleData = Symbol('ripple-data');
 const [, bem] = useBem('ripple');

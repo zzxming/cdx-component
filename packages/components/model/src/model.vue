@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { type CSSProperties, computed, ref } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
 import { useBem, useModelValue, useZIndex } from '@cdx-component/hooks';
+import { computed, type CSSProperties, ref } from 'vue';
 import { modelEmits, modelProps } from './model';
 
 defineOptions({ name: 'CdxModel' });

@@ -1,6 +1,6 @@
-import { isRef, onScopeDispose, watch } from 'vue';
 import type { Ref } from 'vue';
 import { getScrollBarWidth, tryOnScope } from '@cdx-component/utils';
+import { isRef, onScopeDispose, watch } from 'vue';
 import { useBem } from '../use-bem';
 
 export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } = {}) => {

@@ -1,6 +1,6 @@
+import type { ExtractPropTypes } from 'vue';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { buildProps, definePropType, isArray } from '@cdx-component/utils';
-import type { ExtractPropTypes } from 'vue';
 
 export type CollapseModelValueType = string | number;
 

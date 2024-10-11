@@ -1,5 +1,5 @@
-import { assert, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { assert, describe, expect, it, vi } from 'vitest';
 import { nextTick, ref } from 'vue';
 import PullRefresh from '../src/pull-refresh.vue';
 

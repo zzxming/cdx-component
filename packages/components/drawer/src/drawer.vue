@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type StyleValue, computed, nextTick, ref } from 'vue';
 import { CdxOverlay } from '@cdx-component/components';
-import { isNumber } from '@cdx-component/utils';
-import { useBem, useModelValue, useSlide, useSupportTouch } from '@cdx-component/hooks';
 import { namespace } from '@cdx-component/constants';
+import { useBem, useModelValue, useSlide, useSupportTouch } from '@cdx-component/hooks';
+import { isNumber } from '@cdx-component/utils';
+import { computed, nextTick, ref, type StyleValue } from 'vue';
 import { drawerEmits, drawerProps } from './drawer';
 
 defineOptions({ name: 'CdxDrawer' });

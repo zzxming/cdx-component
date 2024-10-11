@@ -1,6 +1,6 @@
+import type { ExtractPropTypes } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { buildProps, isBoolean } from '@cdx-component/utils';
-import type { ExtractPropTypes } from 'vue';
 
 export const drawerProps = buildProps({
   modelValue: {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { CHANGE_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
 import { caf, getDecimalLength, getIntegerLength, raf, toStringNumber } from '@cdx-component/utils';
-import { CHANGE_EVENT } from '@cdx-component/constants';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { countToEmits, countToProps } from './count-to';
 
 defineOptions({ name: 'CdxCountTo' });

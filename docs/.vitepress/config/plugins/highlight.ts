@@ -1,6 +1,6 @@
+import consola from 'consola';
 import prismjs from 'prismjs';
 import loadLanguages from 'prismjs/components/index.js';
-import consola from 'consola';
 
 loadLanguages(['markup', 'css', 'typescript']);
 

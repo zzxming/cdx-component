@@ -1,6 +1,6 @@
-import { buildProps, isBoolean } from '@cdx-component/utils';
-import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import type { ExtractPropTypes } from 'vue';
+import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { buildProps, isBoolean } from '@cdx-component/utils';
 
 export const textEllipsisProps = buildProps({
   modelValue: {

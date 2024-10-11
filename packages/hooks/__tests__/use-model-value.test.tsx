@@ -1,7 +1,7 @@
-import { describe, expect, it } from 'vitest';
-import { defineComponent, ref } from 'vue';
 import type { VueWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
+import { defineComponent, ref } from 'vue';
 import { useModelValue } from '..';
 
 const Comp = defineComponent({

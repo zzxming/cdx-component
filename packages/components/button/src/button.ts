@@ -1,5 +1,5 @@
-import { buildProps, useSizeProp } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
+import { buildProps, useSizeProp } from '@cdx-component/utils';
 
 export const buttonTypes = [
   'primary',

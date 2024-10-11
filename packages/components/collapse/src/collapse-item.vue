@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
 import { CdxCollapseTransition } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
+import { computed, inject } from 'vue';
 import { collapseItemEmits, collapseItemProps } from './collapse-item';
 import { collapseContextKey } from './constants';
 

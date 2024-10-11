@@ -1,5 +1,5 @@
-import { buildProps } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
+import { buildProps } from '@cdx-component/utils';
 
 export const loadingProps = buildProps({
   text: {

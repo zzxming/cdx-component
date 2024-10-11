@@ -1,7 +1,7 @@
-import { createApp, h, provide, ref } from 'vue';
 import type { App, ObjectDirective, Ref } from 'vue';
-import ResizeDragger from './resize-dragger.vue';
+import { createApp, h, provide, ref } from 'vue';
 import { type Direction, RESIZE_INJECTION_KEY } from './constants';
+import ResizeDragger from './resize-dragger.vue';
 
 export const RESIZE_INSTANCE_KEY = Symbol('resize-instance');
 export const RESIZE_DATA_KEY = Symbol('resize-data');

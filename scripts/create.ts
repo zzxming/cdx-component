@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 import { dirname, resolve } from 'node:path';
-import consola from 'consola';
-import prompts from 'prompts';
-import fs from 'fs-extra';
 import {
   componentRoot,
   docsRoot,
@@ -11,6 +8,9 @@ import {
   toKebabCase,
   toPascalCase,
 } from '@cdx-component/build-utils';
+import consola from 'consola';
+import fs from 'fs-extra';
+import prompts from 'prompts';
 import { components } from './constants';
 import { lintFiles } from './lint';
 

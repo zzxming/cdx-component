@@ -1,7 +1,7 @@
 import type { PropType } from 'vue';
-import { isObject, isUndefined } from '../types';
 import type { ConvertProps, FinalProps, PropOptions } from './types';
 import type { IfFinalProp, IfNativePropType, NativePropType } from './utils';
+import { isObject, isUndefined } from '../types';
 import { PropKey } from './utils';
 
 export const definePropType = <T>(val: any): PropType<T> => val;

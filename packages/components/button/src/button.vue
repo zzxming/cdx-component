@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { CdxIcon, CdxLoadingIcon } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
-import { computed } from 'vue';
 import { TinyColor } from '@ctrl/tinycolor';
+import { computed } from 'vue';
 // import tinyColor from 'tinycolor2';
 import { buttonProps } from './button';
 

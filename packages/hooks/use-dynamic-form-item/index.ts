@@ -1,6 +1,6 @@
-import AsyncValidator from 'async-validator';
 import type { RuleItem, ValidateError, ValidateFieldsError } from 'async-validator';
 import { ensureArray } from '@cdx-component/utils';
+import AsyncValidator from 'async-validator';
 import { reactive } from 'vue';
 
 export type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

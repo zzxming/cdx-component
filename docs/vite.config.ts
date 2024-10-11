@@ -1,9 +1,9 @@
 import path from 'node:path';
+import IconsResolver from 'unplugin-icons/resolver';
+import Icons from 'unplugin-icons/vite';
+import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import inspect from 'vite-plugin-inspect';
-import Components from 'unplugin-vue-components/vite';
-import Icons from 'unplugin-icons/vite';
-import IconsResolver from 'unplugin-icons/resolver';
 import { demoImports } from './.vitepress/config/plugins';
 
 const projRoot = path.resolve(__dirname, '..');

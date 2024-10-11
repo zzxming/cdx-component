@@ -1,6 +1,6 @@
-import { buildProps, definePropType } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 import type { Direction } from './constants';
+import { buildProps, definePropType } from '@cdx-component/utils';
 import { resizeValidDirection } from './constants';
 
 export const resizeProps = buildProps({

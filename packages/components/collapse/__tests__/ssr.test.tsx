@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { renderToString } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
 import { CdxCollapse, CdxCollapseItem } from '..';
 
 describe('SSR for Collapse', () => {

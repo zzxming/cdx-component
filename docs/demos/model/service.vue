@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { h, ref } from 'vue';
 import { CdxModel } from 'cdx-component';
+import { h, ref } from 'vue';
 
 const divRef = ref();
 

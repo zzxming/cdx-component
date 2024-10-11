@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useBem, useModelValue, useZIndex } from '@cdx-component/hooks';
 import { CdxOverlay } from '@cdx-component/components';
-import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue';
+import { useBem, useModelValue, useZIndex } from '@cdx-component/hooks';
 import { isNumber } from '@cdx-component/utils';
+import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue';
 import { sidebarProps } from './sidebar';
 
 defineOptions({ name: 'CdxSidebar' });

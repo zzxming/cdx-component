@@ -1,7 +1,7 @@
-import { describe, expectTypeOf, it } from 'vitest';
 import type { ExtractPropTypes, PropType } from 'vue';
-import { buildProp, buildProps, definePropType, keepConstType } from '..';
 import type { IfNever, IfUnknown, PropKey, Writable, WritableArray } from '..';
+import { describe, expectTypeOf, it } from 'vitest';
+import { buildProp, buildProps, definePropType, keepConstType } from '..';
 
 describe('test types about vue props', () => {
   describe('types', () => {

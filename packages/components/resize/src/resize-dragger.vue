@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import type { Direction } from './constants';
 import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
 import { inject, onBeforeUnmount, onMounted, ref } from 'vue';
-import { resizeDraggerProps } from './resize-dragger';
-import type { Direction } from './constants';
 import { RESIZE_INJECTION_KEY } from './constants';
+import { resizeDraggerProps } from './resize-dragger';
 
 defineOptions({ name: 'CdxDraggerResize' });
 const props = defineProps(resizeDraggerProps);

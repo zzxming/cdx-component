@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
-import { useBem, useLockScroll, useSlide } from '@cdx-component/hooks';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { PullRefreshStatus, pullRefreshEmits, pullRefreshProps } from './pull-refresh';
+import { useBem, useLockScroll, useSlide } from '@cdx-component/hooks';
+import { computed, onMounted, ref, watch } from 'vue';
+import { pullRefreshEmits, pullRefreshProps, PullRefreshStatus } from './pull-refresh';
 
 defineOptions({ name: 'CdxPullRefresh' });
 const props = defineProps(pullRefreshProps);

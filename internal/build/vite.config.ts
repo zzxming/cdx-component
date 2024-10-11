@@ -1,23 +1,23 @@
+import type { ModuleFormat, OutputOptions } from 'rollup';
 import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import dts from 'vite-plugin-dts';
-import * as glob from 'glob';
-import commonjs from '@rollup/plugin-commonjs';
-import esbuild from 'rollup-plugin-esbuild';
 import {
-  PKG_NAME,
-  PKG_PREFIX,
   buildOutput,
   cdxPackage,
   cdxRoot,
   dtsConfig,
   excludeFiles,
+  PKG_NAME,
+  PKG_PREFIX,
   pkgRoot,
   rollupExternalFromPackage,
 } from '@cdx-component/build-utils';
-import type { ModuleFormat, OutputOptions } from 'rollup';
+import commonjs from '@rollup/plugin-commonjs';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import * as glob from 'glob';
+import esbuild from 'rollup-plugin-esbuild';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 const rollupOutput = (target: ModuleFormat, format: string): OutputOptions => ({
   format: target,

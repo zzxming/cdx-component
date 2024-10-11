@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { readdirSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { componentRoot, PKG_NAME, projRoot, toPascalCase } from '@cdx-component/build-utils';
 import consola from 'consola';
-import { PKG_NAME, componentRoot, projRoot, toPascalCase } from '@cdx-component/build-utils';
 import fs from 'fs-extra';
 import { lintFiles } from './lint';
 

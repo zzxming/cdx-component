@@ -1,6 +1,6 @@
-import { createApp, h, provide, ref } from 'vue';
 import type { App, DirectiveBinding, ObjectDirective, Ref } from 'vue';
 import { useTimeout } from '@cdx-component/hooks';
+import { createApp, h, provide, ref } from 'vue';
 import { TOOLTIP_INJECTION_KEY, tooltipValidDirection } from './constants';
 import TooltipContent from './tooltip-content.vue';
 

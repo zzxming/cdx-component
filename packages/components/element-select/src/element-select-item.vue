@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue';
+import type { ElementSelectValueType } from './element-select';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
+import { computed, inject, ref } from 'vue';
 import { selectContextKey } from './constants';
 import { elementSelectItemEmits, elementSelectItemProps } from './element-select-item';
-import type { ElementSelectValueType } from './element-select';
 
 defineOptions({ name: 'CdxElementSelectItem' });
 const props = defineProps(elementSelectItemProps);

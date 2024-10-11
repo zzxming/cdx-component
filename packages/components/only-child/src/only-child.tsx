@@ -1,8 +1,8 @@
 import type { ObjectDirective, Slots, VNode } from 'vue';
-import { Comment, Fragment, Text, cloneVNode, defineComponent, inject, withDirectives } from 'vue';
-import { NOOP } from '@vue/shared';
 import { FORWARD_PROVIDE_KEY } from '@cdx-component/hooks';
 import { isArray, isObject } from '@cdx-component/utils';
+import { NOOP } from '@vue/shared';
+import { cloneVNode, Comment, defineComponent, Fragment, inject, Text, withDirectives } from 'vue';
 
 const createElementDirective = (setRef: <T>(el: T) => void = NOOP) => {
   const setRefDirective: ObjectDirective<HTMLElement> = {

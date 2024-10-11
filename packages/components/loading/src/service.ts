@@ -1,8 +1,8 @@
-import { Teleport, createApp, defineComponent, h, ref } from 'vue';
+import type { LoadingInstance, ServiceOptions } from './types';
 import { useBem } from '@cdx-component/hooks';
 import { isString } from '@cdx-component/utils';
+import { createApp, defineComponent, h, ref, Teleport } from 'vue';
 import LoadingVue from './loading.vue';
-import type { LoadingInstance, ServiceOptions } from './types';
 
 let unmountTimer = setTimeout(() => {}, 0);
 export const createLoadingInstance = (props: Omit<ServiceOptions, 'target'>, target: HTMLElement | string = 'body') => {

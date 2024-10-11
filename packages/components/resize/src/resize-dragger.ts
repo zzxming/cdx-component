@@ -1,5 +1,5 @@
-import { buildProps } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
+import { buildProps } from '@cdx-component/utils';
 import { resizeValidDirection } from './constants';
 
 export const resizeDraggerProps = buildProps({

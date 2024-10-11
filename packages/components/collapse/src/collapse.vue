@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { provide } from 'vue';
-import { useBem, useModelValue } from '@cdx-component/hooks';
-import { CHANGE_EVENT } from '@cdx-component/constants';
 import type { CollapseModelValueType } from './collapse';
+import { CHANGE_EVENT } from '@cdx-component/constants';
+import { useBem, useModelValue } from '@cdx-component/hooks';
+import { provide } from 'vue';
 import { collapseEmits, collapseProps } from './collapse';
 import { collapseContextKey } from './constants';
 

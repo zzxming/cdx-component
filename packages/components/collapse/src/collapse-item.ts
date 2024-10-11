@@ -1,6 +1,6 @@
-import { buildProps, definePropType, isBoolean } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
 import type { CollapseModelValueType } from './collapse';
+import { buildProps, definePropType, isBoolean } from '@cdx-component/utils';
 
 export const collapseItemProps = buildProps({
   name: {

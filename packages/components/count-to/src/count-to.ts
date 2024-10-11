@@ -1,6 +1,6 @@
+import type { ExtractPropTypes } from 'vue';
 import { CHANGE_EVENT } from '@cdx-component/constants';
 import { buildProps, isNumber } from '@cdx-component/utils';
-import type { ExtractPropTypes } from 'vue';
 
 export const countToProps = buildProps({
   startValue: {

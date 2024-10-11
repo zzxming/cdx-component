@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { inject, nextTick, ref, watch } from 'vue';
 import { useBem, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
+import { inject, nextTick, ref, watch } from 'vue';
 import { TOOLTIP_INJECTION_KEY } from './constants';
 import { tooltipContentProps } from './tooltip-content';
 

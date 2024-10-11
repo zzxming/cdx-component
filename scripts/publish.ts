@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import { resolve } from 'node:path';
-import consola from 'consola';
 import {
   buildOutput,
   cdxPackage,
@@ -8,6 +7,7 @@ import {
   getPackageManifest,
   run,
 } from '@cdx-component/build-utils';
+import consola from 'consola';
 import fs from 'fs-extra';
 import prompts from 'prompts';
 import { lintFiles } from './lint';

@@ -1,5 +1,5 @@
-import { buildProps, definePropType } from '@cdx-component/utils';
 import type { ExtractPropTypes } from 'vue';
+import { buildProps, definePropType } from '@cdx-component/utils';
 
 export interface CheckStatusInfo {
   success: boolean;

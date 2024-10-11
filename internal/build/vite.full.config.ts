@@ -1,9 +1,4 @@
 import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import commonjs from '@rollup/plugin-commonjs';
-import esbuild from 'rollup-plugin-esbuild';
 import {
   buildOutput,
   buildRoot,
@@ -12,6 +7,11 @@ import {
   pkgRoot,
   rollupExternalFromPackage,
 } from '@cdx-component/build-utils';
+import commonjs from '@rollup/plugin-commonjs';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import esbuild from 'rollup-plugin-esbuild';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({

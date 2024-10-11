@@ -1,7 +1,7 @@
 import type { Directive, DirectiveBinding } from 'vue';
-import { createLoadingInstance } from './service';
-import { LOADING_INSTANCE } from './constants';
 import type { ElementLoading } from './types';
+import { LOADING_INSTANCE } from './constants';
+import { createLoadingInstance } from './service';
 
 const bindLoadingInstance = (el: ElementLoading, _binding: DirectiveBinding<boolean>) => {
   el[LOADING_INSTANCE] = createLoadingInstance({

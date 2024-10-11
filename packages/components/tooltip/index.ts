@@ -6,7 +6,7 @@ export const CdxTooltipDirective = withInstallDirective(vTooltipDirective, 'tool
 export const CdxTooltip = withInstall(ToolTip, {
   directive: CdxTooltipDirective,
 });
+export * from './src/constants';
 export * from './src/tooltip';
 export * from './src/tooltip-content';
-export * from './src/constants';
 export default CdxTooltip;

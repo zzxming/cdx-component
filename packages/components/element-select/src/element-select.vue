@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, nextTick, provide, ref, toRefs } from 'vue';
-import { pick } from '@cdx-component/utils';
+import type { ElementSelectValueType } from './element-select';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem } from '@cdx-component/hooks';
-import type { ElementSelectValueType } from './element-select';
-import { elementSelectEmits, elementSelectProps } from './element-select';
+import { pick } from '@cdx-component/utils';
+import { computed, nextTick, provide, ref, toRefs } from 'vue';
 import { selectContextKey } from './constants';
+import { elementSelectEmits, elementSelectProps } from './element-select';
 
 defineOptions({ name: 'CdxElementSelect' });
 const props = defineProps(elementSelectProps);

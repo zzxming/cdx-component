@@ -1,7 +1,7 @@
+import { useForwardRef } from '@cdx-component/hooks';
 import { mount } from '@vue/test-utils';
 import { describe, expect, it, vi } from 'vitest';
 import { defineComponent, h, ref } from 'vue';
-import { useForwardRef } from '@cdx-component/hooks';
 import OnlyChild from '../src/only-child';
 
 describe('OnlyChild.vue', () => {

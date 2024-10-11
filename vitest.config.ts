@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
-import { defineConfig } from 'vitest/config';
 import Vue from '@vitejs/plugin-vue';
 import VueJsx from '@vitejs/plugin-vue-jsx';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   root: resolve(__dirname, 'packages'),

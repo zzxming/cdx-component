@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue';
 import { namespace } from '@cdx-component/constants';
 import { useBem, useModelValue } from '@cdx-component/hooks';
+import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue';
 import { textEllipsisEmits, textEllipsisProps } from './text-ellipsis';
 import { cloneNode } from './utils';
 

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { renderToString } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
 import Overlay from '../src/overlay.vue';
 
 describe('SSR for Overlay', () => {

@@ -1,6 +1,6 @@
 import path from 'node:path';
-import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
 
 const projRoot = path.resolve(__dirname, '..');
 

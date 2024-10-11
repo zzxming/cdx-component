@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { renderToString } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
 import TextEllipsis from '../src/text-ellipsis.vue';
 
 const TEXT = 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos repellat adipisci nulla amet dolorem veritatis. Assumenda sapiente vel nihil repellendus beatae delectus molestiae, recusandae quo autem neque, provident magnam! Blanditiis?';

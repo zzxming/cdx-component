@@ -1,7 +1,7 @@
 import type { VNode } from 'vue';
-import { createApp, defineComponent, h, reactive } from 'vue';
-import { isString, isUndefined } from '@cdx-component/utils';
 import type { ModelProps } from './model';
+import { isString, isUndefined } from '@cdx-component/utils';
+import { createApp, defineComponent, h, reactive } from 'vue';
 import ModelVue from './model.vue';
 
 export interface ModelOptions extends Partial<Omit<ModelProps, 'modelValue'>> {

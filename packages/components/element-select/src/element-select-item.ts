@@ -1,7 +1,7 @@
 import type { ExtractPropTypes } from 'vue';
+import type { ElementSelectValueType } from './element-select';
 import { CHANGE_EVENT, UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { buildProps, definePropType, isBoolean, isNumber, isString } from '@cdx-component/utils';
-import type { ElementSelectValueType } from './element-select';
 import { elementSelectValueType } from './element-select';
 
 export const elementSelectItemProps = buildProps({

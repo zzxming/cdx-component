@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useBem } from '@cdx-component/hooks';
+import { computed } from 'vue';
 import { textHighlightProps } from './text-highlight';
 
 defineOptions({ name: 'CdxTextHighlight' });

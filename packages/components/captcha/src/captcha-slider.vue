@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { CdxLoading } from '@cdx-component/components';
 import { useBem, useSupportTouch } from '@cdx-component/hooks';
 import { isFunction, isUndefined } from '@cdx-component/utils';
-import { CdxLoading } from '@cdx-component/components';
+import { computed, ref } from 'vue';
 import { captchaSliderEmits, captchaSliderProps } from './captcha-slider';
 
 defineOptions({ name: 'CdxCaptchaSlider' });

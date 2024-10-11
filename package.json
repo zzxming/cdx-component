@@ -48,10 +48,10 @@
     "@vitest/ui": "^1.6.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.0",
-    "@zzxming/eslint-config": "^0.1.1",
+    "@zzxming/eslint-config": "^0.3.1",
     "cdx-component": "workspace:^",
     "consola": "^3.2.3",
-    "eslint": "^9.3.0",
+    "eslint": "^9.11.0",
     "eslint-merge-processors": "^0.1.0",
     "eslint-plugin-jsonc": "^2.16.0",
     "eslint-plugin-markdown": "^5.1.0",
@@ -64,7 +64,6 @@
     "jsonc-eslint-parser": "^2.4.0",
     "lint-staged": "^15.2.7",
     "local-pkg": "^0.5.0",
-    "npm-run-all2": "^6.1.1",
     "prompts": "^2.4.2",
     "simple-git-hooks": "^2.11.1",
     "tsx": "^4.19.0",
@@ -72,7 +71,6 @@
     "vite": "^5.0.10",
     "vitest": "^1.6.0",
     "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^1.8.25",
     "yaml-eslint-parser": "^1.2.3"
   },
   "simple-git-hooks": {

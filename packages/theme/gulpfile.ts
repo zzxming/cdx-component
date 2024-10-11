@@ -1,11 +1,11 @@
 import { resolve } from 'node:path';
-import { dest, series, src, task } from 'gulp';
-import postcss from 'gulp-postcss';
-import less from 'gulp-less';
-import rename from 'gulp-rename';
-import cleanCSS from 'gulp-clean-css';
-import consola from 'consola';
 import { buildOutput } from '@cdx-component/build-utils';
+import consola from 'consola';
+import { dest, series, src, task } from 'gulp';
+import cleanCSS from 'gulp-clean-css';
+import less from 'gulp-less';
+import postcss from 'gulp-postcss';
+import rename from 'gulp-rename';
 
 const distBundle = resolve(__dirname, './');
 

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { generateRandomColor, isBoolean, isFunction } from '@cdx-component/utils';
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import type { CdxCaptchaSliderExposed, Range } from './types';
 import { CdxCaptchaSlider, CdxLoading } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
-import { CheckStatus, captchaEmits, captchaProps } from './captcha';
+import { generateRandomColor, isBoolean, isFunction } from '@cdx-component/utils';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { squarePath } from './canvasPath';
-import type { CdxCaptchaSliderExposed, Range } from './types';
+import { captchaEmits, captchaProps, CheckStatus } from './captcha';
 
 defineOptions({ name: 'CdxCaptcha' });
 const props = defineProps(captchaProps);

@@ -1,5 +1,5 @@
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import type { Ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useSupportTouch } from '../use-support-touch';
 
 interface ClientPosition {

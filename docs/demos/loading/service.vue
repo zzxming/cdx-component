@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { CdxLoading } from 'cdx-component';
+import { ref } from 'vue';
 
 const divRef = ref();
 

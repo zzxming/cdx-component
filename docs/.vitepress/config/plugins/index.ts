@@ -1,4 +1,4 @@
 export * from './demos';
-export * from './markdown-transform';
 export * from './highlight';
+export * from './markdown-transform';
 export * from './table-wrapper';

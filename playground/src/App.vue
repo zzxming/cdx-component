@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
 import { useDark, useToggle } from '@vueuse/core';
+import { computed, ref } from 'vue';
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);

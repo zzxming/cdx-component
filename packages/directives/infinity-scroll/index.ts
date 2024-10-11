@@ -1,6 +1,6 @@
 import type { AnyFunction } from '@cdx-component/utils';
-import { isArray, withInstallDirective } from '@cdx-component/utils';
 import type { ObjectDirective } from 'vue';
+import { isArray, withInstallDirective } from '@cdx-component/utils';
 
 const InfinityScrollData = Symbol('infinity-scroll-data');
 export type InfinityScrollEl = HTMLElement & {

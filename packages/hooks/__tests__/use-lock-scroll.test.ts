@@ -1,5 +1,5 @@
-import { nextTick, ref } from 'vue';
 import { describe, expect, it } from 'vitest';
+import { nextTick, ref } from 'vue';
 import { useLockScroll } from '..';
 
 describe('uselock-scroll', () => {

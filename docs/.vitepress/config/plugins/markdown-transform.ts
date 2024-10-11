@@ -1,7 +1,7 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import type MarkdownIt from 'markdown-it';
 import type { Token } from 'markdown-it';
+import fs from 'node:fs';
+import path from 'node:path';
 import mdContainer from 'markdown-it-container';
 import { highlight } from './highlight';
 import { tableWrapper } from './table-wrapper';

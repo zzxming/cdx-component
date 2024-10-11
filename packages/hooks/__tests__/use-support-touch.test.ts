@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useSupportTouch } from '..';
 
 vi.mock('@cdx-component/utils', async (importOriginal) => {

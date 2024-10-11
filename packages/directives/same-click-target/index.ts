@@ -1,6 +1,6 @@
+import type { DirectiveBinding, ObjectDirective } from 'vue';
 import { useSameClickTarget } from '@cdx-component/hooks';
 import { withInstallDirective } from '@cdx-component/utils';
-import type { DirectiveBinding, ObjectDirective } from 'vue';
 
 const EventHandlers = Symbol('same-click-target-handlers');
 export type SameClickTargetEl = HTMLElement & {

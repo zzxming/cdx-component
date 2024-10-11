@@ -1,5 +1,5 @@
-import { getCurrentScope } from 'vue';
 import type { AnyFunction } from '../function';
+import { getCurrentScope } from 'vue';
 
 export const PropKey = '__propKey';
 

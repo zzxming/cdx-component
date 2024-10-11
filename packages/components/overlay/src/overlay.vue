@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { StyleValue } from 'vue';
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useBem, useLockScroll, useModelValue, useZIndex } from '@cdx-component/hooks';
 import { vSameClickTarget } from '@cdx-component/directives';
+import { useBem, useLockScroll, useModelValue, useZIndex } from '@cdx-component/hooks';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { overlayEmits, overlayProps } from './overlay';
 
 defineOptions({ name: 'CdxOverlay' });

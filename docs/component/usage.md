@@ -25,9 +25,9 @@ npm i -D unplugin-vue-components
 在 `vite.config.ts` 中拓展以下内容：
 
 ```ts
-import { defineConfig } from 'vite';
-import Components from 'unplugin-vue-components/vite';
 import { CdxComponentResolver } from 'cdx-component';
+import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   // ...
@@ -43,11 +43,11 @@ export default defineConfig({
 ### 完整引入
 
 ```ts
+import CdxComponent from 'cdx-component';
 // main.ts
 import { createApp } from 'vue';
-import CdxComponent from 'cdx-component';
-import 'cdx-component/dist/index.css';
 import App from './App.vue';
+import 'cdx-component/dist/index.css';
 
 const app = createApp(App);
 

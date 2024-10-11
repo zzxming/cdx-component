@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
 import { renderToString } from '@vue/test-utils';
+import { describe, expect, it } from 'vitest';
 import Model from '..';
 
 describe('SSR for Model', () => {
