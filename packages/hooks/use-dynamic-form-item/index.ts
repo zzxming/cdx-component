@@ -11,14 +11,17 @@ export interface IFormItem {
   type: string;
   payload: any;
   prop?: any;
-  next: ((current: IFormItem, parent: IFormItem[]) => IFormItem | null) | null;
+  event?: Record<string, (...args: any[]) => void>;
+  next: ((current: IFormItem, prev: IFormItem[]) => IFormItem | null) | null;
+  sub: ((current: IFormItem, parent: IFormItem[]) => IFormItem[] | null) | null;
+  prev: IFormItem | null;
   parent: IFormItem | null;
   rules: RuleItem | RuleItem[];
   validateState?: ValidateState;
   validateErrorMessage?: string;
   resetFormItem: () => void;
 }
-export type CreateFormItemOption = Omit<IFormItem, 'parent' | 'validateState' | 'validateErrorMessage' | 'resetFormItem'>;
+export type CreateFormItemOption = Omit<IFormItem, 'prev' | 'parent' | 'validateState' | 'validateErrorMessage' | 'resetFormItem'>;
 export interface FormValidateFailure {
   errors: ValidateError[];
   fields: ValidateFieldsError;
@@ -26,24 +29,43 @@ export interface FormValidateFailure {
 
 export const useDynamicFormItem = (options: Optional<CreateFormItemOption, 'rules'>) => {
   const rules = [];
-  options.rules && rules.push(...ensureArray(options.rules));
-  const next = (current: IFormItem, parent: IFormItem[]) => {
+  if (options.rules) {
+    rules.push(...ensureArray(options.rules));
+  }
+  const next = (current: IFormItem, prev: IFormItem[]) => {
     if (options.next) {
-      const nextFormItem = options.next(current, parent);
+      const nextFormItem = options.next(current, prev);
       if (nextFormItem) {
-        nextFormItem.parent = current;
+        nextFormItem.prev = current;
+        nextFormItem.parent = current.parent;
         return nextFormItem;
+      }
+    }
+    return null;
+  };
+  const sub = (current: IFormItem, parent: IFormItem[]) => {
+    if (options.sub) {
+      const subFormItem = options.sub(current, parent);
+      if (subFormItem && subFormItem.length > 0) {
+        for (const subItem of subFormItem) {
+          if (subItem) {
+            subItem.parent = current;
+          }
+        }
+        return subFormItem;
       }
     }
     return null;
   };
   const formItemData = reactive<IFormItem>({
     ...options,
+    prev: null,
     parent: null,
     rules,
     validateState: '' as const,
     validateErrorMessage: '',
     next,
+    sub,
     resetFormItem: () => void 0,
   });
 
@@ -60,6 +82,22 @@ export const useDynamicFormItem = (options: Optional<CreateFormItemOption, 'rule
   return formItemData;
 };
 
+export const getPrevsFormItem = (formItem: IFormItem) => {
+  let point = formItem;
+  const prevs = [];
+  while (point && point.prev) {
+    point = point.prev;
+    prevs.unshift(point);
+  }
+  return prevs;
+};
+
+export const getNextFormItem = (formItem: IFormItem | null) => {
+  const current = formItem;
+  if (!current || !formItem.next) return null;
+  return formItem.next(current, getPrevsFormItem(current));
+};
+
 export const getParentsFormItem = (formItem: IFormItem) => {
   let point = formItem;
   const parents = [];
@@ -70,10 +108,10 @@ export const getParentsFormItem = (formItem: IFormItem) => {
   return parents;
 };
 
-export const getNextFormItem = (formItem: IFormItem | null) => {
+export const getSubFormItem = (formItem: IFormItem | null) => {
   const current = formItem;
-  if (!current || !formItem.next) return null;
-  return formItem.next(current, getParentsFormItem(current));
+  if (!current || !formItem.sub) return null;
+  return formItem.sub(current, getParentsFormItem(current));
 };
 
 export const validateFormItem = async (formItem: IFormItem) => {
@@ -95,13 +133,13 @@ export const validateFormItem = async (formItem: IFormItem) => {
     });
 };
 
-export const getAllNextPayload = async (formItem: IFormItem | null, validate = false) => {
+export const getAllNextPayload = async (formItem: IFormItem | null, validate = false): Promise<{ payloads: Record<string, any>; isValid: boolean }> => {
   let currentFormItem = formItem;
   const payloads: Record<string, any> = {};
   let isValid = true;
   while (currentFormItem) {
     const payload = {
-      value: currentFormItem.payload,
+      payload: currentFormItem.payload,
       errorMessage: null,
     };
     if (!currentFormItem.name) {
@@ -116,6 +154,14 @@ export const getAllNextPayload = async (formItem: IFormItem | null, validate = f
         });
     }
     payloads[currentFormItem.name] = payload;
+    const subs = getSubFormItem(currentFormItem);
+    if (subs && subs.length > 0) {
+      for (const sub of subs) {
+        const subPayload = await getAllNextPayload(sub, validate);
+        Object.assign(payloads, subPayload.payloads);
+        isValid = isValid && subPayload.isValid;
+      }
+    }
     currentFormItem = getNextFormItem(currentFormItem);
   }
   return {
