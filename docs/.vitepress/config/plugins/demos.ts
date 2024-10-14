@@ -7,7 +7,7 @@ export function demoImports(): Plugin {
     enforce: 'pre',
     async transform(code: string, id: string) {
       if (!/[/\\]component[/\\].+\.md$/.test(id)) return;
-      // 根据 md 文件所在位置确定需要导入的组件文件
+      // import all vue file in current demos folder
       const component = path.basename(id, '.md');
       const scriptSetups = [`const demos = import.meta.glob('@docs/demos/${component}/**/*.vue', { eager: true })`];
 

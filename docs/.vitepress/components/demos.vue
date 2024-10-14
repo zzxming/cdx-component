@@ -24,10 +24,7 @@ const formatPathDemos = computed(() => {
         <div class="description">
           <slot />
         </div>
-        <Example
-          :file="src"
-          :demo="formatPathDemos[src]"
-        />
+        <Example :demo="formatPathDemos[src]" />
         <Code
           :source="source"
           :raw-source="rawSource"

@@ -31,7 +31,6 @@ function createDemoContainer() {
           const matched = token.info.trim().match(demoReg);
           const params = matched?.[1].trim().split(/\s+/) || [];
           const src = params[0];
-          // 转换参数为组件, 传入源文件内容
           const sourceFile = src ?? '';
           const source = fs.readFileSync(path.resolve('./demos', `${sourceFile}.vue`), 'utf8');
           if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);

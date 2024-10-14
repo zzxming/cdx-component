@@ -2,10 +2,6 @@
 import { useDocBem } from '../composables';
 
 defineProps({
-  file: {
-    type: String,
-    required: true,
-  },
   demo: {
     type: Object,
     required: true,
