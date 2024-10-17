@@ -1,19 +1,31 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   src: string;
   demos: object;
   rawSource: string;
   source: string;
+  files: string;
+  isFile: boolean;
 }>();
-
+console.log(props);
+const filesPath = computed(() => props.files.split(','));
+const index = ref(0);
 const formatPathDemos = computed(() => {
   const demos: Record<string, any> = {};
   for (const key of Object.keys(props.demos)) {
     demos[key.replace('/demos/', '').replace('.vue', '')] = props.demos[key].default;
   }
   return demos;
+});
+const sourceArr = computed(() => props.source.split(','));
+const rawSourceArr = computed(() => props.rawSource.split(','));
+const sourceCode = computed(() => sourceArr.value[index.value]);
+const rawSourceCode = computed(() => rawSourceArr.value[index.value]);
+const exampleDemo = computed(() => {
+  if (props.isFile) return formatPathDemos.value[props.src];
+  return formatPathDemos.value[`${props.src}/index`];
 });
 </script>
 
@@ -24,11 +36,13 @@ const formatPathDemos = computed(() => {
         <div class="description">
           <slot />
         </div>
-        <Example :demo="formatPathDemos[src]" />
+        <Example :demo="exampleDemo" />
         <Code
-          :source="source"
-          :raw-source="rawSource"
+          v-model="index"
+          :source="sourceCode"
+          :raw-source="rawSourceCode"
           :path="src"
+          :files="filesPath"
         />
       </div>
     </ClientOnly>

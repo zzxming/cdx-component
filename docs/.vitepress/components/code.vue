@@ -3,9 +3,14 @@ import { computed, ref, toRef } from 'vue';
 import { useDocBem, useGithubSource, usePlayground } from '../composables';
 
 const props = defineProps<{
+  modelValue: number;
   source: string;
   rawSource: string;
   path: string;
+  files: string[];
+}>();
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: number): void;
 }>();
 
 const [, bem] = useDocBem('example');
@@ -74,6 +79,19 @@ const toggleExpand = () => {
         :class="bem.be('code-wrapper')"
       >
         <div
+          v-if="files.length > 1"
+          :class="bem.be('code-list')"
+        >
+          <CdxButton
+            v-for="(file, i) in files"
+            :key="file"
+            plain
+            @click="emit('update:modelValue', i)"
+          >
+            {{ file }}
+          </CdxButton>
+        </div>
+        <div
           class="language-vue" :class="[bem.be('code-inner')]"
           v-html="code"
         />
@@ -102,6 +120,10 @@ const toggleExpand = () => {
     }
   }
   &__code {
+    &-list {
+      background-color: var(--vp-code-block-bg);
+      @apply py-2;
+    }
     &-wrapper {
       @apply overflow-hidden;
     }

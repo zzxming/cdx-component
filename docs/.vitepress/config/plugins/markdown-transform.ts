@@ -15,6 +15,11 @@ function useContainer(md: MarkdownIt) {
   md.use(...createDemoContainer()).use(useCodeWrapper);
 }
 
+function readFile(path: string) {
+  const fileContent = fs.readFileSync(path, 'utf8');
+  if (!fileContent) throw new Error(`Incorrect source file: ${path}`);
+  return fileContent;
+};
 function createDemoContainer() {
   return [
     mdContainer,
@@ -31,15 +36,33 @@ function createDemoContainer() {
           const matched = token.info.trim().match(demoReg);
           const params = matched?.[1].trim().split(/\s+/) || [];
           const src = params[0];
-          const sourceFile = src ?? '';
-          const source = fs.readFileSync(path.resolve('./demos', `${sourceFile}.vue`), 'utf8');
-          if (!source) throw new Error(`Incorrect source file: ${sourceFile}`);
 
-          return `<Demos 
-            :demos="demos" 
-            raw-source="${encodeURIComponent(source)}" 
-            source="${encodeURIComponent(highlight(source, 'vue'))}" 
+          let isFile = true;
+          const sourceMap: Record<string, string> = {};
+          if (fs.existsSync(path.resolve('./demos', `${src}.vue`))) {
+            sourceMap[src] = readFile(path.resolve('./demos', `${src}.vue`));
+          }
+          else {
+            isFile = false;
+            const dirPath = path.resolve('./demos', src);
+            const files = fs.readdirSync(dirPath);
+            for (const item of files) {
+              const filePath = path.join(dirPath, item);
+              const stats = fs.statSync(filePath);
+
+              if (stats.isFile()) {
+                sourceMap[item] = readFile(filePath);
+              }
+            }
+          }
+
+          return `<Demos
+            :demos="demos"
+            raw-source="${Object.values(sourceMap).map(s => encodeURIComponent(s)).join(',')}"
+            source="${Object.values(sourceMap).map(s => encodeURIComponent(highlight(s, 'vue'))).join(',')}"
+            files="${Object.keys(sourceMap).join(',')}"
             src="${src}"
+            :isFile="${isFile}"
           >\n`;
         }
         else {
