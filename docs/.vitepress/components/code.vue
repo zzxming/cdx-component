@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import { computed, ref, toRef } from 'vue';
-import { useDocBem, useGithubSource, usePlayground } from '../composables';
+import { useDocBem, useGithubSource } from '../composables';
 
 const props = defineProps<{
+  modelValue: number;
   source: string;
   rawSource: string;
   path: string;
+  files: string[];
+  playgroundLink: string;
+}>();
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: number): void;
 }>();
 
 const [, bem] = useDocBem('example');
@@ -16,10 +22,9 @@ const exampleCodeText = computed(() => (isExpand.value ? '隐藏源代码' : '�
 const code = computed(() => decodeURIComponent(props.source));
 const rawCode = computed(() => decodeURIComponent(props.rawSource));
 
-const { link } = usePlayground(rawCode.value);
 const { url } = useGithubSource(toRef(props, 'path'));
 
-const gotoPlayground = () => window.open(link);
+const gotoPlayground = () => window.open(props.playgroundLink);
 const gotoGithub = () => window.open(url.value);
 const copyCode = () => {
   const ta = document.createElement('textarea');
@@ -74,6 +79,20 @@ const toggleExpand = () => {
         :class="bem.be('code-wrapper')"
       >
         <div
+          v-if="files.length > 1"
+          :class="bem.be('code-list')"
+        >
+          <div
+            v-for="(file, i) in files"
+            :key="file"
+            :class="[bem.be('code-file'), i === modelValue && bem.bem('code-file', 'active')]"
+            plain
+            @click="emit('update:modelValue', i)"
+          >
+            {{ file }}
+          </div>
+        </div>
+        <div
           class="language-vue" :class="[bem.be('code-inner')]"
           v-html="code"
         />
@@ -89,7 +108,7 @@ const toggleExpand = () => {
   </div>
 </template>
 
-<style lang="less">
+<style lang="less" scoped>
 .doc-example {
   &__actions {
     @apply flex items-center justify-end py-2 px-4 border-t;
@@ -102,6 +121,20 @@ const toggleExpand = () => {
     }
   }
   &__code {
+    &-list {
+      background-color: var(--vp-code-block-bg);
+      @apply flex items-center pb-2;
+    }
+    &-file {
+      border: 2px solid transparent;
+      @apply px-3 py-2 cursor-pointer;
+      &:hover {
+        background-color: var(--cdx-blue-opacity-1);
+      }
+      &--active {
+        border-bottom-color: var(--cdx-blue-1);
+      }
+    }
     &-wrapper {
       @apply overflow-hidden;
     }
