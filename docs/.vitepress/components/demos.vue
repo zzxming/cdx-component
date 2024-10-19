@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { defaultMutipleDemoFile } from '../utils';
 
 const props = defineProps<{
   src: string;
@@ -9,13 +10,13 @@ const props = defineProps<{
   files: string;
   isFile: boolean;
 }>();
-console.log(props);
+
 const filesPath = computed(() => props.files.split(','));
-const index = ref(0);
+const index = ref(filesPath.value.indexOf(defaultMutipleDemoFile));
 const formatPathDemos = computed(() => {
   const demos: Record<string, any> = {};
   for (const key of Object.keys(props.demos)) {
-    demos[key.replace('/demos/', '').replace('.vue', '')] = props.demos[key].default;
+    demos[key.replace('/demos/', '')] = props.demos[key].default;
   }
   return demos;
 });
@@ -23,10 +24,8 @@ const sourceArr = computed(() => props.source.split(','));
 const rawSourceArr = computed(() => props.rawSource.split(','));
 const sourceCode = computed(() => sourceArr.value[index.value]);
 const rawSourceCode = computed(() => rawSourceArr.value[index.value]);
-const exampleDemo = computed(() => {
-  if (props.isFile) return formatPathDemos.value[props.src];
-  return formatPathDemos.value[`${props.src}/index`];
-});
+const currentPath = computed(() => `${props.src}${!props.isFile ? `/${filesPath.value[index.value]}` : ''}`);
+const exampleDemo = computed(() => formatPathDemos.value[!props.isFile ? `${props.src}/${defaultMutipleDemoFile}` : props.src]);
 </script>
 
 <template>
@@ -41,7 +40,7 @@ const exampleDemo = computed(() => {
           v-model="index"
           :source="sourceCode"
           :raw-source="rawSourceCode"
-          :path="src"
+          :path="currentPath"
           :files="filesPath"
         />
       </div>

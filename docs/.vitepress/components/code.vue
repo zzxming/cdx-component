@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, toRef } from 'vue';
 import { useDocBem, useGithubSource, usePlayground } from '../composables';
+import { defaultMutipleDemoFile } from '../utils';
 
 const props = defineProps<{
   modelValue: number;
@@ -20,6 +21,7 @@ const isExpand = ref(false);
 const exampleCodeText = computed(() => (isExpand.value ? '隐藏源代码' : '查看源代码'));
 const code = computed(() => decodeURIComponent(props.source));
 const rawCode = computed(() => decodeURIComponent(props.rawSource));
+const sortedFiles = computed(() => [defaultMutipleDemoFile, ...props.files.filter(f => f !== defaultMutipleDemoFile)]);
 
 const { link } = usePlayground(rawCode.value);
 const { url } = useGithubSource(toRef(props, 'path'));
@@ -79,11 +81,11 @@ const toggleExpand = () => {
         :class="bem.be('code-wrapper')"
       >
         <div
-          v-if="files.length > 1"
+          v-if="sortedFiles.length > 1"
           :class="bem.be('code-list')"
         >
           <CdxButton
-            v-for="(file, i) in files"
+            v-for="(file, i) in sortedFiles"
             :key="file"
             plain
             @click="emit('update:modelValue', i)"
