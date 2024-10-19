@@ -11,8 +11,20 @@ const props = defineProps<{
   isFile: boolean;
 }>();
 
-const filesPath = computed(() => props.files.split(','));
-const index = ref(filesPath.value.indexOf(defaultMutipleDemoFile));
+let originDefaultDemoFileIndex = -1;
+const sortDefaultDemoFile = (sortArr: any[]) => {
+  const arr = [...sortArr];
+  if (originDefaultDemoFileIndex !== -1) {
+    arr.splice(0, 0, arr.splice(originDefaultDemoFileIndex, 1)[0]);
+  }
+  return arr;
+};
+const filesPath = computed(() => {
+  const files = props.files.split(',');
+  originDefaultDemoFileIndex = files.indexOf(defaultMutipleDemoFile);
+  if (originDefaultDemoFileIndex === -1) return files;
+  return [defaultMutipleDemoFile, ...files.filter(f => f !== defaultMutipleDemoFile)];
+});
 const formatPathDemos = computed(() => {
   const demos: Record<string, any> = {};
   for (const key of Object.keys(props.demos)) {
@@ -20,8 +32,10 @@ const formatPathDemos = computed(() => {
   }
   return demos;
 });
-const sourceArr = computed(() => props.source.split(','));
-const rawSourceArr = computed(() => props.rawSource.split(','));
+const sourceArr = computed(() => sortDefaultDemoFile(props.source.split(',')));
+const rawSourceArr = computed(() => sortDefaultDemoFile(props.rawSource.split(',')));
+
+const index = ref(filesPath.value.indexOf(defaultMutipleDemoFile));
 const sourceCode = computed(() => sourceArr.value[index.value]);
 const rawSourceCode = computed(() => rawSourceArr.value[index.value]);
 const currentPath = computed(() => `${props.src}${!props.isFile ? `/${filesPath.value[index.value]}` : ''}`);
