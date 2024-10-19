@@ -35,12 +35,14 @@ function createDemoContainer() {
         if (token.nesting === 1) {
           const matched = token.info.trim().match(demoReg);
           const params = matched?.[1].trim().split(/\s+/) || [];
-          const src = params[0];
+          let src = params[0];
 
           let isFile = true;
           const sourceMap: Record<string, string> = {};
-          if (fs.existsSync(path.resolve('./demos', `${src}.vue`))) {
-            sourceMap[src] = readFile(path.resolve('./demos', `${src}.vue`));
+          const filePath = `${src}.vue`;
+          if (fs.existsSync(path.resolve('./demos', filePath))) {
+            src = filePath;
+            sourceMap[filePath] = readFile(path.resolve('./demos', filePath));
           }
           else {
             isFile = false;
@@ -55,6 +57,11 @@ function createDemoContainer() {
               }
             }
           }
+
+          // if is directory
+          // src is the directory
+          // if is file
+          // src is the file path
 
           return `<Demos
             :demos="demos"

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, toRef } from 'vue';
-import { useDocBem, useGithubSource, usePlayground } from '../composables';
+import { useDocBem, useGithubSource } from '../composables';
 
 const props = defineProps<{
   modelValue: number;
@@ -8,6 +8,7 @@ const props = defineProps<{
   rawSource: string;
   path: string;
   files: string[];
+  playgroundLink: string;
 }>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: number): void;
@@ -21,10 +22,9 @@ const exampleCodeText = computed(() => (isExpand.value ? '隐藏源代码' : '�
 const code = computed(() => decodeURIComponent(props.source));
 const rawCode = computed(() => decodeURIComponent(props.rawSource));
 
-const { link } = usePlayground(rawCode.value);
 const { url } = useGithubSource(toRef(props, 'path'));
 
-const gotoPlayground = () => window.open(link);
+const gotoPlayground = () => window.open(props.playgroundLink);
 const gotoGithub = () => window.open(url.value);
 const copyCode = () => {
   const ta = document.createElement('textarea');

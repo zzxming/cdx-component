@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { usePlayground } from '../composables';
 import { defaultMutipleDemoFile } from '../utils';
 
 const props = defineProps<{
@@ -35,11 +36,12 @@ const formatPathDemos = computed(() => {
 const sourceArr = computed(() => sortDefaultDemoFile(props.source.split(',')));
 const rawSourceArr = computed(() => sortDefaultDemoFile(props.rawSource.split(',')));
 
-const index = ref(filesPath.value.indexOf(defaultMutipleDemoFile));
+const index = ref(props.isFile ? 0 : filesPath.value.indexOf(defaultMutipleDemoFile));
 const sourceCode = computed(() => sourceArr.value[index.value]);
 const rawSourceCode = computed(() => rawSourceArr.value[index.value]);
 const currentPath = computed(() => `${props.src}${!props.isFile ? `/${filesPath.value[index.value]}` : ''}`);
 const exampleDemo = computed(() => formatPathDemos.value[!props.isFile ? `${props.src}/${defaultMutipleDemoFile}` : props.src]);
+const { link: playgroundLink } = usePlayground(props.isFile ? filesPath.value[0] : defaultMutipleDemoFile, filesPath.value, rawSourceArr.value.map(s => decodeURIComponent(s)));
 </script>
 
 <template>
@@ -56,6 +58,7 @@ const exampleDemo = computed(() => formatPathDemos.value[!props.isFile ? `${prop
           :raw-source="rawSourceCode"
           :path="currentPath"
           :files="filesPath"
+          :playground-link="playgroundLink"
         />
       </div>
     </ClientOnly>
