@@ -48,7 +48,7 @@ const { link: playgroundLink } = usePlayground(props.isFile ? filesPath.value[0]
   <div class="vp-raw">
     <ClientOnly>
       <div class="example">
-        <div class="description">
+        <div v-if="$slots.default" class="description">
           <slot />
         </div>
         <Example :demo="exampleDemo" />

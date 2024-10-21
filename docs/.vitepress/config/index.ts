@@ -55,6 +55,10 @@ export default defineConfig({
             { text: 'InfinityScroll', link: '/component/infinity-scroll' },
           ],
         },
+        {
+          text: '钩子',
+          items: [{ text: 'DynamicForm', link: '/component/dynamic-form' }],
+        },
       ],
     },
   },
