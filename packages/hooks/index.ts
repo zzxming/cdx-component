@@ -1,4 +1,5 @@
 export * from './use-bem';
+export * from './use-dynamic-form-item';
 export * from './use-forward-ref';
 export * from './use-lock-scroll';
 export * from './use-model-value';
