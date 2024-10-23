@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useDark, useToggle } from '@vueuse/core';
+import { useSlide } from 'cdx-component';
 import { computed, ref } from 'vue';
 
 const isDark = useDark();
@@ -24,9 +25,14 @@ const load = () => {
   addData(vertialData);
 };
 const infinityOption = computed(() => [load, { rootMargin: '0px 0px 100px 0px' }]);
+
+const boxRef = ref();
+const { movePosition } = useSlide(boxRef);
 </script>
 
 <template>
+  <div ref="boxRef" :style="{ transform: `translate(${movePosition[0]}px, ${movePosition[1]}px)`, backgroundColor: 'black', width: '40px', height: '40px' }" />
+
   <button style="position: fixed; bottom: 24px; right: 24px; padding: 8px; border: 1px solid" @click="toggleDark()">
     {{ isDark ? 'dark' : 'light' }}
   </button>

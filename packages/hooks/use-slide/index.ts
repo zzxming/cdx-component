@@ -12,19 +12,29 @@ interface ClientDiffPosition extends ClientPosition {
   startX: number;
   startY: number;
 }
-interface Options {
+interface SlideOptions {
   preventDefault?: boolean;
   eventOptions?: AddEventListenerOptions;
+  defaultStart?: [number, number];
   start?: (e: TouchEvent | MouseEvent, position: ClientPosition) => void;
   move?: (e: TouchEvent | MouseEvent, position: ClientDiffPosition) => void;
   end?: (e: TouchEvent | MouseEvent, position: ClientDiffPosition) => void;
 }
 
-export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options) => {
-  const { preventDefault = true, eventOptions = {}, start, move, end } = options || {};
+export const useSlide = (target: Ref<HTMLElement | undefined>, options?: SlideOptions) => {
+  const {
+    preventDefault = true,
+    eventOptions = {},
+    defaultStart = [0, 0],
+    start,
+    move,
+    end,
+  } = options || {};
 
   const { events, defineEventPosition } = useSupportTouch();
 
+  let offsetPosition = [0, 0];
+  const movePosition = ref(defaultStart);
   const startPosition = ref([0, 0]);
   const endPosition = ref([0, 0]);
   // touchstart and touchmove passive default true, need to set false
@@ -83,11 +93,13 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
   const clearDirection = () => {
     startPosition.value = [0, 0];
     endPosition.value = [0, 0];
+    offsetPosition = [0, 0];
   };
   const moveSlide = (e: Event) => {
     preventDefault && e.preventDefault();
     const { x, y } = defineEventPosition(e);
     endPosition.value = [x, y];
+    movePosition.value = [x - offsetPosition[0], y - offsetPosition[1]];
 
     move && move(e as TouchEvent | MouseEvent, eventClient.value);
   };
@@ -106,6 +118,8 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
     const { x, y } = defineEventPosition(e);
     clearDirection();
     startPosition.value = [x, y];
+    offsetPosition = [x - movePosition.value[0], y - movePosition.value[1]];
+
     document.addEventListener(events.value.move, moveSlide, eventBindOptions.value);
     document.addEventListener(events.value.up, endSlide, eventBindOptions.value);
 
@@ -131,6 +145,7 @@ export const useSlide = (target: Ref<HTMLElement | undefined>, options?: Options
   });
 
   return {
+    movePosition,
     direction,
     unbindEvent,
   };
