@@ -29,13 +29,7 @@ const main = async () => {
   const projectPkg = getPackageManifest(cdxPackage);
   projectPkg.version = version;
 
-  const pkgData = JSON.stringify(projectPkg);
-  await fs.writeFile(
-    cdxPackage,
-    `{
-      ${pkgData.slice(1, -1)}
-    }`,
-  );
+  await fs.writeFile(cdxPackage, JSON.stringify(projectPkg, undefined, 2));
   await lintFiles(cdxPackage);
 
   await run('pnpm run build');
