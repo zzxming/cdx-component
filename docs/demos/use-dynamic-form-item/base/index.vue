@@ -43,11 +43,6 @@ const checkboxItem = useDynamicFormItem({
       A: checboxSubItemA,
       B: checboxSubItemB,
     };
-    console.log(
-      current.payload.options
-        .filter(({ value }) => current.payload.value.includes(value))
-        .map(({ value }) => map[value]),
-    );
     return current.payload.options
       .filter(({ value }) => current.payload.value.includes(value))
       .map(({ value }) => map[value]);
@@ -62,7 +57,12 @@ const textItem = useDynamicFormItem({
     value: '',
   },
   sub: null,
-  next: () => checkboxItem,
+  next: (current) => {
+    if (current.payload.value) {
+      return checkboxItem;
+    }
+    return null;
+  },
 });
 </script>
 

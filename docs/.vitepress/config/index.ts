@@ -57,7 +57,7 @@ export default defineConfig({
         },
         {
           text: '钩子',
-          items: [{ text: 'DynamicForm', link: '/component/dynamic-form' }],
+          items: [{ text: 'useDynamicFormItem', link: '/component/use-dynamic-form-item' }],
         },
       ],
     },
