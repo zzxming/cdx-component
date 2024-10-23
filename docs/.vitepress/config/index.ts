@@ -57,7 +57,10 @@ export default defineConfig({
         },
         {
           text: '钩子',
-          items: [{ text: 'useDynamicFormItem', link: '/component/use-dynamic-form-item' }],
+          items: [
+            { text: 'useDynamicFormItem', link: '/component/use-dynamic-form-item' },
+            { text: 'useForwardRef', link: '/component/use-forward-ref' },
+          ],
         },
       ],
     },
