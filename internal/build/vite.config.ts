@@ -62,10 +62,8 @@ export default defineConfig({
       input,
       external: rollupExternalFromPackage(
         cdxPackage,
-        (id: string) => {
-          return id.endsWith('css');
-        },
         { full: false },
+        (id: string) => ['css', 'less'].some(ext => id.endsWith(`.${ext}`)),
       ),
       treeshake: false,
       preserveEntrySignatures: 'allow-extension',

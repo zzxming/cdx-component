@@ -13,8 +13,8 @@ export const getPackageManifest = (pkgPath: string): Manifest => {
 
 export const rollupExternalFromPackage = (
   pkgPath: string,
-  callback: (id: string) => boolean = () => false,
   options: { full: boolean },
+  callback: (id: string) => boolean = () => false,
 ) => {
   const { dependencies, peerDependencies } = getPackageManifest(pkgPath);
   const dependenciesKeys = Object.keys(dependencies ?? {});
