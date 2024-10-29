@@ -10,7 +10,6 @@ import {
 import consola from 'consola';
 import fs from 'fs-extra';
 import prompts from 'prompts';
-import { lintFiles } from './lint';
 
 const main = async () => {
   const { version } = await prompts({
@@ -29,8 +28,7 @@ const main = async () => {
   const projectPkg = getPackageManifest(cdxPackage);
   projectPkg.version = version;
 
-  await fs.writeFile(cdxPackage, JSON.stringify(projectPkg, undefined, 2));
-  await lintFiles(cdxPackage);
+  await fs.writeFile(cdxPackage, `${JSON.stringify(projectPkg, undefined, 2)}\n`);
 
   await run('pnpm run build');
   // TODO: 增加 --proprovenance 通过 GitHub Actions 声明出处. https://docs.npmjs.com/generating-provenance-statements
