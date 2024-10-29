@@ -37,7 +37,12 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       input: resolve(cdxRoot, 'index.ts'),
-      external: rollupExternalFromPackage(cdxPackage, (id: string) => id.endsWith('css'), { full: true }),
+
+      external: rollupExternalFromPackage(
+        cdxPackage,
+        { full: true },
+        (id: string) => ['css', 'less'].some(ext => id.endsWith(`.${ext}`)),
+      ),
       treeshake: false,
       preserveEntrySignatures: 'allow-extension',
       output: [

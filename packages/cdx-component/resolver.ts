@@ -4,41 +4,90 @@ const toKebabCase = (key: string) => {
   return result.split(' ').join('-').toLowerCase();
 };
 
-const resolveComponent = (name: string) => {
+export interface ResolveOptions {
+  importStyle: boolean | 'css' | 'less';
+};
+
+const getSideEffects = (dirName: string, options: Pick<ResolveOptions, 'importStyle'>) => {
+  if (!options.importStyle) {
+    return [];
+  }
+  if (options.importStyle === 'less') {
+    return [
+      `cdx-component/es/components/base/style/less`,
+      `cdx-component/es/components/${dirName}/style/less`,
+    ];
+  }
+  else if (options.importStyle === true || options.importStyle === 'css') {
+    return [
+      `cdx-component/es/components/base/style/index`,
+      `cdx-component/es/components/${dirName}/style/index`,
+    ];
+  }
+};
+const resolveComponent = (name: string, options: ResolveOptions) => {
   if (!/^Cdx[A-Z]/.test(name)) return;
   const partialName = toKebabCase(name.slice(3));
   return {
     name,
     from: `cdx-component/es`,
-    sideEffects: [
-      `cdx-component/es/components/base/style/index`,
-      `cdx-component/es/components/${partialName}/style/index`,
-    ],
+    sideEffects: getSideEffects(partialName, options),
   };
 };
-const resolveDirective = async (name: string) => {
+const resolveDirective = (name: string, options: ResolveOptions) => {
   const directiveMap: Record<string, any> = {
-    Loading: {},
-    Tooltip: {},
+    Loading: {
+      importName: `CdxLoadingDirective`,
+    },
+    Tooltip: {
+      importName: `CdxTooltipDirective`,
+    },
+    Ripple: {
+      importName: `CdxRippleDirective`,
+    },
+    SameClickTarget: {
+      importName: `CdxSameClickTargetDirective`,
+    },
+    InfinityScroll: {
+      importName: `CdxInfinityScrollDirective`,
+    },
   };
-  if (!directiveMap[name]) return;
+  const directive = directiveMap[name];
+  if (!directive) return;
   const partialName = name.toLowerCase();
   return {
-    name: `Cdx${name}Directive`,
+    name: directive.importName,
     from: `cdx-component/es`,
-    sideEffects: [
-      `cdx-component/es/components/base/style/index`,
-      `cdx-component/es/components/${partialName}/style/index`,
-    ],
+    sideEffects: getSideEffects(partialName, options),
   };
 };
-export const CdxComponentResolver = () => [
-  {
-    type: 'component' as const,
-    resolve: resolveComponent,
-  },
-  {
-    type: 'directive' as const,
-    resolve: resolveDirective,
-  },
-];
+
+const noStyleComponents = new Set(['CdxOnlyChild']);
+const noStyleDirectives = new Set(['SameClickTarget', 'InfinityScroll']);
+export const CdxComponentResolver = (options: Partial<ResolveOptions> = {}) => {
+  const optionsResolved = {
+    importStyle: 'css',
+    ...options,
+  } as const;
+
+  return [
+    {
+      type: 'component' as const,
+      resolve: (name: string) => {
+        if (noStyleComponents.has(name)) {
+          return resolveComponent(name, { ...optionsResolved, importStyle: false });
+        }
+        return resolveComponent(name, optionsResolved);
+      },
+    },
+    {
+      type: 'directive' as const,
+      resolve: (name: string) => {
+        if (noStyleDirectives.has(name)) {
+          return resolveDirective(name, { ...optionsResolved, importStyle: false });
+        }
+        return resolveDirective(name, optionsResolved);
+      },
+    },
+  ];
+};
