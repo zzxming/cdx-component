@@ -13,6 +13,7 @@ export * from './overlay';
 export * from './pull-refresh';
 export * from './resize';
 export * from './sidebar';
+export * from './tabs';
 export * from './text-ellipsis';
 export * from './text-highlight';
 export * from './tooltip';

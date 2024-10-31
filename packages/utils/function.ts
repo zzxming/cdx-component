@@ -9,3 +9,4 @@ export const cacheFunction = <T>(func: (...args: any[]) => T) => {
     return result;
   };
 };
+export { capitalize } from '@vue/shared';
