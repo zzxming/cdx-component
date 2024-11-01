@@ -3,6 +3,7 @@ export * from './use-dynamic-form-item';
 export * from './use-forward-ref';
 export * from './use-lock-scroll';
 export * from './use-model-value';
+export * from './use-pagination';
 export * from './use-same-click-target';
 export * from './use-slide';
 export * from './use-support-touch';
