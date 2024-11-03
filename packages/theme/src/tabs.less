@@ -1,0 +1,65 @@
+@import './shared/variables.less';
+
+.@{namespace}-tabs {
+  .setCssVar(tabs-height, 40px);
+  .setCssVar(tabs-text-color-active, .getCssVar(blue-1) []);
+  .setCssVar(tabs-border-color, #e4e7ed);
+  .setCssVar(tabs-border-color-active, .getCssVar(blue-1) []);
+
+  @apply flex overflow-hidden;
+  &--right {
+    @apply flex-row-reverse;
+  }
+  &--top {
+    @apply flex-col;
+  }
+  &--bottom {
+    @apply flex-col-reverse;
+  }
+
+  &__header {
+    @apply relative flex shrink-0 text-sm;
+    &.is-left,
+    &.is-right {
+      @apply flex-col;
+    }
+    &.is-left {
+      @apply mr-3;
+    }
+    &.is-right {
+      @apply ml-3;
+    }
+    &-item {
+      @apply flex items-center h-10 px-6 font-medium cursor-pointer;
+      &.is-active {
+        color: .getCssVar(tabs-text-color-active) [];
+      }
+      &.is-left {
+        @apply justify-end;
+      }
+      &.is-right {
+        @apply justify-start;
+      }
+    }
+    &-underline {
+      background-color: .getCssVar(tabs-border-color-active) [];
+      @apply absolute top-0 transition-transform;
+      &.is-left,
+      &.is-right {
+        width: 2px;
+        @apply top-0 bottom-auto h-auto;
+      }
+      &.is-left {
+        @apply right-0;
+      }
+      &.is-right {
+        @apply left-0;
+      }
+    }
+    &::after {
+      background-color: .getCssVar(tabs-border-color) [];
+      width: 2px;
+      @apply absolute left-auto right-0 top-0 bottom-auto h-full;
+    }
+  }
+}

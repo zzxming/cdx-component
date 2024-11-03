@@ -7,6 +7,9 @@ import LoadingVue from './loading.vue';
 let unmountTimer = setTimeout(() => {}, 0);
 export const createLoadingInstance = (props: Omit<ServiceOptions, 'target'>, target: HTMLElement | string = 'body') => {
   const data = ref(true);
+  const [, relativeBem] = useBem('relative');
+  const targetDom = isString(target) ? document.querySelector(target)! : target;
+  targetDom.classList.add(relativeBem.b());
 
   const loadingInstance = createApp(
     defineComponent({
@@ -29,6 +32,7 @@ export const createLoadingInstance = (props: Omit<ServiceOptions, 'target'>, tar
     clearTimeout(unmountTimer);
     unmountTimer = setTimeout(() => {
       if (vm) {
+        targetDom.classList.remove(relativeBem.b());
         vm.$el.remove();
         loadingInstance.unmount();
       }
@@ -56,8 +60,6 @@ const resolveOptions = (options: ServiceOptions = {}) => {
 
 let fullscreenInstance: LoadingInstance | undefined;
 export const vLoading = (options?: ServiceOptions) => {
-  const [, relativeBem] = useBem('relative');
-
   const { target, ...resolvedOps } = resolveOptions(options);
   if (resolvedOps.fullscreen && fullscreenInstance) return fullscreenInstance;
   const instance = createLoadingInstance(resolvedOps, target);
@@ -68,12 +70,10 @@ export const vLoading = (options?: ServiceOptions) => {
   const originClose = instance.close;
   instance.close = () => {
     originClose();
-    target.classList.remove(relativeBem.b());
     if (resolvedOps.fullscreen) {
       fullscreenInstance = undefined;
     }
   };
 
-  target.classList.add(relativeBem.b());
   return instance;
 };

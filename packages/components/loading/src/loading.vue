@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CdxLoadingIcon } from '@cdx-component/components';
 import { useBem, useLockScroll, useZIndex } from '@cdx-component/hooks';
 import { computed, onMounted, ref, watch } from 'vue';
 import { loadingProps } from './loading';

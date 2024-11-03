@@ -14,6 +14,7 @@ import { CdxOverlay } from '../components/overlay';
 import { CdxPullRefresh } from '../components/pull-refresh';
 import { CdxResize } from '../components/resize';
 import { CdxSidebar } from '../components/sidebar';
+import { CdxTabs } from '../components/tabs';
 import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
 import { CdxTooltip } from '../components/tooltip';
@@ -41,4 +42,5 @@ export default [
   CdxResize,
   CdxSidebar,
   CdxButton,
+  CdxTabs,
 ] as Plugin[];

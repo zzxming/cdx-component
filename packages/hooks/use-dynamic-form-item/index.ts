@@ -27,7 +27,7 @@ export interface FormValidateFailure {
   fields: ValidateFieldsError;
 }
 
-export const useDynamicFormItem = (options: Optional<CreateFormItemOption, 'rules'>) => {
+export const useDynamicFormItem = (options: Optional<CreateFormItemOption, 'rules'>): IFormItem => {
   const rules = [];
   if (options.rules) {
     rules.push(...ensureArray(options.rules));

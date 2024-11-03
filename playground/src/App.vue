@@ -28,9 +28,42 @@ const infinityOption = computed(() => [load, { rootMargin: '0px 0px 100px 0px' }
 
 const boxRef = ref();
 const { movePosition } = useSlide(boxRef);
+
+const tabs = [
+  {
+    value: 'a2bcx4',
+    label: '燃料电池材料',
+  },
+  {
+    value: 'abse3',
+    label: '层状陶瓷材料',
+  },
+  {
+    value: 'dalloys',
+    label: '碳化硅复合材料',
+  },
+  {
+    value: 'mp-gllbsc',
+    label: '太阳能电池材料',
+  },
+  {
+    value: 'thermo-electric',
+    label: '热电材料',
+  },
+];
+const currentTab = ref(tabs[0].value);
 </script>
 
 <template>
+  {{ currentTab }}
+  <CdxTabs
+    v-model="currentTab"
+    :tabs="tabs"
+    position="right"
+  >
+    content
+  </CdxTabs>
+
   <div ref="boxRef" :style="{ transform: `translate(${movePosition[0]}px, ${movePosition[1]}px)`, backgroundColor: 'black', width: '40px', height: '40px' }" />
 
   <button style="position: fixed; bottom: 24px; right: 24px; padding: 8px; border: 1px solid" @click="toggleDark()">
