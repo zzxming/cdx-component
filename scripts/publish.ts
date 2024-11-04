@@ -24,7 +24,7 @@ const main = async () => {
 
   await fs.writeFile(resolve(cdxRoot, 'version.ts'), `export const version = '${version}';\n`);
 
-  consola.info(`Update version to: ${version}`);
+  consola.success(`Update version to: ${version}`);
   const projectPkg = getPackageManifest(cdxPackage);
   projectPkg.version = version;
 
