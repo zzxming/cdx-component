@@ -25,20 +25,14 @@ const tabHeaderBorderStyle = computed(() => {
   let index = 0;
   for (const [, item] of Object.entries(itemRefs.value)) {
     if (index > activeIndex.value) break;
-    switch (props.position) {
-      case 'right':
-      case 'left': {
-        offset = item[`offset${capitalize(position)}`];
-        size = item[`client${capitalize(sizeName)}`];
-        if (sizeName === 'width') {
-          const elStyle = window.getComputedStyle(item);
-          if (props.tabs.length > 1) {
-            size -= Number.parseFloat(elStyle.paddingLeft) + Number.parseFloat(elStyle.paddingRight);
-          }
-          offset += Number.parseFloat(elStyle.paddingLeft);
-        }
-        break;
+    offset = item[`offset${capitalize(position)}`];
+    size = item[`client${capitalize(sizeName)}`];
+    if (sizeName === 'width') {
+      const elStyle = window.getComputedStyle(item);
+      if (props.tabs.length > 1) {
+        size -= Number.parseFloat(elStyle.paddingLeft) + Number.parseFloat(elStyle.paddingRight);
       }
+      offset += Number.parseFloat(elStyle.paddingLeft);
     }
     index += 1;
   }

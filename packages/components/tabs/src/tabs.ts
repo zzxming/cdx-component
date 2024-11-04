@@ -28,7 +28,7 @@ export const tabsProps = buildProps({
   },
   position: {
     type: String,
-    values: ['left', 'right'],
+    values: ['left', 'right', 'top', 'bottom'],
     default: 'left',
   },
 } as const);
