@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     CdxPullRefresh: (typeof import('../packages/cdx-component'))['CdxPullRefresh'];
     CdxResize: (typeof import('../packages/cdx-component'))['CdxResize'];
     CdxSidebar: (typeof import('../packages/cdx-component'))['CdxSidebar'];
+    CdxTabs: (typeof import('../packages/cdx-component'))['CdxTabs'];
     CdxTextEllipsis: (typeof import('../packages/cdx-component'))['CdxTextEllipsis'];
     CdxTextHighlight: (typeof import('../packages/cdx-component'))['CdxTextHighlight'];
     CdxTooltip: (typeof import('../packages/cdx-component'))['CdxTooltip'];
