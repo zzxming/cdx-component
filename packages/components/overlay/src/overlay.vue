@@ -2,7 +2,7 @@
 import type { StyleValue } from 'vue';
 import { vSameClickTarget } from '@cdx-component/directives';
 import { useBem, useLockScroll, useModelValue, useZIndex } from '@cdx-component/hooks';
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { overlayEmits, overlayProps } from './overlay';
 
 defineOptions({ name: 'CdxOverlay' });
@@ -10,7 +10,6 @@ const props = defineProps(overlayProps);
 const emits = defineEmits(overlayEmits);
 
 const [, bem] = useBem('overlay');
-const [, scrollBem] = useBem('scroll');
 const { model } = useModelValue(props, false);
 const { nextZIndex } = useZIndex();
 
@@ -27,7 +26,6 @@ watch(
   model,
   async (val) => {
     await nextTick();
-    overlayRef.value?.parentElement?.classList[val ? 'add' : 'remove'](scrollBem.bm('lock'));
     if (val) {
       zIndex.value = nextZIndex();
     }
@@ -38,12 +36,14 @@ watch(
 );
 
 onMounted(() => {
-  if (overlayRef.value?.parentElement) {
-    useLockScroll(model, { target: overlayRef.value.parentElement });
+  if (props.fullscreen) {
+    useLockScroll(model);
   }
-});
-onBeforeUnmount(() => {
-  overlayRef.value?.parentElement?.classList.remove(scrollBem.bm('lock'));
+  else {
+    if (overlayRef.value?.parentElement) {
+      useLockScroll(model, { target: overlayRef.value.parentElement });
+    }
+  }
 });
 </script>
 
