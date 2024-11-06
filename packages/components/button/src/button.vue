@@ -28,21 +28,20 @@ const btnStyle = computed(() => {
   const value: Record<string, any> = {};
   if (props.color) {
     const color = new TinyColor(props.color);
-    console.log(props.dark);
-    const lighter2 = (props.dark ? color.shade(24) : color.tint(24)).toString();
-    const lighter3 = (props.dark ? color.shade(36) : color.tint(36)).toString();
-    const lighter4 = (props.dark ? color.shade(48) : color.tint(48)).toString();
-    const lighter5 = (props.dark ? color.shade(60) : color.tint(60)).toString();
-    const lighter7 = (props.dark ? color.shade(84) : color.tint(84)).toString();
-    value[bem.cv('button-text-color')] = props.plain ? props.color : `var(${bem.cv('color-white')})`;
-    value[bem.cv('button-bg-color')] = props.plain ? lighter7 : props.color;
-    value[bem.cv('button-border-color')] = props.plain ? lighter4 : props.color;
+    const lighter2 = (props.dark ? color.shade(80) : color.tint(80)).toString();
+    const lighter3 = (props.dark ? color.shade(70) : color.tint(70)).toString();
+    const lighter5 = (props.dark ? color.shade(50) : color.tint(50)).toString();
+    const lighter7 = (props.dark ? color.shade(30) : color.tint(30)).toString();
+    const lighter9 = props.color;
+    value[bem.cv('button-text-color')] = props.plain ? lighter9 : `var(${bem.cv('color-white')})`;
+    value[bem.cv('button-border-color')] = props.plain ? lighter2 : lighter7;
+    value[bem.cv('button-bg-color')] = props.plain ? lighter3 : lighter9;
     value[bem.cv('button-hover-text-color')] = `var(${bem.cv('color-white')})`;
-    value[bem.cv('button-hover-bg-color')] = props.plain ? props.color : lighter3;
-    value[bem.cv('button-hover-border-color')] = props.plain ? props.color : lighter3;
-    value[bem.cv('button-disabled-text-color')] = props.plain ? lighter2 : `var(${bem.cv('color-white')})`;
-    value[bem.cv('button-disabled-bg-color')] = props.plain ? lighter7 : lighter5;
-    value[bem.cv('button-disabled-border-color')] = lighter5;
+    value[bem.cv('button-hover-border-color')] = props.plain ? lighter7 : lighter5;
+    value[bem.cv('button-hover-bg-color')] = props.plain ? lighter9 : lighter7;
+    value[bem.cv('button-disabled-text-color')] = props.plain ? lighter7 : `var(${bem.cv('color-white')})`;
+    value[bem.cv('button-disabled-border-color')] = props.plain ? lighter3 : lighter5;
+    value[bem.cv('button-disabled-bg-color')] = props.plain ? lighter2 : lighter5;
   }
   return value;
 });
