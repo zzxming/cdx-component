@@ -12,6 +12,7 @@ export * from './only-child';
 export * from './overlay';
 export * from './pull-refresh';
 export * from './resize';
+export * from './scrollbar';
 export * from './sidebar';
 export * from './tabs';
 export * from './text-ellipsis';

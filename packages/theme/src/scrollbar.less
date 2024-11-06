@@ -1,0 +1,39 @@
+@import './shared/variables.less';
+@import './animation/fade.less';
+
+.@{namespace}-scrollbar {
+  @apply relative h-full overflow-hidden;
+  &__wrapper {
+    scrollbar-width: none;
+    @apply h-full overflow-auto;
+  }
+  &__bar {
+    @apply absolute;
+    z-index: 1;
+    &.is-vertical {
+      @apply w-2;
+      top: 2px;
+      bottom: 2px;
+      right: 2px;
+    }
+    &.is-horizontal {
+      @apply h-2;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+    }
+  }
+  &__thumb {
+    @apply rounded-md cursor-pointer;
+    background-color: .getCssVar(gray-3) [];
+    &.is-vertical {
+      @apply w-full;
+    }
+    &.is-horizontal {
+      @apply h-full;
+    }
+    &:hover {
+      background-color: .getCssVar(gray-5) [];
+    }
+  }
+}

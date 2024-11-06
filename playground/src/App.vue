@@ -55,6 +55,27 @@ const currentTab = ref(tabs[0].value);
 </script>
 
 <template>
+  <CdxButton class="ml-2" type="success">
+    success
+  </CdxButton>
+  <div style="height: 200px">
+    <CdxScrollbar>
+      <p v-for="item in 20" :key="item" style="height: 40px; margin: 8px 0px; border: 1px solid;">
+        {{ item }}
+      </p>
+    </CdxScrollbar>
+  </div>
+
+  <div style="width: 600px">
+    <CdxScrollbar>
+      <div style="display: flex;">
+        <p v-for="item in 20" :key="item" style="width: 100px; height: 40px; flex-shrink: 0; margin: 8px 0px; border: 1px solid;">
+          {{ item }}
+        </p>
+      </div>
+    </CdxScrollbar>
+  </div>
+
   {{ currentTab }}
   <CdxTabs
     v-model="currentTab"
@@ -97,7 +118,7 @@ const currentTab = ref(tabs[0].value);
   <div
     v-same-click-target="ww"
     v-ripple
-    style="height: 200px; border: 1px solid; overflow: auto;"
+    style="position: relative; height: 200px; border: 1px solid; overflow: auto;"
   >
     <div style="width: 100px; height: 100px;  border: 1px solid;" />
   </div>

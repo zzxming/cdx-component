@@ -45,6 +45,7 @@ export default defineConfig({
             { text: 'Resize', link: '/component/resize' },
             { text: 'Sidebar', link: '/component/sidebar' },
             { text: 'Button', link: '/component/button' },
+            { text: 'Scrollbar', link: '/component/scrollbar' },
           ],
         },
         {
