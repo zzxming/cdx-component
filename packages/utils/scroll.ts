@@ -3,7 +3,7 @@ import { useBem } from '@cdx-component/hooks';
 let scrollBarWidth: number;
 export const getScrollBarWidth = ({ target = document.body } = {}): number => {
   if (scrollBarWidth !== undefined) return scrollBarWidth;
-  const [, bem] = useBem('scroll');
+  const [, bem] = useBem('lock-scroll');
 
   const outer = document.createElement('div');
   outer.className = bem.be('wrap');

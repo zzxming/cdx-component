@@ -1,102 +1,36 @@
+<script lang="ts" setup>
+const types = ['default', 'primary', 'success', 'warning', 'danger', 'info'];
+</script>
+
 <template>
-  <div class="flex flex-wrap items-center">
-    <CdxButton class="ml-2">
-      default
-    </CdxButton>
-    <CdxButton class="ml-2" type="primary">
-      primary
-    </CdxButton>
-    <CdxButton class="ml-2" type="success">
-      success
-    </CdxButton>
-    <CdxButton class="ml-2" type="warning">
-      warning
-    </CdxButton>
-    <CdxButton class="ml-2" type="danger">
-      danger
-    </CdxButton>
-    <CdxButton class="ml-2" type="info">
-      info
+  <div class="mt-2 flex flex-wrap items-center">
+    <CdxButton v-for="type in types" :key="type" class="ml-2" :type="type">
+      {{ type }}
     </CdxButton>
   </div>
   <div class="mt-2 flex flex-wrap items-center">
-    <CdxButton class="ml-2" plain>
-      default
-    </CdxButton>
-    <CdxButton class="ml-2" plain type="primary">
-      primary
-    </CdxButton>
-    <CdxButton class="ml-2" plain type="success">
-      success
-    </CdxButton>
-    <CdxButton class="ml-2" plain type="warning">
-      warning
-    </CdxButton>
-    <CdxButton class="ml-2" plain type="danger">
-      danger
-    </CdxButton>
-    <CdxButton class="ml-2" plain type="info">
-      info
+    <CdxButton v-for="type in types" :key="type" class="ml-2" :type="type" plain>
+      {{ type }}
     </CdxButton>
   </div>
   <div class="mt-2 flex flex-wrap items-center">
-    <CdxButton class="ml-2" round>
-      default
-    </CdxButton>
-    <CdxButton class="ml-2" round type="primary">
-      primary
-    </CdxButton>
-    <CdxButton class="ml-2" round type="success">
-      success
-    </CdxButton>
-    <CdxButton class="ml-2" round type="warning">
-      warning
-    </CdxButton>
-    <CdxButton class="ml-2" round type="danger">
-      danger
-    </CdxButton>
-    <CdxButton class="ml-2" round type="info">
-      info
+    <CdxButton v-for="type in types" :key="type" class="ml-2" :type="type" round>
+      {{ type }}
     </CdxButton>
   </div>
   <div class="mt-2 flex flex-wrap items-center">
-    <CdxButton class="ml-2" disabled>
-      default
-    </CdxButton>
-    <CdxButton class="ml-2" disabled type="primary">
-      primary
-    </CdxButton>
-    <CdxButton class="ml-2" disabled type="success">
-      success
-    </CdxButton>
-    <CdxButton class="ml-2" disabled type="warning">
-      warning
-    </CdxButton>
-    <CdxButton class="ml-2" disabled type="danger">
-      danger
-    </CdxButton>
-    <CdxButton class="ml-2" disabled type="info">
-      info
+    <CdxButton v-for="type in types" :key="type" class="ml-2" :type="type" disabled>
+      {{ type }}
     </CdxButton>
   </div>
   <div class="mt-2 flex flex-wrap items-center">
-    <CdxButton class="ml-2" plain disabled>
-      default
+    <CdxButton v-for="type in types" :key="type" class="ml-2" :type="type" plain disabled>
+      {{ type }}
     </CdxButton>
-    <CdxButton class="ml-2" plain disabled type="primary">
-      primary
-    </CdxButton>
-    <CdxButton class="ml-2" plain disabled type="success">
-      success
-    </CdxButton>
-    <CdxButton class="ml-2" plain disabled type="warning">
-      warning
-    </CdxButton>
-    <CdxButton class="ml-2" plain disabled type="danger">
-      danger
-    </CdxButton>
-    <CdxButton class="ml-2" plain disabled type="info">
-      info
+  </div>
+  <div class="mt-2 flex flex-wrap items-center">
+    <CdxButton v-for="type in types" :key="type" class="ml-2" :type="type" plain round disabled>
+      {{ type }}
     </CdxButton>
   </div>
 </template>

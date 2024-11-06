@@ -11,7 +11,7 @@ export const useLockScroll = (trigger: Ref<boolean>, { target = document.body } 
   let scrollBarWidth = 0;
   let originWidth = '0';
 
-  const [, bem] = useBem('scroll');
+  const [, bem] = useBem('lock-scroll');
   const clockClass = bem.bm('lock');
 
   const cleanLock = () => {

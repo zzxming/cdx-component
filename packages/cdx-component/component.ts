@@ -1,4 +1,5 @@
 import type { Plugin } from 'vue';
+import { CdxScrollbar } from '@cdx-component/components';
 import { CdxButton } from '../components/button';
 import { CdxCaptcha, CdxCaptchaSlider } from '../components/captcha';
 import { CdxCollapse, CdxCollapseItem } from '../components/collapse';
@@ -43,4 +44,5 @@ export default [
   CdxSidebar,
   CdxButton,
   CdxTabs,
+  CdxScrollbar,
 ] as Plugin[];
