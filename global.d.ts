@@ -17,6 +17,7 @@ declare module '@vue/runtime-core' {
     CdxOverlay: (typeof import('cdx-component'))['CdxOverlay'];
     CdxPullRefresh: (typeof import('cdx-component'))['CdxPullRefresh'];
     CdxResize: (typeof import('cdx-component'))['CdxResize'];
+    CdxScrollbar: (typeof import('cdx-component'))['CdxScrollbar'];
     CdxSidebar: (typeof import('cdx-component'))['CdxSidebar'];
     CdxTabs: (typeof import('cdx-component'))['CdxTabs'];
     CdxTextEllipsis: (typeof import('cdx-component'))['CdxTextEllipsis'];
