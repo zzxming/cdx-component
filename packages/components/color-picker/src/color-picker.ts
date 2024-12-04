@@ -7,6 +7,10 @@ export const colorPickerProps = buildProps({
     type: String,
     default: 'ff0000',
   },
+  selectOnly: {
+    type: Boolean,
+    default: false,
+  },
 } as const);
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
 
