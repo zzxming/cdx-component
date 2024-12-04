@@ -4,6 +4,7 @@ import { CdxButton } from '../components/button';
 import { CdxCaptcha, CdxCaptchaSlider } from '../components/captcha';
 import { CdxCollapse, CdxCollapseItem } from '../components/collapse';
 import { CdxCollapseTransition } from '../components/collapse-transition';
+import { CdxColorPicker } from '../components/color-picker';
 import { CdxCountTo } from '../components/count-to';
 import { CdxDrawer } from '../components/drawer';
 import { CdxElementSelect, CdxElementSelectItem } from '../components/element-select';
@@ -45,4 +46,5 @@ export default [
   CdxButton,
   CdxTabs,
   CdxScrollbar,
+  CdxColorPicker,
 ] as Plugin[];

@@ -2,6 +2,8 @@ export * from './button';
 export * from './captcha';
 export * from './collapse';
 export * from './collapse-transition';
+export * from './color-picker';
+export * from './color-picker';
 export * from './count-to';
 export * from './drawer';
 export * from './element-select';

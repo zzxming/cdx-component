@@ -28,11 +28,15 @@ export const useSupportTouch = (isSupport: boolean = false) => {
   const defineEventPosition = (e: Event) => {
     const touchEvent = e as TouchEvent;
     const mouseEvent = e as MouseEvent;
-    const moveToX = isSupportTouch.value ? touchEvent.changedTouches[0].clientX : mouseEvent.clientX;
-    const moveToY = isSupportTouch.value ? touchEvent.changedTouches[0].clientY : mouseEvent.clientY;
+    const event = isSupportTouch.value ? touchEvent.changedTouches[0] : mouseEvent;
+    const { clientX, clientY, pageX, pageY } = event;
     return {
-      x: moveToX,
-      y: moveToY,
+      x: clientX,
+      y: clientY,
+      clientX,
+      clientY,
+      pageX,
+      pageY,
     };
   };
 
