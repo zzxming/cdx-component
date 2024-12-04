@@ -7,6 +7,7 @@ export const buttonTypes = [
   'warning',
   'info',
   'danger',
+  'default',
   '',
 ] as const;
 export const buttonProps = buildProps({
