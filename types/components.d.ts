@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     CdxCollapse: (typeof import('../packages/cdx-component'))['CdxCollapse'];
     CdxCollapseItem: (typeof import('../packages/cdx-component'))['CdxCollapseItem'];
     CdxCollapseTransition: (typeof import('../packages/cdx-component'))['CdxCollapseTransition'];
+    CdxColorPicker: (typeof import('../packages/cdx-component'))['CdxColorPicker'];
     CdxCountTo: (typeof import('../packages/cdx-component'))['CdxCountTo'];
     CdxDrawer: (typeof import('../packages/cdx-component'))['CdxDrawer'];
     CdxElementSelect: (typeof import('../packages/cdx-component'))['CdxElementSelect'];
