@@ -2,7 +2,7 @@
 import type { StyleValue } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
-import { HEXtoRGB, HSBtoHEX, HSBtoRGB, RGBtoHSB, validateHSB } from '@cdx-component/utils';
+import { HEXtoRGB, HSBtoHEX, HSBtoRGB, RGBtoHEX, RGBtoHSB, validateHSB } from '@cdx-component/utils';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { colorPickerEmits, colorPickerProps } from './color-picker';
 
@@ -45,8 +45,11 @@ const contentStyle = computed<StyleValue>(() => ({
 
 const updateSelectorStyle = () => {
   if (!selectorRef.value) return;
-  const rgb = HSBtoRGB(hsbValue.value);
-  selectorRef.value.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+  selectorRef.value.style.backgroundColor = `#${RGBtoHEX(HSBtoRGB({
+    h: hsbValue.value.h,
+    s: 100,
+    b: 100,
+  }))}`;
 };
 const pickColor = (event: Event) => {
   if (!selectorRef.value) return;
@@ -137,7 +140,6 @@ const updateContentPosition = async () => {
   }
 
   const left = targetOffset.left + elementDimensions.width > window.innerWidth ? Math.max(0, targetOffset.left + scrollX + targetDimensions.width - elementDimensions.width) : targetOffset.left + scrollX;
-  console.log(top, left);
   contentRef.value.style.top = `${top}px`;
   contentRef.value.style.left = `${left}px`;
 
