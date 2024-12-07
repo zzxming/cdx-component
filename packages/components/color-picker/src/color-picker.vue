@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { HSB } from '@cdx-component/utils';
-import type { StyleValue } from 'vue';
+import type { ComponentPublicInstance, StyleValue } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
 import { HEXtoRGB, HSBtoHEX, HSBtoRGB, RGBtoHEX, RGBtoHSB, validateHSB } from '@cdx-component/utils';
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { colorPickerEmits, colorPickerProps } from './color-picker';
 
 defineOptions({ name: 'CdxColorPicker' });
@@ -16,13 +16,26 @@ const { events, defineEventPosition } = useSupportTouch();
 const { nextZIndex } = useZIndex();
 const { selector } = useTeleportContainer(bem.be('container'));
 
+const panelWidth = 230;
+const panelHeight = 150;
+// match less variable @handleSizeSec
+const handleSizeSec = 10;
 let internalChange = true;
+const colorInput = ['r', 'g', 'b', 'a'] as const;
 
-const contentRef = ref<HTMLElement>();
+const panelRef = ref<HTMLElement>();
 const previewRef = ref<HTMLElement>();
 const selectorRef = ref<HTMLElement>();
 const alphaRef = ref<HTMLElement>();
 const hueRef = ref<HTMLElement>();
+const colorInputRefs = ref<{
+  [K in typeof colorInput[number]]: HTMLInputElement | null;
+}>({
+  r: null,
+  g: null,
+  b: null,
+  a: null,
+});
 const hueDragging = ref(false);
 const colorDragging = ref(false);
 const alphaDragging = ref(false);
@@ -30,11 +43,11 @@ const hsbValue = ref<HSB>(RGBtoHSB(HEXtoRGB(props.modelValue || '#ff0000ff')));
 const contentVisible = ref(false);
 
 const backgroundHandleStyle = computed<StyleValue>(() => ({
-  left: `${Math.floor((150 * hsbValue.value.s) / 100)}px`,
-  top: `${Math.floor((150 * (100 - hsbValue.value.b)) / 100)}px`,
+  left: `${Math.floor((panelWidth * hsbValue.value.s) / 100)}px`,
+  top: `${Math.floor((panelHeight * (100 - hsbValue.value.b)) / 100)}px`,
 }));
 const hueHandleStyle = computed<StyleValue>(() => ({
-  top: `${Math.floor(150 - (150 * hsbValue.value.h) / 360)}px`,
+  top: `${Math.floor(panelHeight - (panelHeight * hsbValue.value.h) / 360)}px`,
 }));
 const previewStyle = computed<StyleValue>(() => ({
   backgroundColor: `#${HSBtoHEX(hsbValue.value)}`,
@@ -42,7 +55,7 @@ const previewStyle = computed<StyleValue>(() => ({
 const rootStyle = computed<StyleValue>(() => ({
   display: props.selectOnly ? 'block' : undefined,
 }));
-const contentStyle = computed<StyleValue>(() => ({
+const panelStyle = computed<StyleValue>(() => ({
   position: props.selectOnly ? 'static' : undefined,
 }));
 const alphaStyle = computed<StyleValue>(() => {
@@ -51,18 +64,69 @@ const alphaStyle = computed<StyleValue>(() => {
     background: `linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0) 0%, rgb(${r}, ${g}, ${b}, 1) 100%)`,
   };
 });
-const alphaHandleStyle = computed(() => ({
+const alphaHandleStyle = computed<StyleValue>(() => ({
   left: `${hsbValue.value.a * 100}%`,
 }));
-
-const updateSelectorStyle = () => {
-  if (!selectorRef.value) return;
-  selectorRef.value.style.backgroundColor = `#${RGBtoHEX(HSBtoRGB({
+const selectorStyle = computed<StyleValue>(() => ({
+  backgroundColor: `#${RGBtoHEX(HSBtoRGB({
     h: hsbValue.value.h,
     s: 100,
     b: 100,
     a: 1,
-  }))}`;
+  }))}`,
+}));
+
+const seInputRef = (el: Element | ComponentPublicInstance | null, item: 'r' | 'g' | 'b' | 'a') => {
+  colorInputRefs.value[item] = el as HTMLInputElement;
+};
+const updateInputValue = () => {
+  const hex = HSBtoHEX(hsbValue.value);
+  for (const [i, input] of Object.values(colorInputRefs.value).entries()) {
+    if (input) {
+      input.value = String(Number.parseInt(hex[i * 2] + hex[i * 2 + 1], 16));
+    }
+  }
+  if (colorInputRefs.value.a) {
+    colorInputRefs.value.a.value = String(Math.round(hsbValue.value.a * 100));
+  }
+};
+const updateContentPosition = async () => {
+  await nextTick();
+  if (!panelRef.value || !previewRef.value) return;
+
+  const elementDimensions = { width: panelRef.value.offsetWidth, height: panelRef.value.offsetHeight };
+  const targetDimensions = { width: previewRef.value.offsetWidth, height: previewRef.value.offsetHeight };
+  const targetOffset = previewRef.value.getBoundingClientRect();
+  const { scrollY, scrollX } = window;
+  let top;
+
+  if (targetOffset.top + targetDimensions.height + elementDimensions.height > window.innerHeight) {
+    top = targetOffset.top + scrollY - elementDimensions.height;
+    if (top < 0) {
+      top = scrollY;
+    }
+  }
+  else {
+    top = targetDimensions.height + targetOffset.top + scrollY;
+  }
+
+  const left = targetOffset.left + elementDimensions.width > window.innerWidth
+    ? Math.max(0, targetOffset.left + scrollX + targetDimensions.width - elementDimensions.width)
+    : targetOffset.left + scrollX;
+
+  Object.assign(panelRef.value.style, {
+    top: `${top}px`,
+    left: `${left}px`,
+    zIndex: nextZIndex(),
+  });
+
+  updateInputValue();
+};
+const updateValue = (value: Partial<HSB>, internal: boolean = true) => {
+  internalChange = internal;
+  hsbValue.value = validateHSB(Object.assign({}, hsbValue.value, value));
+  updateInputValue();
+  emits('change', HSBtoHEX(hsbValue.value));
 };
 const pickColor = (event: Event) => {
   if (!selectorRef.value) return;
@@ -70,51 +134,34 @@ const pickColor = (event: Event) => {
   const rect = selectorRef.value.getBoundingClientRect();
   const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
   const left = rect.left + document.body.scrollLeft;
-  // 150 is the width and height of the color picker
-  const saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
-  const brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
+  const saturation = Math.floor((100 * Math.max(0, Math.min(panelWidth, pageX - left))) / panelWidth);
+  const brightness = Math.floor((100 * (panelHeight - Math.max(0, Math.min(panelHeight, pageY - top)))) / panelHeight);
 
-  internalChange = true;
-  hsbValue.value = validateHSB({
-    h: hsbValue.value.h,
+  updateValue({
     s: saturation,
     b: brightness,
-    a: hsbValue.value.a,
   });
-
-  emits('change', HSBtoHEX(hsbValue.value));
 };
 const pickHue = (event: Event) => {
   if (!hueRef.value) return;
   const { pageY } = defineEventPosition(event);
   const top = hueRef.value.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
 
-  internalChange = true;
-  // 150 is the height of the hue bar
-  hsbValue.value = validateHSB({
-    h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
-    s: hsbValue.value.s,
-    b: hsbValue.value.b,
-    a: hsbValue.value.a,
+  updateValue({
+    h: Math.floor((360 * (panelHeight - Math.max(0, Math.min(panelHeight, pageY - top)))) / panelHeight),
   });
-
-  updateSelectorStyle();
 };
 const pickAlpha = (event: Event) => {
   if (!alphaRef.value) return;
   const { pageX } = defineEventPosition(event);
   const rect = alphaRef.value.getBoundingClientRect();
   let left = pageX - rect.left;
-  // 10 is the width of the alpha handle
-  left = Math.max(10 / 2, left);
-  left = Math.min(left, rect.width - 10 / 2);
+  left = Math.max(handleSizeSec / 2, left);
+  left = Math.min(left, rect.width - handleSizeSec / 2);
 
-  hsbValue.value = {
-    h: hsbValue.value.h,
-    s: hsbValue.value.s,
-    b: hsbValue.value.b,
-    a: Math.round(((left - 10 / 2) / (rect.width - 10)) * 100) / 100,
-  };
+  updateValue({
+    a: Math.round(((left - handleSizeSec / 2) / (rect.width - handleSizeSec)) * 100) / 100,
+  });
 };
 const onDrag = (event: Event) => {
   if (colorDragging.value) {
@@ -165,35 +212,6 @@ const onAlphaMousedown = (event: Event) => {
   alphaDragging.value = true;
   pickAlpha(event);
 };
-const updateContentPosition = async () => {
-  await nextTick();
-  if (!contentRef.value || !previewRef.value) return;
-  updateSelectorStyle();
-
-  const elementDimensions = { width: contentRef.value.offsetWidth, height: contentRef.value.offsetHeight };
-  const targetDimensions = { width: previewRef.value.offsetWidth, height: previewRef.value.offsetHeight };
-  const targetOffset = previewRef.value.getBoundingClientRect();
-  const { scrollY, scrollX } = window;
-  let top;
-
-  if (targetOffset.top + targetDimensions.height + elementDimensions.height > window.innerHeight) {
-    top = targetOffset.top + scrollY - elementDimensions.height;
-    if (top < 0) {
-      top = scrollY;
-    }
-  }
-  else {
-    top = targetDimensions.height + targetOffset.top + scrollY;
-  }
-
-  const left = targetOffset.left + elementDimensions.width > window.innerWidth ? Math.max(0, targetOffset.left + scrollX + targetDimensions.width - elementDimensions.width) : targetOffset.left + scrollX;
-  contentRef.value.style.top = `${top}px`;
-  contentRef.value.style.left = `${left}px`;
-
-  Object.assign(contentRef.value.style, {
-    zIndex: nextZIndex(),
-  });
-};
 const closePreview = () => {
   contentVisible.value = false;
 };
@@ -205,10 +223,20 @@ const onPreviewClick = () => {
     document.addEventListener('click', closePreview, { once: true });
   }
 };
+const inputNumberLimit = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  target.value = target.value.replaceAll(/\D/g, '');
+};
+const onInputChange = (key: typeof colorInput[number], event: Event) => {
+  const target = event.target as HTMLInputElement;
+  let value = Math.round(Number(target.value));
+  if (key === 'a') {
+    value = value / 100;
+  }
+  const result = validateHSB(RGBtoHSB(Object.assign({}, HSBtoRGB(hsbValue.value), { [key]: value })));
+  updateValue(result);
+};
 
-onMounted(() => {
-  updateSelectorStyle();
-});
 onBeforeUnmount(() => {
   onColorAlphaDragEnd();
   onColorHueDragEnd();
@@ -235,18 +263,34 @@ watch(hsbValue, () => {
         :name="bem.ns('fade')"
         appear
       >
-        <div v-if="selectOnly ? true : contentVisible" ref="contentRef" :class="bem.be('content')" :style="contentStyle" @click.stop>
-          <div ref="selectorRef" :class="bem.be('selector')" @[events.down]="onColorSelectorMousedown">
-            <div :class="bem.be('background')">
-              <div :class="bem.be('background-handle')" :style="backgroundHandleStyle" />
+        <div v-if="selectOnly ? true : contentVisible" ref="panelRef" :class="bem.be('panel')" :style="panelStyle" @click.stop>
+          <div :class="bem.be('content')">
+            <div ref="selectorRef" :class="bem.be('selector')" :style="selectorStyle" @[events.down]="onColorSelectorMousedown">
+              <div :class="bem.be('background')">
+                <div :class="bem.be('background-handle')" :style="backgroundHandleStyle" />
+              </div>
+            </div>
+            <div ref="hueRef" :class="bem.be('hue')" @[events.down]="onColorHueMousedown">
+              <div :class="bem.be('hue-handle')" :style="hueHandleStyle" />
+            </div>
+            <div ref="alphaRef" :class="bem.be('alpha')" @[events.down]="onAlphaMousedown">
+              <div :class="bem.be('alpha-bg')" :style="alphaStyle" />
+              <div :class="bem.be('alpha-handle')" :style="alphaHandleStyle" />
             </div>
           </div>
-          <div ref="hueRef" :class="bem.be('hue')" @[events.down]="onColorHueMousedown">
-            <div :class="bem.be('hue-handle')" :style="hueHandleStyle" />
-          </div>
-          <div ref="alphaRef" :class="bem.be('alpha')" @[events.down]="onAlphaMousedown">
-            <div :class="bem.be('alpha-bg')" :style="alphaStyle" />
-            <div :class="bem.be('alpha-handle')" :style="alphaHandleStyle" />
+          <div :class="bem.be('action')">
+            <div
+              v-for="item in colorInput" :key="item"
+              :class="[bem.be('action-item'), item]"
+            >
+              <label>{{ item.toUpperCase() }}</label>
+              <input
+                :ref="(el) => seInputRef(el, item)"
+                :class="bem.be('action-input')"
+                @input="inputNumberLimit"
+                @change="(e) => onInputChange(item, e)"
+              >
+            </div>
           </div>
         </div>
       </Transition>

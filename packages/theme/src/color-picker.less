@@ -1,12 +1,26 @@
 @import './shared/variables.less';
 @import './animation/fade.less';
 
-.handle() {
+@panelWidth: 230px;
+@panelHeight: 150px;
+@barSize: 12px;
+@handleSize: 16px;
+@handleSizeSec: 10px;
+@barGap: 10px;
+@contentPadding: 8px;
+
+.handle(@isBlock: false) {
   box-sizing: border-box;
   position: absolute;
-  opacity: 0.85;
+  border: 1px solid #ffffff;
   cursor: pointer;
+
+  & when(@isBlock) {
+    background-color: #ffffff;
+    box-shadow: 0 0 2px #0009;
+  }
 }
+
 .@{namespace}-color-picker {
   display: inline-block;
 
@@ -17,24 +31,31 @@
     border-radius: 6px;
   }
 
-  &__content {
+  &__panel {
     .setCssVar(color-picker-bg-color, .getCssVar(bg-color-base) []);
 
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0px;
     left: 0px;
-    background: .getCssVar(color-picker-bg-color) [];
+    width: @panelWidth + @contentPadding * 2 + @barSize + @barGap;
+    padding: @contentPadding;
     border-radius: 6px;
+    background: .getCssVar(color-picker-bg-color) [];
     box-shadow: .getCssVar(shadow-dark-2) [];
-    width: 197px;
-    height: 186px;
-    padding: 8px;
+  }
+
+  &__content {
+    box-sizing: border-box;
+    width: 100%;
+    height: @panelHeight + @contentPadding * 2 + @barSize + @barGap;
+    padding-top: @contentPadding;
   }
 
   &__selector {
-    width: 150px;
-    height: 150px;
+    width: @panelWidth;
+    height: @panelHeight;
     position: absolute;
   }
 
@@ -45,22 +66,21 @@
       linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
     &-handle {
       .handle();
+      @size: 10px;
       top: 0px;
-      left: 150px;
+      left: @panelWidth;
       border-radius: 100%;
-      width: 10px;
-      height: 10px;
-      border: 2px solid #ffffff;
-      transform: translate(-5px, -5px);
+      width: @size;
+      height: @size;
+      transform: translate(-1 * (@size / 2), -1 * (@size / 2));
     }
   }
 
   &__hue {
-    width: 12px;
-    height: 150px;
-    margin-left: 164px;
+    width: @barSize;
+    height: @panelHeight;
+    margin-left: @panelWidth + @barGap;
     position: absolute;
-    opacity: 0.85;
     background: linear-gradient(
       0deg,
       red 0,
@@ -72,31 +92,31 @@
       red
     );
     &-handle {
-      .handle();
-      width: 16px;
-      height: 10px;
-      transform: translate(-2px, -5px);
-      border: 1px solid #ebeef5;
-      background-color: #ffffff;
-      box-shadow: 0 0 2px #0009;
+      .handle(true);
+      width: @handleSize;
+      height: @handleSizeSec;
+      transform: translate(
+        ((@barSize - @handleSize) / 2),
+        (-1 * @handleSizeSec / 2)
+      );
     }
   }
 
   &__alpha {
-    width: 150px;
-    height: 12px;
+    width: @panelWidth;
+    height: @barSize;
     position: absolute;
-    margin-top: 158px;
+    margin-top: @panelHeight + @barGap;
     background: linear-gradient(45deg, #ccc 25%, transparent 25%),
       linear-gradient(135deg, #ccc 25%, transparent 25%),
       linear-gradient(45deg, transparent 75%, #ccc 75%),
       linear-gradient(135deg, transparent 75%, #ccc 75%);
-    background-size: 12px 12px;
+    background-size: @barSize @barSize;
     background-position:
       0 0,
-      6px 0,
-      6px -6px,
-      0 6px;
+      (@barSize / 2) 0,
+      (@barSize / 2) (-1 * @barSize / 2),
+      0 (@barSize / 2);
     &-bg {
       position: relative;
       height: 100%;
@@ -107,14 +127,42 @@
       );
     }
     &-handle {
-      .handle();
+      .handle(true);
       top: 0;
-      width: 10px;
-      height: 16px;
-      transform: translate(-5px, -2px);
-      border: 1px solid #ebeef5;
+      width: @handleSizeSec;
+      height: @handleSize;
+      transform: translate(
+        (-1 * @handleSizeSec / 2),
+        ((@barSize - @handleSize) / 2)
+      );
+    }
+  }
+
+  &__action {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding-top: @contentPadding;
+    border-top: 1px solid .getCssVar(border-color-light-2) [];
+    &-item {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+    }
+    &-input {
+      box-sizing: border-box;
+      width: 100%;
+      height: 22px;
+      margin-left: 2px;
+      padding: 2px 0px 2px 4px;
       background-color: #ffffff;
-      box-shadow: 0 0 2px #0009;
+      border: 1px solid .getCssVar(border-color-base) [];
+      border-radius: 4px;
+      outline: none;
+      color: .getCssVar(text-color-regular) [];
     }
   }
 }
