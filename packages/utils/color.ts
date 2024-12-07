@@ -17,6 +17,17 @@ export interface RGB {
   b: number;
   a: number;
 };
+const normalizeValue = function (value: number | string, max: number | string) {
+  value = Math.min(max as number, Math.max(0, Number.parseFloat(`${value}`)));
+
+  // Handle floating point rounding errors
+  if (Math.abs(value - (max as number)) < 0.000_001) {
+    return 1;
+  }
+
+  // Convert into [0, 1] range if it isn't already
+  return (value % (max as number)) / Number.parseFloat(max as string);
+};
 export const validateHSB = (hsb: HSB): HSB => {
   return {
     h: Math.min(360, Math.max(0, hsb.h)),
@@ -34,109 +45,64 @@ export const HEXtoRGB = (hex: string): RGB => {
   return { r, g, b, a };
 };
 export const RGBtoHSB = (rgb: RGB): HSB => {
-  const hsb = {
-    h: 0,
-    s: 0,
-    b: 0,
-    a: rgb.a,
-  };
-  const min = Math.min(rgb.r, rgb.g, rgb.b);
-  const max = Math.max(rgb.r, rgb.g, rgb.b);
-  const delta = max - min;
+  let { r, g, b, a } = rgb;
+  r = normalizeValue(r, 255);
+  g = normalizeValue(g, 255);
+  b = normalizeValue(b, 255);
 
-  hsb.b = max;
-  hsb.s = max !== 0 ? (255 * delta) / max : 0;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h: number;
+  const v = max;
 
-  if (hsb.s !== 0) {
-    if (rgb.r === max) {
-      hsb.h = (rgb.g - rgb.b) / delta;
-    }
-    else if (rgb.g === max) {
-      hsb.h = 2 + (rgb.b - rgb.r) / delta;
-    }
-    else {
-      hsb.h = 4 + (rgb.r - rgb.g) / delta;
-    }
+  const d = max - min;
+  const s = max === 0 ? 0 : d / max;
+
+  if (max === min) {
+    h = 0; // achromatic
   }
   else {
-    hsb.h = -1;
+    switch (max) {
+      case r: {
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      }
+      case g: {
+        h = (b - r) / d + 2;
+        break;
+      }
+      case b: {
+        h = (r - g) / d + 4;
+        break;
+      }
+    }
+    h! /= 6;
   }
 
-  hsb.h *= 60;
-
-  if (hsb.h < 0) {
-    hsb.h += 360;
-  }
-
-  hsb.s *= 100 / 255;
-  hsb.b *= 100 / 255;
-
-  return hsb;
+  return { h: h! * 360, s: s * 100, b: v * 100, a };
 };
 export const HSBtoRGB = (hsb: HSB): RGB => {
-  let rgb: RGB = {
-    r: 0,
-    g: 0,
-    b: 0,
-    a: hsb.a,
+  let { h, s, b, a } = hsb;
+  h = normalizeValue(h, 360) * 6;
+  s = normalizeValue(s, 100);
+  b = normalizeValue(b, 100);
+
+  const i = Math.floor(h);
+  const f = h - i;
+  const p = b * (1 - s);
+  const q = b * (1 - f * s);
+  const t = b * (1 - (1 - f) * s);
+  const mod = i % 6;
+  const r = [b, q, p, p, t, b][mod];
+  const g = [t, b, b, q, p, p][mod];
+  const v = [p, p, t, b, b, q][mod];
+
+  return {
+    r: Math.round(r * 255),
+    g: Math.round(g * 255),
+    b: Math.round(v * 255),
+    a,
   };
-  let h = Math.round(hsb.h);
-  const s = Math.round((hsb.s * 255) / 100);
-  const v = Math.round((hsb.b * 255) / 100);
-
-  if (s === 0) {
-    rgb = {
-      r: v,
-      g: v,
-      b: v,
-      a: rgb.a,
-    };
-  }
-  else {
-    const t1 = v;
-    const t2 = ((255 - s) * v) / 255;
-    const t3 = ((t1 - t2) * (h % 60)) / 60;
-
-    if (h === 360) h = 0;
-
-    if (h < 60) {
-      rgb.r = t1;
-      rgb.b = t2;
-      rgb.g = t2 + t3;
-    }
-    else if (h < 120) {
-      rgb.g = t1;
-      rgb.b = t2;
-      rgb.r = t1 - t3;
-    }
-    else if (h < 180) {
-      rgb.g = t1;
-      rgb.r = t2;
-      rgb.b = t2 + t3;
-    }
-    else if (h < 240) {
-      rgb.b = t1;
-      rgb.r = t2;
-      rgb.g = t1 - t3;
-    }
-    else if (h < 300) {
-      rgb.b = t1;
-      rgb.g = t2;
-      rgb.r = t2 + t3;
-    }
-    else if (h < 360) {
-      rgb.r = t1;
-      rgb.g = t2;
-      rgb.b = t1 - t3;
-    }
-    else {
-      rgb.r = 0;
-      rgb.g = 0;
-      rgb.b = 0;
-    }
-  }
-
-  return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b), a: hsb.a };
 };
 export const RGBtoHEX = (rgb: RGB): string => {
   const hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16), Math.round(rgb.a * 255).toString(16)];
