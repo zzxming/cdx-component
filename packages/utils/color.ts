@@ -30,7 +30,7 @@ export const HEXtoRGB = (hex: string): RGB => {
   const r = Number.parseInt(hex.slice(0, 2), 16);
   const g = Number.parseInt(hex.slice(2, 4), 16);
   const b = Number.parseInt(hex.slice(4, 6), 16);
-  const a = Number((Number.parseInt(hex.slice(6, 8), 16) / 255).toFixed(2));
+  const a = Number((Number.parseInt(hex.slice(6, 8) || 'ff', 16) / 255).toFixed(2));
   return { r, g, b, a };
 };
 export const RGBtoHSB = (rgb: RGB): HSB => {
