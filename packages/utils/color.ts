@@ -26,7 +26,8 @@ export const validateHSB = (hsb: HSB) => {
   };
 };
 export const HEXtoRGB = (hex: string) => {
-  let hexValue = Number.parseInt(hex.includes('#') ? hex.slice(1) : hex, 16);
+  hex = hex.includes('#') ? hex.slice(1) : hex;
+  let hexValue = Number.parseInt(hex, 16);
   let alpha = 1;
 
   if (hex.length === 8) {
@@ -34,7 +35,7 @@ export const HEXtoRGB = (hex: string) => {
     hexValue = hexValue >> 8;
   }
 
-  return { r: hexValue >> 16, g: (hexValue & 0x00_FF_00) >> 8, b: hexValue & 0x00_00_FF, a: alpha };
+  return { r: (hexValue & 0xFF_00_00) >> 16, g: (hexValue & 0x00_FF_00) >> 8, b: hexValue & 0x00_00_FF, a: alpha };
 };
 export const RGBtoHSB = (rgb: RGB) => {
   const hsb = {
