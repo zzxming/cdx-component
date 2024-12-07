@@ -4,7 +4,7 @@ import type { ComponentPublicInstance, StyleValue } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
 import { HEXtoRGB, HSBtoHEX, HSBtoRGB, RGBtoHEX, RGBtoHSB, validateHSB } from '@cdx-component/utils';
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { colorPickerEmits, colorPickerProps } from './color-picker';
 
 defineOptions({ name: 'CdxColorPicker' });
@@ -237,6 +237,9 @@ const onInputChange = (key: typeof colorInput[number], event: Event) => {
   updateValue(result);
 };
 
+onMounted(() => {
+  updateInputValue();
+});
 onBeforeUnmount(() => {
   onColorAlphaDragEnd();
   onColorHueDragEnd();
