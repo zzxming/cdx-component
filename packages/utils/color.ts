@@ -17,32 +17,28 @@ export interface RGB {
   b: number;
   a: number;
 };
-export const validateHSB = (hsb: HSB) => {
+export const validateHSB = (hsb: HSB): HSB => {
   return {
     h: Math.min(360, Math.max(0, hsb.h)),
     s: Math.min(100, Math.max(0, hsb.s)),
     b: Math.min(100, Math.max(0, hsb.b)),
-    a: hsb.a ? Math.min(1, Math.max(0, hsb.a)) : 1,
+    a: Math.min(1, Math.max(0, hsb.a)),
   };
 };
-export const HEXtoRGB = (hex: string) => {
-  hex = hex.includes('#') ? hex.slice(1) : hex;
-  let hexValue = Number.parseInt(hex, 16);
-  let alpha = 1;
-
-  if (hex.length === 8) {
-    alpha = (hexValue & 0xFF) / 255;
-    hexValue = hexValue >> 8;
-  }
-
-  return { r: (hexValue & 0xFF_00_00) >> 16, g: (hexValue & 0x00_FF_00) >> 8, b: hexValue & 0x00_00_FF, a: alpha };
+export const HEXtoRGB = (hex: string): RGB => {
+  hex = hex.startsWith('#') ? hex.slice(1) : hex;
+  const r = Number.parseInt(hex.slice(0, 2), 16);
+  const g = Number.parseInt(hex.slice(2, 4), 16);
+  const b = Number.parseInt(hex.slice(4, 6), 16);
+  const a = Number((Number.parseInt(hex.slice(6, 8), 16) / 255).toFixed(2));
+  return { r, g, b, a };
 };
-export const RGBtoHSB = (rgb: RGB) => {
+export const RGBtoHSB = (rgb: RGB): HSB => {
   const hsb = {
     h: 0,
     s: 0,
     b: 0,
-    a: rgb.a || 1,
+    a: rgb.a,
   };
   const min = Math.min(rgb.r, rgb.g, rgb.b);
   const max = Math.max(rgb.r, rgb.g, rgb.b);
@@ -77,12 +73,12 @@ export const RGBtoHSB = (rgb: RGB) => {
 
   return hsb;
 };
-export const HSBtoRGB = (hsb: HSB) => {
+export const HSBtoRGB = (hsb: HSB): RGB => {
   let rgb: RGB = {
     r: 0,
     g: 0,
     b: 0,
-    a: hsb.a || 1,
+    a: hsb.a,
   };
   let h = Math.round(hsb.h);
   const s = Math.round((hsb.s * 255) / 100);
@@ -140,10 +136,10 @@ export const HSBtoRGB = (hsb: HSB) => {
     }
   }
 
-  return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b), a: hsb.a || 1 };
+  return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b), a: hsb.a };
 };
-export const RGBtoHEX = (rgb: RGB) => {
-  const hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16), Math.round((rgb.a || 1) * 255).toString(16)];
+export const RGBtoHEX = (rgb: RGB): string => {
+  const hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16), Math.round(rgb.a * 255).toString(16)];
   for (const key in hex) {
     if (hex[key].length === 1) {
       hex[key] = `0${hex[key]}`;
@@ -151,4 +147,4 @@ export const RGBtoHEX = (rgb: RGB) => {
   }
   return hex.join('');
 };
-export const HSBtoHEX = (hsb: HSB) => RGBtoHEX(HSBtoRGB(hsb));
+export const HSBtoHEX = (hsb: HSB): string => RGBtoHEX(HSBtoRGB(hsb));
