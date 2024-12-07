@@ -9,28 +9,39 @@ export interface HSB {
   h: number;
   s: number;
   b: number;
+  a: number;
 };
 export interface RGB {
   r: number;
   g: number;
   b: number;
+  a: number;
 };
 export const validateHSB = (hsb: HSB) => {
   return {
     h: Math.min(360, Math.max(0, hsb.h)),
     s: Math.min(100, Math.max(0, hsb.s)),
     b: Math.min(100, Math.max(0, hsb.b)),
+    a: hsb.a ? Math.min(1, Math.max(0, hsb.a)) : 1,
   };
 };
 export const HEXtoRGB = (hex: string) => {
-  const hexValue = Number.parseInt(hex.includes('#') ? hex.slice(1) : hex, 16);
-  return { r: hexValue >> 16, g: (hexValue & 0x00_FF_00) >> 8, b: hexValue & 0x00_00_FF };
+  let hexValue = Number.parseInt(hex.includes('#') ? hex.slice(1) : hex, 16);
+  let alpha = 1;
+
+  if (hex.length === 8) {
+    alpha = (hexValue & 0xFF) / 255;
+    hexValue = hexValue >> 8;
+  }
+
+  return { r: hexValue >> 16, g: (hexValue & 0x00_FF_00) >> 8, b: hexValue & 0x00_00_FF, a: alpha };
 };
 export const RGBtoHSB = (rgb: RGB) => {
   const hsb = {
     h: 0,
     s: 0,
     b: 0,
+    a: rgb.a || 1,
   };
   const min = Math.min(rgb.r, rgb.g, rgb.b);
   const max = Math.max(rgb.r, rgb.g, rgb.b);
@@ -70,6 +81,7 @@ export const HSBtoRGB = (hsb: HSB) => {
     r: 0,
     g: 0,
     b: 0,
+    a: hsb.a || 1,
   };
   let h = Math.round(hsb.h);
   const s = Math.round((hsb.s * 255) / 100);
@@ -80,6 +92,7 @@ export const HSBtoRGB = (hsb: HSB) => {
       r: v,
       g: v,
       b: v,
+      a: rgb.a,
     };
   }
   else {
@@ -126,10 +139,10 @@ export const HSBtoRGB = (hsb: HSB) => {
     }
   }
 
-  return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
+  return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b), a: hsb.a || 1 };
 };
 export const RGBtoHEX = (rgb: RGB) => {
-  const hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
+  const hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16), Math.round((rgb.a || 1) * 255).toString(16)];
   for (const key in hex) {
     if (hex[key].length === 1) {
       hex[key] = `0${hex[key]}`;

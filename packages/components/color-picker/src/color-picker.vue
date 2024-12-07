@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { HSB } from '@cdx-component/utils';
 import type { StyleValue } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
 import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
@@ -20,10 +21,12 @@ let internalChange = true;
 const contentRef = ref<HTMLElement>();
 const previewRef = ref<HTMLElement>();
 const selectorRef = ref<HTMLElement>();
+const alphaRef = ref<HTMLElement>();
 const hueRef = ref<HTMLElement>();
 const hueDragging = ref(false);
 const colorDragging = ref(false);
-const hsbValue = ref(RGBtoHSB(HEXtoRGB(props.modelValue || '#ff0000')));
+const alphaDragging = ref(false);
+const hsbValue = ref<HSB>(RGBtoHSB(HEXtoRGB(props.modelValue || '#ff0000ff')));
 const contentVisible = ref(false);
 
 const backgroundHandleStyle = computed<StyleValue>(() => ({
@@ -42,6 +45,15 @@ const rootStyle = computed<StyleValue>(() => ({
 const contentStyle = computed<StyleValue>(() => ({
   position: props.selectOnly ? 'static' : undefined,
 }));
+const alphaStyle = computed<StyleValue>(() => {
+  const { r, g, b } = HSBtoRGB(hsbValue.value);
+  return {
+    background: `linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0) 0%, rgb(${r}, ${g}, ${b}, 1) 100%)`,
+  };
+});
+const alphaHandleStyle = computed(() => ({
+  left: `${hsbValue.value.a * 100}%`,
+}));
 
 const updateSelectorStyle = () => {
   if (!selectorRef.value) return;
@@ -49,15 +61,16 @@ const updateSelectorStyle = () => {
     h: hsbValue.value.h,
     s: 100,
     b: 100,
+    a: 1,
   }))}`;
 };
 const pickColor = (event: Event) => {
   if (!selectorRef.value) return;
-  event.preventDefault();
   const { pageX, pageY } = defineEventPosition(event);
   const rect = selectorRef.value.getBoundingClientRect();
   const top = rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
   const left = rect.left + document.body.scrollLeft;
+  // 150 is the width and height of the color picker
   const saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
   const brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
 
@@ -66,24 +79,42 @@ const pickColor = (event: Event) => {
     h: hsbValue.value.h,
     s: saturation,
     b: brightness,
+    a: hsbValue.value.a,
   });
 
   emits('change', HSBtoHEX(hsbValue.value));
 };
 const pickHue = (event: Event) => {
   if (!hueRef.value) return;
-  event.preventDefault();
   const { pageY } = defineEventPosition(event);
   const top = hueRef.value.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0);
 
   internalChange = true;
+  // 150 is the height of the hue bar
   hsbValue.value = validateHSB({
     h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
     s: hsbValue.value.s,
     b: hsbValue.value.b,
+    a: hsbValue.value.a,
   });
 
   updateSelectorStyle();
+};
+const pickAlpha = (event: Event) => {
+  if (!alphaRef.value) return;
+  const { pageX } = defineEventPosition(event);
+  const rect = alphaRef.value.getBoundingClientRect();
+  let left = pageX - rect.left;
+  // 10 is the width of the alpha handle
+  left = Math.max(10 / 2, left);
+  left = Math.min(left, rect.width - 10 / 2);
+
+  hsbValue.value = {
+    h: hsbValue.value.h,
+    s: hsbValue.value.s,
+    b: hsbValue.value.b,
+    a: Math.round(((left - 10 / 2) / (rect.width - 10)) * 100) / 100,
+  };
 };
 const onDrag = (event: Event) => {
   if (colorDragging.value) {
@@ -93,6 +124,11 @@ const onDrag = (event: Event) => {
 
   if (hueDragging.value) {
     pickHue(event);
+    event.preventDefault();
+  }
+
+  if (alphaDragging.value) {
+    pickAlpha(event);
     event.preventDefault();
   }
 };
@@ -112,11 +148,22 @@ const onColorHueDragEnd = () => {
   document.removeEventListener('mouseup', onColorHueDragEnd);
   hueDragging.value = false;
 };
-const onColorHueMousedown = (event: MouseEvent) => {
+const onColorHueMousedown = (event: Event) => {
   document.addEventListener('mousemove', onDrag);
   document.addEventListener('mouseup', onColorHueDragEnd);
   hueDragging.value = true;
   pickHue(event);
+};
+const onColorAlphaDragEnd = () => {
+  document.removeEventListener('mousemove', onDrag);
+  document.removeEventListener('mouseup', onColorAlphaDragEnd);
+  alphaDragging.value = false;
+};
+const onAlphaMousedown = (event: Event) => {
+  document.addEventListener('mousemove', onDrag);
+  document.addEventListener('mouseup', onColorAlphaDragEnd);
+  alphaDragging.value = true;
+  pickAlpha(event);
 };
 const updateContentPosition = async () => {
   await nextTick();
@@ -163,6 +210,9 @@ onMounted(() => {
   updateSelectorStyle();
 });
 onBeforeUnmount(() => {
+  onColorAlphaDragEnd();
+  onColorHueDragEnd();
+  onColorSelectorDragEnd();
   document.removeEventListener('click', closePreview);
 });
 
@@ -193,6 +243,10 @@ watch(hsbValue, () => {
           </div>
           <div ref="hueRef" :class="bem.be('hue')" @[events.down]="onColorHueMousedown">
             <div :class="bem.be('hue-handle')" :style="hueHandleStyle" />
+          </div>
+          <div ref="alphaRef" :class="bem.be('alpha')" @[events.down]="onAlphaMousedown">
+            <div :class="bem.be('alpha-bg')" :style="alphaStyle" />
+            <div :class="bem.be('alpha-handle')" :style="alphaHandleStyle" />
           </div>
         </div>
       </Transition>
