@@ -25,3 +25,8 @@ export const sidebarProps = buildProps({
   },
 } as const);
 export type SidebarProps = ExtractPropTypes<typeof sidebarProps>;
+
+export interface SidebarSlots {
+  default: () => any;
+  collapse?: () => any;
+}

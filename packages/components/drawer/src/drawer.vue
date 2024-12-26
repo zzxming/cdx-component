@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import type { StyleValue } from 'vue';
+import type { DrawerSlots } from './drawer';
 import { CdxOverlay } from '@cdx-component/components';
 import { namespace } from '@cdx-component/constants';
 import { useBem, useModelValue, useSlide, useSupportTouch } from '@cdx-component/hooks';
 import { isNumber } from '@cdx-component/utils';
-import { computed, nextTick, ref, type StyleValue } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import { drawerEmits, drawerProps } from './drawer';
 
 defineOptions({ name: 'CdxDrawer' });
 const props = defineProps(drawerProps);
 defineEmits(drawerEmits);
-const slots = defineSlots<{
-  default: () => any;
-  swipe?: () => any;
-}>();
+const slots = defineSlots<DrawerSlots>();
 
 const [, bem] = useBem('drawer');
 const { model } = useModelValue(props, false);

@@ -43,3 +43,8 @@ export const drawerEmits = {
   [UPDATE_MODEL_EVENT]: (value: boolean) => isBoolean(value),
 };
 export type DrawerEmits = typeof drawerEmits;
+
+export interface DrawerSlots {
+  default: () => any;
+  swipe?: () => any;
+}
