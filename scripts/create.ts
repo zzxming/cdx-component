@@ -89,6 +89,13 @@ const create = async (name: string) => {
       `,
     },
     {
+      filePath: resolve(componentRoot, `${kebabCaseName}/style/less.ts`),
+      source: `
+        import '@cdx-component/components/base/style/less';
+        import '@cdx-component/theme/src/${kebabCaseName}.less';
+      `,
+    },
+    {
       filePath: resolve(themeRoot, `src/${kebabCaseName}.less`),
       source: `
         @import './shared/variables.less';
