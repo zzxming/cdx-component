@@ -7,7 +7,29 @@ const toggleDark = useToggle(isDark);
 
 <template>
   <div>
-    <button style="position: fixed; bottom: 24px; right: 24px; padding: 8px; border: 1px solid" @click="toggleDark()">
+    <CdxMenu>
+      <CdxMenuItem>
+        some
+      </CdxMenuItem>
+      <CdxMenuItem type="break" />
+      <CdxMenuItem>
+        A
+        <template #children>
+          <CdxMenuItem>
+            some
+          </CdxMenuItem>
+          <CdxMenuItem>
+            some
+          </CdxMenuItem>
+          <CdxMenuItem type="break" />
+          <CdxMenuItem>
+            some
+          </CdxMenuItem>
+        </template>
+      </CdxMenuItem>
+    </CdxMenu>
+
+    <button class="border-lg fixed bottom-6 right-6 rounded-lg border p-2" @click="toggleDark()">
       {{ isDark ? 'dark' : 'light' }}
     </button>
   </div>
