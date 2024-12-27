@@ -156,9 +156,9 @@ const create = async (name: string) => {
         filePath,
         isMarkdown
           ? source
-            .split('\n')
-            .map(line => line.trim())
-            .join('\n')
+              .split('\n')
+              .map(line => line.trim())
+              .join('\n')
           : source,
       );
       await lintFiles(filePath);

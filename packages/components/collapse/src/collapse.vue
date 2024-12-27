@@ -18,7 +18,7 @@ const handleItemClick = (name: CollapseModelValueType) => {
   const _activeNames = [...model.value];
   const index = _activeNames.indexOf(name);
 
-  if (index > -1) {
+  if (index !== -1) {
     _activeNames.splice(index, 1);
   }
   else {

@@ -18,10 +18,8 @@
   &--in,
   &--out {
     transition:
-      transform .getCssVar(ripple-transform-transition-duration) []
-        cubic-bezier(0, 0, 0.2, 1),
-      opacity .getCssVar(ripple-transform-transition-duration) []
-        cubic-bezier(0, 0, 0.2, 1);
+      transform .getCssVar(ripple-transform-transition-duration) [] cubic-bezier(0, 0, 0.2, 1),
+      opacity .getCssVar(ripple-transform-transition-duration) [] cubic-bezier(0, 0, 0.2, 1);
   }
   &--in {
     @apply opacity-100;

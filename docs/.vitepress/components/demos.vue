@@ -69,7 +69,7 @@ const { link: playgroundLink } = usePlayground(props.isFile ? filesPath.value[0]
 .example {
   @apply border border-stone-200 rounded-lg;
 }
-.description{
+.description {
   @apply my-2 px-4;
 }
 </style>

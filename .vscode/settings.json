@@ -8,6 +8,7 @@
     "source.organizeImports": "never"
   },
   "eslint.enable": true,
+  "eslint.format.enable": true,
   "eslint.rules.customizations": [
     { "rule": "style/*", "severity": "off" },
     { "rule": "format/*", "severity": "off" },

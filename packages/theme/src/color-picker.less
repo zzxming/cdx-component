@@ -81,24 +81,12 @@
     height: @panelHeight;
     margin-left: @panelWidth + @barGap;
     position: absolute;
-    background: linear-gradient(
-      0deg,
-      red 0,
-      #ff0 17%,
-      #0f0 33%,
-      #0ff 50%,
-      #00f 67%,
-      #f0f 83%,
-      red
-    );
+    background: linear-gradient(0deg, red 0, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, red);
     &-handle {
       .handle(true);
       width: @handleSize;
       height: @handleSizeSec;
-      transform: translate(
-        ((@barSize - @handleSize) / 2),
-        (-1 * @handleSizeSec / 2)
-      );
+      transform: translate(((@barSize - @handleSize) / 2), (-1 * @handleSizeSec / 2));
     }
   }
 
@@ -107,10 +95,8 @@
     height: @barSize;
     position: absolute;
     margin-top: @panelHeight + @barGap;
-    background: linear-gradient(45deg, #ccc 25%, transparent 25%),
-      linear-gradient(135deg, #ccc 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, #ccc 75%),
-      linear-gradient(135deg, transparent 75%, #ccc 75%);
+    background: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(135deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(135deg, transparent 75%, #ccc 75%);
     background-size: @barSize @barSize;
     background-position:
       0 0,
@@ -120,21 +106,14 @@
     &-bg {
       position: relative;
       height: 100%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 100%
-      );
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
     }
     &-handle {
       .handle(true);
       top: 0;
       width: @handleSizeSec;
       height: @handleSize;
-      transform: translate(
-        (-1 * @handleSizeSec / 2),
-        ((@barSize - @handleSize) / 2)
-      );
+      transform: translate((-1 * @handleSizeSec / 2), ((@barSize - @handleSize) / 2));
     }
   }
 

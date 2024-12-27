@@ -248,7 +248,6 @@ describe('test types about vue props', () => {
           required: true,
         }),
       } as const;
-      // eslint-disable-next-line vitest/valid-expect
       expectTypeOf<ExtractPropTypes<typeof _props1>>().branded.toEqualTypeOf<{
         readonly key1?: string;
         readonly key2: string | number;
