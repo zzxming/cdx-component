@@ -13,6 +13,8 @@ declare module '@vue/runtime-core' {
     CdxElementSelectItem: (typeof import('cdx-component'))['CdxElementSelectItem'];
     CdxIcon: (typeof import('cdx-component'))['CdxIcon'];
     CdxLoading: (typeof import('cdx-component'))['CdxLoading'];
+    CdxMenu: (typeof import('cdx-component'))['CdxMenu'];
+    CdxMenuItem: (typeof import('cdx-component'))['CdxMenuItem'];
     CdxModel: (typeof import('cdx-component'))['CdxModel'];
     CdxOnlyChild: (typeof import('cdx-component'))['CdxOnlyChild'];
     CdxOverlay: (typeof import('cdx-component'))['CdxOverlay'];

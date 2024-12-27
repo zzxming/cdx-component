@@ -17,6 +17,8 @@ declare module '@vue/runtime-core' {
     CdxElementSelectItem: (typeof import('../packages/cdx-component'))['CdxElementSelectItem'];
     CdxIcon: (typeof import('../packages/cdx-component'))['CdxIcon'];
     CdxLoading: (typeof import('../packages/cdx-component'))['CdxLoading'];
+    CdxMenu: (typeof import('../packages/cdx-component'))['CdxMenu'];
+    CdxMenuItem: (typeof import('../packages/cdx-component'))['CdxMenuItem'];
     CdxModel: (typeof import('../packages/cdx-component'))['CdxModel'];
     CdxOnlyChild: (typeof import('../packages/cdx-component'))['CdxOnlyChild'];
     CdxOverlay: (typeof import('../packages/cdx-component'))['CdxOverlay'];
