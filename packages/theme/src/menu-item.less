@@ -1,5 +1,4 @@
 @import './shared/variables.less';
-@import './animation/fade.less';
 
 .@{namespace}-menu__item {
   .setCssVar(menu-item-bg-color, #fff);
@@ -10,7 +9,7 @@
   transition-property: background-color, color;
   transition-duration: 0.15s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  &[data-state='open'],
+  &.is-open,
   &:hover {
     background-color: .getCssVar(menu-item-bg-color-active) [];
   }
