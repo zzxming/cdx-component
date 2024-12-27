@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import type { SidebarSlots } from './sidebar';
 import { CdxOverlay } from '@cdx-component/components';
 import { useBem, useModelValue, useZIndex } from '@cdx-component/hooks';
 import { isNumber } from '@cdx-component/utils';
-import { computed, onBeforeUnmount, onMounted, ref, useSlots, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { sidebarProps } from './sidebar';
 
 defineOptions({ name: 'CdxSidebar' });
 const props = defineProps(sidebarProps);
+const slots = defineSlots<SidebarSlots>();
 
-const slots = useSlots();
 const [, bem] = useBem('sidebar');
 const { nextZIndex } = useZIndex();
 const { model } = useModelValue(props, false);

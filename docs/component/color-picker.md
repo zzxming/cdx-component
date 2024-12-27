@@ -19,3 +19,10 @@ if (!import.meta.env.SSR) {
 :::demo color-picker/selector
 
 :::
+
+## ColorPicker Props
+
+| 名称       | 类型      | 说明                 | 默认值   |
+| ---------- | --------- | -------------------- | -------- |
+| modelValue | `string`  | hex颜色值            | `ff0000` |
+| selectOnly | `boolean` | 是否仅显示颜色选择框 | `false`  |

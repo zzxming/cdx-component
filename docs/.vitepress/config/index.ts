@@ -47,6 +47,7 @@ export default defineConfig({
             { text: 'Button', link: '/component/button' },
             { text: 'Scrollbar', link: '/component/scrollbar' },
             { text: 'ColorPicker', link: '/component/color-picker' },
+            { text: 'Menu', link: '/component/menu' },
           ],
         },
         {

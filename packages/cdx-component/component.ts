@@ -10,6 +10,7 @@ import { CdxDrawer } from '../components/drawer';
 import { CdxElementSelect, CdxElementSelectItem } from '../components/element-select';
 import { CdxIcon } from '../components/icon';
 import { CdxLoading, CdxLoadingIcon } from '../components/loading';
+import { CdxMenu, CdxMenuItem } from '../components/menu';
 import { CdxModel } from '../components/model';
 import { CdxOnlyChild } from '../components/only-child';
 import { CdxOverlay } from '../components/overlay';
@@ -47,4 +48,6 @@ export default [
   CdxTabs,
   CdxScrollbar,
   CdxColorPicker,
+  CdxMenu,
+  CdxMenuItem,
 ] as Plugin[];

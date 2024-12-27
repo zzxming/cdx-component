@@ -1,0 +1,25 @@
+@import './shared/variables.less';
+
+.@{namespace}-menu__item {
+  .setCssVar(menu-item-bg-color, #fff);
+  .setCssVar(menu-item-bg-color-active, #e1e1e1);
+  .setCssVar(menu-item-break-bg-color, #f4f4f5);
+  @apply flex items-center ~"gap-2.5 py-1.5" px-2 rounded-md text-sm overflow-hidden cursor-default select-none;
+  background-color: .getCssVar(menu-item-bg-color) [];
+  transition-property: background-color, color;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  &.is-open,
+  &:hover {
+    background-color: .getCssVar(menu-item-bg-color-active) [];
+  }
+  &.is-break {
+    height: 1px;
+    margin: 4px -4px;
+    padding: 0px;
+    background-color: .getCssVar(menu-item-break-bg-color) [];
+  }
+  .is-arrow {
+    @apply ml-auto;
+  }
+}
