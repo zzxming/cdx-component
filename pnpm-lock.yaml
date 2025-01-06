@@ -128,8 +128,8 @@ importers:
         specifier: ^1.1.17
         version: 1.1.17
       '@types/markdown-it':
-        specifier: ^14.1.0
-        version: 14.1.0
+        specifier: ^14.1.2
+        version: 14.1.2
       '@types/markdown-it-container':
         specifier: ^2.0.10
         version: 2.0.10
@@ -1670,9 +1670,6 @@ packages:
 
   '@types/markdown-it-container@2.0.10':
     resolution: {integrity: sha512-zv+YxrlSYRq51e9kzm3orv4OvF4U79Ll1OyplNXr00o4ZC/8PukJk/jEWH7CnsMtrSWZlyv0czhz42jm9J4uLw==}
-
-  '@types/markdown-it@14.1.0':
-    resolution: {integrity: sha512-B/o5iMXxpIAl1+792pO4ryhrNNiAus9HhrTs+Gt2m+6SIdEUEvyOIs0iqDNjTSRgbelWvyeek3UxfYYOKDaWfA==}
 
   '@types/markdown-it@14.1.2':
     resolution: {integrity: sha512-promo4eFwuiW+TfGxhi+0x3czqTYJkG8qB17ZUJiVF10Xm7NLVRSLUsfRTU/6h1e24VvRnXCx+hG7li58lkzog==}
@@ -6851,12 +6848,7 @@ snapshots:
 
   '@types/markdown-it-container@2.0.10':
     dependencies:
-      '@types/markdown-it': 14.1.0
-
-  '@types/markdown-it@14.1.0':
-    dependencies:
-      '@types/linkify-it': 5.0.0
-      '@types/mdurl': 2.0.0
+      '@types/markdown-it': 14.1.2
 
   '@types/markdown-it@14.1.2':
     dependencies:

@@ -58,11 +58,6 @@ function createDemoContainer() {
             }
           }
 
-          // if is directory
-          // src is the directory
-          // if is file
-          // src is the file path
-
           return `<Demos
             :demos="demos"
             raw-source="${Object.values(sourceMap).map(s => encodeURIComponent(s)).join(',')}"

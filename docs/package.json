@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@iconify-json/ic": "^1.1.17",
-    "@types/markdown-it": "^14.1.0",
+    "@types/markdown-it": "^14.1.2",
     "@types/markdown-it-container": "^2.0.10",
     "autoprefixer": "^10.4.17",
     "consola": "3.2.3",
