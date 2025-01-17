@@ -53,7 +53,6 @@ const calculateMenuStyle = async () => {
         parentRect = rect;
       }
     }
-    console.log(right, boundBox);
     if (right > boundBox.value.right) {
       style.left = parentRect.left - width;
     }
@@ -66,7 +65,6 @@ const calculateMenuStyle = async () => {
     if (top < boundBox.value.top) {
       style.top = parentRect.bottom;
     }
-    console.log(style);
     Object.assign(menuStyle, style);
   }
   Object.assign(menuStyle, {

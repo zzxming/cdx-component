@@ -2,8 +2,8 @@
 import type { HSB } from '@cdx-component/utils';
 import type { ComponentPublicInstance, StyleValue } from 'vue';
 import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
-import { useBem, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
-import { HEXtoRGB, HSBtoHEX, HSBtoRGB, RGBtoHEX, RGBtoHSB, validateHSB } from '@cdx-component/utils';
+import { useBem, useModelValue, useSupportTouch, useTeleportContainer, useZIndex } from '@cdx-component/hooks';
+import { HSBtoHEX, HSBtoRGB, RGBtoHEX, RGBtoHSB, stringToRGBColor, validateHSB } from '@cdx-component/utils';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { colorPickerEmits, colorPickerProps } from './color-picker';
 
@@ -39,9 +39,22 @@ const colorInputRefs = ref<{
 const hueDragging = ref(false);
 const colorDragging = ref(false);
 const alphaDragging = ref(false);
-const hsbValue = ref<HSB>(RGBtoHSB(HEXtoRGB(props.modelValue || '#ff0000ff')));
 const contentVisible = ref(false);
+const { model } = useModelValue(props, 'rgb(0, 0, 0)');
 
+const hsbValue = computed({
+  get() {
+    return RGBtoHSB(stringToRGBColor(model.value, 'rgb(0, 0, 0)'));
+  },
+  set(value) {
+    let changeValue: string = `#${HSBtoHEX(value)}`;
+    if (props.outputColorType === 'rgba') {
+      const rgba = HSBtoRGB(value);
+      changeValue = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`;
+    }
+    model.value = changeValue;
+  },
+});
 const backgroundHandleStyle = computed<StyleValue>(() => ({
   left: `${Math.floor((panelWidth * hsbValue.value.s) / 100)}px`,
   top: `${Math.floor((panelHeight * (100 - hsbValue.value.b)) / 100)}px`,
@@ -76,7 +89,7 @@ const selectorStyle = computed<StyleValue>(() => ({
   }))}`,
 }));
 
-const seInputRef = (el: Element | ComponentPublicInstance | null, item: 'r' | 'g' | 'b' | 'a') => {
+const seInputRef = (el: Element | ComponentPublicInstance | null, item: typeof colorInput[number]) => {
   colorInputRefs.value[item] = el as HTMLInputElement;
 };
 const updateInputValue = () => {
@@ -126,7 +139,6 @@ const updateValue = (value: Partial<HSB>, internal: boolean = true) => {
   internalChange = internal;
   hsbValue.value = validateHSB(Object.assign({}, hsbValue.value, value));
   updateInputValue();
-  emits('change', HSBtoHEX(hsbValue.value));
 };
 const pickColor = (event: Event) => {
   if (!selectorRef.value) return;

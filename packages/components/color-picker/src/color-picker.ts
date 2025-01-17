@@ -11,11 +11,15 @@ export const colorPickerProps = buildProps({
     type: Boolean,
     default: false,
   },
+  outputColorType: {
+    type: String,
+    values: ['hex', 'rgba'],
+    default: 'hex',
+  },
 } as const);
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
 
 export const colorPickerEmits = {
   [UPDATE_MODEL_EVENT]: (val: string) => isString(val),
-  change: (val: string) => isString(val),
 };
 export type ColorPickerEmits = typeof colorPickerEmits;

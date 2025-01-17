@@ -5,6 +5,27 @@ export const generateRandomColor = () => {
   const color = `rgb(${r}, ${g}, ${b})`;
   return color;
 };
+export const stringToRGBColor = (color: string, defaultRGBColor: string = 'rgb(0, 0, 0)'): RGB => {
+  const span = document.createElement('span');
+  span.style.backgroundColor = color;
+  const colorString = span.style.backgroundColor || defaultRGBColor;
+  const match = colorString.replaceAll(/\s+/g, '').match(/rgba?\((\d+),(\d+),(\d+)(?:,([\d.]+))?\)/);
+  if (!match) {
+    console.warn(`Invalid color input`);
+    return { r: 0, g: 0, b: 0, a: 1 };
+  }
+
+  const r = Number.parseInt(match[1], 10);
+  const g = Number.parseInt(match[2], 10);
+  const b = Number.parseInt(match[3], 10);
+  const a = match[4] ? Number.parseFloat(match[4]) : 1;
+  return { r, g, b, a };
+};
+export const isDarkColor = (rgb: RGB): boolean => {
+  const { r, g, b } = rgb;
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.5;
+};
 export interface HSB {
   h: number;
   s: number;

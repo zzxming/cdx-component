@@ -33,6 +33,7 @@
 
   &__panel {
     .setCssVar(color-picker-bg-color, .getCssVar(bg-color-base) []);
+    .setCssVar(color-picker-text-color, .getCssVar(text-color-primary) []);
 
     display: flex;
     flex-direction: column;
@@ -44,6 +45,7 @@
     border-radius: 6px;
     background: .getCssVar(color-picker-bg-color) [];
     box-shadow: .getCssVar(shadow-dark-2) [];
+    color: .getCssVar(color-picker-text-color) [];
   }
 
   &__content {
