@@ -1,7 +1,3 @@
-@import 'prism-theme-vars/base.css';
-@import 'prism-theme-vars/marker.css';
-@import 'prism-theme-vars/themes/vitesse-light.css';
-
 .vp-doc {
   .vp-table {
     @apply w-full my-5 overflow-x-auto;
@@ -25,5 +21,11 @@
     [class*='language-'] {
       @apply before:content-[''];
     }
+  }
+}
+
+.doc-example__showcase {
+  .cdx-loading__mask {
+    z-index: 9;
   }
 }

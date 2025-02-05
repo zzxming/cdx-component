@@ -2,7 +2,7 @@
 
 ## 基础用法
 
-:::demo captcha/slider
+:::demo captcha/slider.vue
 
 :::
 
@@ -10,13 +10,13 @@
 
 可使用 `onBeforeSuccess` 监听验证验证并控制是否验证成功
 
-:::demo captcha/point
+:::demo captcha/point.vue
 
 :::
 
 ## 图形拼接
 
-:::demo captcha/draw
+:::demo captcha/draw.vue
 
 :::
 

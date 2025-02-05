@@ -2,13 +2,13 @@
 
 ## 基础用法
 
-:::demo menu/base
+:::demo menu/base.vue
 
 :::
 
 ## 右键菜单
 
-:::demo menu/contextmenu
+:::demo menu/contextmenu.vue
 
 :::
 

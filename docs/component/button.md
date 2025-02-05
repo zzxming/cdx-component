@@ -2,25 +2,25 @@
 
 ## 基础用法
 
-:::demo button/base
+:::demo button/base.vue
 
 :::
 
 ## 按钮尺寸
 
-:::demo button/size
+:::demo button/size.vue
 
 :::
 
 ## 加载中图标
 
-:::demo button/loading
+:::demo button/loading.vue
 
 :::
 
 ## 自定义颜色
 
-:::demo button/custom
+:::demo button/custom.vue
 
 :::
 

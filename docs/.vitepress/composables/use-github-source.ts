@@ -5,7 +5,7 @@ export const useGithubSource = (
   path: Ref<string>,
   dir = ref('docs'),
   folder = ref('demos'),
-  branch = ref('dev'),
+  branch = ref('master'),
   repo = ref('zzxming/cdx-component'),
 ) => {
   const url = computed(() => {

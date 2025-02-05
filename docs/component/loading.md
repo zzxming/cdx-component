@@ -1,26 +1,20 @@
-<script>
-if (!import.meta.env.SSR) {
-  document.body.classList.add('vp-raw')
-}
-</script>
-
 # Drawer
 
 ## 基础用法
 
-:::demo loading/base
+:::demo loading/base.vue
 
 :::
 
 ## 指令调用
 
-:::demo loading/directive
+:::demo loading/directive.vue
 
 :::
 
 ## 函数调用
 
-:::demo loading/service
+:::demo loading/service.vue
 
 :::
 

@@ -2,13 +2,13 @@
 
 ## 基础用法
 
-:::demo sidebar/base
+:::demo sidebar/base.vue
 
 :::
 
 ## 展开按钮
 
-:::demo sidebar/collapse
+:::demo sidebar/collapse.vue
 
 :::
 

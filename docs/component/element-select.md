@@ -4,13 +4,13 @@
 
 可以长按拖动鼠标一次选中多选或取消选中
 
-:::demo element-select/base
+:::demo element-select/base.vue
 
 :::
 
 ## 单个元素选中
 
-:::demo element-select/item
+:::demo element-select/item.vue
 
 :::
 
