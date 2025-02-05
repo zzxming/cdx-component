@@ -2,6 +2,6 @@
 
 ## 基础用法
 
-:::demo ripple/base
+:::demo ripple/base.vue
 
 :::

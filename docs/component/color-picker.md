@@ -1,22 +1,16 @@
-<script>
-if (!import.meta.env.SSR) {
-  document.body.classList.add('vp-raw')
-}
-</script>
-
 # ColorPicker
 
 ## 基础用法
 
 目前仅支持 `hex` 格式作为`modelValue`绑定值。
 
-:::demo color-picker/base
+:::demo color-picker/base.vue
 
 :::
 
 ## 仅选择框
 
-:::demo color-picker/selector
+:::demo color-picker/selector.vue
 
 :::
 

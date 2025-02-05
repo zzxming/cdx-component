@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
-import { mdPlugin } from './plugins';
+import { vitepressPreviewPlugin } from 'vitepress-plugin-preview';
+import { tableWrapper } from './plugins';
 
 export default defineConfig({
   title: 'Cdx Component',
@@ -15,7 +16,16 @@ export default defineConfig({
     ],
   ],
   markdown: {
-    config: mdPlugin,
+    config(md) {
+      md.use(vitepressPreviewPlugin, {
+        demoComponentPath: '/.vitepress/components/demos.vue',
+        shiki: {
+          themes: ['andromeeda'],
+          langs: ['ts', 'vue'],
+        },
+      });
+      md.use(md => tableWrapper(md));
+    },
   },
   rewrites: {
     '/index.md': '/component/usage.md',

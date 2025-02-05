@@ -2,13 +2,13 @@
 
 ## 基础使用
 
-::: demo collapse/base
+::: demo collapse/base.vue
 
 :::
 
 ## 每次只能展开一个面板
 
-::: demo collapse/solo
+::: demo collapse/solo.vue
 
 :::
 
@@ -16,13 +16,13 @@
 
 单独使用时可以通过控制 expend 展开，如果在 Collapse 组件内则会忽略 expend 属性
 
-::: demo collapse/item
+::: demo collapse/item.vue
 
 :::
 
 ## 过渡组件
 
-:::demo collapse/transition
+:::demo collapse/transition.vue
 
 :::
 

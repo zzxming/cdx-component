@@ -2,13 +2,13 @@
 
 ## 基础用法
 
-:::demo resize/base
+:::demo resize/base.vue
 
 :::
 
 ## 指令调用
 
-:::demo resize/directive
+:::demo resize/directive.vue
 
 :::
 

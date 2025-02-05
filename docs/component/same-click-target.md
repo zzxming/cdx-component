@@ -2,6 +2,6 @@
 
 ## 基础用法
 
-:::demo same-click-target/base
+:::demo same-click-target/base.vue
 
 :::

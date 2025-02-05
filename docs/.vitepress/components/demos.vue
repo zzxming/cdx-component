@@ -1,16 +1,14 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { usePlayground } from '../composables';
+import { demosProps, VitepressDemoPreview } from 'vitepress-plugin-preview/component';
+import { computed, ref, useSlots } from 'vue';
+import { useDocBem, useGithubSource, usePlayground } from '../composables';
 import { defaultMutipleDemoFile } from '../utils';
+import 'vitepress-plugin-preview/index.css';
 
-const props = defineProps<{
-  src: string;
-  demos: object;
-  rawSource: string;
-  source: string;
-  files: string;
-  isFile: boolean;
-}>();
+const props = defineProps(demosProps);
+const slots = useSlots();
+
+const [, bem] = useDocBem('example');
 
 let originDefaultDemoFileIndex = -1;
 const sortDefaultDemoFile = (sortArr: any[]) => {
@@ -26,50 +24,50 @@ const filesPath = computed(() => {
   if (originDefaultDemoFileIndex === -1) return files;
   return [defaultMutipleDemoFile, ...files.filter(f => f !== defaultMutipleDemoFile)];
 });
-const formatPathDemos = computed(() => {
-  const demos: Record<string, any> = {};
-  for (const key of Object.keys(props.demos)) {
-    demos[key.replace('/demos/', '')] = props.demos[key].default;
-  }
-  return demos;
-});
-const sourceArr = computed(() => sortDefaultDemoFile(props.source.split(',')));
 const rawSourceArr = computed(() => sortDefaultDemoFile(props.rawSource.split(',')));
 
 const index = ref(props.isFile ? 0 : filesPath.value.indexOf(defaultMutipleDemoFile));
-const sourceCode = computed(() => sourceArr.value[index.value]);
-const rawSourceCode = computed(() => rawSourceArr.value[index.value]);
 const currentPath = computed(() => `${props.src}${!props.isFile ? `/${filesPath.value[index.value]}` : ''}`);
-const exampleDemo = computed(() => formatPathDemos.value[!props.isFile ? `${props.src}/${defaultMutipleDemoFile}` : props.src]);
 const { link: playgroundLink } = usePlayground(props.isFile ? filesPath.value[0] : defaultMutipleDemoFile, filesPath.value, rawSourceArr.value.map(s => decodeURIComponent(s)));
+
+const { url } = useGithubSource(currentPath);
+const gotoPlayground = () => window.open(playgroundLink);
+const gotoGithub = () => window.open(url.value);
 </script>
 
 <template>
-  <div class="vp-raw">
-    <ClientOnly>
-      <div class="example">
-        <div v-if="$slots.default" class="description">
-          <slot />
-        </div>
-        <Example :demo="exampleDemo" />
-        <Code
-          v-model="index"
-          :source="sourceCode"
-          :raw-source="rawSourceCode"
-          :path="currentPath"
-          :files="filesPath"
-          :playground-link="playgroundLink"
-        />
-      </div>
-    </ClientOnly>
-  </div>
+  <VitepressDemoPreview v-bind="props">
+    <template v-for="(slot, name) in slots" :key="name" #[name]>
+      <slot :name="name" />
+    </template>
+    <template #icons>
+      <CdxIcon
+        :class="bem.be('actions-btn')"
+        title="在 Playground 编辑"
+        @click="gotoPlayground"
+      >
+        <i-ic:baseline-build />
+      </CdxIcon>
+      <CdxIcon
+        :class="bem.be('actions-btn')"
+        title="在 Github 编辑"
+        @click="gotoGithub"
+      >
+        <i-ic:twotone-create />
+      </CdxIcon>
+    </template>
+  </VitepressDemoPreview>
 </template>
 
 <style lang="less" scoped>
-.example {
-  @apply border border-stone-200 rounded-lg;
-}
-.description {
-  @apply my-2 px-4;
+.doc-example {
+  &__actions-btn {
+    margin: 0 0.25rem;
+    color: var(--vp-c-text-3);
+    cursor: pointer;
+    &:hover {
+      color: var(--vp-c-text-1);
+    }
+  }
 }
 </style>

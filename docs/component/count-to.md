@@ -2,19 +2,19 @@
 
 ## 基础用法
 
-:::demo count-to/base
+:::demo count-to/base.vue
 
 :::
 
 ## 手动控制开始与暂停
 
-:::demo count-to/control
+:::demo count-to/control.vue
 
 :::
 
 ## 设置计数保留小数点位数
 
-:::demo count-to/decimal
+:::demo count-to/decimal.vue
 
 :::
 

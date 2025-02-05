@@ -2,13 +2,13 @@
 
 ## 基础用法
 
-:::demo text-highlight/base
+:::demo text-highlight/base.vue
 
 :::
 
 ## 插槽显示文字
 
-:::demo text-highlight/slot
+:::demo text-highlight/slot.vue
 
 :::
 

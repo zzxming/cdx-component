@@ -4,7 +4,6 @@ import Icons from 'unplugin-icons/vite';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 import inspect from 'vite-plugin-inspect';
-import { demoImports } from './.vitepress/config/plugins';
 
 const projRoot = path.resolve(__dirname, '..');
 
@@ -38,6 +37,5 @@ export default defineConfig({
       compiler: 'vue3',
     }),
     inspect(),
-    demoImports(),
   ],
 });

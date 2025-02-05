@@ -1,20 +1,14 @@
-<script>
-if (!import.meta.env.SSR) {
-  document.body.classList.add('vp-raw')
-}
-</script>
-
 # Model
 
 ## 基础用法
 
-:::demo model/base
+:::demo model/base.vue
 
 :::
 
 ## 函数调用
 
-:::demo model/service
+:::demo model/service.vue
 
 :::
 

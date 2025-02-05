@@ -2,7 +2,7 @@
 
 ## 基础用法
 
-:::demo drawer/base
+:::demo drawer/base.vue
 
 :::
 
@@ -10,13 +10,13 @@
 
 全屏时需要手动控制 modelValue 打开
 
-:::demo drawer/fullscreen
+:::demo drawer/fullscreen.vue
 
 :::
 
 ## 拖拽禁用
 
-:::demo drawer/disable-slide
+:::demo drawer/disable-slide.vue
 
 :::
 

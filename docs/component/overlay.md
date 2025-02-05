@@ -2,13 +2,13 @@
 
 ## 基础用法
 
-:::demo overlay/base
+:::demo overlay/base.vue
 
 :::
 
 ## 全屏显示
 
-:::demo overlay/fullscreen
+:::demo overlay/fullscreen.vue
 
 :::
 

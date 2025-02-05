@@ -2,7 +2,7 @@
 
 ## 基础用法
 
-:::demo pull-refresh/base
+:::demo pull-refresh/base.vue
 
 :::
 

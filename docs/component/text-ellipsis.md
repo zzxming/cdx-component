@@ -2,7 +2,7 @@
 
 ## 基础用法
 
-:::demo text-ellipsis/base
+:::demo text-ellipsis/base.vue
 
 :::
 

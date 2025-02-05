@@ -1,26 +1,20 @@
-<script>
-if (!import.meta.env.SSR) {
-  document.body.classList.add('vp-raw')
-}
-</script>
-
 # ToolTip
 
 ## 基础用法
 
-:::demo tooltip/base
+:::demo tooltip/base.vue
 
 :::
 
 ## 插槽替换
 
-:::demo tooltip/slot
+:::demo tooltip/slot.vue
 
 :::
 
 ## 指令调用
 
-:::demo tooltip/directive
+:::demo tooltip/directive.vue
 
 :::
 
