@@ -17,6 +17,7 @@ export * from './resize';
 export * from './scrollbar';
 export * from './sidebar';
 export * from './tabs';
+export * from './text-convert';
 export * from './text-ellipsis';
 export * from './text-highlight';
 export * from './tooltip';

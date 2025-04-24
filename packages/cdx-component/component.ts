@@ -1,5 +1,4 @@
 import type { Plugin } from 'vue';
-import { CdxScrollbar } from '@cdx-component/components';
 import { CdxButton } from '../components/button';
 import { CdxCaptcha, CdxCaptchaSlider } from '../components/captcha';
 import { CdxCollapse, CdxCollapseItem } from '../components/collapse';
@@ -16,8 +15,10 @@ import { CdxOnlyChild } from '../components/only-child';
 import { CdxOverlay } from '../components/overlay';
 import { CdxPullRefresh } from '../components/pull-refresh';
 import { CdxResize } from '../components/resize';
+import { CdxScrollbar } from '../components/scrollbar';
 import { CdxSidebar } from '../components/sidebar';
 import { CdxTabs } from '../components/tabs';
+import { CdxTextConvert } from '../components/text-convert';
 import { CdxTextEllipsis } from '../components/text-ellipsis';
 import { CdxTextHighlight } from '../components/text-highlight';
 import { CdxTooltip } from '../components/tooltip';
@@ -50,4 +51,5 @@ export default [
   CdxColorPicker,
   CdxMenu,
   CdxMenuItem,
+  CdxTextConvert,
 ] as Plugin[];

@@ -75,6 +75,10 @@ export default defineConfig({
             { text: 'useForwardRef', link: '/component/use-forward-ref' },
           ],
         },
+        {
+          text: '功能组件',
+          items: [{ text: 'TextConvert', link: '/component/text-convert' }],
+        },
       ],
     },
   },
