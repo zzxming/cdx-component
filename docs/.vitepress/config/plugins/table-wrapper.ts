@@ -1,6 +1,6 @@
-import type MarkdownIt from 'markdown-it';
+import type { MarkdownRenderer } from 'vitepress';
 
-export const tableWrapper = (md: MarkdownIt): void => {
+export const tableWrapper = (md: MarkdownRenderer): void => {
   md.renderer.rules.table_open = () => '<div class="vp-table"><table>';
   md.renderer.rules.table_close = () => '</table></div>';
 };
