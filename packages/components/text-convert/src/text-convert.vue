@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { CdxButton } from '@cdx-component/components';
 import { useBem } from '@cdx-component/hooks';
 import { nextTick, ref } from 'vue';
-import { CdxButton } from '../../button';
 import { textConvertEmits, textConvertProps } from './text-convert';
 
 defineOptions({ name: 'CdxTextConvert' });
@@ -16,14 +16,13 @@ const imageWidth = ref(100);
 const imageHeight = ref(100);
 const canvasReady = ref(false);
 
-// 计算适合canvas的最佳字体大小，尽量占满整个画布
 const calculateOptimalFontSize = (
   context: CanvasRenderingContext2D,
   text: string,
   canvasWidth: number,
   canvasHeight: number,
 ): number => {
-  // 设置一个合理的起始字体大小，基于canvas尺寸
+  // set a initial font size base on canvas
   const initialFontSize = Math.min(canvasWidth * 2, canvasHeight * 2);
 
   let minFontSize = 1;
@@ -32,7 +31,7 @@ const calculateOptimalFontSize = (
 
   const basePadding = Math.min(canvasWidth, canvasHeight) * 0.1;
 
-  // 创建一个二分查找算法来更快地找到最佳字体大小
+  // binary search find the optimal font size
   while (minFontSize <= maxFontSize) {
     const fontSize = Math.floor((minFontSize + maxFontSize) / 2);
     context.font = `${fontSize}px Arial`;
@@ -41,14 +40,11 @@ const calculateOptimalFontSize = (
     const textWidth = metrics.width * 1.1;
     const textHeight = fontSize * 1.2;
 
-    // 检查文本是否适合canvas
     if (textWidth <= (canvasWidth - basePadding * 2) && textHeight <= (canvasHeight - basePadding * 2)) {
-      // 文本适合，记录这个字体大小，然后尝试更大的字体
       resultFontSize = fontSize;
       minFontSize = fontSize + 1;
     }
     else {
-      // 文本太大，尝试更小的字体
       maxFontSize = fontSize - 1;
     }
   }
@@ -106,7 +102,7 @@ const downloadImage = () => {
 
 <template>
   <div :class="bem.b()">
-    <div :class="bem.be('input-section')">
+    <div :class="bem.be('input')">
       <h3 :class="bem.be('title')">
         文本转图片
       </h3>
