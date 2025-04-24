@@ -5,7 +5,7 @@ import { postcssIsolateStyles } from 'vitepress';
 
 export default {
   plugins: [
-    postcssIsolateStyles(),
+    postcssIsolateStyles({ includeFiles: [/.vp-doc\.css/] }),
     tailwindcss(),
     autoprefixer(),
     postcssPxtorem({
