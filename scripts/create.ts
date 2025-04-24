@@ -110,7 +110,7 @@ const create = async (name: string) => {
 
         ## 基础用法
 
-        :::demo ${kebabCaseName}/base
+        :::demo ${kebabCaseName}/base.vue
 
         :::
       `,
