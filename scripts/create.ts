@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { dirname, resolve } from 'node:path';
 import {
+  cdxRoot,
   componentRoot,
   docsRoot,
   themeRoot,
@@ -14,7 +15,6 @@ import prompts from 'prompts';
 import { components } from './constants';
 import { lintFiles } from './lint';
 
-// cdx-component/component.ts
 // docs/.vitepress/config/index.ts
 
 const create = async (name: string) => {
@@ -161,7 +161,6 @@ const create = async (name: string) => {
               .join('\n')
           : source,
       );
-      await lintFiles(filePath);
 
       generatedFiles.push(filePath);
     }
@@ -197,8 +196,7 @@ const create = async (name: string) => {
         if (!fs.existsSync(filePath)) {
           throw new Error(`${filePath} does not exist`);
         }
-        await fs.appendFile(filePath, source);
-        return await lintFiles(filePath);
+        return fs.appendFile(filePath, source);
       }),
     );
   }
@@ -207,6 +205,20 @@ const create = async (name: string) => {
     console.error(error);
     return false;
   }
+
+  // cdx-component/component.ts
+  const exportComponentFile = resolve(cdxRoot, 'component.ts');
+  const componentsStr = await fs.readFile(exportComponentFile, 'utf8');
+  const lines = componentsStr.split('\n');
+  lines.splice(1, 0, `import { Cdx${upperCamelCaseName} } from '../components/${kebabCaseName}';`);
+  lines.splice(-2, 0, `Cdx${upperCamelCaseName},`);
+  await fs.writeFile(
+    exportComponentFile,
+    lines.join('\n'),
+  );
+
+  consola.start('Linting generated files...');
+  await lintFiles([...generatedFiles, ...appendFile.map(data => data.filePath), exportComponentFile]);
 
   return true;
 };
