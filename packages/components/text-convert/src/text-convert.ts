@@ -1,8 +1,16 @@
 import type { ExtractPropTypes } from 'vue';
-import { buildProps } from '@cdx-component/utils';
+import { UPDATE_MODEL_EVENT } from '@cdx-component/constants';
+import { buildProps, isString } from '@cdx-component/utils';
 
-export const textConvertProps = buildProps({} as const);
+export const textConvertProps = buildProps({
+  modelValue: {
+    type: String,
+    default: '',
+  },
+} as const);
 export type TextConvertProps = ExtractPropTypes<typeof textConvertProps>;
 
-export const textConvertEmits = {};
+export const textConvertEmits = {
+  [UPDATE_MODEL_EVENT]: (val: string) => isString(val),
+};
 export type TextConvertEmits = typeof textConvertEmits;

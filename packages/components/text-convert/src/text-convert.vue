@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { CdxButton } from '@cdx-component/components';
-import { useBem } from '@cdx-component/hooks';
+import { useBem, useModelValue } from '@cdx-component/hooks';
 import { nextTick, ref } from 'vue';
 import { textConvertEmits, textConvertProps } from './text-convert';
 
 defineOptions({ name: 'CdxTextConvert' });
-defineProps(textConvertProps);
+const props = defineProps(textConvertProps);
 defineEmits(textConvertEmits);
 
 const [, bem] = useBem('text-convert');
 
-const emojiText = ref('');
+const { model } = useModelValue(props, '');
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 const imageWidth = ref(100);
 const imageHeight = ref(100);
@@ -52,7 +52,7 @@ const calculateOptimalFontSize = (
 };
 
 const renderEmoji = () => {
-  if (!emojiText.value.trim() || !canvasRef.value) return;
+  if (!model.value.trim() || !canvasRef.value) return;
 
   const canvas = canvasRef.value;
   const context = canvas.getContext('2d');
@@ -64,22 +64,22 @@ const renderEmoji = () => {
 
   const optimalFontSize = calculateOptimalFontSize(
     context,
-    emojiText.value,
+    model.value,
     canvas.width,
     canvas.height,
   );
   context.font = `${optimalFontSize}px Arial`;
 
-  const metrics = context.measureText(emojiText.value);
+  const metrics = context.measureText(model.value);
   const textWidth = metrics.width;
   const x = (canvas.width - textWidth) / 2;
   const y = canvas.height / 2;
   context.textBaseline = 'middle';
-  context.fillText(emojiText.value, x, y);
+  context.fillText(model.value, x, y);
 };
 
 const generateImage = async () => {
-  if (!emojiText.value.trim()) return;
+  if (!model.value.trim()) return;
 
   canvasReady.value = true;
   await nextTick();
@@ -108,7 +108,7 @@ const downloadImage = () => {
       </h3>
       <div :class="bem.be('input-group')">
         <input
-          v-model="emojiText"
+          v-model="model"
           :class="bem.be('input-main')"
           type="text"
           placeholder="输入文本"
