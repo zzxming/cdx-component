@@ -23,6 +23,7 @@ declare module '@vue/runtime-core' {
     CdxScrollbar: (typeof import('cdx-component'))['CdxScrollbar'];
     CdxSidebar: (typeof import('cdx-component'))['CdxSidebar'];
     CdxTabs: (typeof import('cdx-component'))['CdxTabs'];
+    CdxTextConvert: (typeof import('cdx-component'))['CdxTextConvert'];
     CdxTextEllipsis: (typeof import('cdx-component'))['CdxTextEllipsis'];
     CdxTextHighlight: (typeof import('cdx-component'))['CdxTextHighlight'];
     CdxTooltip: (typeof import('cdx-component'))['CdxTooltip'];
