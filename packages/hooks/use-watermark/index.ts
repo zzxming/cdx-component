@@ -4,7 +4,7 @@ import { useMutationObserver } from '@vueuse/core';
 import { computed, onMounted, ref, watch } from 'vue';
 import { getClips } from './clip';
 
-export interface ContentFont {
+export interface WatermarkFontOptions {
   color: string;
   fontSize: number;
   fontWeight: string;
@@ -24,7 +24,7 @@ export interface WatermarkOptions {
   gap: Ref<[number, number]>;
   // offset from top-left corner
   offset: Ref<[number, number]>;
-  font: Partial<ContentFont>;
+  font: Partial<WatermarkFontOptions>;
 }
 
 export function toLowercaseSeparator(key: string) {
@@ -56,8 +56,8 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
   const gapYCenter = computed(() => gapY.value / 2);
   const offsetLeft = computed(() => options.offset?.value[0] ?? gapXCenter.value);
   const offsetTop = computed(() => options.offset?.value[1] ?? gapYCenter.value);
-  const fontOptions = computed<ContentFont>(() => {
-    const defaultFont: ContentFont = {
+  const fontOptions = computed<WatermarkFontOptions>(() => {
+    const defaultFont: WatermarkFontOptions = {
       color: 'rgba(0,0,0,.15)',
       fontSize: 16,
       fontWeight: 'normal',
