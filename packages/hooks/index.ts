@@ -9,4 +9,5 @@ export * from './use-slide';
 export * from './use-support-touch';
 export * from './use-teleport-container';
 export * from './use-timeout';
+export * from './use-watermark';
 export * from './use-z-index';
