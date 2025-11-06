@@ -73,6 +73,7 @@ export default defineConfig({
           items: [
             { text: 'useDynamicFormItem', link: '/component/use-dynamic-form-item' },
             { text: 'useForwardRef', link: '/component/use-forward-ref' },
+            { text: 'useWatermark', link: '/component/use-watermark' },
           ],
         },
         {
