@@ -16,12 +16,13 @@ function prepareCanvas(
   height: number,
   ratio = 1,
 ): [
-  ctx: CanvasRenderingContext2D,
-  canvas: HTMLCanvasElement,
-  realWidth: number,
-  realHeight: number,
+    CanvasRenderingContext2D,
+    HTMLCanvasElement,
+    number,
+    number,
   ] {
   const canvas = document.createElement('canvas');
+  document.body.appendChild(canvas);
   const ctx = canvas.getContext('2d')!;
   const realWidth = width * ratio;
   const realHeight = height * ratio;
@@ -42,13 +43,15 @@ export function getClips(
   gapX: number,
   gapY: number,
   space: number,
-): [dataURL: string, finalWidth: number, finalHeight: number] {
+): [string, number, number] {
   const [ctx, canvas, contentWidth, contentHeight] = prepareCanvas(
     width,
     height,
     ratio,
   );
   let baselineOffset = 0;
+
+  // draw text or image
   if (content instanceof HTMLImageElement) {
     ctx.drawImage(content, 0, 0, contentWidth, contentHeight);
   }
@@ -86,10 +89,10 @@ export function getClips(
     }
   }
 
+  // rotate and clip
   const angle = (Math.PI / 180) * Number(rotate);
   const maxSize = Math.max(width, height);
   const [rCtx, rCanvas, realMaxSize] = prepareCanvas(maxSize, maxSize, ratio);
-
   rCtx.translate(realMaxSize / 2, realMaxSize / 2);
   rCtx.rotate(angle);
   if (contentWidth > 0 && contentHeight > 0) {
@@ -149,6 +152,7 @@ export function getClips(
     );
   }
   drawImg();
+  // cross draw to fill gap
   drawImg(cutWidth + realGapX, -cutHeight / 2 - realGapY / 2);
   drawImg(cutWidth + realGapX, +cutHeight / 2 + realGapY / 2);
 

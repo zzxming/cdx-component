@@ -16,9 +16,13 @@ export interface ContentFont {
 export interface WatermarkOptions {
   content?: Ref<string | string[]>;
   image?: Ref<string>;
+  width?: Ref<number>;
+  height?: Ref<number>;
   rotate: Ref<number>;
-  gap: Ref<[number, number]>;
   zIndex: Ref<number>;
+  // gap between watermarks
+  gap: Ref<[number, number]>;
+  // offset from top-left corner
   offset: Ref<[number, number]>;
   font: Partial<ContentFont>;
 }
@@ -42,6 +46,8 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
   const stopObservation = ref(false);
   const content = computed(() => options.content?.value);
   const image = computed(() => options.image?.value);
+  const width = computed(() => options.width?.value || 120);
+  const height = computed(() => options.height?.value || 64);
   const rotate = computed(() => options.rotate?.value || -22);
   const zIndex = computed(() => options.zIndex?.value || 10);
   const gapX = computed(() => options.gap?.value[0] || 100);
@@ -104,23 +110,20 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
         }),
       );
       containerRef.value?.append(watermarkRef.value);
-      // Delayed execution
       setTimeout(() => {
         stopObservation.value = false;
       });
     }
   };
 
-  const reRendering = (
+  const validateWatermark = (
     mutation: MutationRecord,
     watermarkElement?: HTMLElement,
   ) => {
     let flag = false;
-    // delete
     if (mutation.removedNodes.length > 0 && watermarkElement) {
       flag = Array.from(mutation.removedNodes).includes(watermarkElement);
     }
-    // property value has been modified
     if (mutation.type === 'attributes' && mutation.target === watermarkElement) {
       flag = true;
     }
@@ -135,8 +138,8 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
   };
 
   const getMarkSize = (ctx: CanvasRenderingContext2D) => {
-    let defaultWidth = 120;
-    let defaultHeight = 64;
+    let defaultWidth = width.value;
+    let defaultHeight = height.value;
     let space = 0;
 
     if (!image.value && ctx.measureText) {
@@ -164,7 +167,6 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
 
       defaultWidth = maxWidth;
       defaultHeight = maxHeight * contents.length + (contents.length - 1) * fontOptions.value.fontGap;
-      console.log();
 
       const angle = (Math.PI / 180) * Number(rotate.value);
       space = Math.ceil(Math.abs(Math.sin(angle) * defaultHeight) / 2);
@@ -187,9 +189,7 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
       const ratio = getPixelRatio();
       const [markWidth, markHeight, space] = getMarkSize(ctx);
 
-      const drawCanvas = (
-        drawContent?: UnwrapRef<NonNullable<WatermarkOptions['content']>> | HTMLImageElement,
-      ) => {
+      const drawCanvas = (drawContent?: UnwrapRef<WatermarkOptions['content']> | HTMLImageElement) => {
         const [textClips, clipWidth] = getClips(
           drawContent || '',
           rotate.value,
@@ -227,7 +227,7 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
       return;
     }
     for (const mutation of mutations) {
-      if (reRendering(mutation, watermarkRef.value)) {
+      if (validateWatermark(mutation, watermarkRef.value)) {
         destroyWatermark();
         renderWatermark();
       }
@@ -248,8 +248,8 @@ export const useWatermark = (el: Ref<HTMLElement | undefined>, options: Partial<
       parent?.insertBefore(containerRef.value, el.value);
       containerRef.value.appendChild(el.value);
     }
-    renderWatermark();
   });
+
   watch(
     () => [options, el.value],
     renderWatermark,
