@@ -223,6 +223,9 @@ importers:
       '@ctrl/tinycolor':
         specifier: ^4.1.0
         version: 4.1.0
+      '@vueuse/core':
+        specifier: ^14.0.0
+        version: 14.0.0(vue@3.4.35(typescript@5.5.4))
       async-validator:
         specifier: ^4.2.5
         version: 4.2.5
@@ -1746,6 +1749,9 @@ packages:
   '@types/web-bluetooth@0.0.20':
     resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==}
 
+  '@types/web-bluetooth@0.0.21':
+    resolution: {integrity: sha512-oIQLCGWtcFZy2JW77j9k8nHzAOpqMHLQejDA48XXMWH6tjCQHz5RCFz1bzsmROyL6PUm+LLnUiI4BCn221inxA==}
+
   '@typescript-eslint/eslint-plugin@8.0.1':
     resolution: {integrity: sha512-5g3Y7GDFsJAnY4Yhvk8sZtFfV6YNF2caLzjrRPUBzewjPCaj0yokePB4LJSobyCzGMzjZZYFbwuzbfDHlimXbQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1970,6 +1976,11 @@ packages:
   '@vueuse/core@10.11.0':
     resolution: {integrity: sha512-x3sD4Mkm7PJ+pcq3HX8PLPBadXCAlSDR/waK87dz0gQE+qJnaaFhc/dZVfJz+IUYzTMVGum2QlR7ImiJQN4s6g==}
 
+  '@vueuse/core@14.0.0':
+    resolution: {integrity: sha512-d6tKRWkZE8IQElX2aHBxXOMD478fHIYV+Dzm2y9Ag122ICBpNKtGICiXKOhWU3L1kKdttDD9dCMS4bGP3jhCTQ==}
+    peerDependencies:
+      vue: ^3.5.0
+
   '@vueuse/integrations@10.11.0':
     resolution: {integrity: sha512-Pp6MtWEIr+NDOccWd8j59Kpjy5YDXogXI61Kb1JxvSfVBO8NzFQkmrKmSZz47i+ZqHnIzxaT38L358yDHTncZg==}
     peerDependencies:
@@ -2014,8 +2025,16 @@ packages:
   '@vueuse/metadata@10.11.0':
     resolution: {integrity: sha512-kQX7l6l8dVWNqlqyN3ePW3KmjCQO3ZMgXuBMddIu83CmucrsBfXlH+JoviYyRBws/yLTQO8g3Pbw+bdIoVm4oQ==}
 
+  '@vueuse/metadata@14.0.0':
+    resolution: {integrity: sha512-6yoGqbJcMldVCevkFiHDBTB1V5Hq+G/haPlGIuaFZHpXC0HADB0EN1ryQAAceiW+ryS3niUwvdFbGiqHqBrfVA==}
+
   '@vueuse/shared@10.11.0':
     resolution: {integrity: sha512-fyNoIXEq3PfX1L3NkNhtVQUSRtqYwJtJg+Bp9rIzculIZWHTkKSysujrOk2J+NrRulLTQH9+3gGSfYLWSEWU1A==}
+
+  '@vueuse/shared@14.0.0':
+    resolution: {integrity: sha512-mTCA0uczBgurRlwVaQHfG0Ja7UdGe4g9mwffiJmvLiTtp1G4AQyIjej6si/k8c8pUwTfVpNufck+23gXptPAkw==}
+    peerDependencies:
+      vue: ^3.5.0
 
   '@zzxming/eslint-config@0.3.4':
     resolution: {integrity: sha512-m3GJDX39/qd+ML5x+P7wdnykhyCn2JsMQSKNvvGyrycRupVIg/GkYClVg284overf/vT6Vs6UihMoHqahse5Dw==}
@@ -3915,9 +3934,11 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.memoize@4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
@@ -7076,6 +7097,8 @@ snapshots:
 
   '@types/web-bluetooth@0.0.20': {}
 
+  '@types/web-bluetooth@0.0.21': {}
+
   '@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.12.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.12.0(jiti@1.21.6))(typescript@5.5.4)':
     dependencies:
       '@eslint-community/regexpp': 4.11.0
@@ -7442,6 +7465,13 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@vueuse/core@14.0.0(vue@3.4.35(typescript@5.5.4))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.21
+      '@vueuse/metadata': 14.0.0
+      '@vueuse/shared': 14.0.0(vue@3.4.35(typescript@5.5.4))
+      vue: 3.4.35(typescript@5.5.4)
+
   '@vueuse/integrations@10.11.0(async-validator@4.2.5)(focus-trap@7.5.4)(vue@3.4.35(typescript@5.5.4))':
     dependencies:
       '@vueuse/core': 10.11.0(vue@3.4.35(typescript@5.5.4))
@@ -7456,12 +7486,18 @@ snapshots:
 
   '@vueuse/metadata@10.11.0': {}
 
+  '@vueuse/metadata@14.0.0': {}
+
   '@vueuse/shared@10.11.0(vue@3.4.35(typescript@5.5.4))':
     dependencies:
       vue-demi: 0.14.10(vue@3.4.35(typescript@5.5.4))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
+
+  '@vueuse/shared@14.0.0(vue@3.4.35(typescript@5.5.4))':
+    dependencies:
+      vue: 3.4.35(typescript@5.5.4)
 
   '@zzxming/eslint-config@0.3.4(@typescript-eslint/eslint-plugin@8.0.1(@typescript-eslint/parser@8.0.1(eslint@9.12.0(jiti@1.21.6))(typescript@5.5.4))(eslint@9.12.0(jiti@1.21.6))(typescript@5.5.4))(@vue/compiler-sfc@3.4.35)(eslint@9.12.0(jiti@1.21.6))(typescript@5.5.4)(vue-eslint-parser@9.4.3(eslint@9.12.0(jiti@1.21.6)))':
     dependencies:
